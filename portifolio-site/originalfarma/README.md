@@ -1,8 +1,7 @@
 # Originalfarma — conceito de site
 
-**Status:** em desenvolvimento, **candidato condicional**. Código, imagem e
-testes prontos; faltam teste da resposta real do agente e vídeo. **Não
-publicado, não enviado à farmácia.**
+**Status:** site pronto, vídeo pronto, revisão pendente; **candidato
+condicional**. **Não publicado, não enviado à farmácia.**
 
 ## Por que condicional
 
