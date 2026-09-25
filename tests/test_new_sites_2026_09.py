@@ -111,6 +111,33 @@ def nobre_signature(page: Page) -> None:
     assert page.locator("[data-unit-order]").get_attribute("href") == "https://maracanaunobre.menudino.com/"
 
 
+def originalfarma_signature(page: Page) -> None:
+    send = page.locator("#ticket-send")
+    assert send.get_attribute("aria-disabled") == "true"
+    page.locator('.tag[data-need="itens para bebê"]').click()
+    href = unquote(send.get_attribute("href"))
+    assert href.startswith("https://wa.me/5585985101245?text=") and "itens para bebê" in href, href
+    assert page.locator('.tag[data-need="itens para bebê"]').get_attribute("aria-pressed") == "true"
+    ics = page.locator("[data-ics]")
+    assert ics.is_disabled()
+    page.fill('#calendar input[name="label"]', "remédio da pressão")
+    page.locator(".day").nth(11).click()
+    assert page.locator(".day").nth(11).get_attribute("aria-checked") == "true"
+    assert page.locator(".day.alert").inner_text() == "10"
+    page.locator(".day").nth(11).press("ArrowRight")
+    assert page.locator(".day").nth(12).get_attribute("aria-checked") == "true"
+    whats = unquote(page.locator("[data-cal-whatsapp]").get_attribute("href"))
+    assert "remédio da pressão" in whats and "dia 13" in whats, whats
+    with page.expect_download() as info:
+        ics.click()
+    path = info.value.path()
+    body = open(path, encoding="utf-8").read()
+    assert "BEGIN:VCALENDAR" in body and "RRULE:FREQ=MONTHLY;BYMONTHDAY=11" in body, body
+    assert "SUMMARY:Repor remédio da pressão" in body, body
+    page.locator(".day").nth(0).click()
+    assert "penúltimo dia do mês anterior" in page.locator("[data-cal-summary]").inner_text()
+
+
 SITES = {
     "provisao": {
         "slug": "farmacia-provisao",
@@ -140,6 +167,13 @@ SITES = {
         "cta": 'a.btn-wine[href="#unidades"]',
         "links": ["https://maracanaunobre.menudino.com/", "https://nobremaranguape.menudino.com/"],
         "signature": nobre_signature,
+    },
+    "originalfarma": {
+        "slug": "originalfarma",
+        "title": "Originalfarma",
+        "cta": 'a.btn-butter[href="#atalhos"]',
+        "links": ["https://www.instagram.com/originalfarma01/", "tel:192"],
+        "signature": originalfarma_signature,
     },
 }
 
@@ -205,7 +239,7 @@ def run(selected: list[str]) -> None:
             url = f"{ROOT}/{site['slug']}/"
             for reduced in ("no-preference", "reduce"):
                 for width, height in VIEWPORTS:
-                    ctx = browser.new_context(viewport={"width": width, "height": height}, reduced_motion=reduced)
+                    ctx = browser.new_context(viewport={"width": width, "height": height}, reduced_motion=reduced, accept_downloads=True)
                     page = ctx.new_page()
                     errors = collect_errors(page)
                     page.goto(url, wait_until="networkidle")
@@ -229,7 +263,7 @@ def run(selected: list[str]) -> None:
                     assert not errors, f"{key} {width} {reduced}: {errors}"
                     ctx.close()
             # Sem GSAP/CDN: conteúdo continua visível e a interação funciona.
-            ctx = browser.new_context(viewport={"width": 1440, "height": 900})
+            ctx = browser.new_context(viewport={"width": 1440, "height": 900}, accept_downloads=True)
             ctx.route("**/cdn.jsdelivr.net/npm/gsap*/**", lambda route: route.abort())
             page = ctx.new_page()
             page.goto(url, wait_until="load")
