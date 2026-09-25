@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0f3d47">
+  <meta name="description" content="Conceito de site para a Farmácia Provisão, no Centro de Maracanaú. Diga o que você procura e a equipe confere antes de você sair de casa.">
+  <title>Farmácia Provisão | Centro de Maracanaú</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="preload" href="assets/hero.webp" as="image" type="image/webp">
+  <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#inicio" aria-label="Farmácia Provisão, início">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="7" width="34" height="26" rx="3"/><rect x="12" y="17" width="16" height="6" rx="3"/></svg>
+      <span>Farmácia<strong>Provisão</strong></span>
+    </a>
+    <button class="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i class="ph ph-list" aria-hidden="true"></i></button>
+    <nav id="menu" aria-label="Navegação principal">
+      <a href="#gaveteiro">Do que você precisa</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#farmaceutico">Farmacêutico</a>
+      <a href="#onde-fica">Onde fica</a>
+      <a class="nav-call" href="tel:+5585981833811"><i class="ph ph-phone" aria-hidden="true"></i> Ligar para a loja</a>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero-media">
+        <img src="assets/hero.webp" alt="Balcão de farmácia de bairro pela manhã, com prateleiras organizadas ao fundo" width="1920" height="1080" fetchpriority="high">
+        <div class="slats" data-slats aria-hidden="true"></div>
+      </div>
+      <div class="hero-copy">
+        <p class="hero-place"><i class="ph ph-map-pin" aria-hidden="true"></i> Centro de Maracanaú</p>
+        <h1 id="hero-title">Cuidado próximo, <span>todos os dias.</span></h1>
+        <p class="hero-lead">Diga o que você procura e a equipe confere antes de você sair de casa.</p>
+        <div class="hero-actions">
+          <a class="btn btn-coral" href="#gaveteiro">Do que você precisa hoje? <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
+          <a class="btn btn-ghost" href="tel:+5585981833811"><i class="ph ph-phone" aria-hidden="true"></i> (85) 98183-3811</a>
+        </div>
+      </div>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="true">Pausar movimento</button>
+    </section>
+
+    <section class="cabinet-section" id="gaveteiro" aria-labelledby="gaveteiro-title">
+      <div class="cabinet-intro">
+        <h2 id="gaveteiro-title">Do que você precisa hoje?</h2>
+        <p>Abra uma gaveta. A gente monta a mensagem e a equipe da loja confirma se tem, quanto custa e como você recebe.</p>
+      </div>
+
+      <div class="cabinet-layout">
+        <div class="cabinet" role="group" aria-label="Categorias de cuidado">
+          <button class="drawer" type="button" aria-pressed="false" data-need="Uso contínuo" data-hint="Leve a receita ou a caixa do remédio que você já usa.">
+            <span class="drawer-front"><span class="drawer-label">Uso contínuo</span><span class="drawer-pull" aria-hidden="true"></span></span>
+            <span class="drawer-body" aria-hidden="true"></span>
+          </button>
+          <button class="drawer" type="button" aria-pressed="false" data-need="Higiene e casa" data-hint="Sabonete, fralda geriátrica, algodão, curativo, álcool.">
+            <span class="drawer-front"><span class="drawer-label">Higiene e casa</span><span class="drawer-pull" aria-hidden="true"></span></span>
+            <span class="drawer-body" aria-hidden="true"></span>
+          </button>
+          <button class="drawer" type="button" aria-pressed="false" data-need="Bebê e criança" data-hint="Fralda, pomada, lenço, itens de banho. Dúvida de saúde vai para o farmacêutico.">
+            <span class="drawer-front"><span class="drawer-label">Bebê e criança</span><span class="drawer-pull" aria-hidden="true"></span></span>
+            <span class="drawer-body" aria-hidden="true"></span>
+          </button>
+          <button class="drawer" type="button" aria-pressed="false" data-need="Pele e proteção solar" data-hint="Diga o tipo de produto e, se tiver, a marca de preferência.">
+            <span class="drawer-front"><span class="drawer-label">Pele e sol</span><span class="drawer-pull" aria-hidden="true"></span></span>
+            <span class="drawer-body" aria-hidden="true"></span>
+          </button>
+          <button class="drawer" type="button" aria-pressed="false" data-need="Primeiros cuidados" data-hint="Curativo, gaze, termômetro. Se for urgência, ligue 192.">
+            <span class="drawer-front"><span class="drawer-label">Primeiros cuidados</span><span class="drawer-pull" aria-hidden="true"></span></span>
+            <span class="drawer-body" aria-hidden="true"></span>
+          </button>
+          <button class="drawer" type="button" aria-pressed="false" data-need="Falar com o farmacêutico" data-hint="Para dúvidas sobre remédio, dose ou receita, o atendimento é com o farmacêutico.">
+            <span class="drawer-front"><span class="drawer-label">Falar com o farmacêutico</span><span class="drawer-pull" aria-hidden="true"></span></span>
+            <span class="drawer-body" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <form class="receipt" id="receipt" aria-labelledby="receipt-title" novalidate>
+          <div class="receipt-edge" aria-hidden="true"></div>
+          <h3 id="receipt-title">Sua consulta</h3>
+          <p class="receipt-need" id="receipt-need" aria-live="polite">Escolha uma gaveta ao lado.</p>
+          <p class="receipt-hint" id="receipt-hint"></p>
+          <label for="receipt-item">O que você procura?</label>
+          <input id="receipt-item" name="item" type="text" autocomplete="off" placeholder="Ex.: o nome que está na caixa">
+          <fieldset>
+            <legend>Como prefere receber?</legend>
+            <label class="choice"><input type="radio" name="how" value="retirar na loja" checked> Retiro na loja</label>
+            <label class="choice"><input type="radio" name="how" value="saber se vocês entregam"> Quero saber se entregam</label>
+          </fieldset>
+          <div class="receipt-preview" aria-live="polite">
+            <span>Mensagem</span>
+            <p id="receipt-message">Oi! Vi o site da Farmácia Provisão e queria fazer uma consulta.</p>
+          </div>
+          <div class="receipt-actions">
+            <a class="btn btn-petrol" id="receipt-whatsapp" href="https://wa.me/5585981833811" target="_blank" rel="noopener" aria-disabled="true">
+              <i class="ph ph-whatsapp-logo" aria-hidden="true"></i> Enviar pelo WhatsApp
+            </a>
+            <a class="btn btn-line" href="tel:+5585981833811"><i class="ph ph-phone" aria-hidden="true"></i> Ligar</a>
+          </div>
+          <p class="receipt-note">A mensagem abre fora do site. Disponibilidade, valor e entrega são confirmados pela equipe da loja. <em class="tag-confirm">Demo: confirmar se o número recebe WhatsApp.</em></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="steps" id="como-funciona" aria-labelledby="steps-title">
+      <div class="steps-pin">
+        <h2 id="steps-title">Da mensagem ao balcão, sem viagem perdida.</h2>
+        <figure class="steps-photo">
+          <img src="assets/etiquetas.webp" alt="Mãos organizando caixas sem marca em uma gaveta com etiquetas coloridas" width="1200" height="1500" loading="lazy">
+        </figure>
+      </div>
+      <div class="tape" aria-label="Como funciona a consulta">
+        <div class="tape-roll" aria-hidden="true"></div>
+        <ol class="tape-paper">
+          <li><strong>Você diz o que procura.</strong> Pelo site, pelo telefone ou no balcão. O nome na caixa já ajuda.</li>
+          <li><strong>A equipe confere.</strong> Disponibilidade, valor e alternativa, se faltar. Tudo por uma pessoa da loja.</li>
+          <li><strong>Você passa na loja.</strong> Se quiser entrega, pergunte na mensagem: a equipe explica o que é possível.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="pharmacist" id="farmaceutico" aria-labelledby="pharmacist-title">
+      <figure class="pharmacist-photo">
+        <img src="assets/rotina.webp" alt="Mesa de cozinha pela manhã com copo d'água, óculos e um organizador semanal fechado" width="1200" height="1500" loading="lazy">
+      </figure>
+      <div class="pharmacist-copy">
+        <h2 id="pharmacist-title">Dúvida sobre remédio é conversa com o farmacêutico.</h2>
+        <p>Dose, troca, interação ou efeito: quem responde é o profissional da farmácia, no balcão ou por telefone. O site e o assistente virtual só organizam a sua consulta.</p>
+        <ul class="tips">
+          <li><i class="ph ph-package" aria-hidden="true"></i><span>Leve a receita e a embalagem do que você já usa.</span></li>
+          <li><i class="ph ph-warning-circle" aria-hidden="true"></i><span>Conte ao farmacêutico se tem alergia a algum remédio.</span></li>
+          <li><i class="ph ph-sun-dim" aria-hidden="true"></i><span>Guarde remédios longe do calor, da umidade e do alcance de crianças.</span></li>
+        </ul>
+        <p class="emergency"><i class="ph ph-first-aid" aria-hidden="true"></i><span>Falta de ar, desmaio ou dor forte: ligue <a href="tel:192">192 (SAMU)</a> ou procure a emergência mais próxima.</span></p>
+      </div>
+    </section>
+
+    <section class="where" id="onde-fica" aria-labelledby="where-title">
+      <h2 id="where-title">Rua Capitão Valdemar de Lima, 86</h2>
+      <p class="where-sub">Centro, Maracanaú, perto do Hospital Municipal e da estação do metrô.</p>
+      <div class="where-grid">
+        <a class="where-card" href="https://www.google.com/maps/search/?api=1&amp;query=Farm%C3%A1cia%20Provis%C3%A3o%20Maracana%C3%BA" target="_blank" rel="noopener">
+          <i class="ph ph-navigation-arrow" aria-hidden="true"></i><span>Como chegar</span><small>Abre o mapa</small>
+        </a>
+        <a class="where-card" href="tel:+5585981833811">
+          <i class="ph ph-phone" aria-hidden="true"></i><span>(85) 98183-3811</span><small>Ligar para a loja</small>
+        </a>
+        <a class="where-card" href="https://www.instagram.com/farmaciasprovisao/" target="_blank" rel="noopener">
+          <i class="ph ph-instagram-logo" aria-hidden="true"></i><span>@farmaciasprovisao</span><small>Instagram</small>
+        </a>
+        <div class="where-card where-hours">
+          <i class="ph ph-clock" aria-hidden="true"></i><span>Horário</span><small>Confirmar com a loja</small>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-brand">Farmácia <strong>Provisão</strong></p>
+    <p>Conceito de site feito para apresentação. Imagens ilustrativas geradas para a demonstração, não são fotos da loja. Endereço, telefone e canais foram tirados de fontes públicas e precisam de confirmação da farmácia.</p>
+    <p>Este site não substitui orientação do farmacêutico ou do médico.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js?v=1" defer></script>
+  <script src="js/chat.js?v=1" defer></script>
+</body>
+</html>
