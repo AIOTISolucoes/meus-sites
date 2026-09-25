@@ -152,7 +152,7 @@ st.markdown(
         --accent-32: {_rgba(COR_ACCENT, 0.32)};
     }}
 
-    html, body, [class*="css"] {{ font-family: 'IBM Plex Sans', sans-serif; }}
+    html, body, [class*="css"] {{ font-family: 'IBM Plex Sans', sans-serif; text-rendering: geometricPrecision; }}
     h1, h2, h3 {{ font-family: 'Sora', sans-serif !important; letter-spacing: -0.5px; }}
 
     /* fundo geral: branco leitoso com um véu suave da cor do site */
