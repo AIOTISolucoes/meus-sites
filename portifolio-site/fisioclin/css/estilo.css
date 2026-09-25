@@ -1,0 +1,731 @@
+/* ==========================================================================
+   FISIOCLIN — Clínica de Medicina e Saúde · Messejana, Fortaleza-CE
+
+   Identidade tirada do material do próprio cliente (Instagram + fachada):
+   fundo creme #f7f4ef (é a cor de fundo de TODAS as artes deles), terracota
+   da logo e o verde-água da placa redonda pregada no cobogó da fachada.
+
+   A fachada é um painel vazado de triângulos em relevo. Ela é o site:
+   aparece no hero (canvas, com a luz seguindo o ponteiro) e na
+   seção-assinatura (painel que acende a especialidade escolhida).
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- TOKENS
+
+   Paletas já usadas (não repetir):
+     Colmeia .... mel + rosa pastel
+     Sabtec ..... preto + verde-limão #98cb32
+     Félix ...... preto + dourado #d8a94a
+     Estúdio .... champagne #f7f1e8 + dourado #c0954a
+     Claudia .... marinho #0e2445 + azul #1f4e96 + gelo
+     Spaço ...... café #422307 + creme #e4ddcd
+     Butterfly .. marfim + champagne #c9a86a
+     Fisioclin .. creme #f7f4ef + terracota #7a4a34 + verde-água #afd9d8  <-- este
+
+   O risco aqui era virar primo do Spaço Beauty (também marrom + creme). O que
+   separa: lá a superfície é ESCURA e o café domina; aqui é clara, quase branca
+   (é clínica), o terracota só assina e quem manda no acento é o verde-água.
+
+   Fontes já usadas: Cormorant + Jost (Estúdio), Fraunces + Manrope (Claudia),
+   Archivo Black (Sabtec), Marcellus + Mulish (Butterfly), Bodoni + Karla
+   (Spaço). Aqui: Bricolage Grotesque + Figtree — a logo deles é condensada e
+   geométrica e a fachada é geometria pura; uma serifada romântica brigaria. */
+
+:root {
+  --creme: #f7f4ef;          /* fundo institucional, medido nas artes deles */
+  --creme-fundo: #efe8dd;    /* 2ª superfície clara, pra alternar seções */
+  --branco: #fff;
+  --marca: #7a4a34;          /* terracota da logo, medido no pixel */
+  --marca-clara: #a5735a;
+  --agua: #afd9d8;           /* verde-água da placa da fachada, no pixel */
+  --agua-funda: #3f827d;     /* o mesmo tom rebaixado até dar contraste em texto */
+  --agua-veu: #e4f2f1;
+  --tinta: #2b1f1a;
+  --tinta-suave: #6d5c54;
+  --linha: rgba(122, 74, 52, .16);
+  --display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --sans: 'Figtree', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+
+body {
+  background: var(--creme);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-weight: 400;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--agua-funda);
+  outline-offset: 4px;
+}
+
+/* profundidade sem textura repetida (o grid de quadradinhos foi rejeitado
+   pelo usuário no portfólio — não reintroduzir) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(60vw 44vw at 88% 12%, rgba(175, 217, 216, .30), transparent 70%),
+    radial-gradient(48vw 38vw at 6% 74%, rgba(122, 74, 52, .07), transparent 72%);
+}
+
+/* ---------------------------------------------------------- TIPOGRAFIA */
+
+.etiqueta {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--agua-funda);
+  margin-bottom: 1.3rem;
+}
+
+.titulo-secao {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.2rem, 5vw, 3.9rem);
+  line-height: 1.06;
+  letter-spacing: -.025em;
+}
+
+/* Bricolage não tem itálico de verdade: o destaque vem por COR, não por
+   inclinação (mesma decisão do Butterfly) */
+.titulo-secao em,
+.hero-titulo em,
+#contato h2 em {
+  font-style: normal;
+  color: var(--marca);
+}
+
+.secao-topo { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto 4rem; padding: 0 6vw; }
+.secao-topo.centro { text-align: center; }
+
+.secao-texto { margin-top: 1.2rem; font-size: 1.02rem; line-height: 1.7; color: var(--tinta-suave); max-width: 46ch; }
+.secao-topo.centro .secao-texto { margin-inline: auto; }
+
+/* -------------------------------------------------------------- BOTÕES */
+
+.btn-principal,
+.btn-vazado {
+  display: inline-block;
+  font-size: .93rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+  padding: 1.02rem 2.2rem;
+  border-radius: 999px;
+  transition: transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease, border-color .3s ease;
+}
+
+.btn-principal {
+  background: var(--marca);
+  color: #fdf8f4;
+  box-shadow: 0 14px 30px rgba(122, 74, 52, .26);
+}
+.btn-principal:hover { transform: translateY(-3px); background: #643b29; box-shadow: 0 20px 42px rgba(122, 74, 52, .32); }
+
+.btn-vazado { border: 1px solid rgba(43, 31, 26, .24); }
+.btn-vazado:hover { background: var(--tinta); color: var(--creme); border-color: var(--tinta); }
+
+.btn-principal.grande, .btn-vazado.grande { padding: 1.18rem 2.7rem; font-size: 1rem; }
+
+/* ========================= INTRO ========================= */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--creme);
+  display: none;
+  place-items: center;
+}
+
+.intro-marca { width: min(52vw, 380px); }
+#logo-intro { width: 100%; overflow: visible; }
+
+#logo-intro .marca-nome {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 30px;
+  letter-spacing: .16em;
+  fill: var(--marca);
+}
+#logo-intro .marca-sub {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 7.6px;
+  letter-spacing: .42em;
+  fill: var(--agua-funda);
+}
+#logo-intro .marca-nome,
+#logo-intro .marca-sub { opacity: 0; }
+
+/* ========================= NAV ========================= */
+
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  padding: .9rem 6vw;
+  background: rgba(247, 244, 239, .9);
+  backdrop-filter: blur(12px);
+}
+
+.nav-marca { display: flex; align-items: center; gap: .7rem; color: var(--marca); }
+.nav-logo { width: 34px; height: 34px; flex: none; }
+.nav-marca span {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.06rem;
+  letter-spacing: .04em;
+  color: var(--tinta);
+  white-space: nowrap;
+}
+.nav-marca em { font-style: normal; font-weight: 500; font-size: .82rem; color: var(--agua-funda); }
+
+.nav-links { display: flex; gap: 1.9rem; }
+.nav-links a { font-size: .92rem; color: var(--tinta-suave); position: relative; padding-bottom: 3px; }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: var(--marca);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .35s ease;
+}
+.nav-links a:hover { color: var(--marca); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.btn-nav {
+  font-size: .86rem;
+  font-weight: 600;
+  padding: .62rem 1.5rem;
+  border-radius: 999px;
+  background: var(--marca);
+  color: #fdf8f4;
+  transition: background .3s ease, transform .3s ease;
+}
+.btn-nav:hover { background: #643b29; transform: translateY(-2px); }
+
+/* ========================= HERO ========================= */
+
+#inicio {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 8.5rem 6vw 5rem;
+  background: linear-gradient(168deg, #fbf9f6 0%, var(--creme) 48%, #f0ebe3 100%);
+  overflow: hidden;
+}
+
+/* o cobogó da fachada, redesenhado. Ocupa o hero inteiro atrás do texto. */
+#inicio canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+
+#inicio::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 26%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(240, 235, 227, 0), var(--creme) 92%);
+}
+
+.hero-conteudo { position: relative; z-index: 3; max-width: 660px; }
+
+/* véu de leitura: halo da própria superfície atrás do texto. Sem ele o
+   relevo do cobogó passa por trás das letras e o título perde contraste. */
+.hero-conteudo::before {
+  content: '';
+  position: absolute;
+  left: -14%; top: -16%;
+  width: 132%; height: 138%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(58% 54% at 32% 46%, rgba(250, 248, 244, .94), rgba(250, 248, 244, 0) 74%);
+}
+
+.hero-titulo {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.7rem, 6.6vw, 5rem);
+  line-height: 1.03;
+  letter-spacing: -.03em;
+}
+.hero-titulo .linha { display: block; overflow: hidden; }
+.hero-titulo .linha > span { display: block; }
+
+.hero-texto {
+  margin-top: 1.7rem;
+  max-width: 48ch;
+  font-size: 1.06rem;
+  line-height: 1.74;
+  color: var(--tinta-suave);
+}
+
+.hero-acoes { margin-top: 2.3rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+
+/* 3 fatos, todos verificáveis no perfil/fachada do cliente. Nada de
+   "+500 pacientes satisfeitos": é o que faz o site parecer golpe. */
+.hero-dados { margin-top: 3.2rem; display: flex; flex-wrap: wrap; gap: 2.6rem; }
+.hero-dados div { display: flex; flex-direction: column; gap: .3rem; }
+.hero-dados strong { font-family: var(--display); font-weight: 600; font-size: 1.7rem; color: var(--marca); }
+.hero-dados span {
+  font-size: .76rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+.rolar {
+  position: absolute;
+  left: 6vw; bottom: 2rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(109, 92, 84, .7);
+}
+.rolar i { width: 54px; height: 1px; background: rgba(109, 92, 84, .3); position: relative; overflow: hidden; }
+.rolar i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--marca);
+  transform: translateX(-100%);
+  animation: correr 2.6s ease-in-out infinite;
+}
+@keyframes correr {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
+}
+
+/* ===================== ESPECIALIDADES (cards) ===================== */
+
+#servicos { position: relative; z-index: 2; padding: 7rem 0 6rem; }
+
+.grade-servicos {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  /* 320px força 3 colunas em tela larga: com 250px davam 4 + 2 sobrando na
+     segunda fila, e a grade ficava torta */
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 1.4rem;
+}
+
+.servico {
+  position: relative;
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-radius: 20px;
+  padding: 2.3rem 1.9rem 2.1rem;
+  overflow: hidden;
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+/* canto vazado: a citação do cobogó dentro do card */
+.servico::after {
+  content: '';
+  position: absolute;
+  right: -26px; top: -26px;
+  width: 76px; height: 76px;
+  background: var(--agua-veu);
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  transition: background .4s ease;
+}
+.servico:hover {
+  transform: translateY(-6px);
+  border-color: rgba(122, 74, 52, .3);
+  box-shadow: 0 22px 46px rgba(122, 74, 52, .12);
+}
+.servico:hover::after { background: var(--agua); }
+.servico .icone { position: relative; z-index: 1; width: 54px; height: 54px; color: var(--marca); margin-bottom: 1.4rem; }
+.servico h3 { font-family: var(--display); font-weight: 600; font-size: 1.28rem; margin-bottom: .6rem; letter-spacing: -.01em; }
+.servico p { font-size: .95rem; line-height: 1.7; color: var(--tinta-suave); }
+
+/* ==========================================================================
+   SEÇÃO-ASSINATURA — "Por onde eu começo?"
+
+   A dúvida real de quem chega numa clínica com 6 especialidades é qual
+   profissional procurar. Aqui a pessoa responde duas coisas (pra quem é e o
+   que busca) e o painel da fachada acende a especialidade indicada.
+
+   Regra que segurou o desenho: isto NÃO dá parecer clínico. Não se pergunta
+   sintoma nem se devolve diagnóstico — é o encaminhamento que a recepção
+   faria, e toda resposta termina lembrando que quem define o plano é a
+   avaliação presencial.
+   ========================================================================== */
+
+#assinatura {
+  position: relative;
+  z-index: 2;
+  padding: 6.5rem 0 7rem;
+  background: var(--creme-fundo);
+}
+
+/* No desktop: perguntas em cima à esquerda, resultado embaixo delas, painel à
+   direita ocupando as duas linhas.
+   No celular a ordem vira perguntas -> painel -> resultado, e é por isso que o
+   resultado é filho direto daqui (e não da coluna de passos): com o painel no
+   fim, quem respondia no celular via a parede acender FORA DA TELA — o efeito
+   simplesmente não existia pra quem abre pelo Instagram, que é a maioria. */
+.guia {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .92fr);
+  grid-template-areas:
+    "passos    painel"
+    "resultado painel";
+  gap: 2.2rem 3.4rem;
+  align-items: start;
+}
+
+.guia-passos { grid-area: passos; }
+.resultado { grid-area: resultado; }
+.painel-cobogo { grid-area: painel; align-self: center; }
+
+/* ---- coluna das perguntas ---- */
+
+.guia-passos { display: flex; flex-direction: column; gap: 2.1rem; }
+
+.passo-titulo {
+  display: flex;
+  align-items: baseline;
+  gap: .7rem;
+  font-size: .76rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  margin-bottom: 1rem;
+}
+.passo-titulo b {
+  font-family: var(--display);
+  font-size: .96rem;
+  letter-spacing: 0;
+  color: var(--marca);
+}
+
+.opcoes { display: flex; flex-wrap: wrap; gap: .6rem; }
+
+.opcao {
+  font-family: inherit;
+  font-size: .93rem;
+  font-weight: 500;
+  color: var(--tinta);
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-radius: 999px;
+  padding: .74rem 1.3rem;
+  min-height: 44px;
+  cursor: pointer;
+  transition: background .28s ease, border-color .28s ease, color .28s ease, transform .28s ease;
+}
+.opcao:hover { border-color: var(--marca); transform: translateY(-2px); }
+.opcao:disabled { cursor: default; }
+.opcao[aria-pressed="true"] {
+  background: var(--marca);
+  border-color: var(--marca);
+  color: #fdf8f4;
+}
+
+/* O passo 2 fica à vista desde o começo, só travado: escondê-lo deixava a
+   coluna com um terço da altura do painel e a seção nascia com um buraco no
+   meio — fora que a pessoa não via que havia uma 2ª pergunta. */
+.passo.travado { opacity: .4; pointer-events: none; filter: saturate(.5); }
+.passo { transition: opacity .45s ease, filter .45s ease; }
+
+/* ---- resultado ---- */
+
+.resultado {
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-left: 4px solid var(--agua);
+  border-radius: 18px;
+  padding: 1.7rem 1.8rem;
+}
+.resultado .rot {
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--agua-funda);
+}
+.resultado h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: -.02em;
+  margin: .5rem 0 .7rem;
+  color: var(--marca);
+}
+.resultado p { font-size: .97rem; line-height: 1.72; color: var(--tinta-suave); }
+.resultado .ressalva {
+  display: block;
+  margin-top: .9rem;
+  padding-top: .9rem;
+  border-top: 1px dashed var(--linha);
+  font-size: .87rem;
+  line-height: 1.62;
+  color: var(--tinta-suave);
+}
+.resultado .btn-principal { margin-top: 1.3rem; }
+
+/* ---- o painel de cobogó que reage ---- */
+
+.painel-cobogo {
+  position: relative;
+  aspect-ratio: 1 / 1.06;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(150deg, #fff, #f1ece4);
+  border: 1px solid var(--linha);
+  box-shadow: 0 26px 60px rgba(122, 74, 52, .13);
+}
+.painel-cobogo svg { width: 100%; height: 100%; display: block; }
+
+/* cada célula é um triângulo do painel. O verde-água entra por opacidade,
+   então acender/apagar é uma transição só — nada de repintar o SVG.
+   transform-box: fill-box faz o scale girar no centro do próprio triângulo;
+   sem isso ele usa a origem do SVG inteiro e a célula sai voando. */
+.painel-cobogo .cel {
+  transition: opacity .55s ease, transform .55s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.painel-cobogo .cel-luz { fill: var(--agua); opacity: 0; }
+.painel-cobogo .cel-base { fill: #e6ded2; }
+.painel-cobogo .cel-borda { fill: none; stroke: rgba(122, 74, 52, .14); stroke-width: .6; }
+
+.painel-legenda {
+  position: absolute;
+  left: 1.1rem; right: 1.1rem; bottom: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .7rem .95rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .9);
+  backdrop-filter: blur(6px);
+  font-size: .82rem;
+  color: var(--tinta-suave);
+  transition: opacity .4s ease;
+}
+.painel-legenda b { font-family: var(--display); font-weight: 600; color: var(--marca); }
+.painel-legenda i {
+  width: 10px; height: 10px; flex: none;
+  background: var(--agua);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+/* ==================== A CLÍNICA ====================
+   Era pra ser o trilho horizontal dos outros sites, mas só existe UMA foto
+   aproveitável do lugar (as do feed são frames de arte, embaçados). Trilho com
+   uma foto só é uma esteira vazia — virou seção de duas colunas: a fachada
+   grande, que é o cartão de visita real deles, e a estrutura em lista. */
+
+#casa { position: relative; z-index: 2; padding: 7rem 0; overflow: hidden; }
+
+.casa-grade {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1fr);
+  gap: 3.6rem;
+  align-items: center;
+}
+
+.casa-foto {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 26px 58px rgba(122, 74, 52, .2);
+}
+.casa-foto img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.casa-foto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(200deg, rgba(122, 74, 52, .06), rgba(43, 31, 26, .04) 42%, rgba(43, 31, 26, .68));
+}
+.casa-foto figcaption {
+  position: absolute;
+  left: 1.4rem; right: 1.4rem; bottom: 1.3rem;
+  z-index: 2;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.02rem;
+  color: #f6f1ec;
+}
+
+.casa-itens { list-style: none; margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: .9rem 1.4rem; }
+.casa-itens li {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  font-size: .96rem;
+  color: var(--tinta-suave);
+}
+.casa-itens li::before {
+  content: '';
+  width: 11px; height: 11px; flex: none;
+  background: var(--agua);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+/* ========================= CONTATO ========================= */
+
+#contato { position: relative; z-index: 2; padding: 7rem 6vw; background: var(--creme-fundo); }
+
+.contato-caixa { max-width: 820px; margin: 0 auto; text-align: center; }
+.contato-caixa h2 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.2rem, 5.2vw, 3.7rem);
+  line-height: 1.07;
+  letter-spacing: -.03em;
+}
+.contato-caixa > p { margin-top: 1.4rem; font-size: 1.05rem; line-height: 1.74; color: var(--tinta-suave); }
+.contato-acoes { margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+
+/* endereço e telefones: são públicos (fachada, posts e página oficial deles),
+   então PODEM aparecer. Horário não — em lugar nenhum do perfil existe. */
+.contato-fichas {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  text-align: left;
+}
+.ficha {
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-radius: 16px;
+  padding: 1.3rem 1.4rem;
+}
+.ficha span {
+  display: block;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--agua-funda);
+  margin-bottom: .5rem;
+}
+.ficha strong { display: block; font-family: var(--display); font-weight: 500; font-size: 1.02rem; line-height: 1.45; }
+.ficha a { color: var(--marca); }
+.ficha a:hover { text-decoration: underline; }
+
+.contato-nota { display: block; margin-top: 2rem; font-size: .84rem; color: rgba(109, 92, 84, .9); }
+
+/* ========================= RODAPÉ ========================= */
+
+footer {
+  position: relative;
+  z-index: 2;
+  background: var(--tinta);
+  color: rgba(247, 244, 239, .62);
+  padding: 2.4rem 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .78rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+footer a { color: var(--agua); }
+
+/* ========================= RESPONSIVO ========================= */
+
+@media (max-width: 980px) {
+  .nav-links { gap: 1rem; }
+  .nav-marca em { display: none; }
+  .guia {
+    grid-template-columns: 1fr;
+    grid-template-areas: "passos" "painel" "resultado";
+    gap: 2.2rem;
+  }
+  .painel-cobogo { max-width: 420px; margin-inline: auto; width: 100%; }
+  /* a foto da fachada vai pra cima do texto, não pro lado dele espremida */
+  .casa-grade { grid-template-columns: 1fr; gap: 2.4rem; }
+  .casa-foto { max-width: 420px; }
+}
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  .nav-marca em { display: none; }
+  .nav-marca span { font-size: .95rem; }
+  #nav { padding-inline: 4vw; gap: .8rem; }
+  .btn-nav { padding: .58rem 1.2rem; }
+
+  .etiqueta { font-size: .66rem; letter-spacing: .2em; }
+
+  #inicio { padding-top: 7rem; min-height: 94vh; min-height: 94svh; }
+  .hero-dados { gap: 1.5rem 2rem; }
+  .hero-dados strong { font-size: 1.42rem; }
+  .rolar { display: none; }
+
+  /* o texto ocupa a largura toda: o halo vira faixa central, senão fica um
+     borrão deslocado atrás das letras */
+  .hero-conteudo::before {
+    left: -20%;
+    width: 140%;
+    background: radial-gradient(64% 50% at 50% 48%, rgba(250, 248, 244, .95), rgba(250, 248, 244, 0) 76%);
+  }
+
+  #servicos, #assinatura, #casa, #contato { padding-top: 5rem; padding-bottom: 4.6rem; }
+
+  .opcao { font-size: .88rem; padding: .68rem 1.1rem; }
+
+  .hero-acoes .btn-principal,
+  .hero-acoes .btn-vazado,
+  .contato-acoes .btn-principal,
+  .contato-acoes .btn-vazado { width: 100%; text-align: center; }
+
+  .contato-fichas { text-align: center; }
+
+  footer { flex-direction: column; text-align: center; gap: .6rem; }
+}
+
+/* Cortar só o que se repete sozinho pra sempre. Transição de hover fica: ela
+   responde a uma ação da pessoa, não fica agitando a tela sozinha. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rolar i::after { animation: none; opacity: .5; transform: none; }
+  .passo { animation: none; }
+  .servico:hover { transform: none; }
+  .opcao:hover { transform: none; }
+  .btn-principal:hover, .btn-nav:hover { transform: none; }
+  .painel-cobogo .cel { transition: opacity .15s ease; transform: none !important; }
+}

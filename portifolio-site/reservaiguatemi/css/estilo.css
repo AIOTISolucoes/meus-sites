@@ -1,0 +1,684 @@
+/* ==========================================================================
+   Reserva Iguatemi Bosque — estilo
+
+   Base: portifolio-site/_modelo. Só deste cliente: os tokens abaixo, o hero
+   com foto ao lado (é loja física, a foto é o argumento) e a ARARA de
+   consultores, que é a seção-assinatura.
+
+   ⚠️ Nenhuma marca foi redesenhada aqui. As cores saíram das FOTOS da loja
+   (letreiro e madeira), não de manual de marca. Ver RETOMAR.md.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- TOKENS
+   Paletas já usadas (não repetir):
+     Colmeia ......... mel + rosa pastel
+     Sabtec .......... preto + verde-limão #98cb32
+     Félix ........... preto + dourado #d8a94a
+     Estúdio ......... champagne #f7f1e8 + dourado #c0954a
+     Claudia ......... marinho #0e2445 + azul #1f4e96
+     Spaço Beauty .... café #422307 + creme #e4ddcd
+     Butterfly ....... marfim + champagne #c9a86a
+     Fisioclin ....... creme #f7f4ef + terracota #7a4a34 + verde-água
+     JK Papelaria .... magenta #cc0084 + verde-menta #18b484
+
+   Aqui: o vermelho do letreiro da loja (#9f092c, medido na foto) e a madeira
+   do piso (#b47d42), sobre areia clara. Superfície CLARA de propósito: os
+   três sites escuros da casa (Sabtec, Félix, Butterfly) já brigam entre si.
+
+   Fontes já usadas: Cormorant+Jost, Fraunces+Manrope, Archivo Black,
+   Bodoni Moda+Karla, Marcellus+Mulish, Bricolage+Figtree, Newsreader+Outfit.
+   Aqui: Instrument Serif + DM Sans. */
+
+:root {
+  --escuro: #241d19;         /* carvão quente: fundo escuro e texto sobre claro */
+  --escuro-fundo: #16110f;   /* o tom mais fundo: intro e rodapé */
+  --marca: #9f092c;          /* vermelho do letreiro da loja */
+  --marca-clara: #d34a3a;    /* 2º tom, pra gradiente e detalhe sobre escuro */
+  --madeira: #b47d42;        /* a madeira do piso e das araras */
+  --madeira-clara: #dcb27c;
+  --claro: #f7f2e9;          /* fundo das seções claras */
+  --claro-fundo: #efe6d7;    /* variação pra alternar duas seções claras */
+  --quente: #fbf8f3;
+  --tinta: #241d19;          /* texto principal */
+  --tinta-suave: #6f6055;    /* texto secundário */
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--claro);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(54vw 40vw at 8% 14%, rgba(180, 125, 66, .16), transparent 70%),
+    radial-gradient(44vw 34vw at 92% 66%, rgba(159, 9, 44, .08), transparent 72%);
+}
+
+/* ---------------------------------------------------------- TIPOGRAFIA */
+
+.etiqueta {
+  display: inline-block;
+  font-size: .7rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--marca);
+  margin-bottom: 1.3rem;
+}
+
+.titulo-secao {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 5.6vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -.01em;
+}
+
+.titulo-secao em,
+.hero-titulo em,
+#contato h2 em {
+  font-style: italic;
+  background: linear-gradient(96deg, var(--marca), var(--marca-clara) 48%, var(--marca));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.secao-topo { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto 4rem; padding: 0 6vw; }
+.secao-topo.centro { text-align: center; }
+
+.secao-texto { margin-top: 1.2rem; font-size: 1.02rem; line-height: 1.7; color: var(--tinta-suave); max-width: 48ch; }
+.secao-topo.centro .secao-texto { margin-inline: auto; }
+
+/* -------------------------------------------------------------- BOTÕES */
+
+.btn-principal,
+.btn-vazado {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: .92rem;
+  font-weight: 500;
+  letter-spacing: .03em;
+  padding: 1.02rem 2.2rem;
+  border-radius: 4px;          /* quadrado: é loja de roupa, não spa */
+  border: 0;
+  cursor: pointer;
+  transition: transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease, border-color .3s ease;
+}
+
+.btn-principal {
+  background: var(--marca);
+  color: #fdf3ee;
+  box-shadow: 0 12px 28px rgba(90, 6, 24, .24);
+}
+.btn-principal:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(90, 6, 24, .32); }
+
+.btn-vazado { background: none; border: 1px solid rgba(36, 29, 25, .28); color: inherit; }
+.btn-vazado:hover { background: var(--escuro); color: var(--claro); border-color: var(--escuro); }
+
+.btn-principal.grande, .btn-vazado.grande { padding: 1.16rem 2.6rem; font-size: .98rem; }
+
+/* ========================= INTRO ========================= */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--escuro-fundo);
+  display: grid;
+  place-items: center;
+}
+
+.intro-marca { width: min(48vw, 400px); }
+#logo-intro { width: 100%; overflow: visible; }
+
+#logo-intro .marca-nome {
+  font-family: var(--serif);
+  font-size: 30px;
+  letter-spacing: .22em;
+  fill: #f4e9e0;
+}
+#logo-intro .marca-sub {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 8.6px;
+  letter-spacing: .48em;
+  fill: var(--madeira-clara);
+}
+#logo-intro .marca-nome,
+#logo-intro .marca-sub { opacity: 0; }
+
+/* ========================= NAV ========================= */
+
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  padding: .9rem 6vw;
+  background: rgba(247, 242, 233, .9);
+  backdrop-filter: blur(12px);
+  transform: translateY(-110%);
+}
+
+.nav-marca { display: flex; align-items: center; gap: .7rem; color: var(--marca); }
+.nav-logo { width: 40px; height: 20px; flex: none; }
+.nav-marca span {
+  font-family: var(--serif);
+  font-size: 1.14rem;
+  letter-spacing: .04em;
+  color: var(--tinta);
+  white-space: nowrap;
+}
+.nav-marca em { font-style: italic; font-size: .92rem; color: var(--marca); }
+
+.nav-links { display: flex; gap: 1.9rem; }
+.nav-links a { font-size: .89rem; color: var(--tinta-suave); position: relative; padding-bottom: 3px; }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: var(--marca);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .35s ease;
+}
+.nav-links a:hover { color: var(--marca); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.btn-nav {
+  font-size: .85rem;
+  font-weight: 500;
+  padding: .62rem 1.4rem;
+  border-radius: 4px;
+  background: var(--escuro);
+  color: var(--claro);
+  transition: background .3s ease, transform .3s ease;
+}
+.btn-nav:hover { background: var(--marca); transform: translateY(-2px); }
+
+/* ========================= HERO ========================= */
+
+#inicio {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: 4vw;
+  padding: 8rem 6vw 5rem;
+  background: linear-gradient(166deg, var(--escuro) 0%, #33241d 48%, var(--escuro-fundo) 100%);
+  color: #f6ece2;
+  overflow: hidden;
+}
+
+.hero-conteudo { position: relative; z-index: 3; max-width: 620px; }
+
+#inicio .etiqueta { color: var(--madeira-clara); }
+
+.hero-titulo {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.9rem, 6.6vw, 5.4rem);
+  line-height: 1.0;
+  letter-spacing: -.015em;
+}
+/* o overflow:hidden na linha é o que permite o título subir de baixo */
+.hero-titulo .linha { display: block; overflow: hidden; padding-bottom: .04em; }
+.hero-titulo .linha > span { display: block; }
+.hero-titulo em {
+  background: linear-gradient(96deg, var(--madeira-clara), #f6d9b2 50%, var(--madeira-clara));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.hero-texto {
+  margin-top: 1.7rem;
+  max-width: 48ch;
+  font-size: 1.04rem;
+  line-height: 1.74;
+  color: rgba(246, 236, 226, .8);
+}
+
+.hero-acoes { margin-top: 2.3rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+#inicio .btn-vazado { border-color: rgba(246, 236, 226, .34); color: #f6ece2; }
+#inicio .btn-vazado:hover { background: #f6ece2; color: var(--escuro); border-color: #f6ece2; }
+
+.hero-dados { margin-top: 3.2rem; display: flex; flex-wrap: wrap; gap: 2.6rem; }
+.hero-dados div { display: flex; flex-direction: column; gap: .3rem; }
+.hero-dados strong { font-family: var(--serif); font-weight: 400; font-size: 1.85rem; color: #f0d7bb; }
+.hero-dados span {
+  font-size: .76rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(246, 236, 226, .55);
+}
+
+/* a foto da loja é o argumento principal: loja física existe e tem cara */
+.hero-foto {
+  position: relative;
+  z-index: 2;
+  justify-self: center;
+  width: min(100%, 430px);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 34px 70px rgba(10, 6, 5, .5);
+}
+.hero-foto img { width: 100%; height: 118%; object-fit: cover; }
+.hero-foto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(22, 17, 15, .06), rgba(22, 17, 15, .42));
+}
+
+.rolar {
+  position: absolute;
+  left: 6vw; bottom: 2rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  font-size: .7rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(246, 236, 226, .5);
+}
+.rolar i { width: 54px; height: 1px; background: rgba(246, 236, 226, .34); position: relative; overflow: hidden; }
+.rolar i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--madeira-clara);
+  transform: translateX(-100%);
+  animation: correr 2.6s ease-in-out infinite;
+}
+@keyframes correr {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
+}
+
+/* ========================= CARDS ========================= */
+
+#loja { position: relative; z-index: 2; padding: 7rem 0 6rem; }
+
+.grade-servicos {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.3rem;
+}
+
+.servico {
+  background: #fff;
+  border: 1px solid rgba(36, 29, 25, .1);
+  border-radius: 6px;
+  padding: 2.3rem 1.8rem 2.1rem;
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+.servico:hover {
+  transform: translateY(-6px);
+  border-color: rgba(159, 9, 44, .3);
+  box-shadow: 0 22px 48px rgba(80, 50, 30, .12);
+}
+.servico .icone { width: 56px; height: 56px; color: var(--marca); margin-bottom: 1.4rem; }
+.servico:nth-child(even) .icone { color: var(--madeira); }
+.servico h3 { font-family: var(--serif); font-weight: 400; font-size: 1.4rem; margin-bottom: .6rem; }
+.servico p { font-size: .93rem; line-height: 1.7; color: var(--tinta-suave); }
+
+/* ============ SEÇÃO-ASSINATURA: A ARARA ============ */
+
+#consultores {
+  position: relative;
+  z-index: 2;
+  padding: 7rem 0 6rem;
+  background: var(--claro-fundo);
+  overflow: hidden;
+}
+
+.arara-filtros {
+  max-width: 1240px;
+  margin: 0 auto 3.4rem;
+  padding: 0 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.6rem;
+}
+.filtro { border: 0; display: flex; flex-direction: column; gap: .7rem; align-items: center; }
+.filtro legend {
+  /* legend não obedece o align-items do fieldset: precisa da largura toda */
+  width: 100%;
+  text-align: center;
+  font-size: .7rem;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  margin-bottom: .2rem;
+}
+.opcoes { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; }
+.op {
+  font-family: var(--sans);
+  font-size: .87rem;
+  color: var(--tinta);
+  background: #fff;
+  border: 1px solid rgba(36, 29, 25, .16);
+  border-radius: 4px;
+  padding: .55rem 1.05rem;
+  cursor: pointer;
+  transition: border-color .25s ease, background .25s ease, color .25s ease;
+}
+.op:hover { border-color: rgba(159, 9, 44, .45); }
+.op.ativo { background: var(--marca); border-color: var(--marca); color: #fdf3ee; }
+
+/* A arara em si. Cada ficha pendura num trilho e o main.js empurra as fichas
+   pros lados conforme o ponteiro passa — o gesto de abrir cabide em loja. */
+.arara {
+  position: relative;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 3.4rem 6vw 1rem;
+  min-height: 330px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  touch-action: pan-y;
+}
+
+.trilho-arara {
+  position: absolute;
+  left: 4vw; right: 4vw;
+  top: 3.4rem;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, transparent, var(--madeira) 6%, var(--madeira) 94%, transparent);
+  box-shadow: 0 2px 6px rgba(80, 50, 30, .28);
+}
+
+.ficha {
+  position: relative;
+  flex: none;
+  width: 178px;
+  padding: 2.6rem 1.1rem 1.5rem;
+  background: #fff;
+  border: 1px solid rgba(36, 29, 25, .12);
+  border-radius: 4px;
+  text-align: center;
+  transform-origin: 50% -14px;   /* gira pendurado no gancho, não no meio */
+  will-change: transform;
+  box-shadow: 0 12px 26px rgba(80, 50, 30, .1);
+  transition: box-shadow .3s ease, border-color .3s ease;
+}
+.ficha:hover { border-color: var(--marca); box-shadow: 0 22px 44px rgba(80, 50, 30, .2); }
+/* a ficha que saiu no "escolhe por mim" precisa se distinguir de longe */
+.ficha.sorteada {
+  border-color: var(--marca);
+  box-shadow: 0 0 0 3px rgba(159, 9, 44, .16), 0 22px 44px rgba(80, 50, 30, .2);
+}
+.arara-nota a { color: var(--marca); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+
+/* o gancho que prende a ficha no trilho */
+.ficha-gancho {
+  position: absolute;
+  left: 50%;
+  top: -15px;
+  width: 16px; height: 18px;
+  transform: translateX(-50%);
+  border: 2px solid var(--madeira);
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+}
+
+.ficha-inicial {
+  display: block;
+  font-family: var(--serif);
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--marca);
+  opacity: .12;
+  /* a inicial é marca-d'água: o nome senta em cima dela, não embaixo */
+  margin-bottom: -2.5rem;
+}
+.ficha-nome { display: block; font-family: var(--serif); font-size: 1.44rem; }
+.ficha-papel {
+  display: block;
+  margin-top: .2rem;
+  font-size: .68rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+.ficha-cta {
+  display: block;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(36, 29, 25, .12);
+  font-size: .78rem;
+  font-weight: 500;
+  color: var(--marca);
+}
+
+.arara-rodape {
+  max-width: 640px;
+  margin: 2.4rem auto 0;
+  padding: 0 6vw;
+  text-align: center;
+}
+.arara-nota { margin-top: 1.4rem; font-size: .88rem; line-height: 1.7; color: var(--tinta-suave); }
+.arara-nota strong { color: var(--marca); font-weight: 500; }
+
+/* ========================= COMO FUNCIONA ========================= */
+
+#como { position: relative; z-index: 2; padding: 7rem 0 6rem; }
+
+.ficha-caixa { max-width: 1240px; margin: 0 auto; }
+
+.lista-ficha {
+  list-style: none;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.lista-ficha li {
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+  padding: 1.7rem 1.4rem;
+  background: #fff;
+  border-radius: 6px;
+  border-top: 3px solid var(--madeira);
+}
+.lista-ficha li:nth-child(2) { border-top-color: var(--marca); }
+.lista-ficha strong { font-family: var(--serif); font-weight: 400; font-size: 1.2rem; }
+.lista-ficha span { font-size: .92rem; line-height: 1.68; color: var(--tinta-suave); }
+
+/* ========================= FOTOS DA LOJA ========================= */
+
+/* Só existem DUAS fotos reais da loja no perfil. Trilho horizontal com duas
+   fotos é esteira vazia — então elas entram grandes, lado a lado. */
+#fotos { position: relative; z-index: 2; padding: 2rem 0 7rem; }
+
+.fotos-grade {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 3.4rem;
+  align-items: center;
+}
+
+.foto-loja {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 26px 56px rgba(80, 50, 30, .2);
+}
+.foto-loja img { width: 100%; height: 116%; aspect-ratio: 3 / 4; object-fit: cover; }
+.foto-loja figcaption {
+  position: absolute;
+  left: 1.2rem; right: 1.2rem; bottom: 1rem;
+  z-index: 2;
+  font-size: .84rem;
+  color: #f8efe6;
+  text-shadow: 0 2px 12px rgba(20, 12, 8, .9);
+}
+.foto-loja::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(22, 17, 15, .8), rgba(22, 17, 15, 0) 46%);
+}
+
+.onde { padding: 1rem 0; }
+.onde .titulo-secao { font-size: clamp(2.1rem, 4vw, 3.2rem); margin-bottom: 1.3rem; }
+.onde > p { font-size: 1rem; line-height: 1.74; color: var(--tinta-suave); max-width: 42ch; }
+
+.onde-itens {
+  list-style: none;
+  margin: 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.2rem;
+}
+.onde-itens li { display: flex; flex-direction: column; gap: .25rem; }
+.onde-itens strong {
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+.onde-itens span { font-family: var(--serif); font-size: 1.28rem; }
+
+.onde-nota {
+  display: block;
+  margin-top: 1.6rem;
+  font-size: .84rem;
+  line-height: 1.7;
+  color: rgba(111, 96, 85, .95);
+  max-width: 42ch;
+}
+
+/* ========================= CONTATO ========================= */
+
+#contato { position: relative; z-index: 2; padding: 7rem 6vw; background: var(--claro-fundo); }
+
+.contato-caixa { max-width: 780px; margin: 0 auto; text-align: center; }
+.contato-caixa h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5.4vw, 4.2rem);
+  line-height: 1.04;
+}
+.contato-caixa > p { margin-top: 1.4rem; font-size: 1.04rem; line-height: 1.74; color: var(--tinta-suave); }
+.contato-acoes { margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+.contato-nota { display: block; margin-top: 2rem; font-size: .84rem; line-height: 1.7; color: rgba(111, 96, 85, .95); }
+
+/* ========================= RODAPÉ ========================= */
+
+footer {
+  position: relative;
+  z-index: 2;
+  background: var(--escuro-fundo);
+  color: rgba(246, 236, 226, .58);
+  padding: 2.4rem 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .76rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+footer a { color: var(--madeira-clara); }
+
+/* ========================= RESPONSIVO ========================= */
+
+@media (max-width: 1080px) {
+  #inicio { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-foto { width: min(100%, 380px); justify-self: start; }
+}
+
+@media (max-width: 860px) {
+  .lista-ficha { grid-template-columns: 1fr; }
+  .fotos-grade { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  .nav-marca em { display: none; }
+  #nav { padding-inline: 4vw; gap: .8rem; }
+  .btn-nav { padding: .58rem 1.1rem; }
+
+  .etiqueta { font-size: .64rem; letter-spacing: .2em; }
+
+  #inicio { padding-top: 7rem; min-height: auto; }
+  .hero-foto { display: none; }   /* a foto grande volta na seção "A loja" */
+  .hero-dados { gap: 1.6rem 2.2rem; }
+  .hero-dados strong { font-size: 1.5rem; }
+  .rolar { display: none; }
+
+  #loja, #consultores, #como, #contato { padding-top: 5rem; padding-bottom: 4.6rem; }
+
+  /* a arara vira faixa de arrasto com o dedo: empurrar cabide com o ponteiro
+     não existe no celular, mas deslizar existe */
+  .arara {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 6vw;
+    -webkit-overflow-scrolling: touch;
+    min-height: 300px;
+  }
+  .arara::-webkit-scrollbar { display: none; }
+  .ficha { scroll-snap-align: center; width: 168px; }
+  /* dentro de um container com overflow-x, "left:0;right:0" mede a largura
+     VISÍVEL, não a rolável: o trilho terminava no meio e as duas últimas
+     fichas ficavam penduradas no nada. Largura fixa cobrindo as 5 fichas. */
+  .trilho-arara { left: 0; right: auto; width: 1000px; }
+
+  .hero-acoes .btn-principal,
+  .hero-acoes .btn-vazado,
+  .contato-acoes .btn-principal,
+  .contato-acoes .btn-vazado { width: 100%; text-align: center; }
+
+  footer { flex-direction: column; text-align: center; gap: .6rem; }
+}
+
+/* Cortar só o que se repete sozinho pra sempre. Transição de hover fica:
+   ela responde a uma ação da pessoa, não fica agitando a tela. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rolar i::after { animation: none; opacity: .5; transform: none; }
+  .servico:hover { transform: none; }
+  .btn-principal:hover, .btn-nav:hover { transform: none; }
+}

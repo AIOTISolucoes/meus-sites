@@ -1,0 +1,629 @@
+/* ==========================================================================
+   SPAÇO BEAUTY — café + creme + nude
+   Cores medidas na logo: traço #422307, fundo #e4ddcd.
+   O vinho vem do esmalte da foto principal (#300500).
+   ========================================================================== */
+
+:root {
+  --cafe: #4a2a0c;
+  --cafe-claro: #8a5a30;
+  --cafe-escuro: #2a1608;
+  --cafe-fundo: #1c1008;
+  --creme: #e4ddcd;
+  --creme-claro: #f4efe5;
+  --nude: #dcc0b2;
+  --vinho: #3d0f08;
+  --tinta: #2a1a0d;
+  --tinta-suave: #6d5844;
+  --serif: 'Bodoni Moda', 'Didot', Georgia, serif;
+  --sans: 'Karla', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--creme-claro);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(56vw 40vw at 14% 16%, rgba(220, 192, 178, .3), transparent 70%),
+    radial-gradient(44vw 34vw at 86% 64%, rgba(138, 90, 48, .09), transparent 72%);
+}
+
+/* ---------------------------------------------------------- TIPOGRAFIA */
+
+.etiqueta {
+  display: inline-block;
+  font-size: .7rem;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--cafe-claro);
+  margin-bottom: 1.3rem;
+}
+
+.titulo-secao {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.3rem, 5.2vw, 4.3rem);
+  line-height: 1.06;
+  letter-spacing: -.01em;
+}
+
+.titulo-secao em,
+.hero-titulo em,
+#contato h2 em {
+  font-style: italic;
+  background: linear-gradient(96deg, #7d4a22, #c39272 48%, #8a5a30);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.secao-topo { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto 4.2rem; padding: 0 6vw; }
+.secao-topo.centro { text-align: center; }
+
+.secao-texto { margin-top: 1.2rem; font-size: 1.02rem; color: var(--tinta-suave); max-width: 44ch; }
+.secao-topo.centro .secao-texto { margin-inline: auto; }
+
+/* -------------------------------------------------------------- BOTÕES */
+
+.btn-principal,
+.btn-vazado {
+  display: inline-block;
+  font-size: .92rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+  padding: 1.02rem 2.2rem;
+  border-radius: 999px;
+  transition: transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease, border-color .3s ease;
+}
+
+.btn-principal {
+  background: linear-gradient(140deg, var(--cafe), var(--cafe-claro));
+  color: #f7f1e6;
+  box-shadow: 0 14px 32px rgba(74, 42, 12, .26);
+}
+.btn-principal:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(74, 42, 12, .34); }
+
+.btn-vazado { border: 1px solid rgba(42, 26, 13, .26); }
+.btn-vazado:hover { background: var(--cafe-escuro); color: var(--creme); border-color: var(--cafe-escuro); }
+
+.btn-principal.grande, .btn-vazado.grande { padding: 1.18rem 2.7rem; font-size: 1rem; }
+
+/* ========================= INTRO ========================= */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--cafe-fundo);
+  display: grid;
+  place-items: center;
+}
+
+.intro-marca { width: min(46vw, 400px); }
+#logo-intro { width: 100%; overflow: visible; }
+
+#logo-intro .marca-nome {
+  font-family: var(--serif);
+  font-size: 17px;
+  letter-spacing: .34em;
+  fill: #ede2d2;
+}
+#logo-intro .marca-sub {
+  font-family: var(--sans);
+  font-size: 8px;
+  letter-spacing: .42em;
+  fill: #b98f63;
+}
+#logo-intro .marca-nome,
+#logo-intro .marca-sub { opacity: 0; }
+
+/* ========================= NAV ========================= */
+
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  padding: .9rem 6vw;
+  background: rgba(244, 239, 229, .9);
+  backdrop-filter: blur(12px);
+  transform: translateY(-110%);
+}
+
+.nav-marca { display: flex; align-items: center; gap: .7rem; color: var(--cafe); }
+.nav-logo { width: 38px; height: 26px; flex: none; }
+.nav-marca span {
+  font-family: var(--serif);
+  font-size: 1rem;
+  letter-spacing: .04em;
+  color: var(--tinta);
+  white-space: nowrap;
+}
+.nav-marca em { font-style: italic; font-size: .84rem; color: var(--cafe-claro); }
+
+.nav-links { display: flex; gap: 1.9rem; }
+.nav-links a { font-size: .89rem; color: var(--tinta-suave); position: relative; padding-bottom: 3px; }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: var(--cafe);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .35s ease;
+}
+.nav-links a:hover { color: var(--cafe); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.btn-nav {
+  font-size: .85rem;
+  font-weight: 500;
+  padding: .62rem 1.5rem;
+  border-radius: 999px;
+  background: var(--cafe-escuro);
+  color: var(--creme);
+  transition: background .3s ease, transform .3s ease;
+}
+.btn-nav:hover { background: var(--cafe-claro); transform: translateY(-2px); }
+
+/* ========================= HERO (claro) ========================= */
+
+#inicio {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 6vw 5rem;
+  background: linear-gradient(168deg, #faf6ef 0%, var(--creme-claro) 46%, var(--creme) 100%);
+  overflow: hidden;
+}
+
+#fios { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+
+/* os fios somem no rodapé da seção, sem linha de corte */
+#inicio::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 26%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(228, 221, 205, 0), var(--creme) 90%);
+}
+
+.hero-conteudo { position: relative; z-index: 3; max-width: 660px; }
+
+/* véu de leitura: aqui o fundo é claro, então o halo é claro também — sem ele
+   os fios passam por trás das letras e sujam o título */
+.hero-conteudo::before {
+  content: '';
+  position: absolute;
+  left: -12%; top: -14%;
+  width: 128%; height: 132%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(58% 52% at 34% 46%, rgba(250, 246, 239, .92), rgba(250, 246, 239, 0) 72%);
+}
+
+.hero-titulo {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.8rem, 7vw, 5.4rem);
+  line-height: 1.03;
+  letter-spacing: -.015em;
+}
+.hero-titulo .linha { display: block; overflow: hidden; }
+.hero-titulo .linha > span { display: block; }
+
+.hero-texto {
+  margin-top: 1.7rem;
+  max-width: 46ch;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--tinta-suave);
+}
+
+.hero-acoes { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+
+.hero-dados { margin-top: 3.4rem; display: flex; flex-wrap: wrap; gap: 2.6rem; }
+.hero-dados div { display: flex; flex-direction: column; gap: .3rem; }
+.hero-dados strong {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: var(--cafe);
+}
+.hero-dados span {
+  font-size: .74rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+.rolar {
+  position: absolute;
+  left: 6vw; bottom: 2rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  font-size: .7rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(109, 88, 68, .8);
+}
+.rolar i { width: 54px; height: 1px; background: rgba(109, 88, 68, .35); position: relative; overflow: hidden; }
+.rolar i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--cafe);
+  transform: translateX(-100%);
+  animation: correr 2.6s ease-in-out infinite;
+}
+@keyframes correr {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
+}
+
+/* ========================= SERVIÇOS ========================= */
+
+#servicos { position: relative; z-index: 2; padding: 7rem 0 6rem; background: var(--creme); }
+
+.grade-servicos {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.4rem;
+}
+
+.servico {
+  background: #fffdf9;
+  border: 1px solid rgba(74, 42, 12, .12);
+  border-radius: 20px;
+  padding: 2.4rem 1.9rem 2.2rem;
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+.servico:hover {
+  transform: translateY(-6px);
+  border-color: rgba(74, 42, 12, .3);
+  box-shadow: 0 22px 48px rgba(74, 42, 12, .12);
+}
+.servico .icone { width: 58px; height: 58px; color: var(--cafe); margin-bottom: 1.5rem; }
+.servico h3 { font-family: var(--serif); font-weight: 400; font-size: 1.42rem; margin-bottom: .7rem; }
+.servico p { font-size: .95rem; line-height: 1.72; color: var(--tinta-suave); }
+
+/* ==================== O OLHAR (seção-assinatura) ==================== */
+
+#olhar {
+  position: relative;
+  z-index: 2;
+  padding: 7rem 0 5.5rem;
+  background: linear-gradient(180deg, var(--cafe-fundo), #241505 60%, var(--cafe-fundo));
+  color: #f2e7d8;
+}
+#olhar .etiqueta { color: #c39272; }
+#olhar .secao-texto { color: rgba(242, 231, 216, .72); }
+#olhar .titulo-secao em {
+  background: linear-gradient(96deg, #c39272, #f0dcc6 48%, #c39272);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.olhar-bloco {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.olho-palco { display: flex; justify-content: center; }
+#olho { width: 100%; max-width: 560px; height: auto; overflow: visible; }
+
+#olho .lid {
+  fill: none;
+  stroke: #1a0e05;
+  stroke-width: 4.5;
+  stroke-linecap: round;
+}
+#olho .lid.baixo { stroke-width: 2; stroke: rgba(26, 14, 5, .62); }
+
+/* o fio é desenhado pelo JS; a espessura e a cor vêm de lá, aqui fica só o
+   que é igual pra todos */
+#fios-cilios path { fill: none; stroke-linecap: round; }
+
+.tecnicas { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: 2rem; }
+.tecnica {
+  font-family: var(--sans);
+  font-size: .82rem;
+  letter-spacing: .06em;
+  color: rgba(242, 231, 216, .78);
+  background: transparent;
+  border: 1px solid rgba(195, 146, 114, .38);
+  border-radius: 999px;
+  padding: .62rem 1.15rem;
+  cursor: pointer;
+  transition: background .3s ease, color .3s ease, border-color .3s ease, transform .3s ease;
+}
+.tecnica:hover { border-color: #c39272; transform: translateY(-2px); }
+.tecnica.ativa {
+  background: linear-gradient(140deg, #c39272, #e6cbb0);
+  border-color: transparent;
+  color: #2a1608;
+  font-weight: 500;
+}
+
+.tecnica-texto h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  margin-bottom: .9rem;
+}
+.tecnica-texto p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(242, 231, 216, .78);
+  max-width: 44ch;
+  margin-bottom: 1.9rem;
+  min-height: 5.6em;   /* trava a altura: sem isto o botão pula a cada troca */
+}
+#olhar .btn-principal {
+  background: linear-gradient(140deg, #c39272, #e6cbb0);
+  color: #2a1608;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .3);
+}
+
+.aviso {
+  max-width: 700px;
+  margin: 3.4rem auto 0;
+  padding: 0 6vw;
+  text-align: center;
+  font-size: .83rem;
+  line-height: 1.75;
+  color: rgba(242, 231, 216, .5);
+}
+
+/* ==================== GALERIA ==================== */
+
+#galeria { position: relative; z-index: 2; background: var(--creme-claro); overflow: hidden; }
+
+.trilho { height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.trilho-interno { display: flex; align-items: center; gap: 2.4rem; padding: 0 6vw; will-change: transform; }
+
+.painel { flex: none; }
+.painel-abre { width: min(78vw, 420px); }
+.painel-abre p { margin-top: 1.3rem; font-size: 1rem; line-height: 1.7; color: var(--tinta-suave); max-width: 32ch; }
+.painel-abre .seta { width: 110px; margin-top: 2rem; color: var(--cafe-claro); }
+
+.painel-foto {
+  position: relative;
+  width: min(64vw, 300px);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 52px rgba(74, 42, 12, .16);
+}
+.painel-foto img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+/* véu quente e leve: estas fotos são boas, então o véu só amarra a paleta,
+   ao contrário dos sites onde ele precisava salvar a foto */
+.painel-foto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(200deg, rgba(74, 42, 12, .1), rgba(28, 16, 8, .05) 45%, rgba(28, 16, 8, .72));
+}
+.painel-foto figcaption {
+  position: absolute;
+  left: 1.3rem; right: 1.3rem; bottom: 1.2rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  color: #f7f1e6;
+}
+.painel-foto figcaption strong { font-family: var(--serif); font-weight: 400; font-size: 1.14rem; }
+.painel-foto figcaption span {
+  font-size: .7rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(247, 241, 230, .72);
+}
+
+/* ==================== QUEM FAZ ==================== */
+
+#quem {
+  position: relative;
+  z-index: 2;
+  padding: 7rem 6vw 6.5rem;
+  background: var(--nude);
+}
+
+.duo {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  /* pelo topo, e não pelo centro: a Kellin tem uma linha a mais (o papel), e
+     centralizando as duas os círculos ficavam em alturas diferentes */
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(1.5rem, 5vw, 4rem);
+}
+
+.pessoa { text-align: center; flex: 1; max-width: 300px; }
+.pessoa .inicial {
+  display: grid;
+  place-items: center;
+  width: 92px; height: 92px;
+  margin: 0 auto 1.3rem;
+  border-radius: 50%;
+  border: 1px solid rgba(74, 42, 12, .34);
+  font-family: var(--serif);
+  font-size: 2.3rem;
+  color: var(--cafe);
+  background: rgba(255, 253, 249, .5);
+}
+.pessoa h3 { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; margin-bottom: .3rem; }
+.pessoa .papel {
+  font-size: .74rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--cafe-claro);
+  margin-bottom: .5rem;
+}
+.pessoa a { font-size: .92rem; color: var(--tinta-suave); border-bottom: 1px solid transparent; transition: border-color .3s ease, color .3s ease; }
+.pessoa a:hover { color: var(--cafe); border-color: var(--cafe); }
+
+.duo-e {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  color: rgba(74, 42, 12, .4);
+  flex: none;
+  /* o "&" fica na altura dos círculos, não no topo do bloco */
+  margin-top: 1.4rem;
+}
+
+/* ==================== CONTATO ==================== */
+
+#contato {
+  position: relative;
+  z-index: 2;
+  padding: 7rem 6vw;
+  background: var(--cafe-escuro);
+  color: #f2e7d8;
+}
+
+.contato-caixa { max-width: 780px; margin: 0 auto; text-align: center; }
+.contato-caixa h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.3rem, 5.4vw, 4rem);
+  line-height: 1.08;
+}
+#contato h2 em {
+  background: linear-gradient(96deg, #c39272, #f0dcc6 48%, #c39272);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.contato-caixa > p { margin-top: 1.4rem; font-size: 1.05rem; line-height: 1.75; color: rgba(242, 231, 216, .78); }
+.contato-acoes { margin-top: 2.6rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+#contato .btn-principal { background: linear-gradient(140deg, #c39272, #e6cbb0); color: #2a1608; }
+#contato .btn-vazado { border-color: rgba(242, 231, 216, .34); color: #f2e7d8; }
+#contato .btn-vazado:hover { background: #f2e7d8; color: var(--cafe-escuro); border-color: #f2e7d8; }
+.contato-nota { display: block; margin-top: 2rem; font-size: .84rem; color: rgba(242, 231, 216, .55); }
+
+/* ==================== RODAPÉ ==================== */
+
+footer {
+  position: relative;
+  z-index: 2;
+  background: var(--cafe-fundo);
+  color: rgba(242, 231, 216, .55);
+  padding: 2.4rem 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .74rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+footer a { color: #c39272; }
+
+/* ==================== RESPONSIVO ==================== */
+
+@media (max-width: 980px) {
+  .olhar-bloco { grid-template-columns: 1fr; }
+  .olho-palco { order: -1; }
+  .tecnica-texto p { min-height: 0; }
+  .tecnica-texto { text-align: center; }
+  .tecnicas { justify-content: center; }
+}
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  .nav-marca em { display: none; }
+  .nav-marca span { font-size: .92rem; }
+  #nav { padding-inline: 4vw; gap: .8rem; }
+  .btn-nav { padding: .58rem 1.2rem; }
+
+  .etiqueta { font-size: .64rem; letter-spacing: .2em; }
+
+  #inicio { padding-top: 7rem; min-height: 92svh; }
+  /* em flex, o 3º dado sobrava na linha e era cortado na borda; em grade de
+     duas colunas ele desce inteiro pra segunda linha */
+  .hero-dados { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1.2rem; }
+  .hero-dados strong { font-size: 1.45rem; }
+  .rolar { display: none; }
+
+  .hero-conteudo::before {
+    left: -20%;
+    width: 140%;
+    background: radial-gradient(64% 50% at 50% 48%, rgba(250, 246, 239, .94), rgba(250, 246, 239, 0) 74%);
+  }
+
+  #servicos, #olhar, #quem, #contato { padding-top: 5rem; padding-bottom: 4.6rem; }
+
+  .trilho {
+    height: auto;
+    padding: 5rem 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 6vw;
+    -webkit-overflow-scrolling: touch;
+  }
+  .trilho::-webkit-scrollbar { display: none; }
+  .trilho-interno { gap: 1.2rem; }
+  .painel { scroll-snap-align: center; }
+  .painel-abre { width: 82vw; scroll-snap-align: start; }
+  .painel-foto { width: 68vw; }
+
+  /* as duas profissionais empilham, e o "&" vira separador horizontal */
+  .duo { flex-direction: column; gap: 1.6rem; }
+  .duo-e { font-size: 1.8rem; }
+
+  .hero-acoes .btn-principal,
+  .hero-acoes .btn-vazado,
+  .contato-acoes .btn-principal,
+  .contato-acoes .btn-vazado { width: 100%; text-align: center; }
+
+  footer { flex-direction: column; text-align: center; gap: .6rem; }
+}
+
+/* Cortar só o que se repete sozinho pra sempre. O piscar do olho e o desenho
+   dos fios continuam: são o conteúdo da seção, não enfeite — mas ficam mais
+   lentos e sem reação ao ponteiro (tratado no JS). */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rolar i::after { animation: none; opacity: .5; transform: none; }
+  .servico:hover { transform: none; }
+  .btn-principal:hover, .btn-nav:hover, .tecnica:hover { transform: none; }
+}

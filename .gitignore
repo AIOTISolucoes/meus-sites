@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Segredos e configuracoes locais
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+**/.credenciais-*.json
+*.key
+*.key.pub
+ssh-key-*
+
+# Claude/Codex local
+.claude/settings.local.json
+.codex-*/
+
+# Dependencias e artefatos
+node_modules/
+test-results/
+playwright-report/
+qa/
+evidencias/
+.tmp_*
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+

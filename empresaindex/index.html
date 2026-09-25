@@ -1,0 +1,2578 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="icon" type="image/png" href="assets/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="shortcut icon" href="assets/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="MyWebSite" />
+<link rel="manifest" href="assets/site.webmanifest" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AIOTI · Soluções Industriais · Fortaleza CE</title>
+<meta name="description" content="AIOTI Soluções Industriais em Fortaleza-CE. Projetos industriais, automação, IoT, monitoramento em nuvem, retrofit e soluções para indústria e energia em todo o Nordeste."/>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;300;400;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --g0:#020804;
+  --g1:#07130a;
+  --g2:#0b1d0d;
+  --green:#6bd34b;
+  --green-mid:#58bf39;
+  --green-bright:#90f06f;
+  --green-soft:#a9f78d;
+  --green-deep:#2d8a24;
+  --border:rgba(107,211,75,0.18);
+  --border-b:rgba(107,211,75,0.42);
+  --text:#e8f7e3;
+  --dim:#8bc57a;
+  --mono:'JetBrains Mono',monospace;
+  --head:'Exo 2',sans-serif;
+  --max:1100px;
+  --glow-1:0 0 10px rgba(107,211,75,.35);
+  --glow-2:0 0 24px rgba(107,211,75,.22);
+  --glow-3:0 0 46px rgba(107,211,75,.14);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+section[id],div[id]{scroll-margin-top:90px;}
+body{
+  background:
+    radial-gradient(circle at top right, rgba(107,211,75,.05), transparent 30%),
+    radial-gradient(circle at bottom left, rgba(107,211,75,.04), transparent 28%),
+    var(--g0);
+  color:var(--text);
+  font-family:var(--head);
+  overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit;}
+h1,h2,h3,p,summary,li,span{
+  word-break:normal;
+  overflow-wrap:normal;
+  hyphens:none;
+}
+h1,h2,h3,p{max-width:100%;}
+
+/* ─ CURSOR ─ */
+#cur{
+  position:fixed;width:10px;height:10px;background:var(--green);border-radius:50%;
+  pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
+  box-shadow:0 0 12px var(--green),0 0 28px rgba(107,211,75,.35);
+  transition:width .15s,height .15s,background .2s;
+}
+#curR{
+  position:fixed;width:34px;height:34px;border:1px solid rgba(107,211,75,.45);border-radius:50%;
+  pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,border-color .2s;
+}
+@media(pointer:coarse){#cur,#curR{display:none;}body{cursor:auto;}}
+
+/* ─ INTRO ─ */
+#intro{
+  position:fixed;inset:0;z-index:1000;background:var(--g0);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:22px;
+  animation:introOut .8s cubic-bezier(.7,0,.3,1) 2.6s forwards;
+}
+@keyframes introOut{
+  0%{opacity:1;}
+  60%{opacity:1;transform:scale(1.03);}
+  100%{opacity:0;transform:scale(1.07);pointer-events:none;visibility:hidden;}
+}
+.i-logo{display:flex;align-items:center;gap:16px;}
+.i-brand{
+  width:auto;
+  height:86px;
+  display:block;
+  object-fit:contain;
+  filter:drop-shadow(0 0 18px rgba(107,211,75,.2));
+}
+.i-tag{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.24em;color:var(--dim);text-transform:uppercase;
+  opacity:0;animation:nIn .5s 1.3s ease forwards;
+}
+.i-bar{
+  width:180px;height:1px;background:var(--border);position:relative;overflow:hidden;
+  opacity:0;animation:nIn .3s 1.5s ease forwards;
+}
+.i-bar::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+  animation:bScan 1.1s 1.6s ease forwards;
+}
+@keyframes nIn{from{opacity:0;transform:translateX(-10px);}to{opacity:1;transform:translateX(0);}}
+@keyframes bScan{from{transform:translateX(-100%);}to{transform:translateX(200%);}}
+@keyframes blink{50%{opacity:0;}}
+
+/* ─ BG ─ */
+#bgC{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.48;}
+.grid-bg{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(107,211,75,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(107,211,75,.04) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+.scanline{
+  position:fixed;left:0;top:-2px;width:100%;height:2px;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(107,211,75,.28),transparent);
+  animation:scan 10s linear infinite;
+}
+@keyframes scan{0%{top:-2px;}100%{top:100vh;}}
+
+/* ─ NAV ─ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:68px;padding:0 6vw;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(2,8,4,.9);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(107,211,75,.08);
+}
+.nl{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nl-logo{
+  width:auto;
+  height:38px;
+  display:block;
+  object-fit:contain;
+  filter:drop-shadow(0 0 12px rgba(107,211,75,.16));
+}
+.nlinks{
+  display:flex;
+  gap:32px;
+  list-style:none;
+  align-items:center;
+}
+.nlinks > li{
+  position:relative;
+}
+.nlinks a{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--dim);
+  transition:color .2s,text-shadow .2s;
+  position:relative;
+  background:none;
+  border:none;
+  cursor:pointer;
+}
+.nlinks a::after{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  width:0;
+  height:1px;
+  background:var(--green);
+  transition:width .25s;
+}
+.nlinks a:hover{
+  color:var(--green-soft);
+  text-shadow:var(--glow-1);
+}
+.nlinks a:hover::after{
+  width:100%;
+}
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.ham span{display:block;width:22px;height:1.5px;background:var(--green);transition:.3s;}
+
+/* ─ CONTAINER ─ */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 6vw;position:relative;z-index:2;}
+
+/* ─ HERO ─ */
+#hero{min-height:100vh;display:flex;align-items:center;padding:100px 0 60px;position:relative;overflow:hidden;}
+.hero-badge{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green-soft);
+  padding:6px 13px;border-radius:4px;border:1px solid rgba(107,211,75,.28);
+  background:rgba(107,211,75,.05);display:inline-block;margin-bottom:24px;
+  box-shadow:0 0 0 1px rgba(107,211,75,.03) inset,var(--glow-2);
+}
+.hero-title{
+  font-size:clamp(2.4rem,6.4vw,5.15rem);
+  font-weight:900;line-height:1.03;letter-spacing:-.03em;
+  margin-bottom:22px;min-height:2.3em;
+  max-width:850px;
+  text-wrap:balance;
+}
+.hero-line{display:block;}
+.typed-wrap{display:inline-flex;align-items:flex-end;gap:.02em;flex-wrap:nowrap;}
+.typed-hero{
+  color:#eefbec;
+  display:inline-block;
+  text-shadow:0 0 18px rgba(255,255,255,.06);
+}
+.typed-hero.is-final{
+  color:var(--green-bright);
+  text-shadow:
+    0 0 10px rgba(107,211,75,.65),
+    0 0 26px rgba(107,211,75,.42),
+    0 0 58px rgba(107,211,75,.26);
+}
+.hero-punct{
+  display:inline-block;
+  color:#eefbec;
+  text-shadow:0 0 18px rgba(255,255,255,.06);
+  min-width:.22em;
+}
+.caret{
+  display:inline-block;width:.08em;height:.9em;margin-left:.08em;vertical-align:-.08em;
+  background:var(--green-soft);
+  box-shadow:0 0 10px rgba(107,211,75,.7),0 0 30px rgba(107,211,75,.3);
+  animation:blink .8s steps(1) infinite;
+}
+.hero-sub{
+  font-size:clamp(.95rem,1.8vw,1.15rem);
+  font-weight:300;line-height:1.75;color:var(--dim);
+  max-width:620px;margin-bottom:32px;
+}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px;}
+.btn-p{
+  padding:13px 28px;border-radius:8px;background:linear-gradient(135deg,var(--green-bright),var(--green-mid));
+  color:#061106;font-family:var(--head);font-weight:800;font-size:.88rem;letter-spacing:.07em;text-transform:uppercase;
+  border:none;cursor:pointer;transition:.2s;box-shadow:0 4px 26px rgba(107,211,75,.28);
+  position:relative;overflow:hidden;
+}
+.btn-p::after{
+  content:'';position:absolute;top:0;left:-100%;width:55%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
+  transform:skewX(-20deg);animation:shim 3s ease-in-out infinite;
+}
+@keyframes shim{0%{left:-100%;}60%,100%{left:150%;}}
+.btn-p:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 36px rgba(107,211,75,.34),0 0 26px rgba(107,211,75,.16);
+}
+.btn-g{
+  padding:13px 28px;border-radius:8px;border:1px solid var(--border-b);color:var(--green-soft);
+  font-family:var(--head);font-weight:600;font-size:.88rem;letter-spacing:.07em;text-transform:uppercase;
+  background:rgba(107,211,75,.04);transition:.2s;
+}
+.btn-g:hover{background:rgba(107,211,75,.1);box-shadow:var(--glow-2);}
+.hero-stats{display:flex;gap:36px;flex-wrap:wrap;}
+.hs{display:flex;flex-direction:column;gap:3px;}
+.hs-n{
+  font-size:1.9rem;font-weight:800;color:var(--green-bright);
+  text-shadow:0 0 20px rgba(107,211,75,.24),0 0 40px rgba(107,211,75,.1);
+}
+.hs-l{font-family:var(--mono);font-size:.62rem;letter-spacing:.17em;text-transform:uppercase;color:var(--dim);}
+.hero-vis{position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:min(480px,50vw);opacity:.42;pointer-events:none;filter:drop-shadow(0 0 18px rgba(107,211,75,.08));}
+.glow-green{
+  color:var(--green-bright)!important;
+  text-shadow:
+    0 0 10px rgba(107,211,75,.6),
+    0 0 24px rgba(107,211,75,.36),
+    0 0 48px rgba(107,211,75,.18);
+}
+
+/* ─ STRIP ─ */
+.fstrip{
+  display:flex;justify-content:space-around;flex-wrap:wrap;gap:16px;padding:48px 6vw;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:rgba(4,18,7,.48);position:relative;z-index:2;
+}
+.fi{display:flex;align-items:center;gap:12px;flex:1;min-width:160px;}
+.fd{
+  width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;
+  box-shadow:0 0 8px rgba(107,211,75,.8),0 0 24px rgba(107,211,75,.22);
+  animation:fp 2s ease-in-out infinite;
+}
+.fi:nth-child(2) .fd{animation-delay:.5s;}
+.fi:nth-child(3) .fd{animation-delay:1s;}
+.fi:nth-child(4) .fd{animation-delay:1.5s;}
+@keyframes fp{
+  0%,100%{box-shadow:0 0 6px rgba(107,211,75,.55);}
+  50%{box-shadow:0 0 18px rgba(107,211,75,.95),0 0 36px rgba(107,211,75,.28);}
+}
+.fi p{font-size:.78rem;font-weight:600;letter-spacing:.03em;color:#ebf8e7;}
+
+/* ─ DIVIDER ─ */
+.hd{
+  height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);
+  margin:0 6vw;position:relative;z-index:2;
+}
+
+/* ─ SECTIONS ─ */
+.sec{padding:80px 0;position:relative;z-index:2;transition:opacity .65s ease,transform .65s ease;}
+.sec.is-past{opacity:.25;transform:translateY(-22px);}
+.slabel{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.24em;color:var(--green-bright);text-transform:uppercase;
+  margin-bottom:10px;display:flex;align-items:center;gap:10px;
+  text-shadow:0 0 18px rgba(107,211,75,.14);
+}
+.slabel::before{content:'';display:block;width:28px;height:1px;background:var(--green);}
+.stitle{
+  font-size:clamp(1.7rem,3.8vw,2.8rem);
+  font-weight:800;
+  line-height:1.15;
+  margin-bottom:14px;
+  max-width:860px;
+  text-wrap:balance;
+}
+.stitle.center{margin-left:auto;margin-right:auto;}
+.stitle span{
+  color:var(--green-bright);
+  text-shadow:0 0 10px rgba(107,211,75,.45),0 0 22px rgba(107,211,75,.16);
+}
+.sdesc{
+  font-size:.95rem;
+  line-height:1.75;
+  color:var(--dim);
+  max-width:620px;
+  font-weight:300;
+}
+.sdesc.center{margin-left:auto;margin-right:auto;}
+
+/* ─ SOBRE ─ */
+.sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+.sobre-text{display:flex;flex-direction:column;gap:18px;}
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:6px;}
+.pill{
+  font-family:var(--mono);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:6px 13px;border-radius:4px;border:1px solid var(--border);color:var(--dim);
+  background:rgba(107,211,75,.04);transition:.2s;
+}
+.pill:hover{border-color:var(--border-b);color:var(--green-soft);box-shadow:var(--glow-2);}
+.mini-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.mc{
+  padding:20px;border-radius:10px;border:1px solid var(--border);
+  background:rgba(6,18,8,.76);transition:.3s;
+}
+.mc:hover{
+  border-color:var(--border-b);transform:translateY(-3px);
+  box-shadow:0 8px 26px rgba(107,211,75,.07),0 0 22px rgba(107,211,75,.04);
+}
+.mc-title{font-weight:700;font-size:.9rem;color:#fff;margin-bottom:6px;}
+.mc-desc{font-size:.78rem;line-height:1.6;color:var(--dim);}
+
+/* ─ CARDS GRID ─ */
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.cards2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.card{
+  border:1px solid var(--border);border-radius:12px;background:rgba(6,18,8,.78);
+  padding:28px 24px;position:relative;overflow:hidden;transition:.3s;backdrop-filter:blur(8px);
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--green-mid),transparent);opacity:0;transition:.3s;
+}
+.card:hover{
+  border-color:rgba(107,211,75,.34);transform:translateY(-4px);
+  box-shadow:0 14px 44px rgba(0,0,0,.5),0 0 36px rgba(107,211,75,.06);
+}
+.card:hover::before{opacity:1;}
+.card-num{
+  font-family:var(--mono);font-size:.62rem;color:var(--green-bright);
+  letter-spacing:.2em;margin-bottom:16px;opacity:.75;text-shadow:var(--glow-1);
+}
+.card-title{font-size:1.05rem;font-weight:700;margin-bottom:8px;color:#fff;}
+.card-desc{font-size:.84rem;line-height:1.7;color:var(--dim);}
+.card-tag{
+  display:inline-block;margin-top:14px;font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--green-soft);padding:4px 9px;border-radius:3px;
+  border:1px solid rgba(107,211,75,.2);background:rgba(107,211,75,.04);
+}
+.card ul{list-style:none;margin-top:12px;}
+.card ul li{
+  font-size:.82rem;color:var(--dim);padding:4px 0 4px 14px;position:relative;line-height:1.5;
+}
+.card ul li::before{
+  content:'';position:absolute;left:0;top:.7em;width:5px;height:5px;border-radius:50%;
+  background:var(--green);transform:translateY(-50%);
+  box-shadow:0 0 10px rgba(107,211,75,.5);
+}
+
+/* ─ DIFERENCIAIS ─ */
+.dif-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.dif{
+  padding:22px 18px;border-radius:10px;border:1px solid var(--border);
+  background:rgba(6,18,8,.76);text-align:center;transition:.3s;
+}
+.dif:hover{border-color:var(--border-b);transform:translateY(-3px);box-shadow:var(--glow-2);}
+.dif-val{
+  font-size:1.7rem;font-weight:900;color:var(--green-bright);
+  text-shadow:0 0 20px rgba(107,211,75,.34),0 0 42px rgba(107,211,75,.14);margin-bottom:4px;
+}
+.dif-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);}
+.dif-desc{font-size:.78rem;color:var(--dim);margin-top:6px;line-height:1.5;}
+
+/* ─ LOGOS ─ */
+.logos-panel{
+  background:
+    linear-gradient(180deg, rgba(8,26,12,.78), rgba(6,18,8,.78)),
+    radial-gradient(circle at top center, rgba(107,211,75,.08), transparent 60%);
+  border:1px solid rgba(107,211,75,.16);
+  border-radius:22px;
+  padding:34px 26px 30px;
+  box-shadow:
+    0 0 0 1px rgba(107,211,75,.03) inset,
+    0 18px 54px rgba(0,0,0,.32),
+    0 0 32px rgba(107,211,75,.04);
+}
+
+/* ─ CARROSSEL HORIZONTAL ─ */
+.partners-marquee{
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  margin-bottom:60px;
+  mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.partners-track{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  width:max-content;
+  animation:partnersScroll 28s linear infinite;
+  will-change:transform;
+}
+.partners-track--clients{
+  animation-duration:34s;
+}
+.partners-marquee:hover .partners-track{
+  animation-play-state:paused;
+}
+@keyframes partnersScroll{
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
+}
+.partner-chip{
+  flex:0 0 auto;
+  width:160px;
+  height:84px;
+  padding:14px 18px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:
+    0 0 18px rgba(255,255,255,.05),
+    0 0 22px rgba(107,211,75,.10),
+    inset 0 0 12px rgba(255,255,255,.03);
+  transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+.partner-chip:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,255,255,.26);
+  box-shadow:
+    0 0 22px rgba(255,255,255,.08),
+    0 0 30px rgba(107,211,75,.16),
+    inset 0 0 14px rgba(255,255,255,.05);
+}
+.partner-chip img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+.partner-chip--zoom img{
+  transform:scale(1.7);
+}
+
+/* ─ PROCESSO ─ */
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.proc{
+  padding:24px;border-radius:10px;border:1px solid var(--border);
+  background:rgba(6,18,8,.76);text-align:center;transition:.3s;
+}
+.proc:hover{border-color:var(--border-b);transform:translateY(-3px);box-shadow:var(--glow-2);}
+.proc-n{
+  width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--green-bright),var(--green-mid));
+  color:#061106;font-weight:900;font-size:1rem;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;box-shadow:0 4px 20px rgba(107,211,75,.25),0 0 18px rgba(107,211,75,.12);
+}
+.proc h3{font-size:.95rem;font-weight:700;margin-bottom:8px;color:#fff;}
+.proc p{font-size:.8rem;color:var(--dim);line-height:1.6;}
+
+/* ─ SEGMENTOS ─ */
+.seg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+
+/* ─ FAQ ─ */
+.faq-wrap{display:flex;flex-direction:column;gap:10px;margin-top:28px;}
+details{
+  background:rgba(6,18,8,.76);border:1px solid var(--border);border-radius:10px;padding:16px 20px;transition:.2s;
+}
+details:hover{border-color:rgba(107,211,75,.28);}
+details[open]{border-color:rgba(107,211,75,.35);}
+summary{
+  cursor:pointer;font-weight:700;font-size:.92rem;color:var(--text);
+  list-style:none;display:flex;align-items:center;justify-content:space-between;
+}
+summary::after{content:'+';color:var(--green);font-size:1.2rem;font-weight:300;transition:.2s;text-shadow:var(--glow-1);}
+details[open] summary::after{content:'−';}
+details p{margin:12px 0 4px;color:var(--dim);font-size:.88rem;line-height:1.7;}
+
+/* ─ CTA BOX ─ */
+.ctabox{
+  padding:48px 40px;border-radius:16px;border:1px solid var(--border);
+  background:linear-gradient(135deg,rgba(107,211,75,.07),rgba(45,138,36,.08));
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:28px;
+  box-shadow:0 0 0 1px rgba(107,211,75,.03) inset;
+}
+.ctabox h2{font-size:clamp(1.4rem,2.8vw,2.2rem);font-weight:800;max-width:620px;line-height:1.2;}
+.ctabox h2 span{
+  color:var(--green-bright);
+  text-shadow:0 0 10px rgba(107,211,75,.52),0 0 24px rgba(107,211,75,.18);
+}
+.ctabox p{color:var(--dim);margin-top:10px;font-size:.92rem;max-width:540px;}
+.cta-btns{display:flex;gap:12px;flex-wrap:wrap;flex-shrink:0;}
+
+/* ─ CONTATO ─ */
+.contact-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:start;}
+.ci{display:flex;gap:14px;align-items:flex-start;}
+.ci-icon{
+  width:38px;height:38px;flex-shrink:0;border:1px solid var(--border);border-radius:7px;
+  background:rgba(107,211,75,.04);display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:.7rem;color:var(--green-bright);font-weight:700;
+  box-shadow:var(--glow-2);
+}
+.ci-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:3px;}
+.ci-val{font-size:.88rem;font-weight:600;color:var(--text);}
+.ci-val a{color:var(--green-soft);transition:opacity .2s,text-shadow .2s;}
+.ci-val a:hover{opacity:.82;text-shadow:var(--glow-1);}
+
+/* ─ FOOTER ─ */
+footer{
+  position:relative;z-index:2;border-top:1px solid var(--border);padding:36px 6vw;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+  background:rgba(2,8,4,.9);
+}
+.fl{display:flex;align-items:center;gap:10px;}
+.fl-logo{
+  width:auto;
+  height:32px;
+  display:block;
+  object-fit:contain;
+  filter:drop-shadow(0 0 10px rgba(107,211,75,.14));
+}
+.fc{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--dim);}
+.flinks{display:flex;gap:20px;list-style:none;flex-wrap:wrap;}
+.flinks a{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dim);transition:.2s;
+}
+.flinks a:hover{color:var(--green-soft);text-shadow:var(--glow-1);}
+
+/* ─ SCROLL REVEAL POR PALAVRAS ─ */
+.reveal-words{display:block;}
+.reveal-inline{display:inline;}
+.reveal-words .word,
+.reveal-inline .word{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(18px) scale(.98);
+  filter:blur(2px);
+  transition:
+    opacity .45s ease,
+    transform .55s cubic-bezier(.2,.7,.15,1),
+    filter .55s ease;
+  transition-delay:calc(var(--i) * 35ms);
+}
+.reveal-words.is-visible .word,
+.reveal-inline.is-visible .word{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  filter:blur(0);
+}
+.reveal-words.is-past .word,
+.reveal-inline.is-past .word{
+  opacity:.16;
+  transform:translateY(-14px);
+  filter:blur(1px);
+  transition-delay:0ms;
+}
+
+
+
+/* ─ AJUSTES AIOTI PREMIUM / PORTFÓLIO VISUAL ─ */
+:root{
+  --surface:#0f1712;
+  --surface-2:#121d16;
+  --surface-3:#f3f6f0;
+  --ink:#101810;
+  --muted-light:#5c6b5e;
+  --line-soft:rgba(255,255,255,.08);
+}
+body{
+  background:
+    radial-gradient(circle at top right, rgba(107,211,75,.035), transparent 30%),
+    linear-gradient(180deg,#060b07 0%, #0a100c 45%, #070c08 100%);
+}
+#bgC{opacity:.24;}
+.grid-bg{opacity:.38;background-size:72px 72px;}
+.scanline{opacity:.35;}
+nav{background:rgba(6,11,7,.86);border-bottom:1px solid rgba(255,255,255,.07);}
+.hero-badge,.pill,.card-tag{box-shadow:none;}
+.typed-hero.is-final,.glow-green,.stitle span,.ctabox h2 span{
+  text-shadow:0 0 10px rgba(107,211,75,.28),0 0 24px rgba(107,211,75,.10);
+}
+.sec{padding:92px 0;}
+.sec.is-past{opacity:.55;transform:translateY(-10px);}
+#hero{
+  min-height:92vh;
+  background:
+    linear-gradient(90deg, rgba(6,11,7,.95) 0%, rgba(6,11,7,.78) 48%, rgba(6,11,7,.35) 100%),
+    radial-gradient(circle at 82% 45%, rgba(107,211,75,.13), transparent 35%);
+}
+.hero-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:54px;align-items:center;}
+.hero-title{max-width:720px;}
+.hero-sub{color:#b9cdb4;max-width:560px;}
+.hero-stats{gap:14px;}
+.hs{
+  min-width:122px;
+  padding:14px 16px;
+  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));
+  border-radius:16px;
+}
+.hs-n{font-size:1.35rem;text-shadow:none;}
+.hs-l{color:#a9bba6;letter-spacing:.12em;}
+.hero-visual-card{
+  position:relative;
+  border-radius:30px;
+  padding:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.035));
+  box-shadow:0 26px 80px rgba(0,0,0,.42),0 0 34px rgba(107,211,75,.06);
+  overflow:hidden;
+}
+.hero-visual-card::before{
+  content:'';position:absolute;inset:-40%;
+  background:radial-gradient(circle,rgba(107,211,75,.12),transparent 42%);
+  pointer-events:none;
+}
+.hero-photo{
+  position:relative;
+  height:420px;
+  border-radius:22px;
+  overflow:hidden;
+  background:#0f1712;
+}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9) contrast(1.02);}
+.hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(3,8,4,.62),transparent 48%);}
+.hero-floating-panel{
+  position:absolute;left:28px;right:28px;bottom:28px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(7,12,8,.74);
+  backdrop-filter:blur(14px);
+  padding:18px;
+  z-index:2;
+}
+.panel-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#bdd8b6;}
+.panel-dot{width:8px;height:8px;border-radius:50%;background:var(--green-bright);box-shadow:0 0 12px rgba(107,211,75,.55);}
+.panel-bars{display:grid;gap:8px;}
+.panel-bars span{height:8px;border-radius:99px;background:linear-gradient(90deg,var(--green-mid),rgba(255,255,255,.13));opacity:.82;}
+.panel-bars span:nth-child(2){width:76%;}.panel-bars span:nth-child(3){width:52%;}
+.fstrip{background:#0f1712;border-color:rgba(255,255,255,.07);}
+.fi p{color:#dce9d9;}
+.hd{opacity:.55;}
+.card,.mc,.dif,.proc,details{
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025));
+  border-color:rgba(255,255,255,.08);
+  box-shadow:none;
+}
+.card:hover,.mc:hover,.dif:hover,.proc:hover{border-color:rgba(107,211,75,.26);box-shadow:0 18px 50px rgba(0,0,0,.30),0 0 24px rgba(107,211,75,.045);}
+.sdesc,.card-desc,.mc-desc,.dif-desc,.proc p,details p{color:#a9bba6;}
+
+.visual-section{
+  background:#f3f6f0;
+  color:var(--ink);
+  overflow:hidden;
+}
+.visual-section .slabel{color:#2f6b29;text-shadow:none;}
+.visual-section .slabel::before{background:#2f6b29;}
+.visual-section .stitle{color:#111b13;}
+.visual-section .stitle span{color:#2d8a24;text-shadow:none;}
+.visual-section .sdesc{color:#5c6b5e;}
+.projects-head{display:flex;align-items:flex-end;justify-content:space-between;gap:34px;margin-bottom:46px;}
+.projects-head .sdesc{max-width:500px;}
+.projects-title{
+  font-size:clamp(2.1rem,4.6vw,4.25rem);
+  line-height:1.02;
+  letter-spacing:-.05em;
+  font-weight:900;
+  color:#111b13;
+  margin-top:8px;
+  max-width:780px;
+}
+.projects-title span{
+  color:#2d8a24;
+  text-shadow:none;
+}
+.project-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;}
+.project-stack{display:grid;gap:22px;}
+.project-card{
+  position:relative;
+  min-height:340px;
+  border-radius:26px;
+  overflow:hidden;
+  background:#dce4d8;
+  border:1px solid rgba(16,24,16,.08);
+  box-shadow:0 18px 50px rgba(18,28,18,.10);
+}
+.project-card.small{min-height:240px;}
+.project-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease;}
+.project-card:hover img{transform:scale(1.045);}
+.project-card::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,11,7,.76) 0%,rgba(6,11,7,.22) 55%,transparent 100%);}
+.project-info{position:absolute;left:22px;right:22px;bottom:22px;z-index:2;color:#fff;}
+.project-kicker{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--green-soft);margin-bottom:7px;}
+.project-info h3{font-size:1.2rem;margin-bottom:5px;}
+.project-info p{font-size:.84rem;line-height:1.55;color:#d6e5d2;max-width:520px;}
+.project-note{
+  margin-top:24px;
+  padding:18px 20px;
+  border-radius:18px;
+  background:#fff;
+  border:1px solid rgba(16,24,16,.08);
+  color:#5c6b5e;
+  font-size:.9rem;
+  line-height:1.7;
+}
+.project-note strong{color:#162016;}
+.services-visual .card{padding:0;overflow:hidden;}
+.service-img{height:190px;background:#121d16;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.08);}
+.service-img img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.95) contrast(1.02);transition:transform .45s ease;}
+.card:hover .service-img img{transform:scale(1.045);}
+.service-content{padding:25px 24px 28px;}
+.light-band{background:#f3f6f0;color:#111b13;}
+.light-band .slabel{color:#2f6b29;text-shadow:none;}.light-band .slabel::before{background:#2f6b29;}.light-band .stitle span{color:#2d8a24;text-shadow:none;}.light-band .sdesc{color:#5c6b5e;}
+.light-band .proc,.light-band .dif,.light-band .card{background:#fff;border-color:rgba(16,24,16,.08);box-shadow:0 14px 40px rgba(18,28,18,.07);}
+.light-band .proc h3,.light-band .card-title{color:#162016;}.light-band .proc p,.light-band .card-desc,.light-band .dif-desc{color:#5c6b5e;}
+.light-band .dif-label{color:#6b786b;}.light-band .dif-val{color:#2d8a24;text-shadow:none;}
+
+@media(max-width:960px){
+  .hero-layout{grid-template-columns:1fr;gap:34px;}
+  .hero-visual-card{max-width:620px;}
+  .project-grid{grid-template-columns:1fr;}
+  .projects-head{display:block;}
+  .projects-head .sdesc{margin-top:12px;}
+  .projects-title{font-size:clamp(2rem,10vw,3.2rem);}
+}
+@media(max-width:640px){
+  #hero{padding-top:96px;}
+  .hero-photo{height:310px;}
+  .hero-floating-panel{left:18px;right:18px;bottom:18px;}
+  .hs{min-width:calc(50% - 7px);}
+  .project-card,.project-card.small{min-height:280px;}
+  .sec{padding:68px 0;}
+}
+
+/* ─ MOBILE ─ */
+@media(max-width:960px){
+  .sobre-grid{grid-template-columns:1fr;}
+  .cards3{grid-template-columns:repeat(2,1fr);}
+  .dif-grid{grid-template-columns:repeat(2,1fr);}
+  .proc-grid{grid-template-columns:repeat(2,1fr);}
+  .seg-grid{grid-template-columns:1fr 1fr;}
+  .hero-vis{display:none;}
+  .contact-grid{grid-template-columns:1fr;}
+  .ctabox{flex-direction:column;}
+  .partner-chip{
+    min-width:168px;
+    height:86px;
+  }
+}
+@media(max-width:640px){
+  .ham{display:flex;}
+  .nlinks{
+    position:fixed;top:68px;left:0;right:0;background:rgba(2,8,4,.97);
+    flex-direction:column;align-items:center;padding:26px;gap:20px;
+    border-bottom:1px solid var(--border);transform:translateY(-110%);opacity:0;
+    transition:.32s cubic-bezier(.4,0,.2,1);backdrop-filter:blur(16px);
+  }
+  .nlinks.open{transform:translateY(0);opacity:1;}
+  .nlinks > li{width:100%;text-align:center;}
+  .cards3,.cards2{grid-template-columns:1fr;}
+  .dif-grid{grid-template-columns:1fr 1fr;}
+  .proc-grid{grid-template-columns:1fr 1fr;}
+  .seg-grid{grid-template-columns:1fr;}
+  .mini-cards{grid-template-columns:1fr;}
+  footer{flex-direction:column;align-items:flex-start;}
+  .fstrip{flex-direction:column;gap:12px;}
+  .hero-btns{flex-direction:column;}
+  .btn-p,.btn-g{width:100%;justify-content:center;text-align:center;}
+  .ctabox{padding:28px 20px;}
+  .cta-btns{width:100%;}
+  .hero-title{min-height:2.8em;}
+  .stitle{text-wrap:pretty;}
+  .i-brand{height:68px;}
+  .nl-logo{height:31px;}
+  .fl-logo{height:28px;}
+  .logos-panel{padding:24px 16px 22px;}
+
+  .partners-marquee{
+    margin-bottom:44px;
+  }
+  .partners-track{
+    gap:14px;
+  }
+  .partner-chip{
+    min-width:150px;
+    height:78px;
+    padding:12px 16px;
+    border-radius:18px;
+  }
+  .partner-chip img{
+    max-width:118px;
+    max-height:42px;
+  }
+  .partner-chip--wide img{max-width:126px;max-height:38px;}
+  .partner-chip--tall img{max-width:110px;max-height:48px;}
+  .partner-chip--small img{max-width:108px;max-height:36px;}
+}
+@media(max-width:420px){
+  .proc-grid{grid-template-columns:1fr;}
+  .dif-grid{grid-template-columns:1fr;}
+}
+
+
+/* ─ AJUSTES AIOTI: FUNDO CLARO + MENU FUNCIONAL ─ */
+.light-band, .visual-section{
+  background:#f7faf4;
+  color:#111b13;
+}
+.light-band + .hd, .visual-section + .hd{display:none;}
+.light-band .stitle, .light-band h2, .light-band h3{color:#111b13;}
+.light-band .slabel{color:#2f6b29;text-shadow:none;}
+.light-band .slabel::before{background:#2f6b29;}
+.light-band .stitle span{color:#2d8a24;text-shadow:none;}
+.light-band .sdesc, .light-band p, .light-band .card-desc, .light-band .mc-desc, .light-band .dif-desc, .light-band .proc p, .light-band details p{color:#5c6b5e;}
+.light-band .card, .light-band .mc, .light-band .dif, .light-band .proc, .light-band details{
+  background:#fff;
+  border-color:rgba(17,27,19,.09);
+  box-shadow:0 14px 36px rgba(18,28,18,.07);
+}
+.light-band .card-title, .light-band .mc-title, .light-band summary, .light-band .ci-val{color:#162016;}
+.light-band .card ul li{color:#5c6b5e;}
+.light-band .card ul li::before{background:#58bf39;box-shadow:none;}
+.light-band .card-tag, .light-band .pill{
+  color:#2d8a24;
+  border-color:rgba(45,138,36,.18);
+  background:rgba(45,138,36,.06);
+}
+.light-band .ctabox{
+  background:linear-gradient(135deg,#ffffff,#eef7eb);
+  border-color:rgba(45,138,36,.14);
+  box-shadow:0 18px 44px rgba(18,28,18,.08);
+}
+nav.menu-open{background:rgba(2,8,4,.98);}
+@media(max-width:640px){
+  .nlinks{
+    display:flex;
+    pointer-events:none;
+  }
+  .nlinks.open{
+    pointer-events:auto;
+  }
+  .nlinks a{font-size:.82rem;color:#dff4da;}
+}
+
+
+/* ─ AJUSTES V3: HERO CLARO, TÍTULO ESTÁVEL E MOBILE MAIS LIMPO ─ */
+body{
+  background:#f7faf4;
+}
+#bgC{opacity:.08;}
+.grid-bg{opacity:.12;}
+.scanline{display:none;}
+nav{
+  background:rgba(247,250,244,.94)!important;
+  border-bottom:1px solid rgba(17,27,19,.08)!important;
+  box-shadow:0 10px 30px rgba(18,28,18,.05);
+}
+.nlinks a{color:#31512d;}
+.nlinks a:hover{color:#2d8a24;text-shadow:none;}
+.ham span{background:#2d8a24;}
+#hero{
+  min-height:auto;
+  padding:126px 0 82px;
+  background:
+    radial-gradient(circle at 85% 22%, rgba(107,211,75,.16), transparent 34%),
+    linear-gradient(180deg,#ffffff 0%,#f7faf4 100%)!important;
+  color:#111b13;
+}
+#hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(45,138,36,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45,138,36,.055) 1px, transparent 1px);
+  background-size:72px 72px;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.55),transparent 76%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.55),transparent 76%);
+}
+.hero-copy{position:relative;z-index:2;}
+.hero-badge{
+  color:#2f6b29;
+  border-color:rgba(45,138,36,.20);
+  background:rgba(45,138,36,.06);
+  text-shadow:none;
+  box-shadow:none;
+}
+.hero-title{
+  min-height:0!important;
+  color:#111b13;
+}
+.typed-wrap,.typed-static{display:inline!important;}
+.typed-hero,.typed-hero.is-final{
+  color:#2d8a24!important;
+  text-shadow:none!important;
+}
+.hero-punct,.caret{display:none!important;}
+.hero-sub{color:#4e5d50!important;}
+.btn-g{
+  color:#2d8a24;
+  border-color:rgba(45,138,36,.32);
+  background:#fff;
+}
+.btn-g:hover{background:#eef7eb;box-shadow:none;}
+.hero-stats{margin-top:4px;}
+.hs{
+  background:#fff;
+  border-color:rgba(17,27,19,.10);
+  box-shadow:0 14px 38px rgba(18,28,18,.07);
+}
+.hs-n{color:#2d8a24!important;}
+.hs-l{color:#6a7769;}
+.hero-visual-card{
+  background:#fff;
+  border-color:rgba(17,27,19,.10);
+  box-shadow:0 18px 54px rgba(18,28,18,.10);
+}
+.hero-visual-card::before{background:radial-gradient(circle,rgba(107,211,75,.10),transparent 46%);}
+.fstrip{
+  background:#ffffff!important;
+  border-color:rgba(17,27,19,.08)!important;
+}
+.fi p{color:#253225!important;}
+.fd{box-shadow:none;}
+nav.menu-open{background:#ffffff!important;}
+@media(max-width:640px){
+  #hero{padding:112px 0 66px;}
+  .hero-layout{gap:24px;}
+  .hero-badge{
+    display:inline-flex;
+    max-width:100%;
+    white-space:normal;
+    line-height:1.55;
+    letter-spacing:.12em;
+    font-size:.58rem;
+    padding:7px 10px;
+    margin-bottom:18px;
+  }
+  .hero-title{
+    font-size:clamp(2.25rem,12vw,3.45rem);
+    line-height:1.02;
+    letter-spacing:-.045em;
+    margin-bottom:20px;
+  }
+  .hero-sub{font-size:1rem;line-height:1.72;margin-bottom:26px;}
+  .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .hs{min-width:0;padding:18px 16px;}
+  .hs-n{font-size:1.55rem;}
+  .hs-l{font-size:.58rem;letter-spacing:.12em;}
+  .hero-visual-card{display:none;}
+  .nlinks{
+    background:#ffffff!important;
+    border-bottom:1px solid rgba(17,27,19,.08)!important;
+    box-shadow:0 20px 42px rgba(18,28,18,.10);
+  }
+  .nlinks a{color:#213321!important;}
+}
+
+
+
+/* ─ AJUSTES V5: HERO COMERCIAL CLARO + ANIMAÇÃO DE ENTRADA ─ */
+#intro{animation:introOut .55s cubic-bezier(.7,0,.3,1) .85s forwards;}
+#hero.hero-modern{
+  min-height:auto;
+  padding:126px 0 76px;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(107,211,75,.20), transparent 28%),
+    radial-gradient(circle at 92% 18%, rgba(107,211,75,.16), transparent 34%),
+    linear-gradient(180deg,#ffffff 0%,#f7faf4 52%,#eef8eb 100%)!important;
+  color:#101812;
+}
+#hero.hero-modern::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(45,138,36,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45,138,36,.055) 1px, transparent 1px);
+  background-size:74px 74px;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.45),transparent 80%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.45),transparent 80%);
+}
+.hero-shell{
+  position:relative;z-index:2;max-width:920px;padding:54px 0 34px;
+}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;padding:8px 14px;border-radius:999px;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
+  color:#2f6b29;background:rgba(45,138,36,.07);border:1px solid rgba(45,138,36,.18);
+}
+.hero-title-fixed{
+  max-width:860px;min-height:0!important;margin-bottom:22px;color:#111b13!important;
+  font-size:clamp(2.75rem,7vw,5.35rem);line-height:.98;letter-spacing:-.055em;
+  opacity:0;transform:translateY(22px);animation:heroIn .68s cubic-bezier(.2,.7,.15,1) 1.05s forwards;
+}
+.hero-title-fixed span{color:#2d8a24;text-shadow:none;}
+.hero-sub-fixed{
+  max-width:660px;color:#4d5c4f!important;font-size:clamp(1rem,1.8vw,1.22rem);line-height:1.72;margin-bottom:30px;
+}
+.hero-actions{opacity:0;transform:translateY(18px);animation:heroIn .62s cubic-bezier(.2,.7,.15,1) 1.25s forwards;}
+.hero-benefits{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px;max-width:1050px;
+}
+.benefit-card{
+  background:rgba(255,255,255,.86);border:1px solid rgba(17,27,19,.10);border-radius:22px;padding:18px 16px;
+  display:flex;gap:12px;align-items:flex-start;box-shadow:0 16px 42px rgba(18,28,18,.07);
+  opacity:0;transform:translateY(24px);animation:heroIn .58s cubic-bezier(.2,.7,.15,1) forwards;
+}
+.benefit-card:nth-child(1){animation-delay:1.38s}.benefit-card:nth-child(2){animation-delay:1.46s}.benefit-card:nth-child(3){animation-delay:1.54s}.benefit-card:nth-child(4){animation-delay:1.62s}
+.benefit-icon{
+  width:38px;height:38px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+  color:#2d8a24;background:#eef8eb;border:1px solid rgba(45,138,36,.16);font-weight:900;font-size:1.05rem;
+}
+.benefit-card h3{font-size:.88rem;line-height:1.18;color:#162016;text-transform:uppercase;letter-spacing:.035em;margin-bottom:5px;}
+.benefit-card p{font-size:.82rem;line-height:1.45;color:#5c6b5e;}
+.solutions-strip{position:relative;z-index:2;margin-top:34px;}
+.solutions-title{display:flex;align-items:center;gap:18px;margin-bottom:22px;color:#172318;text-align:center;}
+.solutions-title span{height:1px;background:rgba(45,138,36,.24);flex:1;}
+.solutions-title strong{font-size:.88rem;letter-spacing:.12em;text-transform:uppercase;}
+.solutions-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+.solution-card{
+  background:#fff;border:1px solid rgba(17,27,19,.10);border-radius:20px;padding:20px 14px;text-align:center;
+  box-shadow:0 18px 46px rgba(18,28,18,.07);transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  opacity:0;transform:translateY(26px);animation:heroIn .62s cubic-bezier(.2,.7,.15,1) forwards;
+}
+.solution-card:nth-child(1){animation-delay:1.72s}.solution-card:nth-child(2){animation-delay:1.80s}.solution-card:nth-child(3){animation-delay:1.88s}.solution-card:nth-child(4){animation-delay:1.96s}.solution-card:nth-child(5){animation-delay:2.04s}.solution-card:nth-child(6){animation-delay:2.12s}
+.solution-card:hover{transform:translateY(-4px);border-color:rgba(45,138,36,.24);box-shadow:0 22px 58px rgba(18,28,18,.10);}
+.solution-icon{font-size:1.65rem;color:#2d8a24;margin-bottom:12px;line-height:1;}
+.solution-card h3{font-size:.84rem;line-height:1.2;text-transform:uppercase;color:#172318;margin-bottom:10px;}
+.solution-card p{font-size:.76rem;line-height:1.48;color:#647064;}
+@keyframes heroIn{to{opacity:1;transform:translateY(0);}}
+/* Remove o antigo espaço de imagem lateral do hero */
+.hero-layout{display:block!important;}
+.hero-visual-card{display:none!important;}
+@media(max-width:980px){
+  .hero-benefits{grid-template-columns:repeat(2,1fr);}
+  .solutions-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:640px){
+  #hero.hero-modern{padding:112px 0 58px;}
+  .hero-shell{padding:34px 0 24px;}
+  .hero-kicker{font-size:.56rem;letter-spacing:.12em;line-height:1.45;border-radius:14px;margin-bottom:18px;}
+  .hero-title-fixed{font-size:clamp(2.35rem,12.5vw,3.45rem);line-height:1.02;margin-bottom:20px;}
+  .hero-sub-fixed{font-size:1rem;line-height:1.68;margin-bottom:26px;}
+  .hero-benefits{grid-template-columns:1fr;gap:12px;margin-top:28px;}
+  .benefit-card{padding:16px 14px;border-radius:18px;}
+  .solutions-title{gap:10px;margin-top:12px;}
+  .solutions-title strong{font-size:.72rem;letter-spacing:.08em;}
+  .solutions-grid{grid-template-columns:1fr 1fr;gap:12px;}
+  .solution-card{padding:17px 12px;border-radius:18px;}
+  .solution-card h3{font-size:.73rem;}
+  .solution-card p{font-size:.7rem;}
+}
+@media(max-width:420px){.solutions-grid{grid-template-columns:1fr;}}
+
+
+/* ─ MONITORAMENTO SOLAR / PRÉVIA NA HOME ─ */
+.solar-preview{
+  background:linear-gradient(180deg,#f7faf4 0%,#ffffff 50%,#eef7ee 100%);
+  color:#111b13;
+  overflow:hidden;
+}
+.solar-preview .wrap{max-width:1180px;}
+.solar-preview .slabel{color:#2f6b29;text-shadow:none;}
+.solar-preview .slabel::before{background:#2f6b29;}
+.solar-preview .stitle{color:#111b13;}
+.solar-preview .stitle span{color:#2d8a24;text-shadow:none;}
+.solar-preview .sdesc{color:#5c6b5e;}
+.solar-overview{
+  display:grid;
+  grid-template-columns:.95fr 1.65fr;
+  gap:28px;
+  align-items:stretch;
+  margin-top:36px;
+}
+.solar-info-card{
+  background:#fff;
+  border:1px solid rgba(17,27,19,.08);
+  border-radius:18px;
+  padding:34px 34px 30px;
+  box-shadow:0 22px 64px rgba(18,28,18,.08);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.solar-info-card h3{
+  font-size:clamp(1.55rem,3vw,2.28rem);
+  line-height:1.08;
+  letter-spacing:-.035em;
+  color:#111b13;
+  margin-bottom:16px;
+}
+.solar-info-card h3 span{color:#2d8a24;}
+.solar-info-card p{
+  color:#5c6b5e;
+  line-height:1.7;
+  font-size:.94rem;
+  margin-bottom:22px;
+}
+.solar-points{
+  list-style:none;
+  display:grid;
+  gap:12px;
+  margin:0 0 26px;
+}
+.solar-points li{
+  position:relative;
+  padding-left:28px;
+  color:#4f5f52;
+  line-height:1.5;
+  font-size:.93rem;
+}
+.solar-points li::before{
+  content:'✓';
+  position:absolute;
+  left:0;
+  top:.05em;
+  width:17px;
+  height:17px;
+  border-radius:50%;
+  background:#2d8a24;
+  color:#fff;
+  font-size:.68rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+}
+.solar-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:4px;}
+.solar-actions .btn-g{color:#2d8a24;border-color:rgba(45,138,36,.32);background:#fff;}
+.solar-dashboard-card{
+  min-height:360px;
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid rgba(17,27,19,.08);
+  background:#061008;
+  box-shadow:0 22px 64px rgba(18,28,18,.10);
+}
+.solar-dashboard-card img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.04) contrast(1.04);}
+.solar-lower{
+  display:grid;
+  grid-template-columns:.9fr 1.65fr;
+  gap:34px;
+  align-items:center;
+  margin-top:36px;
+}
+.solar-head-block .slabel{margin-bottom:14px;}
+.solar-head-block .stitle{font-size:clamp(1.85rem,3.9vw,3rem);max-width:420px;margin-bottom:16px;}
+.solar-feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px;}
+.solar-feature{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  align-items:flex-start;
+}
+.solar-feature-icon{
+  width:54px;height:54px;border-radius:16px;background:#edf8e9;color:#2d8a24;
+  display:flex;align-items:center;justify-content:center;font-size:1.55rem;font-weight:900;
+}
+.solar-feature h4{font-size:.8rem;line-height:1.2;color:#2d8a24;text-transform:uppercase;font-weight:900;}
+.solar-feature p{font-size:.74rem;line-height:1.55;color:#5c6b5e;}
+.solar-second-dashboard{
+  min-height:330px;
+  border-radius:16px;
+  overflow:hidden;
+  background:#061008;
+  box-shadow:0 22px 64px rgba(18,28,18,.10);
+  border:1px solid rgba(17,27,19,.08);
+}
+.solar-second-dashboard img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.04) contrast(1.04);}
+@media(max-width:980px){
+  .solar-overview,.solar-lower{grid-template-columns:1fr;}
+  .solar-dashboard-card,.solar-second-dashboard{min-height:300px;}
+}
+@media(max-width:760px){.solar-feature-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){
+  .solar-info-card{padding:26px 22px;border-radius:18px;}
+  .solar-actions .btn-p,.solar-actions .btn-g{width:100%;}
+  .solar-dashboard-card,.solar-second-dashboard{min-height:240px;border-radius:16px;}
+  .solar-feature-grid{grid-template-columns:1fr;}
+}
+
+
+/* ─ AJUSTES SOLICITADOS: CARDS, CTA E DIFERENCIAIS PREMIUM ─ */
+#hero.hero-modern{
+  padding-bottom:42px!important;
+}
+.hero-benefits{
+  max-width:1000px!important;
+  margin-left:auto;
+  margin-right:auto;
+}
+.benefit-card{
+  min-height:118px;
+  align-items:flex-start!important;
+  border-radius:20px!important;
+  padding:20px 20px!important;
+}
+.benefit-icon{
+  width:44px!important;
+  height:44px!important;
+  border-radius:13px!important;
+  font-size:1.25rem!important;
+  background:#ecf8e9!important;
+}
+.benefit-card h3{
+  font-size:.92rem!important;
+  font-weight:900!important;
+}
+.benefit-card p{
+  font-size:.86rem!important;
+}
+.solutions-strip{
+  max-width:1000px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:54px!important;
+}
+.solutions-title{
+  margin-bottom:28px!important;
+}
+.solutions-title strong{
+  color:#2d8a24;
+  font-weight:900;
+}
+.solutions-title strong::after{
+  content:' para sua indústria';
+  color:#172318;
+}
+.solutions-title strong{
+  font-size:0;
+}
+.solutions-title strong::before{
+  content:'Soluções completas';
+  font-size:.9rem;
+}
+.solutions-title strong::after{
+  font-size:.9rem;
+}
+.solution-card{
+  min-height:228px;
+  border-radius:18px!important;
+  padding:24px 18px 22px!important;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.solution-icon{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#ecf8e9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:18px!important;
+  font-size:1.55rem!important;
+}
+.solution-icon-energy{
+  color:#ff7a2d!important;
+}
+.solution-card h3{
+  font-size:.82rem!important;
+  line-height:1.18!important;
+  font-weight:900!important;
+}
+.solution-card p{
+  font-size:.78rem!important;
+  line-height:1.52!important;
+}
+.solution-line{
+  width:54px;
+  height:2px;
+  background:#a8d5a2;
+  display:block;
+  margin-top:auto;
+}
+.home-industrial-cta{
+  max-width:1000px;
+  margin:26px auto 0;
+  padding:26px 30px;
+  border:1px solid rgba(45,138,36,.14);
+  border-radius:20px;
+  background:linear-gradient(135deg,#edf8e9,#f8fcf6);
+  box-shadow:0 16px 44px rgba(18,28,18,.06);
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  gap:22px;
+  align-items:center;
+}
+.home-industrial-cta .cta-icon{
+  width:82px;
+  height:82px;
+  border-radius:50%;
+  background:#dff2d7;
+  color:#2d8a24;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2.1rem;
+  font-weight:900;
+}
+.home-industrial-cta h3{
+  color:#172318;
+  text-transform:uppercase;
+  font-size:1.08rem;
+  letter-spacing:.03em;
+  margin-bottom:7px;
+}
+.home-industrial-cta p{
+  color:#4f5f52;
+  line-height:1.55;
+  max-width:560px;
+}
+.home-industrial-cta .cta-actions{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+.home-industrial-cta .btn-p,
+.home-industrial-cta .btn-g{
+  min-width:180px;
+  text-align:center;
+  justify-content:center;
+  display:inline-flex;
+}
+
+.diff-showcase{
+  position:relative;
+  overflow:hidden;
+  padding:78px 0 82px!important;
+  background:linear-gradient(180deg,#f8fbf7 0%,#fff 46%,#f3faf1 100%)!important;
+}
+.diff-showcase::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 13% 12%,rgba(107,211,75,.12),transparent 32%);
+  pointer-events:none;
+}
+.diff-hero-art{
+  position:absolute;
+  top:0;
+  right:0;
+  width:min(56vw,860px);
+  height:470px;
+  overflow:hidden;
+  border-bottom-left-radius:320px;
+  z-index:0;
+}
+.diff-hero-art::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,rgba(18,138,36,.16),rgba(7,19,10,.18)),linear-gradient(180deg,rgba(255,255,255,0),rgba(7,19,10,.08));
+}
+.diff-hero-art img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  filter:saturate(1.03) contrast(1.03);
+}
+.diff-wrap{position:relative;z-index:2;}
+.diff-copy{
+  max-width:560px;
+  padding-top:10px;
+  margin-bottom:30px;
+}
+.diff-showcase .stitle{
+  font-size:clamp(2.6rem,5.5vw,5.15rem)!important;
+  line-height:.98!important;
+  letter-spacing:-.055em!important;
+  margin-bottom:20px!important;
+}
+.diff-showcase .stitle span{color:#1f8c23!important;}
+.diff-showcase .sdesc{
+  font-size:1.08rem!important;
+  line-height:1.65!important;
+  color:#5d6a5d!important;
+}
+.diff-stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  max-width:1000px;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(17,27,19,.10);
+  border-radius:18px;
+  box-shadow:0 18px 54px rgba(18,28,18,.10);
+  overflow:hidden;
+  margin:26px 0 28px;
+}
+.diff-stat{
+  min-height:132px;
+  padding:28px 26px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  position:relative;
+}
+.diff-stat:not(:last-child)::after{
+  content:'';
+  position:absolute;
+  right:0;
+  top:24px;
+  bottom:24px;
+  width:1px;
+  background:rgba(17,27,19,.10);
+}
+.stat-icon{
+  width:64px;
+  height:64px;
+  flex:0 0 auto;
+  border-radius:50%;
+  background:#eaf7e6;
+  color:#16741d;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.7rem;
+  font-weight:900;
+}
+.diff-stat strong{
+  display:block;
+  color:#16741d;
+  font-size:2rem;
+  line-height:1;
+  font-weight:900;
+}
+.diff-stat span{
+  display:block;
+  color:#16741d;
+  font-family:var(--mono);
+  font-weight:900;
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  margin:7px 0 8px;
+}
+.diff-stat p{
+  color:#59675a!important;
+  line-height:1.35;
+  font-size:.9rem;
+}
+.diff-cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px 36px;
+  max-width:1000px;
+}
+.diff-card{
+  min-height:138px;
+  background:#fff;
+  border:1px solid rgba(17,27,19,.10);
+  border-radius:16px;
+  box-shadow:0 16px 44px rgba(18,28,18,.07);
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:24px;
+  align-items:center;
+  padding:24px 28px;
+}
+.diff-card-icon{
+  width:82px;
+  height:82px;
+  border-radius:13px;
+  background:linear-gradient(135deg,#0b7a11,#006407);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2rem;
+  font-weight:900;
+}
+.diff-card h3{
+  color:#111b13!important;
+  font-size:1.18rem;
+  font-weight:900;
+  margin-bottom:8px;
+}
+.diff-card span{
+  width:34px;
+  height:2px;
+  display:block;
+  background:#178420;
+  margin-bottom:12px;
+}
+.diff-card p{
+  color:#5c6b5e!important;
+  line-height:1.55;
+  font-size:.95rem;
+}
+@media(max-width:980px){
+  .diff-hero-art{position:relative;width:100%;height:320px;border-bottom-left-radius:0;border-radius:0 0 28px 28px;margin-bottom:22px;}
+  .diff-copy,.diff-stats,.diff-cards{max-width:none;}
+  .diff-stats{grid-template-columns:1fr 1fr;}
+  .diff-stat:nth-child(2)::after{display:none;}
+  .diff-cards{gap:18px;}
+  .home-industrial-cta{grid-template-columns:1fr;text-align:center;justify-items:center;}
+  .home-industrial-cta p{margin:auto;}
+}
+@media(max-width:720px){
+  .diff-showcase{padding-top:0!important;}
+  .diff-showcase .stitle{font-size:clamp(2.35rem,12vw,3.45rem)!important;}
+  .diff-stats{grid-template-columns:1fr;}
+  .diff-stat::after{display:none!important;}
+  .diff-cards{grid-template-columns:1fr;}
+  .diff-card{grid-template-columns:1fr;text-align:left;gap:16px;}
+  .solutions-grid{grid-template-columns:1fr!important;}
+  .home-industrial-cta .cta-actions{flex-direction:column;width:100%;}
+  .home-industrial-cta .btn-p,.home-industrial-cta .btn-g{width:100%;}
+}
+
+
+
+/* ─ SOBRE AIOTI CORRIGIDO / LAYOUT REFERÊNCIA ─ */
+#sobre.sobre-aioti-premium{
+  padding:96px 0 70px;
+  background:#f7faf4;
+  overflow:hidden;
+}
+#sobre .sobre-premium-grid{
+  display:grid;
+  grid-template-columns:minmax(0,.92fr) minmax(420px,1.08fr);
+  gap:54px;
+  align-items:center;
+}
+#sobre .sobre-premium-copy{max-width:520px;}
+#sobre .sobre-premium-title{
+  font-size:clamp(2.35rem,4.4vw,4.55rem);
+  line-height:1.03;
+  letter-spacing:-.055em;
+  font-weight:900;
+  color:#111b13;
+  margin:16px 0 20px;
+  text-wrap:balance;
+}
+#sobre .sobre-premium-title span{
+  color:#2d8a24;
+  text-shadow:none;
+}
+#sobre .sobre-premium-desc{
+  color:#5c6b5e;
+  font-size:1rem;
+  line-height:1.8;
+  max-width:520px;
+  margin:0 0 18px;
+}
+#sobre .sobre-premium-note{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px 18px;
+  border-radius:18px;
+  background:#fff;
+  border:1px solid rgba(45,138,36,.16);
+  box-shadow:0 16px 40px rgba(18,28,18,.06);
+  color:#405245;
+  line-height:1.55;
+  margin:26px 0 24px;
+}
+#sobre .sobre-note-icon,
+#sobre .sobre-feature-icon,
+#sobre .sobre-metric-icon{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#e9f8e3;
+  color:#2d8a24;
+}
+#sobre .sobre-note-icon svg,
+#sobre .sobre-feature-icon svg,
+#sobre .sobre-metric-icon svg{width:21px;height:21px;stroke:currentColor;}
+#sobre .sobre-mini-stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  max-width:540px;
+}
+#sobre .sobre-mini-stat{
+  min-width:0;
+}
+#sobre .sobre-mini-stat strong{
+  display:block;
+  margin-top:8px;
+  color:#2d8a24;
+  font-weight:900;
+  font-size:.94rem;
+  line-height:1.25;
+}
+#sobre .sobre-mini-stat span{
+  display:block;
+  margin-top:5px;
+  color:#6b786b;
+  font-size:.74rem;
+  line-height:1.35;
+}
+#sobre .sobre-premium-visual{
+  position:relative;
+  min-height:430px;
+}
+#sobre .sobre-image-card{
+  position:relative;
+  overflow:hidden;
+  min-height:430px;
+  border-radius:30px;
+  background:#0b150d;
+  box-shadow:0 28px 80px rgba(18,28,18,.18);
+}
+#sobre .sobre-image-card img{
+  width:100%;
+  height:100%;
+  min-height:430px;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+}
+#sobre .sobre-image-card:after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,rgba(0,70,18,.12),rgba(0,0,0,.05));
+  pointer-events:none;
+}
+#sobre .sobre-floating-list{
+  position:absolute;
+  right:22px;
+  top:50%;
+  transform:translateY(-50%);
+  width:min(250px,42%);
+  display:grid;
+  gap:13px;
+  z-index:3;
+}
+#sobre .sobre-feature{
+  display:grid;
+  grid-template-columns:42px 1fr;
+  gap:12px;
+  align-items:center;
+  padding:13px 14px;
+  border-radius:16px;
+  background:rgba(255,255,255,.95);
+  border:1px solid rgba(45,138,36,.12);
+  box-shadow:0 16px 38px rgba(18,28,18,.14);
+  backdrop-filter:blur(10px);
+}
+#sobre .sobre-feature strong{
+  display:block;
+  color:#172018;
+  font-weight:900;
+  font-size:.86rem;
+  margin-bottom:2px;
+}
+#sobre .sobre-feature span{
+  display:block;
+  color:#6b786b;
+  font-size:.71rem;
+  line-height:1.35;
+}
+#sobre .sobre-metrics-bar{
+  margin-top:30px;
+  display:grid;
+  grid-template-columns:1.25fr repeat(5,1fr);
+  overflow:hidden;
+  border-radius:20px;
+  background:#fff;
+  border:1px solid rgba(45,138,36,.12);
+  box-shadow:0 18px 48px rgba(18,28,18,.07);
+}
+#sobre .sobre-metric-intro,
+#sobre .sobre-metric{
+  min-height:104px;
+  padding:20px 18px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  border-left:1px solid rgba(17,27,19,.08);
+}
+#sobre .sobre-metric-intro{border-left:0;align-items:flex-start;text-align:left;}
+#sobre .sobre-metric-intro strong{
+  color:#2d8a24;
+  font-size:1.18rem;
+  line-height:1.18;
+  font-weight:900;
+}
+#sobre .sobre-metric strong{
+  display:block;
+  color:#2d8a24;
+  font-weight:900;
+  font-size:1.1rem;
+  margin:8px 0 3px;
+}
+#sobre .sobre-metric span{
+  color:#6b786b;
+  font-size:.68rem;
+  line-height:1.35;
+}
+@media(max-width:980px){
+  #sobre .sobre-premium-grid{grid-template-columns:1fr;gap:34px;}
+  #sobre .sobre-premium-copy{max-width:680px;}
+  #sobre .sobre-premium-visual{min-height:auto;}
+  #sobre .sobre-metrics-bar{grid-template-columns:repeat(2,1fr);}
+  #sobre .sobre-metric-intro{grid-column:1/-1;align-items:center;text-align:center;}
+}
+@media(max-width:720px){
+  #sobre.sobre-aioti-premium{padding:72px 0 56px;}
+  #sobre .sobre-premium-title{font-size:clamp(2.2rem,13vw,3.45rem);}
+  #sobre .sobre-mini-stats{grid-template-columns:repeat(2,1fr);}
+  #sobre .sobre-image-card,
+  #sobre .sobre-image-card img{min-height:360px;}
+  #sobre .sobre-floating-list{position:relative;right:auto;top:auto;transform:none;width:100%;margin-top:16px;}
+  #sobre .sobre-feature{background:#fff;}
+  #sobre .sobre-metrics-bar{grid-template-columns:1fr;}
+  #sobre .sobre-metric,
+  #sobre .sobre-metric-intro{border-left:0;border-top:1px solid rgba(17,27,19,.08);}
+  #sobre .sobre-metric-intro{border-top:0;}
+}
+
+
+
+/* ─ HOTFIX SOBRE AIOTI: preserva layout e evita quebra por animação de palavras ─ */
+#sobre .sobre-premium-title span{display:block;}
+#sobre .sobre-premium-note span:not(.sobre-note-icon){display:block;}
+#sobre .sobre-mini-stat,
+#sobre .sobre-feature,
+#sobre .sobre-metric,
+#sobre .sobre-metric-intro{overflow-wrap:normal;word-break:normal;hyphens:none;}
+#sobre .sobre-feature strong,
+#sobre .sobre-feature span,
+#sobre .sobre-mini-stat strong,
+#sobre .sobre-mini-stat span,
+#sobre .sobre-metric strong,
+#sobre .sobre-metric span{white-space:normal;}
+@media(min-width:981px){
+  #sobre .sobre-premium-grid{grid-template-columns:minmax(390px,.9fr) minmax(520px,1.1fr);}
+  #sobre .sobre-premium-title{font-size:clamp(3.05rem,4.15vw,4.25rem);}
+  #sobre .sobre-floating-list{width:245px;right:20px;}
+}
+
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- ══ INTRO ══ -->
+<div id="intro">
+  <div class="i-logo">
+    <img src="assets/logo-aioti.png" alt="AIOTI" class="i-brand"/>
+  </div>
+  <div class="i-tag">Soluções Industriais</div>
+  <div class="i-bar"></div>
+</div>
+
+<canvas id="bgC"></canvas>
+<div class="grid-bg"></div>
+<div class="scanline"></div>
+
+<!-- ══ NAV ══ -->
+<nav id="navbar">
+  <a href="#hero" class="nl">
+    <img src="assets/logo-aioti.png" alt="AIOTI" class="nl-logo"/>
+  </a>
+
+  <ul class="nlinks" id="nlinks">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#monitoramento-solar">Monitoramento Solar</a></li>
+    <li><a href="produtos.html">Produtos</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+
+  <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero" class="sec hero-modern">
+  <div class="wrap" style="width:100%;">
+    <div class="hero-shell">
+      <div class="hero-kicker reveal-words reveal-inline">// AIOTI · Soluções Industriais</div>
+
+      <h1 class="hero-title hero-title-fixed">
+        Sua indústria pode ir mais longe com <span>automação inteligente.</span>
+      </h1>
+
+      <p class="hero-sub hero-sub-fixed reveal-words">
+        Transformamos máquinas, processos e ativos industriais em operações mais eficientes, conectadas e competitivas, por meio de soluções em automação, IIoT, painéis elétricos e análise de dados em tempo real.
+      </p>
+
+      <div class="hero-btns hero-actions">
+        <a href="https://wa.me/5585991931240?text=Olá%2C%20gostaria%20de%20conversar%20sobre%20uma%20solução%20industrial." target="_blank" class="btn-p">Falar no WhatsApp</a>
+        <a href="#projetos" class="btn-g">Ver Projetos</a>
+      </div>
+
+      <div class="hero-benefits" aria-label="Benefícios das soluções AIOTI">
+        <article class="benefit-card">
+          <div class="benefit-icon">☁</div>
+          <div><h3>Dados em nuvem</h3><p>Acesso seguro de qualquer lugar, a qualquer hora.</p></div>
+        </article>
+        <article class="benefit-card">
+          <div class="benefit-icon">▮</div>
+          <div><h3>Monitoramento em tempo real</h3><p>Decisões mais rápidas e assertivas com dados sempre atualizados.</p></div>
+        </article>
+        <article class="benefit-card">
+          <div class="benefit-icon">⌁</div>
+          <div><h3>IoT industrial</h3><p>Conectividade inteligente entre máquinas, sensores e sistemas.</p></div>
+        </article>
+        <article class="benefit-card">
+          <div class="benefit-icon">⬟</div>
+          <div><h3>Segurança e confiabilidade</h3><p>Proteção de dados avançada e alta disponibilidade.</p></div>
+        </article>
+      </div>
+    </div>
+
+    <div class="solutions-strip" aria-label="Soluções completas para sua indústria">
+      <div class="solutions-title"><span></span><strong>Soluções completas para sua indústria</strong><span></span></div>
+      <div class="solutions-grid">
+        <article class="solution-card"><div class="solution-icon">⚙</div><h3>Retrofit de máquinas</h3><p>Modernize equipamentos e aumente a vida útil da operação.</p><span class="solution-line"></span></article>
+        <article class="solution-card"><div class="solution-icon">▣</div><h3>Automação industrial</h3><p>Soluções sob medida para processos mais eficientes, seguros e inteligentes.</p><span class="solution-line"></span></article>
+        <article class="solution-card"><div class="solution-icon">☁</div><h3>Supervisão e dados em nuvem</h3><p>Plataformas para visualização, análise e gestão de dados em tempo real.</p><span class="solution-line"></span></article>
+        <article class="solution-card"><div class="solution-icon">⛓</div><h3>Integração CLP + SCADA + ERP</h3><p>Conexão entre sistemas para mais produtividade e rastreabilidade.</p><span class="solution-line"></span></article>
+        <article class="solution-card"><div class="solution-icon solution-icon-energy">⚡</div><h3>Monitoramento energético</h3><p>Reduza custos e aumente a eficiência com gestão inteligente de energia.</p><span class="solution-line"></span></article>
+        <article class="solution-card"><div class="solution-icon">▱</div><h3>Projetos elétricos e implantação</h3><p>Projetos completos com foco em performance, conformidade e prazos.</p><span class="solution-line"></span></article>
+      </div>
+    </div>
+
+    <div class="home-industrial-cta" aria-label="Chamada para soluções industriais">
+      <div class="cta-icon">▰</div>
+      <div class="cta-copy">
+        <h3>Tecnologia que impulsiona resultados</h3>
+        <p>Combinamos experiência, inovação e foco no seu negócio para entregar soluções industriais que geram eficiência, segurança e competitividade.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="https://wa.me/5585991931240?text=Olá%2C%20gostaria%20de%20conversar%20sobre%20uma%20solução%20industrial." target="_blank" class="btn-p">Falar no WhatsApp</a>
+        <a href="#projetos" class="btn-g">Ver Projetos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hd"></div>
+
+<!-- ══ PROJETOS / PORTFÓLIO VISUAL ══ -->
+<section class="sec visual-section" id="projetos">
+  <div class="wrap">
+    <div class="projects-head">
+      <div>
+        <div class="slabel reveal-words reveal-inline">Tecnologia aplicada</div>
+        <h3 class="projects-title reveal-words">Projetos que geram <span>Resultados</span></h3>
+      </div>
+     
+    </div>
+
+    <div class="project-grid">
+      <article class="project-card">
+        <img src="assets/projeto-painel-01.jpg" >
+        <div class="project-info">
+          <div class="project-kicker">Painéis industriais</div>
+          <h3>Painéis, comandos e infraestrutura elétrica</h3>
+         
+        </div>
+      </article>
+
+      <div class="project-stack">
+        <article class="project-card small">
+          <img src="assets/projeto-campo-aioti.png" alt="Técnico AIOTI realizando manutenção em painel elétrico industrial" >
+          <div class="project-info">
+            <div class="project-kicker">Dados e supervisão</div>
+            <h3>Dashboards e monitoramento</h3>
+           
+          </div>
+        </article>
+        <article class="project-card small">
+          <img src="assets/projeto-dashboard-aioti.png" alt="Técnico AIOTI em painel SMART de coleta de dados" >
+          <div class="project-info">
+            <div class="project-kicker">Campo e implantação</div>
+            <h3>Instalações, sensores e retrofit</h3>
+           
+          </div>
+        </article>
+      </div>
+    </div>
+
+   
+  </div>
+</section>
+
+<div class="hd"></div>
+
+
+<div class="hd"></div>
+
+<!-- ══ MONITORAMENTO SOLAR ══ -->
+<section class="sec solar-preview" id="monitoramento-solar">
+  <div class="wrap">
+    <div class="solar-overview">
+      <article class="solar-info-card">
+        <h3 class="reveal-words">Dados consolidados para <span>decisão rápida</span></h3>
+        <p class="reveal-words">Visualize geração diária, geração mensal real x esperado, irradiância, potência ativa e PR diário em dashboards claros e seguros.</p>
+        <ul class="solar-points">
+          <li>Supervisão operacional em tempo real</li>
+          <li>Gestão unificada de performance e alarmes</li>
+          <li>Plataforma web segura, escalável e customizável</li>
+          <li>Suporte ao AIOTI Controlador Datalogger</li>
+        </ul>
+        <div class="solar-actions">
+          <a href="monitoramento-solar.html" class="btn-p">Saiba mais</a>
+          <a href="https://wa.me/5585991931240?text=Olá%2C%20gostaria%20de%20saber%20mais%20sobre%20monitoramento%20de%20placas%20solares." target="_blank" class="btn-g">Falar no WhatsApp</a>
+        </div>
+      </article>
+
+      <article class="solar-dashboard-card reveal-words">
+        <img src="assets/projeto-dashboard-02.jpg" alt="Dashboard de monitoramento solar com geração mensal e KPIs">
+      </article>
+    </div>
+
+    <div class="solar-lower">
+      <div class="solar-head-block">
+        <div class="slabel reveal-words reveal-inline">Monitoramento de Dados</div>
+        <h2 class="stitle reveal-words">Uma plataforma <span>completa</span></h2>
+        <p class="sdesc reveal-words">Supervisão operacional em tempo real, gestão de performance, manutenção, alarmes e KPIs estratégicos em uma única interface.</p>
+        <div class="solar-feature-grid">
+          <article class="solar-feature">
+            <div class="solar-feature-icon">◴</div>
+            <h4>Tempo real</h4>
+            <p>Acompanhe sua usina 24/7 de onde estiver.</p>
+          </article>
+          <article class="solar-feature">
+            <div class="solar-feature-icon">▮</div>
+            <h4>Performance</h4>
+            <p>Compare geração real x esperado e KPIs.</p>
+          </article>
+          <article class="solar-feature">
+            <div class="solar-feature-icon">◆</div>
+            <h4>Confiabilidade</h4>
+            <p>Alertas inteligentes e histórico de eventos.</p>
+          </article>
+          <article class="solar-feature">
+            <div class="solar-feature-icon">⚙</div>
+            <h4>Gestão completa</h4>
+            <p>Manutenção, relatórios e exportação de dados.</p>
+          </article>
+        </div>
+      </div>
+
+      <article class="solar-second-dashboard reveal-words">
+        <img src="assets/projeto-dashboard-02.jpg" alt="Painel de produção diária e geração mensal">
+      </article>
+    </div>
+  </div>
+</section>
+<!-- ══ SOBRE ══ -->
+<section class="sec light-band sobre-aioti-premium" id="sobre">
+  <div class="wrap">
+    <div class="sobre-premium-grid">
+      <div class="sobre-premium-copy">
+        <div class="slabel reveal-words reveal-inline">Sobre a AIOTI</div>
+        <h2 class="sobre-premium-title">Tecnologia e parceria <span>para impulsionar sua indústria</span></h2>
+        <p class="sobre-premium-desc reveal-words">Desde 2016, a AIOTI Soluções Industriais entrega projetos e soluções sob medida que conectam equipamentos, pessoas e dados para tornar operações mais eficientes, seguras e competitivas.</p>
+        <div class="sobre-premium-note">
+          <span class="sobre-note-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V9l7-4 7 4v12"/><path d="M9 21v-6h6v6"/></svg></span>
+          <span>Atuamos em todo o Nordeste com estrutura própria, suporte local e foco total em gerar resultados reais para cada cliente.</span>
+        </div>
+        <div class="sobre-mini-stats">
+          <div class="sobre-mini-stat"><span class="sobre-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18"/><rect x="3" y="4" width="18" height="18" rx="2"/></svg></span><strong>Desde 2016</strong><span>Atuação sólida com experiência comprovada.</span></div>
+          <div class="sobre-mini-stat"><span class="sobre-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 21s7-5.3 7-12a7 7 0 0 0-14 0c0 6.7 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg></span><strong>Suporte local</strong><span>Conhecimento das necessidades do Nordeste.</span></div>
+          <div class="sobre-mini-stat"><span class="sobre-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M13 2 3 14h8l-1 8 11-14h-8l1-6Z"/></svg></span><strong>Resposta rápida</strong><span>Estrutura enxuta para soluções eficientes.</span></div>
+          <div class="sobre-mini-stat"><span class="sobre-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 15 4-4 3 3 5-7"/></svg></span><strong>Foco em resultado</strong><span>Visibilidade, modernização e eficiência.</span></div>
+        </div>
+      </div>
+      <div class="sobre-premium-visual">
+        <div class="sobre-image-card">
+          <img src="assets/hero-industria-aioti.jpg" alt="Indústria com solução AIOTI aplicada">
+        </div>
+        <div class="sobre-floating-list">
+          <div class="sobre-feature"><span class="sobre-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18"/><rect x="3" y="4" width="18" height="18" rx="2"/></svg></span><div><strong>Desde 2016</strong><span>Atuação em integração de equipamentos, peças e dados industriais.</span></div></div>
+          <div class="sobre-feature"><span class="sobre-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div><strong>Suporte local</strong><span>Conhecimento das necessidades do mercado industrial do Nordeste.</span></div></div>
+          <div class="sobre-feature"><span class="sobre-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></span><div><strong>Resposta rápida</strong><span>Estrutura enxuta para soluções customizadas e execução ágil.</span></div></div>
+          <div class="sobre-feature"><span class="sobre-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 15 4-4 3 3 5-7"/></svg></span><div><strong>Foco em resultado</strong><span>Eficiência operacional, visibilidade e modernização tecnológica.</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sobre-metrics-bar">
+      <div class="sobre-metric-intro"><strong>Números que comprovam nosso impacto</strong></div>
+      <div class="sobre-metric"><span class="sobre-metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V9l7-4 7 4v12"/></svg></span><strong>+120</strong><span>projetos entregues com sucesso</span></div>
+      <div class="sobre-metric"><span class="sobre-metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><strong>+45</strong><span>clientes atendidos em todo o Nordeste</span></div>
+      <div class="sobre-metric"><span class="sobre-metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3v18"/><path d="M5 8h14"/><path d="M5 16h14"/></svg></span><strong>+1,5M</strong><span>de dados enviados para nuvem por dia</span></div>
+      <div class="sobre-metric"><span class="sobre-metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><strong>+98%</strong><span>de disponibilidade dos sistemas</span></div>
+      <div class="sobre-metric"><span class="sobre-metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-8h3z"/><path d="M3 19a2 2 0 0 0 2 2h1v-8H3z"/></svg></span><strong>24/7</strong><span>suporte técnico especializado</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="hd"></div>
+
+<!-- ══ SERVIÇOS ══ -->
+<section class="sec light-band" id="servicos">
+  <div class="wrap">
+    <div class="slabel reveal-words reveal-inline">Serviços principais</div>
+    <h2 class="stitle reveal-words">Soluções <span>Industriais</span></h2>
+
+    <div class="cards2 services-visual" style="margin-top:40px;margin-bottom:20px;">
+      <div class="card">
+        <div class="service-img"><img src="assets/projeto-servico-engenharia.jpg" alt="Imagem de apoio para Engenharia e Projetos Industriais"></div>
+        <div class="service-content">
+        <div class="card-num">01</div>
+        <div class="card-title reveal-words">Engenharia e Projetos Industriais</div>
+        <p class="card-desc reveal-words">Projetos elétricos, desenhos técnicos, documentação e consultoria especializada para implantação, adequação e melhoria operacional.</p>
+        <ul>
+          <li>Projetos elétricos industriais</li>
+          <li>Desenhos técnicos e documentação</li>
+          <li>Consultoria aplicada ao processo</li>
+          <li>Especificação e apoio técnico</li>
+        </ul>
+        <span class="card-tag">Projetos Elétricos · Consultoria</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="service-img"><img src="assets/projeto-servico-iot.jpg" alt="Imagem de apoio para Automação e Indústria Inteligente (IoT)"></div>
+        <div class="service-content">
+        <div class="card-num">02</div>
+        <div class="card-title reveal-words">Automação e Indústria Inteligente (IoT)</div>
+        <p class="card-desc reveal-words">Integração de sistemas, software industrial, conectividade entre equipamentos e inteligência para operação mais confiável.</p>
+        <ul>
+          <li>CLP, supervisório, banco de dados e APIs</li>
+          <li>Software e dashboards industriais</li>
+          <li>Comunicação entre sistemas e ativos</li>
+          <li>Soluções IoT para indústria e energia</li>
+        </ul>
+        <span class="card-tag">CLP · SCADA · APIs · IoT</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="service-img"><img src="assets/projeto-servico-nuvem.jpg" alt="Imagem de apoio para Monitoramento e Dados em Nuvem"></div>
+        <div class="service-content">
+        <div class="card-num">03</div>
+        <div class="card-title reveal-words">Monitoramento e Dados em Nuvem</div>
+        <p class="card-desc reveal-words">Coleta, supervisão e análise de dados de produção, utilidades, consumo e desempenho com acesso remoto e histórico confiável.</p>
+        <ul>
+          <li>Monitoramento remoto</li>
+          <li>Alarmes, históricos e rastreabilidade</li>
+          <li>Indicadores operacionais</li>
+          <li>Dados para decisão e manutenção</li>
+        </ul>
+        <span class="card-tag">Nuvem · Alarmes · Indicadores</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="service-img"><img src="assets/projeto-servico-retrofit.jpg" alt="Imagem de apoio para Retrofit e Modernização de Máquinas"></div>
+        <div class="service-content">
+        <div class="card-num">04</div>
+        <div class="card-title reveal-words">Retrofit e Modernização de Máquinas</div>
+        <p class="card-desc reveal-words">Atualização tecnológica de equipamentos para aumentar eficiência, disponibilidade, segurança e vida útil dos ativos industriais.</p>
+        <ul>
+          <li>Modernização de painéis e comandos</li>
+          <li>Substituição de itens obsoletos</li>
+          <li>Ganho de desempenho operacional</li>
+          <li>Redução de paradas e riscos</li>
+        </ul>
+        <span class="card-tag">Modernização · Painéis · Ativos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hd"></div>
+
+<!-- ══ DIFERENCIAIS ══ -->
+<section class="sec light-band diff-showcase" id="diferenciais">
+  <div class="diff-hero-art" aria-hidden="true">
+    <img src="assets/hero-industria-aioti.jpg" alt="">
+  </div>
+  <div class="wrap diff-wrap">
+    <div class="diff-copy">
+      <div class="slabel reveal-words reveal-inline">Diferenciais</div>
+      <h2 class="stitle reveal-words">Tecnologia, <br>proximidade e <span>resultado</span></h2>
+      <p class="sdesc reveal-words">Atuação técnica, suporte local, agilidade de resposta e soluções personalizadas para cada operação.</p>
+    </div>
+
+    <div class="diff-stats" aria-label="Indicadores da AIOTI">
+      <article class="diff-stat"><div class="stat-icon">▣</div><div><strong>2016</strong><span>Fundação</span><p>Consolidação regional.</p></div></article>
+      <article class="diff-stat"><div class="stat-icon">⌖</div><div><strong>NE</strong><span>Nordeste</span><p>Atuação próxima do cliente.</p></div></article>
+      <article class="diff-stat"><div class="stat-icon">🤝</div><div><strong>CRM</strong><span>+ ERP</span><p>Gestão comercial assertiva.</p></div></article>
+      <article class="diff-stat"><div class="stat-icon">⚙</div><div><strong>100%</strong><span>Customização</span><p>Soluções adaptadas ao processo.</p></div></article>
+    </div>
+
+    <div class="diff-cards">
+      <article class="diff-card"><div class="diff-card-icon">▦</div><div><h3>Expertise técnica</h3><span></span><p>Integração de equipamentos, dados industriais, projetos e soluções voltadas à operação real.</p></div></article>
+      <article class="diff-card"><div class="diff-card-icon">♙</div><div><h3>Agilidade local</h3><span></span><p>Conhecimento do mercado regional com suporte próximo, adaptação rápida e resposta mais curta.</p></div></article>
+      <article class="diff-card"><div class="diff-card-icon">☁</div><div><h3>Digitalização industrial</h3><span></span><p>Disponibilização de dados, supervisão em nuvem e software para tomada de decisão.</p></div></article>
+      <article class="diff-card"><div class="diff-card-icon">↗</div><div><h3>Crescimento sustentável</h3><span></span><p>Estrutura orientada a reinvestimento, capacitação e evolução contínua das soluções entregues.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<div class="hd"></div>
+
+<!-- ══ SEGMENTOS ══ -->
+<section class="sec light-band" id="segmentos">
+  <div class="wrap">
+    <div class="slabel reveal-words reveal-inline">Onde atuamos</div>
+    <h2 class="stitle reveal-words">Setores em que a AIOTI <span>atua</span></h2>
+    <p class="sdesc reveal-words" style="margin-bottom:36px;">Indústrias de processo, utilidades, energia, infraestrutura e modernização de ativos.</p>
+    <div class="seg-grid">
+      <div class="card">
+        <div class="card-title reveal-words">Indústrias de processo</div>
+        <p class="card-desc reveal-words">Automação, instrumentação, integração e dados de operação para linhas produtivas e utilidades.</p>
+      </div>
+      <div class="card">
+        <div class="card-title reveal-words">Energia e infraestrutura</div>
+        <p class="card-desc reveal-words">Monitoramento, telemetria, retrofit, conectividade e inteligência operacional para ativos energéticos.</p>
+      </div>
+      <div class="card">
+        <div class="card-title reveal-words">Máquinas e equipamentos</div>
+        <p class="card-desc reveal-words">Modernização, adequação tecnológica, supervisão e aumento de eficiência de equipamentos industriais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hd"></div>
+
+<!-- ══ PROCESSO ══ -->
+<section class="sec light-band" id="processo">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div class="slabel reveal-words reveal-inline" style="justify-content:center;">Como trabalhamos</div>
+      <h2 class="stitle center reveal-words" style="text-align:center;">Nosso <span>processo</span></h2>
+      <p class="sdesc center reveal-words" style="max-width:560px;">Da análise à implantação, com acompanhamento técnico em cada etapa.</p>
+    </div>
+
+    <div class="proc-grid">
+      <div class="proc">
+        <div class="proc-n">01</div>
+        <h3 class="reveal-words">Diagnóstico</h3>
+        <p class="reveal-words">Levantamento da operação, necessidades, infraestrutura existente e objetivos do cliente.</p>
+      </div>
+      <div class="proc">
+        <div class="proc-n">02</div>
+        <h3 class="reveal-words">Proposta Técnica</h3>
+        <p class="reveal-words">Definição da solução ideal com escopo, viabilidade e ganhos operacionais esperados.</p>
+      </div>
+      <div class="proc">
+        <div class="proc-n">03</div>
+        <h3 class="reveal-words">Implantação</h3>
+        <p class="reveal-words">Execução técnica com integração, software, documentação, testes e validação em campo.</p>
+      </div>
+      <div class="proc">
+        <div class="proc-n">04</div>
+        <h3 class="reveal-words">Suporte e Evolução</h3>
+        <p class="reveal-words">Acompanhamento, expansão, ajustes e melhoria contínua baseada em dados reais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hd"></div>
+
+<!-- ══ CTA ══ -->
+<section class="sec light-band">
+  <div class="wrap">
+    <div class="ctabox">
+      <div>
+        <h2 class="reveal-words">Sua operação precisa de mais <span>eficiência, controle e dados?</span></h2>
+        <p class="reveal-words">Fale com a AIOTI para projetos de automação, integração industrial, monitoramento em nuvem, energia e retrofit.</p>
+      </div>
+      <div class="cta-btns">
+        <a href="https://wa.me/5585991931240?text=Olá%2C%20gostaria%20de%20pedir%20atendimento." target="_blank" class="btn-p">Pedir Atendimento</a>
+        <a href="#faq" class="btn-g">Ver Dúvidas Comuns</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hd"></div>
+
+<!-- ══ FAQ ══ -->
+<section class="sec light-band" id="faq">
+  <div class="wrap">
+    <div class="slabel reveal-words reveal-inline">Dúvidas frequentes</div>
+    <h2 class="stitle reveal-words" style="margin-bottom:8px;">Perguntas <span>frequentes</span></h2>
+    <p class="sdesc reveal-words" style="margin-bottom:0;">Dúvidas comuns sobre atendimento, implantação e suporte.</p>
+
+    <div class="faq-wrap">
+      <details open>
+        <summary class="reveal-words">Vocês atendem somente Fortaleza?</summary>
+        <p class="reveal-words">Não. A AIOTI é sediada em Fortaleza – CE, mas atua na região Nordeste do Brasil com foco em serviços industriais.</p>
+      </details>
+      <details>
+        <summary class="reveal-words">Que tipo de empresa pode contratar a AIOTI?</summary>
+        <p class="reveal-words">Indústrias, empresas de energia, utilidades, infraestrutura, máquinas e operações que precisam integrar sistemas, coletar dados e modernizar processos.</p>
+      </details>
+      <details>
+        <summary class="reveal-words">Vocês atuam em projeto e também em implantação?</summary>
+        <p class="reveal-words">Sim. Nossa atuação contempla diagnóstico, proposta, execução, integração, retrofit, suporte e evolução contínua das soluções.</p>
+      </details>
+      <details>
+        <summary class="reveal-words">É possível modernizar equipamentos antigos?</summary>
+        <p class="reveal-words">Sim. Retrofit e modernização são parte central da nossa proposta para elevar eficiência, confiabilidade e vida útil dos ativos industriais.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="hd"></div>
+
+<!-- ══ CONTATO ══ -->
+<section class="sec light-band" id="contato">
+  <div class="wrap">
+    <div class="slabel reveal-words reveal-inline">Fale com a AIOTI</div>
+    <h2 class="stitle reveal-words" style="margin-bottom:8px;">Vamos falar sobre sua <span>necessidade industrial</span></h2>
+    <p class="sdesc reveal-words" style="margin-bottom:36px;">Entre em contato para acelerar sua proposta e atendimento comercial.</p>
+
+    <div class="contact-grid">
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div class="ci">
+          <a href="https://wa.me/5585991931240" target="_blank" rel="noopener" style="display:contents;text-decoration:none;color:inherit;">
+            <div class="ci-icon">WA</div>
+          </a>
+          <div>
+            <div class="ci-label reveal-words">WhatsApp</div>
+            <div class="ci-val reveal-words"><a href="https://wa.me/5585991931240" target="_blank">+55 85 99193-1240</a></div>
+          </div>
+        </div>
+
+        <div class="ci">
+          <a href="https://br.linkedin.com/company/aioti-solu%C3%A7%C3%B5es-industriais" target="_blank" rel="noopener" style="display:contents;text-decoration:none;color:inherit;">
+            <div class="ci-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></div>
+          </a>
+          <div>
+            <div class="ci-label reveal-words">LinkedIn</div>
+            <div class="ci-val reveal-words"><a href="https://br.linkedin.com/company/aioti-solu%C3%A7%C3%B5es-industriais" target="_blank" rel="noopener">AIOTI Soluções Industriais</a></div>
+          </div>
+        </div>
+
+        <div class="ci">
+          <div class="ci-icon">LOC</div>
+          <div>
+            <div class="ci-label reveal-words">Localização</div>
+            <div class="ci-val reveal-words">Fortaleza – CE · Nordeste</div>
+          </div>
+        </div>
+
+        <a href="https://wa.me/5585991931240?text=Olá%2C%20sou%20da%20área%20industrial%20e%20gostaria%20de%20conversar%20sobre%20uma%20solução%20em%20automação%2C%20IoT%2C%20monitoramento%2C%20energia%20ou%20retrofit%20para%20minha%20operação." target="_blank" class="btn-p" style="align-self:flex-start;margin-top:8px;">Abrir Conversa no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="fl">
+    <img src="assets/logo-aioti.png" alt="AIOTI" class="fl-logo"/>
+  </div>
+
+  <div class="fc">© <span id="yr"></span> AIOTI Soluções Industriais · Fortaleza – CE · Nordeste</div>
+
+  <ul class="flinks">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#monitoramento-solar">Monitoramento Solar</a></li>
+    <li><a href="produtos.html">Produtos</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</footer>
+
+<!-- ══ WIDGET DE ATENDIMENTO (assistente virtual AIOTI) ══ -->
+<style>
+#aioti-chat-btn{
+  position:fixed;right:24px;bottom:24px;width:60px;height:60px;
+  border-radius:50%;border:none;cursor:pointer;z-index:950;
+  background:linear-gradient(135deg,var(--green-bright),var(--green-mid));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 28px rgba(45,138,36,.32);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+#aioti-chat-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(45,138,36,.4);}
+#aioti-chat-btn svg{width:28px;height:28px;stroke:#061106;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+#aioti-chat-box{
+  position:fixed;right:24px;bottom:96px;width:380px;height:560px;
+  max-height:calc(100vh - 120px);
+  border-radius:18px;overflow:hidden;display:none;z-index:950;
+  background:#fff;border:1px solid rgba(17,27,19,.10);
+  box-shadow:0 22px 64px rgba(18,28,18,.22);
+}
+#aioti-chat-box.aberto{display:block;}
+#aioti-chat-box iframe{width:100%;height:100%;border:0;}
+@media(max-width:480px){
+  #aioti-chat-box{right:8px;left:8px;width:auto;height:70vh;}
+}
+</style>
+<button id="aioti-chat-btn" aria-label="Falar com o atendimento AIOTI">
+  <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</button>
+<div id="aioti-chat-box"></div>
+<script>
+(function(){
+  const chatBtn=document.getElementById('aioti-chat-btn');
+  const chatBox=document.getElementById('aioti-chat-box');
+  const iconChat='<svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>';
+  const iconClose='<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  let chatCarregado=false;
+  chatBtn.addEventListener('click',()=>{
+    if(!chatCarregado){
+      const frame=document.createElement('iframe');
+      frame.src='https://agentes-s68ksrzb97z5q4qqp7f8nq.streamlit.app/?agente=aioti&embed=true&cor=2d8a24';
+      frame.title='Atendimento AIOTI';
+      chatBox.appendChild(frame);
+      chatCarregado=true;
+    }
+    chatBox.classList.toggle('aberto');
+    chatBtn.innerHTML=chatBox.classList.contains('aberto')?iconClose:iconChat;
+  });
+})();
+</script>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur');
+const curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';
+  cur.style.top=my+'px';
+});
+(function ac(){
+  rx+=(mx-rx)*.12;
+  ry+=(my-ry)*.12;
+  curR.style.left=rx+'px';
+  curR.style.top=ry+'px';
+  requestAnimationFrame(ac);
+})();
+document.querySelectorAll('a,button,.card,.mc,.pill,.proc,.dif,summary,.partner-chip').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cur.style.width='6px';
+    cur.style.height='6px';
+    curR.style.width='50px';
+    curR.style.height='50px';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cur.style.width='10px';
+    cur.style.height='10px';
+    curR.style.width='34px';
+    curR.style.height='34px';
+  });
+});
+
+// BG particles
+const canvas=document.getElementById('bgC');
+const ctx=canvas.getContext('2d');
+let W,H,pts=[];
+function resize(){
+  W=canvas.width=innerWidth;
+  H=canvas.height=innerHeight;
+  buildPts();
+}
+function buildPts(){
+  pts=[];
+  const n=Math.min(Math.floor(W*H/12000),85);
+  for(let i=0;i<n;i++){
+    pts.push({
+      x:Math.random()*W,
+      y:Math.random()*H,
+      vx:(Math.random()-.5)*.16,
+      vy:-.05-Math.random()*.2,
+      s:.4+Math.random()*1.4,
+      a:.1+Math.random()*.45,
+      c:Math.random()>.5?'107,211,75':'88,191,57',
+      t:Math.random()*Math.PI*2,
+      ts:.007+Math.random()*.012
+    });
+  }
+}
+window.addEventListener('resize',resize);
+resize();
+
+function drawBg(){
+  ctx.clearRect(0,0,W,H);
+  for(let i=0;i<pts.length;i++){
+    for(let j=i+1;j<pts.length;j++){
+      const dx=pts[i].x-pts[j].x;
+      const dy=pts[i].y-pts[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<125){
+        ctx.beginPath();
+        ctx.moveTo(pts[i].x,pts[i].y);
+        ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(95,190,70,${(1-d/125)*.08})`;
+        ctx.lineWidth=.5;
+        ctx.stroke();
+      }
+    }
+  }
+  pts.forEach(p=>{
+    p.t+=p.ts;
+    const a=p.a*(.6+.4*Math.sin(p.t));
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.s,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${p.c},${a})`;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.s*3.5,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${p.c},${a*.06})`;
+    ctx.fill();
+
+    p.x+=p.vx;
+    p.y+=p.vy;
+
+    if(p.y<-10){p.y=H+10;p.x=Math.random()*W;}
+    if(p.x<-10)p.x=W+10;
+    if(p.x>W+10)p.x=-10;
+  });
+  requestAnimationFrame(drawBg);
+}
+drawBg();
+
+// Hamburger
+const ham=document.getElementById('ham');
+const nl=document.getElementById('nlinks');
+function closeMenu(){
+  if(!ham || !nl) return;
+  nl.classList.remove('open');
+  document.getElementById('navbar')?.classList.remove('menu-open');
+  ham.setAttribute('aria-expanded','false');
+  ham.querySelectorAll('span').forEach(s=>{s.style.transform='';s.style.opacity='';});
+}
+function openMenu(){
+  if(!ham || !nl) return;
+  nl.classList.add('open');
+  document.getElementById('navbar')?.classList.add('menu-open');
+  ham.setAttribute('aria-expanded','true');
+  const s=ham.querySelectorAll('span');
+  s[0].style.transform='rotate(45deg) translate(5px,5px)';
+  s[1].style.opacity='0';
+  s[2].style.transform='rotate(-45deg) translate(5px,-5px)';
+}
+if(ham && nl){
+  ham.setAttribute('aria-expanded','false');
+  ham.addEventListener('click',(ev)=>{
+    ev.preventDefault();
+    ev.stopPropagation();
+    nl.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+  document.addEventListener('click',(ev)=>{
+    if(nl.classList.contains('open') && !nl.contains(ev.target) && !ham.contains(ev.target)) closeMenu();
+  });
+}
+
+
+// Footer year
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+// HERO estático: evita mudança de altura no desktop/mobile
+const typedHero=document.getElementById('typedHero');
+const typedPunct=document.getElementById('typedPunct');
+if(typedHero){
+  typedHero.textContent='automação industrial';
+  typedHero.classList.add('is-final');
+}
+if(typedPunct){typedPunct.textContent='';}
+
+// Wrap reveal por palavras
+function wrapRevealWords(el){
+  if(!el || el.dataset.wrapped==='1') return;
+  // Mantém a estrutura original quando o elemento tem HTML interno (ícones, spans, cards, imagens etc.).
+  // Isso evita quebrar grids/cards e textos compostos em seções como "Sobre a AIOTI".
+  if(el.children && el.children.length > 0) return;
+  const original=el.textContent;
+  if(!original.trim()) return;
+
+  el.dataset.wrapped='1';
+  el.setAttribute('aria-label', original);
+
+  const parts = original.split(/(\s+)/);
+  const frag=document.createDocumentFragment();
+  let idx=0;
+
+  parts.forEach(part=>{
+    if(/\s+/.test(part)){
+      frag.appendChild(document.createTextNode(part));
+    }else if(part){
+      const span=document.createElement('span');
+      span.className='word';
+      span.style.setProperty('--i', idx++);
+      span.textContent=part;
+      frag.appendChild(span);
+    }
+  });
+
+  el.textContent='';
+  el.appendChild(frag);
+}
+
+document.querySelectorAll('.reveal-words, .reveal-inline').forEach(wrapRevealWords);
+
+// Reveal observer
+const revealObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    const el=entry.target;
+    if(entry.isIntersecting){
+      el.classList.add('is-visible');
+      el.classList.remove('is-past');
+    }else{
+      const rect=entry.boundingClientRect;
+      if(rect.top < 0){
+        el.classList.add('is-past');
+        el.classList.remove('is-visible');
+      }else{
+        el.classList.remove('is-visible','is-past');
+      }
+    }
+  });
+},{threshold:.18, rootMargin:'0px 0px -8% 0px'});
+
+document.querySelectorAll('.reveal-words, .reveal-inline').forEach(el=>revealObserver.observe(el));
+
+// Fade sections when passing
+const sections=[...document.querySelectorAll('.sec')];
+
+function updateSectionTrail(){
+  const trigger=window.innerHeight*0.22;
+  sections.forEach(sec=>{
+    const rect=sec.getBoundingClientRect();
+    if(rect.bottom < trigger){
+      sec.classList.add('is-past');
+    }else{
+      sec.classList.remove('is-past');
+    }
+  });
+}
+window.addEventListener('scroll', updateSectionTrail, {passive:true});
+window.addEventListener('resize', updateSectionTrail);
+updateSectionTrail();
+</script>
+</body>
+</html>

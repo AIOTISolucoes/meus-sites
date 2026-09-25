@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#102b27">
+  <meta name="description" content="Conceito de site para o Bar do Peixe, no Eusébio. Peixes, comida regional e atendimento direto.">
+  <title>Bar do Peixe | Eusébio</title>
+  <link rel="preload" href="assets/hero.webp" as="image" type="image/webp">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="css/style.css?v=1">
+  <link rel="stylesheet" href="css/living-grid.css?v=2">
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+  <button class="scroll-orbit" type="button" aria-label="Progresso da página. Voltar ao topo">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"></circle><circle class="scroll-orbit-value" cx="24" cy="24" r="20" pathLength="100"></circle></svg><span>0%</span>
+  </button>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#inicio" aria-label="Bar do Peixe, início"><strong>BAR DO</strong><span>PEIXE</span></a>
+    <button class="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i class="ph ph-list"></i></button>
+    <nav id="menu" aria-label="Navegação principal">
+      <a href="#sabores">Sabores</a><a href="#pedido">Monte seu pedido</a><a href="#visita">Como chegar</a>
+      <a class="nav-cta" href="https://wa.me/5585988541960" target="_blank" rel="noopener">Chamar no WhatsApp <i class="ph ph-arrow-up-right"></i></a>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio">
+      <img class="hero-photo" src="assets/hero.webp" alt="Peixe frito servido com baião, pirão e acompanhamentos em mesa ribeirinha" width="1536" height="1024">
+      <div class="living-grid" data-living-grid="assets/hero.webp" data-variant="pulse" aria-hidden="true"></div>
+      <div class="hero-tide" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="hero-copy">
+        <p class="eyebrow">Eusébio, Ceará</p>
+        <h1>O peixe chega inteiro. <em>O almoço também.</em></h1>
+        <p>Sabores do Nordeste, porções para dividir e uma mesa sem pressa.</p>
+        <div class="actions"><a class="btn primary" href="#sabores">Ver sabores</a><a class="btn glass" href="#pedido">Montar pedido</a></div>
+      </div>
+      <div class="hero-plate" aria-hidden="true"><span></span></div>
+    </section>
+
+    <div class="marquee" aria-hidden="true"><div>PEIXE FRITO&nbsp;&nbsp; PIRÃO&nbsp;&nbsp; BAIÃO&nbsp;&nbsp; OVA DE PEIXE&nbsp;&nbsp; PEIXE COZIDO&nbsp;&nbsp; PEIXE FRITO&nbsp;&nbsp; PIRÃO&nbsp;&nbsp; BAIÃO&nbsp;&nbsp; OVA DE PEIXE&nbsp;&nbsp; PEIXE COZIDO&nbsp;&nbsp;</div></div>
+
+    <section class="story" id="sabores">
+      <div class="story-copy reveal">
+        <h2>Do rio para o centro da mesa.</h2>
+        <p>Pargo, tilápia e galo aparecem fritos, cozidos ou em posta. A disponibilidade e os acompanhamentos são confirmados pela casa.</p>
+        <a class="text-link" href="https://www.instagram.com/bardopeixe_eusebio/" target="_blank" rel="noopener">Ver novidades no Instagram <i class="ph ph-arrow-up-right"></i></a>
+      </div>
+      <figure class="story-media"><img src="assets/menu.webp" alt="Seleção de peixe frito, peixe cozido e acompanhamentos regionais" width="1128" height="1410"></figure>
+    </section>
+
+    <section class="flavours">
+      <div class="section-title reveal"><h2>Escolha pelo seu jeito de almoçar.</h2><p>Toque em um sabor para abrir a mesa.</p></div>
+      <div class="food-accordion" id="food-accordion">
+        <article class="food-panel active" data-crop="fried" tabindex="0"><div class="food-image"><img src="assets/menu.webp" alt="Peixe frito com limão"></div><div class="food-copy"><span>Para dividir</span><h3>Frito</h3><p>Peixe inteiro, textura crocante e acompanhamentos da casa.</p></div></article>
+        <article class="food-panel" data-crop="stew" tabindex="0"><div class="food-image"><img src="assets/menu.webp" alt="Peixe cozido em caldo regional"></div><div class="food-copy"><span>De colher</span><h3>Cozido</h3><p>Caldo quente, pirão e sabor de almoço demorado.</p></div></article>
+        <article class="food-panel" data-crop="roe" tabindex="0"><div class="food-image"><img src="assets/menu.webp" alt="Ova de peixe com arroz e limão"></div><div class="food-copy"><span>Da casa</span><h3>Ova</h3><p>Uma especialidade encontrada no cardápio da casa.</p></div></article>
+      </div>
+    </section>
+
+    <section class="order" id="pedido">
+      <div class="order-heading reveal"><h2>Monte uma intenção de pedido.</h2><p>A equipe confirma disponibilidade, tamanho, acompanhamentos e valor final pelo WhatsApp.</p></div>
+      <div class="order-board">
+        <div class="order-options" role="group" aria-label="Escolha o prato">
+          <button type="button" data-dish="Peixe frito"><i class="ph ph-fish-simple"></i><span>Peixe frito</span></button>
+          <button type="button" data-dish="Peixe cozido"><i class="ph ph-bowl-steam"></i><span>Peixe cozido</span></button>
+          <button type="button" data-dish="Ova de peixe"><i class="ph ph-cooking-pot"></i><span>Ova de peixe</span></button>
+          <button type="button" data-dish="Quero uma indicação"><i class="ph ph-sparkle"></i><span>Quero uma indicação</span></button>
+        </div>
+        <div class="order-summary" aria-live="polite">
+          <span>Seu pedido começa aqui</span>
+          <strong id="order-choice">Escolha um sabor</strong>
+          <p id="order-note">Nenhum item foi selecionado.</p>
+          <a class="btn primary disabled" id="order-send" href="https://wa.me/5585988541960" target="_blank" rel="noopener">Enviar para a casa</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="visit" id="visita">
+      <div class="visit-art" aria-hidden="true"><div class="fish-orbit"><i class="ph ph-fish-simple"></i><span></span><b></b></div></div>
+      <div class="visit-copy reveal">
+        <h2>Almoço no Eusébio.</h2>
+        <p>Av. Beira Rio, 427, Coaçu, Eusébio. Horário publicado: quarta a segunda, das 10h às 16h.</p>
+        <div class="actions"><a class="btn primary" href="https://www.google.com/maps/search/?api=1&query=Bar+do+Peixe+Av+Beira+Rio+427+Eusebio+CE" target="_blank" rel="noopener">Traçar rota</a><a class="btn line" href="tel:+5585988541960">Ligar</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="#inicio"><strong>BAR DO</strong><span>PEIXE</span></a><p>Conceito visual para apresentação. Cardápio, preços, horários e disponibilidade devem ser confirmados com o restaurante.<small class="ui-credit">Interações livres adaptadas de <a href="https://skiper-ui.com/" target="_blank" rel="noopener">Skiper UI</a> e direção de movimento inspirada no catálogo <a href="https://www.originkit.dev/" target="_blank" rel="noopener">OriginKit</a>.</small></p><a href="https://www.instagram.com/bardopeixe_eusebio/" target="_blank" rel="noopener">@bardopeixe_eusebio</a></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="js/living-grid.js?v=2"></script><script src="js/premium-ui.js?v=1"></script><script src="js/main.js?v=2"></script><script src="js/chat.js?v=1"></script>
+</body>
+</html>

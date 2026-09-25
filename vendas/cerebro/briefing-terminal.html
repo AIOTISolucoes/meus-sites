@@ -1,0 +1,118 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>briefing no terminal</title>
+<!--
+  Cena do B-roll vendas/gravar-briefing.py: o Claude Code lendo o cofre e
+  devolvendo um briefing.
+
+  ⚠️ Isto e uma RECRIACAO do terminal, nao uma captura de tela do CLI. O texto
+  do briefing e real (sai das notas do cofre `cerebro`), a moldura e desenhada.
+  Motivo: o monitor deste PC e 1280x720 e uma janela 9:16 de 900x1600 nao cabe
+  nele, entao gravar o terminal de verdade em vertical nao da.
+
+  Pra trocar o conteudo, mexe so no <pre id="saida">: cada linha e uma linha do
+  terminal. As classes controlam a cor (ver o <style>).
+-->
+<style>
+  :root {
+    --fundo: #16161a;
+    --texto: #d6d4d0;
+    --dim: #6f6d69;
+    --laranja: #d97757;
+    --verde: #7fb069;
+    --roxo: #9b87f5;
+    --vermelho: #e06c75;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--fundo); }
+  body {
+    font: 22px/1.55 "Cascadia Code", "Consolas", "DejaVu Sans Mono", monospace;
+    color: var(--texto);
+    -webkit-font-smoothing: antialiased;
+  }
+  /* barra da janela: so o suficiente pra ler como "terminal" */
+  #barra {
+    position: fixed; top: 0; left: 0; right: 0; height: 64px;
+    display: flex; align-items: center; gap: 10px; padding: 0 24px;
+    background: #0f0f12; border-bottom: 1px solid #26262c; z-index: 5;
+  }
+  .bola { width: 14px; height: 14px; border-radius: 50%; }
+  #titulo { margin-left: 14px; color: #8b8983; font-size: 18px; }
+  #rolo { padding: 92px 34px 90px; white-space: pre-wrap; }
+  .prompt { color: var(--laranja); }
+  .dim { color: var(--dim); }
+  .ok { color: var(--verde); }
+  .roxo { color: var(--roxo); }
+  .alerta { color: var(--vermelho); }
+  .forte { color: #fff; font-weight: 600; }
+  #cursor {
+    display: inline-block; width: 12px; height: 24px; vertical-align: -4px;
+    background: var(--texto); animation: pisca 1s steps(1) infinite;
+  }
+  @keyframes pisca { 50% { opacity: 0; } }
+</style>
+
+<div id="barra">
+  <div class="bola" style="background:#ff5f57"></div>
+  <div class="bola" style="background:#febc2e"></div>
+  <div class="bola" style="background:#28c840"></div>
+  <div id="titulo">cerebro — claude</div>
+</div>
+
+<pre id="rolo"><span class="prompt">&gt; </span><span id="digitado"></span><span id="cursor"></span>
+<span id="saida" style="visibility:hidden">
+<span class="dim">⏺ Read(cerebro/O gargalo.md)
+  ⎿  24 linhas</span>
+<span class="dim">⏺ Read(cerebro/As 7 barbearias.md)
+  ⎿  31 linhas</span>
+<span class="dim">⏺ Read(cerebro/Melhor horário pra abordar.md)
+  ⎿  18 linhas</span>
+<span class="dim">⏺ Read(cerebro/Mensagem de abordagem.md)
+  ⎿  16 linhas</span>
+<span class="dim">⏺ Read(cerebro/Preço.md)
+  ⎿  14 linhas</span>
+<span class="dim">⏺ Grep(#negocio) · 12 notas</span>
+
+<span class="forte">━━━ BRIEFING: ABORDAR AS 7 BARBEARIAS ━━━</span>
+<span class="dim">lido de 69 notas do cofre "cerebro"</span>
+
+<span class="roxo">1. ONDE VOCÊ ESTÁ</span>
+   17 sites prontos
+   7 barbearias com vídeo gravado
+   <span class="alerta">0 abordagens enviadas</span>
+   15 dos 17 sites nunca foram publicados
+
+   <span class="forte">O gargalo não é técnico. É apertar enviar.</span>
+
+<span class="roxo">2. ALVOS DE HOJE</span>
+   LS Barbearia        18,6 mil    site+agente+vídeo
+   North Barber         7,1 mil    verificado
+   Sávio Barbearia      3,2 mil    verificado
+   Elo Barbearia            —      verificado
+   Drummer · Diretoria · Gentleman   prontos
+
+<span class="roxo">3. QUANDO MANDAR</span>
+   <span class="ok">Terça ou quarta, 9h30 às 11h.</span>
+   Nunca sexta, sábado, domingo ou após 18h.
+
+<span class="roxo">4. COMO MANDAR</span>
+   Manda o <span class="forte">vídeo</span>, não manda link.
+   O vídeo é a prova; o link é o convite.
+   Oferta: 2 semanas grátis, sem compromisso.
+
+   <span class="alerta">⚠ LS Barbearia: seguir e interagir ANTES.</span>
+   Direct de não-seguidor cai em "Solicitações"
+   e não chega em ninguém.
+
+<span class="roxo">5. PREÇO NA MESA</span>
+   Setup        R$ 400 a 600
+   Mensalidade  R$ 150 a 250
+   4-5 clientes até outubro = R$ 5-6k em dezembro
+
+<span class="roxo">6. A PRIMEIRA AÇÃO, AGORA</span>
+   <span class="ok">Seguir o perfil da LS Barbearia hoje.</span>
+   <span class="ok">Abordar terça, 9h30, com o vídeo anexado.</span>
+
+<span class="dim">─────────────────────────────────────────
+briefing pronto · 6 notas lidas</span>
+</span></pre>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JK Papelaria Personalizada — mimos, topos de bolo e lembrancinhas</title>
+<meta name="description" content="Papelaria personalizada em Itaitinga/Fortaleza, com envio para todo o Brasil: mimos impressos para recortar e montar, topos de bolo, sacolinhas, cards de agradecimento e impressão de fotos.">
+<meta name="theme-color" content="#26041c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Outfit:wght@300;400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css?v=1">
+</head>
+<body>
+
+<!-- ================= INTRO ================= -->
+<!-- A logo do Instagram vem em 150x150: aqui ela foi redesenhada em SVG.
+     O anel, os balões e os cordões se desenham traço a traço (class="tr"). -->
+<div id="intro">
+  <div class="intro-marca">
+    <svg id="logo-intro" viewBox="0 0 240 200" aria-label="JK Papelaria Personalizada">
+      <!-- anel externo, o mesmo da logo -->
+      <g fill="none" stroke="#6fe0bd" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M120 14 A 72 72 0 1 1 119.6 14"/>
+      </g>
+      <!-- balões: o contorno se desenha, o miolo colorido entra depois -->
+      <g fill="none" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr balao" data-cor="#ff62b5" d="M62 40 a13 15 0 1 1 .1 0 z"/>
+        <path class="tr balao" data-cor="#ffd166" d="M88 32 a12 14 0 1 1 .1 0 z"/>
+        <path class="tr balao" data-cor="#6fe0bd" d="M54 70 a12 14 0 1 1 .1 0 z"/>
+        <path class="tr balao" data-cor="#7ab8f5" d="M84 64 a13 15 0 1 1 .1 0 z"/>
+      </g>
+      <!-- cordões convergindo pra mão -->
+      <g fill="none" stroke="#ffd9ee" stroke-width="1.5" stroke-linecap="round">
+        <path class="tr" d="M62 55 C 64 78 70 92 76 104"/>
+        <path class="tr" d="M88 46 C 88 74 82 92 76 104"/>
+        <path class="tr" d="M54 84 C 60 94 70 100 76 104"/>
+        <path class="tr" d="M84 79 C 82 90 79 98 76 104"/>
+      </g>
+      <text class="marca-jk" x="154" y="88" text-anchor="middle">JK</text>
+      <text class="marca-nome" x="120" y="142" text-anchor="middle">papelaria personalizada</text>
+      <text class="marca-sub" x="120" y="166" text-anchor="middle">Personalizando seu sonho</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ================= NAV ================= -->
+<header id="nav">
+  <a class="nav-marca" href="#inicio">
+    <svg viewBox="0 0 100 100" class="nav-logo" aria-hidden="true">
+      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="6"/>
+      <text x="50" y="68" text-anchor="middle" class="nav-jk">JK</text>
+    </svg>
+    <span>JK <em>papelaria personalizada</em></span>
+  </a>
+  <nav class="nav-links">
+    <a href="#servicos">O que fazemos</a>
+    <a href="#promocoes">Promoções</a>
+    <a href="#assinatura">Monte o seu</a>
+    <a href="#galeria">Feitos por ela</a>
+  </nav>
+  <a class="btn-nav" href="https://wa.me/5585997703618?text=Oi!%20Vim%20pelo%20site%20e%20queria%20fazer%20um%20pedido." target="_blank" rel="noopener">Fazer pedido</a>
+</header>
+
+<!-- ================= HERO ================= -->
+<section id="inicio">
+  <!-- bandeirinhas com física de corda: dá pra empurrar o varal com o ponteiro -->
+  <canvas id="varal" aria-hidden="true"></canvas>
+
+  <div class="hero-conteudo">
+    <span class="etiqueta">Papelaria personalizada · Itaitinga / Fortaleza</span>
+    <h1 class="hero-titulo">
+      <span class="linha"><span>Você diz o nome.</span></span>
+      <span class="linha"><span>A gente imprime</span></span>
+      <span class="linha"><span><em>a festa inteira.</em></span></span>
+    </h1>
+    <p class="hero-texto">
+      Mimos para recortar e montar, topos de bolo, sacolinhas, cards e fotos —
+      com a arte feita sob medida pro seu tema. O pedido é fechado no WhatsApp.
+    </p>
+    <div class="hero-acoes">
+      <a class="btn-principal" href="https://wa.me/5585997703618?text=Oi!%20Vim%20pelo%20site%20e%20queria%20fazer%20um%20pedido." target="_blank" rel="noopener">Fazer pedido no WhatsApp</a>
+      <a class="btn-vazado" href="#assinatura">Montar um mimo aqui</a>
+    </div>
+    <!-- os três dados são os que a JK publica: papel, prazo e envio -->
+    <div class="hero-dados">
+      <div><strong>180 g</strong><span>papel offset</span></div>
+      <div><strong>até 5 dias</strong><span>úteis de produção</span></div>
+      <div><strong>Brasil</strong><span>envio pra todo o país</span></div>
+    </div>
+  </div>
+
+  <div class="rolar"><span>role</span><i></i></div>
+</section>
+
+<!-- ================= O QUE FAZEMOS ================= -->
+<section id="servicos">
+  <div class="secao-topo">
+    <span class="etiqueta">o que sai da JK</span>
+    <h2 class="titulo-secao">Papel que vira<br><em>lembrança</em></h2>
+  </div>
+
+  <div class="grade-servicos">
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M14 24 h36 v26 a4 4 0 0 1 -4 4 H18 a4 4 0 0 1 -4 -4 z"/>
+        <path class="tr" d="M14 24 l18 -12 l18 12"/>
+        <path class="tr" d="M32 12 v42"/>
+        <path class="tr" d="M22 36 h6 M36 36 h6"/>
+      </svg>
+      <h3>Mimos impressos</h3>
+      <p>Caixinhas e displays que chegam impressos com o nome e a idade já na arte. Você recorta, monta, e a festa começa antes da festa.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M12 44 h40 v8 a2 2 0 0 1 -2 2 H14 a2 2 0 0 1 -2 -2 z"/>
+        <path class="tr" d="M14 44 v-10 a4 4 0 0 1 4 -4 h28 a4 4 0 0 1 4 4 v10"/>
+        <path class="tr" d="M32 30 v-9"/>
+        <path class="tr" d="M22 18 c4 -6 16 -6 20 0 c-4 4 -16 4 -20 0 z"/>
+      </svg>
+      <h3>Topos de bolo</h3>
+      <p>O nome ou o "parabéns" em glitter no alto do bolo, com ou sem camadas e com flores de papel. Também tem modelo a pronta entrega.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M16 24 h32 l3 30 a3 3 0 0 1 -3 3 H16 a3 3 0 0 1 -3 -3 z"/>
+        <path class="tr" d="M24 26 v-7 a8 8 0 0 1 16 0 v7"/>
+        <path class="tr" d="M26 40 c3 4 9 4 12 0"/>
+      </svg>
+      <h3>Sacolinhas e mini kits</h3>
+      <p>A lembrancinha que a criança leva pra casa, montada no tema da festa — e feita em quantidade, uma igual à outra.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M12 18 h40 v28 H12 z"/>
+        <path class="tr" d="M18 28 h16 M18 36 h12"/>
+        <path class="tr" d="M40 30 c3 -4 8 -1 6 3 c-1.4 3 -6 6 -6 6 s-4.6 -3 -6 -6 c-2 -4 3 -7 6 -3 z"/>
+      </svg>
+      <h3>Cards de agradecimento</h3>
+      <p>O cartãozinho de 7 × 10 cm que vai dentro do pedido. Feito pra loja que quer que o cliente lembre da marca e volte.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M14 14 h36 v36 h-36 z"/>
+        <path class="tr" d="M19 19 h26 v22 h-26 z"/>
+        <path class="tr" d="M26 46 h12"/>
+      </svg>
+      <h3>Fotos em polaroid</h3>
+      <p>Suas fotos impressas em formato polaroid, pra decorar o varal da festa, montar um álbum ou simplesmente presentear.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M18 20 h22 v26 a4 4 0 0 1 -4 4 H22 a4 4 0 0 1 -4 -4 z"/>
+        <path class="tr" d="M40 26 h6 a5 5 0 0 1 0 10 h-6"/>
+        <path class="tr" d="M24 28 h10"/>
+      </svg>
+      <h3>Canecas e impressão em geral</h3>
+      <p>Caneca personalizada pra presente e impressão avulsa do que você já tem pronto. Se for papel, pergunte — ela faz.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ PROMOÇÕES ============ -->
+<!-- Estes valores saíram dos posts dela e cada card carrega a DATA em que foi
+     divulgado. Promoção vence: sem a data, o site vira uma promessa velha e
+     quem responde por ela é a cliente. O valor de "10 topos por R$ 60" ficou
+     de fora de propósito — é de campanha de março, velho demais. -->
+<section id="promocoes">
+  <div class="secao-topo centro">
+    <span class="etiqueta">valores divulgados</span>
+    <h2 class="titulo-secao">As promoções<br>que ela <em>anunciou</em></h2>
+    <p class="secao-texto">
+      Os preços abaixo são os que a JK publicou no Instagram, com a data de cada
+      anúncio. Promoção muda: confirme no WhatsApp o que está valendo hoje.
+    </p>
+  </div>
+
+  <div class="grade-promo">
+    <article class="promo" data-item>
+      <span class="promo-valor">R$ 49,90</span>
+      <h3>50 mimos + 50 apliques</h3>
+      <p>O kit de mimos impressos para recortar e montar. Quem leva o kit ganha 2 displays de mesa, também impressos.</p>
+      <span class="promo-data">anunciado em 28/jul/2026</span>
+    </article>
+
+    <article class="promo" data-item>
+      <span class="promo-valor">R$ 39,90</span>
+      <h3>100 cards de agradecimento</h3>
+      <p>Cartãozinho de 7 × 10 cm para ir dentro do pedido da sua loja.</p>
+      <span class="promo-data">anunciado em 08/jul/2026</span>
+    </article>
+
+    <article class="promo" data-item>
+      <span class="promo-valor">R$ 16,00</span>
+      <h3>10 fotos em polaroid</h3>
+      <p>Suas fotos impressas no formato polaroid, para decorar ou presentear.</p>
+      <span class="promo-data">anunciado em 08/jul/2026</span>
+    </article>
+
+    <article class="promo" data-item>
+      <span class="promo-valor">R$ 14,00</span>
+      <h3>Topo de bolo com nome</h3>
+      <p>Modelo em glitter verde, sem camadas, com 3 flores tamanho G.</p>
+      <span class="promo-data">anunciado em 23/jun/2026</span>
+    </article>
+  </div>
+
+  <p class="promo-ressalva">
+    Fora das promoções, cada pedido é orçado pela JK conforme o tema, a arte e a
+    quantidade — não existe tabela fixa.
+  </p>
+</section>
+
+<!-- ============ SEÇÃO-ASSINATURA: MONTE O SEU ============ -->
+<section id="assinatura">
+  <div class="secao-topo centro">
+    <span class="etiqueta">o mimo que se monta</span>
+    <h2 class="titulo-secao">Escreva um nome<br>e <em>monte a caixinha</em></h2>
+    <p class="secao-texto">
+      É assim que o mimo impresso chega: uma folha plana, com a linha de corte e o
+      nome já na arte. Arraste a barra e veja a folha virar caixinha.
+    </p>
+  </div>
+
+  <div class="montar">
+    <div class="montar-controles">
+      <label class="campo">
+        <span>Nome na arte</span>
+        <input id="jk-nome" type="text" maxlength="12" value="Caio" autocomplete="off" spellcheck="false">
+      </label>
+
+      <label class="campo">
+        <span>Idade</span>
+        <select id="jk-idade">
+          <option value="">sem idade</option>
+          <option value="1">1 ano</option>
+          <option value="2">2 anos</option>
+          <option value="3">3 anos</option>
+          <option value="4">4 anos</option>
+          <option value="5" selected>5 anos</option>
+          <option value="6">6 anos</option>
+          <option value="7">7 anos</option>
+          <option value="8">8 anos</option>
+          <option value="9">9 anos</option>
+          <option value="10">10 anos</option>
+        </select>
+      </label>
+
+      <div class="campo">
+        <span>Cores</span>
+        <div class="temas" id="jk-temas" role="group" aria-label="Cores da arte">
+          <button type="button" class="tema ativo" data-tema="ceu" aria-pressed="true"><i></i>Céu</button>
+          <button type="button" class="tema" data-tema="festa" aria-pressed="false"><i></i>Festa</button>
+          <button type="button" class="tema" data-tema="jardim" aria-pressed="false"><i></i>Jardim</button>
+          <button type="button" class="tema" data-tema="doce" aria-pressed="false"><i></i>Doce</button>
+        </div>
+      </div>
+
+      <div class="campo campo-dobra">
+        <span>Montagem</span>
+        <div class="dobra-linha">
+          <em>plana</em>
+          <input id="jk-dobra" type="range" min="0" max="100" value="0" aria-label="Quanto a caixinha está montada">
+          <em>montada</em>
+        </div>
+      </div>
+
+      <a class="btn-principal montar-pedir" id="jk-pedir" href="https://wa.me/5585997703618" target="_blank" rel="noopener">Pedir esse mimo no WhatsApp</a>
+    </div>
+
+    <div class="montar-palco" id="jk-palco">
+      <div class="caixa" id="jk-caixa" data-tema="ceu">
+        <div class="parede p-fundo"></div>
+        <div class="parede p-oeste"></div>
+        <div class="parede p-leste"></div>
+        <div class="parede p-sul">
+          <span class="etiq-nome"><b class="eco-nome">Caio</b><i class="eco-idade">5 anos</i></span>
+        </div>
+        <!-- o nome vai nas duas paredes opostas e some sozinho na que estiver
+             de costas (backface-visibility no CSS): verso de texto impresso
+             sai espelhado e parece defeito.
+             Sem tampa de propósito: a caixinha dela é aberta, e a tampa
+             deitada cobria justamente a parede em que o nome fica legível. -->
+        <div class="parede p-norte">
+          <span class="etiq-nome"><b class="eco-nome">Caio</b><i class="eco-idade">5 anos</i></span>
+        </div>
+      </div>
+      <p class="palco-nota">Arraste o desenho pra girar</p>
+    </div>
+  </div>
+
+  <p class="assinatura-ressalva">
+    O desenho acima é só pra mostrar como funciona a montagem. A arte de verdade é
+    feita pela JK no tema da sua festa — personagem, cor e texto do jeito que você quiser.
+  </p>
+</section>
+
+<!-- ============ FICHA / COMO CHEGA ============ -->
+<section id="ficha">
+  <div class="ficha-caixa">
+    <div class="secao-topo">
+      <span class="etiqueta">como chega até você</span>
+      <h2 class="titulo-secao">Sem surpresa<br>no <em>caminho</em></h2>
+    </div>
+    <ul class="lista-ficha">
+      <li data-item><strong>Papel offset 180 g</strong><span>Gramatura firme: a caixinha monta e fica em pé, não amassa na mão da criança.</span></li>
+      <li data-item><strong>Arte pronta com nome e idade</strong><span>Você manda o tema e os dados; a arte volta pra sua aprovação antes de ir pra impressão.</span></li>
+      <li data-item><strong>Até 5 dias úteis de produção</strong><span>É o prazo que a JK publica. O do seu pedido depende da quantidade e é combinado no WhatsApp.</span></li>
+      <li data-item><strong>Envio para todo o Brasil</strong><span>Retirada em Itaitinga ou envio pro seu endereço, combinado junto com o pedido.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ GALERIA ============ -->
+<section id="galeria">
+  <div class="trilho">
+    <div class="trilho-interno">
+      <div class="painel painel-abre">
+        <span class="etiqueta">feitos por ela</span>
+        <h2 class="titulo-secao">O que já<br><em>saiu daqui</em></h2>
+        <p>Role para o lado — pedidos reais que a JK produziu e publicou.</p>
+        <svg class="seta" viewBox="0 0 120 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <path d="M2 12 H 112"/><path d="M100 4 L 112 12 L 100 20"/>
+        </svg>
+      </div>
+
+      <figure class="painel painel-foto larga">
+        <img src="assets/sacolinhas.jpg" alt="Mesa cheia de sacolinhas personalizadas prontas para entrega, sob a logo da JK Papelaria" loading="lazy">
+        <figcaption><strong>Sacolinhas em quantidade</strong><span>lembrancinhas</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/mimos.jpg" alt="Kit de mimos impressos montados: caixinhas, cone e display de mesa no tema ursinho" loading="lazy">
+        <figcaption><strong>Kit montado</strong><span>mimos impressos</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto larga">
+        <img src="assets/topos.jpg" alt="Vários topos de bolo em glitter com a palavra Happy Birthday e nomes" loading="lazy">
+        <figcaption><strong>Topos a pronta entrega</strong><span>topo de bolo</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto larga">
+        <img src="assets/bolo.jpg" alt="Bolo branco com topo de papel e flores coloridas no alto" loading="lazy">
+        <figcaption><strong>No bolo</strong><span>topo com flores</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto faixa">
+        <img src="assets/cards.jpg" alt="Três modelos de card de agradecimento de 7 por 10 centímetros" loading="lazy">
+        <figcaption><strong>Cards 7 × 10 cm</strong><span>agradecimento</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/polaroid.jpg" alt="Mão segurando um maço de fotos impressas em formato polaroid" loading="lazy">
+        <figcaption><strong>Fotos impressas</strong><span>polaroid</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTATO ================= -->
+<section id="contato">
+  <div class="contato-caixa">
+    <h2>Já sabe o tema<br>da <em>festa</em>?</h2>
+    <p>
+      Manda no WhatsApp o que você precisa, pra quando é e a quantidade. A JK monta
+      a arte, te mostra antes de imprimir e só então fecha o pedido.
+    </p>
+    <div class="contato-acoes">
+      <a class="btn-principal grande" href="https://wa.me/5585997703618?text=Oi!%20Vim%20pelo%20site%20e%20queria%20fazer%20um%20pedido." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      <a class="btn-vazado grande" href="https://www.instagram.com/jk_mimospersonalizados/" target="_blank" rel="noopener">@jk_mimospersonalizados ↗</a>
+    </div>
+    <span class="contato-nota">
+      Preço, prazo do seu pedido e forma de envio são combinados direto no WhatsApp —
+      cada arte é feita sob medida, então não existe tabela fixa.
+    </span>
+  </div>
+</section>
+
+<footer>
+  <span>JK Papelaria Personalizada · Itaitinga / Fortaleza — CE</span>
+  <span>site por <a href="https://www.instagram.com/maxyzao/" target="_blank" rel="noopener">maxyzao</a></span>
+</footer>
+
+<script src="js/chat.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="js/main.js?v=1"></script>
+</body>
+</html>

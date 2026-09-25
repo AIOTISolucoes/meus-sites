@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111210">
+  <meta name="description" content="Conceito de site para a Ótica Vizzio Fashion, em Messejana. Vitrine de estilos e atendimento personalizado.">
+  <title>Ótica Vizzio Fashion | Messejana</title>
+  <link rel="preload" href="assets/hero.webp" as="image" type="image/webp">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+  <button class="scroll-orbit" type="button" aria-label="Progresso da página. Voltar ao topo" title="Voltar ao topo">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"></circle><circle class="scroll-orbit-value" cx="24" cy="24" r="20" pathLength="100"></circle></svg><span>0%</span>
+  </button>
+  <header class="nav" id="nav">
+    <a class="brand" href="#inicio" aria-label="Vizzio Fashion, início">
+      <strong>VIZZIO</strong><span>FASHION</span>
+    </a>
+    <button class="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i class="ph ph-list"></i></button>
+    <nav id="menu" aria-label="Navegação principal">
+      <a href="#colecao">Estilos</a><a href="#provador">Encontre o seu</a><a href="#loja">Loja</a>
+      <a class="nav-cta" href="https://www.instagram.com/otica_vizziofashion/" target="_blank" rel="noopener">Falar no Instagram <i class="ph ph-arrow-up-right"></i></a>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio">
+      <img class="hero-photo" src="assets/hero.webp" alt="Armação translúcida em composição gráfica com lente circular" width="1536" height="864">
+      <div class="hero-lens lens-a" aria-hidden="true"></div><div class="hero-lens lens-b" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow">Ótica em Messejana</p>
+        <h1>Seu olhar <em>muda tudo.</em></h1>
+        <p>Armações que acompanham seu rosto, seu ritmo e a forma como você quer ser visto.</p>
+        <div class="actions"><a class="btn primary" href="#provador">Encontrar meu estilo</a><a class="btn ghost" href="#colecao">Explorar formas</a></div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-label="Estilos disponíveis para explorar"><div>LEVE&nbsp;&nbsp; PRECISO&nbsp;&nbsp; MARCANTE&nbsp;&nbsp; ATEMPORAL&nbsp;&nbsp; LEVE&nbsp;&nbsp; PRECISO&nbsp;&nbsp; MARCANTE&nbsp;&nbsp; ATEMPORAL&nbsp;&nbsp;</div></div>
+
+    <section class="collection" id="colecao">
+      <div class="section-head reveal"><h2>Uma armação.<br>Três presenças.</h2><p>Use as categorias como ponto de partida. Modelos, marcas e disponibilidade são confirmados pela equipe.</p></div>
+      <div class="frame-stack">
+        <article class="frame-card" data-tone="angular"><div class="frame-media crop-a" data-magnify><img src="assets/colecao.webp" alt="Armação angular preta" width="1152" height="1440"></div><div><span>Linhas firmes</span><h3>Marcante</h3><p>Geometria definida para quem gosta de contraste no rosto.</p></div></article>
+        <article class="frame-card" data-tone="clear"><div class="frame-media crop-b" data-magnify><img src="assets/colecao.webp" alt="Armação translúcida clara" width="1152" height="1440"></div><div><span>Transparência</span><h3>Leve</h3><p>Presença suave, acabamento claro e leitura contemporânea.</p></div></article>
+        <article class="frame-card" data-tone="metal"><div class="frame-media crop-c" data-magnify><img src="assets/colecao.webp" alt="Armação fina de metal" width="1152" height="1440"></div><div><span>Traço essencial</span><h3>Clássico</h3><p>Metal fino e desenho limpo para atravessar tendências.</p></div></article>
+      </div>
+    </section>
+
+    <section class="finder" id="provador">
+      <div class="finder-copy reveal"><h2>Comece pelo que combina com você.</h2><p>Este guia fala de estilo, não substitui medidas, prova presencial nem orientação profissional.</p></div>
+      <div class="finder-stage">
+        <div class="face" id="face" aria-hidden="true"><span class="brow one"></span><span class="brow two"></span><span class="eye one"></span><span class="eye two"></span><span class="nose"></span><span class="mouth"></span><span class="demo-glasses"><b></b><b></b></span></div>
+        <form class="finder-form" id="finder-form">
+          <fieldset><legend>Como você descreve seu rosto?</legend><div class="choice-row"><button type="button" data-face="oval">Oval</button><button type="button" data-face="round">Arredondado</button><button type="button" data-face="angular">Angular</button></div></fieldset>
+          <fieldset><legend>Que presença você procura?</legend><div class="choice-row"><button type="button" data-vibe="leve">Leve</button><button type="button" data-vibe="marcante">Marcante</button><button type="button" data-vibe="classico">Clássica</button></div></fieldset>
+          <div class="result" id="finder-result" aria-live="polite"><small>Sua direção de estilo</small><strong>Escolha duas opções</strong><p>O resultado aparece aqui.</p></div>
+          <a class="btn primary disabled" id="finder-contact" href="https://www.instagram.com/otica_vizziofashion/" target="_blank" rel="noopener">Levar referência à equipe</a>
+        </form>
+      </div>
+    </section>
+
+    <section class="location" id="loja">
+      <div class="address reveal"><h2>Veja de perto.<br>Decida sem pressa.</h2><p>Rua Manuel Castelo Branco, 490 A, loja 4<br>Messejana, Fortaleza, CE</p><div class="actions"><a class="btn primary" href="https://www.waze.com/live-map/directions/br/ce/otica-vizzio-fashion?to=place.ChIJA3xdSgBPxwcRJyiPgmebvck" target="_blank" rel="noopener">Traçar rota</a><a class="btn ghost" href="tel:+5585998181656">Ligar</a></div></div>
+      <div class="orbital" aria-hidden="true"><span>V</span><i></i><b></b></div>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="#inicio"><strong>VIZZIO</strong><span>FASHION</span></a><p>Conceito visual para apresentação. Informações comerciais devem ser confirmadas antes da publicação.<small class="ui-credit">Interações livres adaptadas de <a href="https://skiper-ui.com/" target="_blank" rel="noopener">Skiper UI</a> e direção de movimento baseada no catálogo <a href="https://www.originkit.dev/" target="_blank" rel="noopener">OriginKit</a>.</small></p><a href="https://www.instagram.com/otica_vizziofashion/" target="_blank" rel="noopener">@otica_vizziofashion</a></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="js/premium-ui.js?v=2"></script>
+  <script src="js/main.js?v=2"></script>
+  <script src="js/chat.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+# Este repositório é PÚBLICO e serve o site pelo GitHub Pages.
+# Só entra aqui o que precisa ir pro ar.
+
+# A documentação interna NÃO vai pro ar: ela diz quais clientes ainda não
+# foram abordados, o raciocínio dos preços e as contas de margem.
+RETOMAR.md
+
+# Sobraram do carrossel antigo. Hoje a abertura só usa a 01, a 03 e a 05.
+# Ficam no disco (o vendas/gravar-prints-servicos.py regera), mas não
+# precisam pesar num repositório público.
+assets/exemplos/estilo-02*
+assets/exemplos/estilo-04*
+assets/exemplos/estilo-06*
+assets/exemplos/estilo-07*
+assets/exemplos/estilo-08*
+assets/exemplos/estilo-09*
+
+# lixo de sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# nada de segredo, nunca
+*.key
+*.key.pub
+.env
+*secrets*
+credenciais*

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diretoria Barber — Barbearia no Conjunto Esperança, aberta domingo de manhã</title>
+<meta name="description" content="Barbearia na Rua das Cerejeiras, 435 — Conjunto Esperança, Fortaleza. Cabelo, barba e resenha. Aberta de segunda a domingo, com agendamento online.">
+<meta name="theme-color" content="#16110c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bevan&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- ao editar css/js, SUBIR o ?v=N: senão o navegador serve cache velho e o
+     JS pode quebrar em silêncio (já aconteceu no portfólio) -->
+<link rel="stylesheet" href="css/estilo.css?v=1">
+</head>
+<body>
+
+<!-- ================= INTRO =================
+     A logo deles é uma COROA sobre um BIGODE, em âmbar no preto.
+     ⚠️ O bigode é preenchido, igual ao do LS: em contorno vira rabisco. Ele
+     entra por escala; só a coroa e a moldura se desenham. -->
+<div id="intro">
+  <div class="intro-marca">
+    <svg id="logo-intro" viewBox="0 0 260 190" aria-label="Diretoria Barber">
+      <g fill="none" stroke="#e8a71d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M96 62 L104 34 L118 52 L130 26 L142 52 L156 34 L164 62 Z"/>
+        <path class="tr" d="M92 70 L168 70"/>
+      </g>
+      <path class="bigode" fill="#e8a71d"
+            d="M130 88 C139 95 151 99 163 97 C178 95 186 102 182 110
+               C177 121 160 128 148 124 C139 121 133 114 130 106
+               C127 114 121 121 112 124 C100 128 83 121 78 110
+               C74 102 82 95 97 97 C109 99 121 95 130 88 Z"/>
+      <text class="marca-nome" x="130" y="152" text-anchor="middle">DIRETORIA</text>
+      <text class="marca-sub" x="130" y="174" text-anchor="middle">B A R B E R</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ================= NAV ================= -->
+<header id="nav">
+  <a class="nav-marca" href="#inicio">
+    <svg viewBox="0 0 60 40" class="nav-logo" aria-hidden="true">
+      <path d="M10 26 L14 8 L23 19 L30 4 L37 19 L46 8 L50 26 Z"
+            fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/>
+      <path d="M8 33 L52 33" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/>
+    </svg>
+    <span>Diretoria <em>Barber</em></span>
+  </a>
+  <nav class="nav-links">
+    <a href="#servicos">Preços</a>
+    <a href="#assinatura">Quando ir</a>
+    <a href="#galeria">A casa</a>
+  </nav>
+  <a class="btn-nav" href="https://schedweb.com.br/diretoriabarber" target="_blank" rel="noopener">Agendar</a>
+</header>
+
+<!-- ================= HERO =================
+     Sem canvas aqui: as listras do poste de barbeiro são CSS, e o globo de luz
+     do poste segue o ponteiro. O terceiro canvas da série custaria caro e o
+     efeito não seria mais forte que este. -->
+<section id="inicio">
+  <div class="poste" aria-hidden="true"></div>
+  <div class="globo" id="globo" aria-hidden="true"></div>
+
+  <div class="hero-conteudo">
+    <span class="etiqueta">Barbearia · Conjunto Esperança, Fortaleza</span>
+    <h1 class="hero-titulo">
+      <span class="linha"><span>Cabelo, barba</span></span>
+      <span class="linha"><span>e <em>resenha</em></span></span>
+    </h1>
+    <p class="hero-texto">
+      Aberta de segunda a domingo, na Rua das Cerejeiras. Corte social a partir
+      de R$&nbsp;25 e a sobrancelha por R$&nbsp;5 — a tabela inteira está aqui
+      embaixo, sem letra miúda.
+    </p>
+    <div class="hero-acoes">
+      <a class="btn-principal" href="https://schedweb.com.br/diretoriabarber" target="_blank" rel="noopener">Agendar horário</a>
+      <a class="btn-vazado" href="#assinatura">Ver quando dá pra ir</a>
+    </div>
+    <!-- só dado publicado por eles (bio do Instagram + página de agendamento) -->
+    <div class="hero-dados">
+      <div><strong>Domingo</strong><span>abre 8h30, até meio-dia</span></div>
+      <div><strong>R$ 25</strong><span>o corte social</span></div>
+      <div><strong>Cerejeiras, 435</strong><span>Conjunto Esperança</span></div>
+    </div>
+  </div>
+
+  <div class="rolar"><span>role</span><i></i></div>
+</section>
+
+<!-- ============ PREÇOS: a placa da casa ============
+     Todos os valores saem da página de agendamento pública deles. -->
+<section id="servicos">
+  <div class="secao-topo centro">
+    <span class="etiqueta">A tabela</span>
+    <h2 class="titulo-secao">Sem <em>letra miúda</em></h2>
+    <p class="secao-texto">
+      É a tabela que eles publicam na página de agendamento. Quem confirma o
+      que está valendo no dia é a barbearia.
+    </p>
+  </div>
+
+  <div class="placa">
+    <div class="placa-col">
+      <h3 class="placa-titulo">Cortes</h3>
+      <ul class="placa-lista">
+        <li data-item><span>Corte social</span><b>R$ 25</b></li>
+        <li data-item><span>Corte todo na tesoura</span><b>R$ 30</b></li>
+        <li data-item><span>Corte degradê</span><b>R$ 35</b></li>
+      </ul>
+
+      <h3 class="placa-titulo">Barba e acabamento</h3>
+      <ul class="placa-lista">
+        <li data-item><span>Sobrancelha</span><b>R$ 5</b></li>
+        <li data-item><span>Acabamento</span><b>R$ 10</b></li>
+        <li data-item><span>Barba</span><b>R$ 25</b></li>
+      </ul>
+    </div>
+
+    <div class="placa-col">
+      <h3 class="placa-titulo">Combinados</h3>
+      <ul class="placa-lista">
+        <li data-item><span>Social + sobrancelha</span><b>R$ 25</b></li>
+        <li data-item><span>Degradê + sobrancelha</span><b>R$ 40</b></li>
+        <li data-item><span>Social + barba</span><b>R$ 40</b></li>
+        <li data-item><span>Degradê + barba</span><b>R$ 45</b></li>
+        <li data-item><span>Combo completo <small>corte + barba + sobrancelha</small></span><b>R$ 45</b></li>
+      </ul>
+
+      <!-- observação real, não enfeite: com o social a sobrancelha sai de
+           graça (25 + 5 = 30, e o combinado é 25). Isso está na tabela deles. -->
+      <p class="placa-nota">
+        Repare: <strong>social + sobrancelha custa o mesmo que o social sozinho</strong>.
+        Na tabela deles, a sobrancelha vai junto sem cobrar.
+      </p>
+
+      <ul class="comodidades" aria-label="O que tem na casa">
+        <li data-item>Wi-Fi</li>
+        <li data-item>Ar-condicionado</li>
+        <li data-item>Café</li>
+        <li data-item>Video game</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SEÇÃO-ASSINATURA: A SEMANA ============
+     O que a Diretoria tem que as outras duas barbearias do lote não têm:
+     ela abre DOMINGO de manhã. E fecha para o almoço, o que ninguém avisa e
+     é o que faz a pessoa bater na porta fechada.
+
+     Então a assinatura deste site é a semana inteira desenhada: arrasta a
+     linha da hora e vê quem está aberto naquele instante. -->
+<section id="assinatura">
+  <div class="secao-topo centro">
+    <span class="etiqueta">O horário, de verdade</span>
+    <h2 class="titulo-secao">Quando dá <em>pra ir</em></h2>
+    <p class="secao-texto">
+      Arraste a linha da hora. Eles fecham para o almoço e abrem no domingo de
+      manhã — as duas coisas que ninguém costuma avisar.
+    </p>
+  </div>
+
+  <div class="semana">
+    <div class="semana-veredito">
+      <strong id="semana-hora">9:00</strong>
+      <span id="semana-frase">Aberta nos sete dias da semana.</span>
+    </div>
+
+    <div class="semana-quadro" id="semana-quadro"
+         role="slider" tabindex="0"
+         aria-label="Hora do dia"
+         aria-valuemin="8" aria-valuemax="20" aria-valuenow="9"
+         aria-valuetext="9 horas — aberta nos sete dias">
+      <div class="semana-horas" id="semana-horas" aria-hidden="true"></div>
+      <div class="semana-linhas" id="semana-linhas"></div>
+      <div class="semana-agulha" id="semana-agulha" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERIA (trilho horizontal) ============ -->
+<section id="galeria">
+  <div class="trilho">
+    <div class="trilho-interno">
+      <div class="painel painel-abre">
+        <span class="etiqueta">A casa</span>
+        <h2 class="titulo-secao">Tijolo,<br>poste e <em>sofá</em></h2>
+        <p>Role para o lado — fotos do feed deles, sem retoque nosso.</p>
+        <svg class="seta" viewBox="0 0 120 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <path d="M2 12 H 112"/><path d="M100 4 L 112 12 L 100 20"/>
+        </svg>
+      </div>
+
+      <figure class="painel painel-foto">
+        <img src="assets/poste-barbeiro.jpg" alt="Salão da Diretoria com o poste de barbeiro aceso, sofá capitonê e quadro emoldurado na parede" loading="lazy">
+        <figcaption><strong>O poste aceso</strong><span>o salão</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/toalha-quente.jpg" alt="Cliente com toalha quente sobre o rosto sendo atendido, com capa estampada de barbearia" loading="lazy">
+        <figcaption><strong>Toalha quente</strong><span>barba</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/degrade-tijolo.jpg" alt="Cliente de perfil com degradê pronto, parede de tijolo aparente ao fundo" loading="lazy">
+        <figcaption><strong>Degradê</strong><span>corte</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/topete.jpg" alt="Cliente com topete penteado para trás e barba alinhada, diante da parede de tijolo" loading="lazy">
+        <figcaption><strong>Topete e barba</strong><span>corte</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/corte-infantil.jpg" alt="Criança sendo atendida na cadeira, com o barbeiro penteando o cabelo" loading="lazy">
+        <figcaption><strong>A vez dele</strong><span>corte infantil</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/bancada.jpg" alt="Cliente escolhendo o corte no celular, com a bancada de ferramentas e a parede de tijolo" loading="lazy">
+        <figcaption><strong>Escolhendo o corte</strong><span>a bancada</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/resenha.jpg" alt="Dois barbeiros brincando com a máquina no salão, com o sofá e os quadros ao fundo" loading="lazy">
+        <figcaption><strong>A resenha</strong><span>a casa</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/sobrancelha.jpg" alt="Acabamento da sobrancelha sendo feito em cliente deitado na cadeira" loading="lazy">
+        <figcaption><strong>Sobrancelha</strong><span>acabamento</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTATO ================= -->
+<section id="contato">
+  <div class="contato-caixa">
+    <h2>Passa lá<br>na <em>Diretoria</em></h2>
+    <p>
+      Dá pra marcar sozinho na página de agendamento, ou chamar no WhatsApp
+      se preferir combinar antes.
+    </p>
+    <div class="contato-acoes">
+      <a class="btn-principal grande" href="https://schedweb.com.br/diretoriabarber" target="_blank" rel="noopener">Agendar online</a>
+      <a class="btn-vazado grande" href="https://wa.me/5585996121736?text=Oi!%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20queria%20marcar%20um%20hor%C3%A1rio." target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <span class="contato-nota">
+      Rua das Cerejeiras, 435 — Conjunto Esperança, Fortaleza · (85) 99612-1736 ·
+      seg a sáb 8h30–12h e 14h30–19h · domingo 8h30–12h · PIX, cartão e dinheiro
+    </span>
+  </div>
+</section>
+
+<footer>
+  <span>Diretoria Barber · Conjunto Esperança, Fortaleza</span>
+  <span>site por <a href="https://portifolio-rho-eight-70.vercel.app/" target="_blank" rel="noopener">maxyzao.dev</a></span>
+</footer>
+
+<!-- ================= CHAT DE IA ================= -->
+<script src="js/chat.js?v=1"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="js/main.js?v=1"></script>
+</body>
+</html>

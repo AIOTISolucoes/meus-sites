@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drummer Barbearia — Corte, barba e sobrancelha no Bairro Industrial</title>
+<meta name="description" content="Barbearia na Av. Édson Magalhães, 817 — Industrial, Fortaleza. Corte, barba, sobrancelha e combos com preço fechado. Segunda a sábado, com agendamento online.">
+<meta name="theme-color" content="#0d0d0d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- ao editar css/js, SUBIR o ?v=N: senão o navegador serve cache velho e o
+     JS pode quebrar em silêncio (já aconteceu no portfólio) -->
+<link rel="stylesheet" href="css/estilo.css?v=1">
+</head>
+<body>
+
+<!-- ================= INTRO =================
+     A logo deles é um wordmark dentro de uma moldura, branco no preto — bem
+     mais simples que um brasão. Então a intro é a MOLDURA se desenhando e as
+     letras subindo de dentro dela, que é como a marca se monta. -->
+<div id="intro">
+  <div class="intro-marca">
+    <svg id="logo-intro" viewBox="0 0 300 150" aria-label="Drummer Barbearia">
+      <defs>
+        <!-- recorta EXATAMENTE o vão da moldura: é isto que faz as letras
+             subirem de dentro dela em vez de aparecerem por cima -->
+        <clipPath id="vao-moldura">
+          <rect x="16" y="16" width="268" height="118"/>
+        </clipPath>
+      </defs>
+      <rect class="tr" x="14" y="14" width="272" height="122" fill="none"
+            stroke="#f4f3f0" stroke-width="2.6"/>
+      <g class="marca-letras" clip-path="url(#vao-moldura)">
+        <text class="marca-nome" x="150" y="86" text-anchor="middle">DRUMMER</text>
+        <text class="marca-sub" x="150" y="112" text-anchor="middle">BARBEARIA</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- ================= NAV ================= -->
+<header id="nav">
+  <a class="nav-marca" href="#inicio">
+    <svg viewBox="0 0 92 40" class="nav-logo" aria-hidden="true">
+      <rect x="2" y="2" width="88" height="36" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <text x="46" y="27" text-anchor="middle" fill="currentColor"
+            style="font:400 19px Anton,Impact,sans-serif;letter-spacing:.02em">DRUMMER</text>
+    </svg>
+    <span class="nav-bairro">Bairro Industrial</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#servicos">A casa</a>
+    <a href="#assinatura">Montar combo</a>
+    <a href="#galeria">Trabalhos</a>
+  </nav>
+  <a class="btn-nav" href="https://schedweb.com.br/drummerbarbearia" target="_blank" rel="noopener">Agendar</a>
+</header>
+
+<!-- ================= HERO =================
+     O canvas é o prato de bateria: os anéis da luminária deles. O ponteiro
+     bate e o prato VIBRA — ondas concêntricas que decaem. Ver js/main.js. -->
+<section id="inicio">
+  <canvas id="fundo" aria-hidden="true"></canvas>
+
+  <div class="hero-conteudo">
+    <span class="etiqueta">Barbearia · Bairro Industrial, Fortaleza</span>
+    <h1 class="hero-titulo">
+      <span class="linha"><span>Todo dia é dia</span></span>
+      <span class="linha"><span>de dar um trato</span></span>
+      <span class="linha"><span><em>no visual</em></span></span>
+    </h1>
+    <p class="hero-texto">
+      Corte, barba e sobrancelha de segunda a sábado, com preço fechado e
+      horário marcado pela internet. Sem fila e sem surpresa na hora de pagar.
+    </p>
+    <div class="hero-acoes">
+      <a class="btn-principal" href="https://schedweb.com.br/drummerbarbearia" target="_blank" rel="noopener">Agendar horário</a>
+      <a class="btn-vazado" href="#assinatura">Montar meu combo</a>
+    </div>
+    <!-- só dado publicado por eles (bio do Instagram + página de agendamento).
+         Não há nada estimado aqui. -->
+    <div class="hero-dados">
+      <div><strong>Seg — Sáb</strong><span>9h–19h · sáb 8h–18h</span></div>
+      <div><strong>R$ 35</strong><span>o corte, na tabela deles</span></div>
+      <div><strong>Industrial</strong><span>Édson Magalhães, 817</span></div>
+    </div>
+  </div>
+
+  <div class="rolar"><span>role</span><i></i></div>
+</section>
+
+<!-- ================= CARDS ================= -->
+<section id="servicos">
+  <div class="secao-topo">
+    <span class="etiqueta">A casa</span>
+    <h2 class="titulo-secao">Corte, barba<br>e o <em>resto</em> do trato</h2>
+  </div>
+
+  <div class="grade-servicos">
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M18 14 H46" stroke-width="3.6"/>
+        <path class="tr" d="M18 24 H46" stroke-width="2.5"/>
+        <path class="tr" d="M18 34 H46" stroke-width="1.6"/>
+        <path class="tr" d="M18 44 H46" stroke-width=".9"/>
+      </svg>
+      <h3>Cortes</h3>
+      <p>Degradê, degradê navalhado, social, na tesoura e kids. Todos por <strong>R$ 35</strong>.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M20 16 C20 30 22 40 32 48 C42 40 44 30 44 16"/>
+        <path class="tr" d="M20 16 C26 20 38 20 44 16"/>
+        <path class="tr" d="M27 30 C29 33 35 33 37 30"/>
+      </svg>
+      <h3>Barba</h3>
+      <p>Feita e desenhada, <strong>R$ 30</strong>. Só o acabamento sai por <strong>R$ 10</strong>.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M12 34 C20 22 44 22 52 34"/>
+        <path class="tr" d="M32 26 m-7 0 a7 7 0 1 0 14 0 a7 7 0 1 0 -14 0"/>
+        <path class="tr" d="M14 44 C22 40 42 40 50 44"/>
+      </svg>
+      <h3>Sobrancelha</h3>
+      <p>Desenho e limpeza por <strong>R$ 10</strong>. É o que costuma fechar o corte.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M14 26 H50 V48 H14 Z"/>
+        <path class="tr" d="M14 26 L32 38 L50 26"/>
+        <path class="tr" d="M24 18 H40"/>
+      </svg>
+      <h3>Combos</h3>
+      <p>Corte + barba sai por <strong>R$ 60</strong>, e com sobrancelha por <strong>R$ 70</strong>. Monte o seu logo abaixo.</p>
+    </article>
+  </div>
+
+  <!-- comodidades: são as que eles mesmos listam na página de agendamento -->
+  <ul class="comodidades" aria-label="O que tem na casa">
+    <li data-item>Wi-Fi</li>
+    <li data-item>Cafezinho</li>
+    <li data-item>Ar-condicionado</li>
+    <li data-item>TV</li>
+    <li data-item>Video game</li>
+  </ul>
+</section>
+
+<!-- ============ SEÇÃO-ASSINATURA: MONTAR O COMBO ============
+     A dúvida real de quem vai à barbearia é "quanto vai dar". A Drummer
+     publica a tabela inteira na página de agendamento, então dá pra responder
+     isso ANTES da pessoa sentar na cadeira.
+
+     Os botões são PRATOS DE BATERIA — as luminárias da casa deles são pratos,
+     e o nome é Drummer. Bater no prato acende a onda e recalcula o total. -->
+<section id="assinatura">
+  <div class="secao-topo centro">
+    <span class="etiqueta">Antes de sentar na cadeira</span>
+    <h2 class="titulo-secao">Monte o combo<br>e veja <em>quanto dá</em></h2>
+    <p class="secao-texto">
+      Bata nos pratos pra montar. Os valores são os da tabela de agendamento
+      da própria Drummer.
+    </p>
+  </div>
+
+  <div class="combo-palco">
+    <div class="combo-pratos">
+      <!-- os pratos são CSS, não canvas: a onda do prato batido já é o hero, e
+           repetir o mesmo canvas duas vezes na página cobra o dobro do quadro
+           por um efeito que a pessoa já viu -->
+      <div class="combo-botoes" role="group" aria-label="Serviços do combo">
+        <button type="button" class="prato" data-svc-id="corte" aria-pressed="true">
+          <span class="prato-nome">Corte</span>
+          <span class="prato-valor">R$ 35</span>
+        </button>
+        <button type="button" class="prato" data-svc-id="barba" aria-pressed="false">
+          <span class="prato-nome">Barba</span>
+          <span class="prato-valor">R$ 30</span>
+        </button>
+        <button type="button" class="prato" data-svc-id="sobrancelha" aria-pressed="false">
+          <span class="prato-nome">Sobrancelha</span>
+          <span class="prato-valor">R$ 10</span>
+        </button>
+        <button type="button" class="prato" data-svc-id="acabamento" aria-pressed="false">
+          <span class="prato-nome">Acabamento</span>
+          <span class="prato-valor">R$ 10</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="combo-conta">
+      <span class="combo-rotulo">Que corte?</span>
+      <div class="combo-cortes" role="group" aria-label="Tipo de corte">
+        <button type="button" class="corte-op ativo" data-corte="Degradê">Degradê</button>
+        <button type="button" class="corte-op" data-corte="Degradê navalhado">Navalhado</button>
+        <button type="button" class="corte-op" data-corte="Social">Social</button>
+        <button type="button" class="corte-op" data-corte="Na tesoura">Na tesoura</button>
+        <button type="button" class="corte-op" data-corte="Kids">Kids</button>
+      </div>
+
+      <ul class="combo-lista" id="combo-lista" aria-live="polite"></ul>
+
+      <div class="combo-total">
+        <span class="combo-total-rotulo">Total</span>
+        <strong id="combo-valor">R$ 35,00</strong>
+      </div>
+      <p class="combo-selo" id="combo-selo" hidden></p>
+
+      <a class="btn-principal grande" id="combo-cta"
+         href="https://schedweb.com.br/drummerbarbearia" target="_blank" rel="noopener">
+        Agendar esse combo
+      </a>
+      <span class="combo-nota">
+        Valores da tabela de agendamento da Drummer. Quem confirma o que está
+        valendo no dia é a barbearia.
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERIA (trilho horizontal) ============ -->
+<section id="galeria">
+  <div class="trilho">
+    <div class="trilho-interno">
+      <div class="painel painel-abre">
+        <span class="etiqueta">Trabalhos</span>
+        <h2 class="titulo-secao">Dentro<br>da <em>casa</em></h2>
+        <p>Role para o lado — fotos do feed deles, sem retoque nosso.</p>
+        <svg class="seta" viewBox="0 0 120 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <path d="M2 12 H 112"/><path d="M100 4 L 112 12 L 100 20"/>
+        </svg>
+      </div>
+
+      <figure class="painel painel-foto">
+        <img src="assets/parede-drummer.jpg" alt="Barbeiro fazendo o acabamento de um corte, com o nome DRUMMER pintado na parede ao fundo" loading="lazy">
+        <figcaption><strong>A parede da casa</strong><span>acabamento</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/degrade-lateral.jpg" alt="Cliente de perfil com degradê e contorno feito, capa branca" loading="lazy">
+        <figcaption><strong>Degradê e contorno</strong><span>corte</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/salao-pratos.jpg" alt="Barbeiro no salão da Drummer, com as luminárias em forma de prato de bateria no teto" loading="lazy">
+        <figcaption><strong>As luminárias</strong><span>o salão</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/cachos.jpg" alt="Cliente de cabelo cacheado no salão, de perfil, com capa branca" loading="lazy">
+        <figcaption><strong>Cacho tem vez</strong><span>corte</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/espelho-resultado.jpg" alt="Barbeiro segurando o espelho para o cliente ver o corte pronto" loading="lazy">
+        <figcaption><strong>O espelho no fim</strong><span>resultado</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/corte-kids.jpg" alt="Menino sendo atendido na cadeira enquanto o barbeiro penteia o cabelo" loading="lazy">
+        <figcaption><strong>Corte kids</strong><span>criança</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/barbeiro-pratos.jpg" alt="Barbeiro da Drummer de camiseta preta, com as luminárias de prato acesas atrás" loading="lazy">
+        <figcaption><strong>Quem atende</strong><span>a equipe</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/equipe.jpg" alt="Os quatro barbeiros da Drummer reunidos dentro da barbearia" loading="lazy">
+        <figcaption><strong>São quatro</strong><span>a equipe</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTATO ================= -->
+<section id="contato">
+  <div class="contato-caixa">
+    <h2>Bora dar um<br><em>trato</em> nisso?</h2>
+    <p>
+      Dá pra marcar sozinho pela página de agendamento, ou chamar no WhatsApp
+      se preferir combinar antes.
+    </p>
+    <div class="contato-acoes">
+      <a class="btn-principal grande" href="https://schedweb.com.br/drummerbarbearia" target="_blank" rel="noopener">Agendar online</a>
+      <a class="btn-vazado grande" href="https://wa.me/5585991880170?text=Oi!%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20queria%20marcar%20um%20hor%C3%A1rio." target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <span class="contato-nota">
+      Av. Édson Magalhães, 817 — Bairro Industrial, Fortaleza · segunda a
+      sexta 9h às 19h, sábado 8h às 18h · dinheiro, PIX, débito e crédito
+    </span>
+  </div>
+</section>
+
+<footer>
+  <span>Drummer Barbearia · Bairro Industrial, Fortaleza</span>
+  <span>site por <a href="https://portifolio-rho-eight-70.vercel.app/" target="_blank" rel="noopener">maxyzao.dev</a></span>
+</footer>
+
+<!-- ================= CHAT DE IA ================= -->
+<script src="js/chat.js?v=1"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="js/main.js?v=1"></script>
+</body>
+</html>

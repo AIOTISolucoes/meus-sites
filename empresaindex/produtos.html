@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Empresas e Produtos · AIOTI</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--green:#6bd34b;--green2:#90f06f;--deep:#07130a;--ink:#122018;--muted:#607064;--line:#dce8dc;--soft:#f5faf4;--card:#fff;--mono:'JetBrains Mono',monospace;--head:'Exo 2',sans-serif;--max:1120px;}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--head);background:linear-gradient(180deg,#f8fbf7 0%,#ffffff 38%,#eef7ee 100%);color:var(--ink);overflow-x:hidden}a{text-decoration:none;color:inherit}.wrap{width:min(var(--max),100% - 32px);margin:0 auto}.grid-bg{position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(107,211,75,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(107,211,75,.08) 1px,transparent 1px);background-size:62px 62px;opacity:.32;z-index:0}.glow{position:fixed;inset:auto -120px -160px auto;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(107,211,75,.22),transparent 65%);filter:blur(8px);pointer-events:none}nav{height:78px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(16px);border-bottom:1px solid rgba(18,32,24,.08);padding:0 6vw}.logo img{height:42px;display:block;filter:drop-shadow(0 8px 18px rgba(107,211,75,.22))}.links{display:flex;gap:26px;align-items:center;list-style:none}.links a,.back{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#31512d;font-weight:600}.back{border:1px solid rgba(107,211,75,.36);border-radius:12px;padding:14px 20px;background:rgba(107,211,75,.06)}.ham{display:none;flex-direction:column;gap:6px;background:transparent;border:0;padding:8px}.ham span{width:27px;height:2px;background:#3c8f31;display:block}.hero{position:relative;z-index:1;padding:92px 0 72px}.badge,.slabel{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#3d8333;display:inline-flex;align-items:center;gap:14px}.badge{padding:10px 14px;border:1px solid rgba(107,211,75,.34);border-radius:10px;background:rgba(255,255,255,.65)}.badge:before,.slabel:before{content:'';width:36px;height:1px;background:#63bd48;display:block}.hero h1{font-size:clamp(2.8rem,8vw,5.7rem);line-height:.95;letter-spacing:-.055em;margin:28px 0 22px;font-weight:900;max-width:760px;color:#162018}.hero h1 span{display:block;color:#5fd647;text-shadow:0 14px 42px rgba(107,211,75,.22)}.hero p{font-size:clamp(1.08rem,2vw,1.35rem);line-height:1.75;color:#506050;max-width:720px}.section{position:relative;z-index:1;padding:44px 0 86px}.section h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;margin:18px 0 12px;font-weight:900;letter-spacing:-.04em}.section h2 span{color:#5fd647}.section p.lead{font-size:1.1rem;color:var(--muted);line-height:1.7;max-width:700px}.filters{display:flex;gap:12px;flex-wrap:wrap;margin:34px 0}.filter{font-family:var(--mono);letter-spacing:.16em;text-transform:uppercase;font-size:.72rem;border:1px solid var(--line);background:#fff;color:#31512d;padding:14px 18px;border-radius:12px;cursor:pointer;transition:.2s}.filter.active,.filter:hover{border-color:#63bd48;background:linear-gradient(135deg,#eaffdf,#fff);box-shadow:0 12px 28px rgba(107,211,75,.12)}.companies{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.company{background:rgba(255,255,255,.86);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 18px 46px rgba(23,48,28,.08);transition:.25s}.company:hover{transform:translateY(-5px);box-shadow:0 26px 70px rgba(23,48,28,.12)}.company-logo{height:170px;display:flex;align-items:center;justify-content:center;padding:34px;background:linear-gradient(135deg,#ffffff,#edf8eb)}.company-logo img{max-width:190px;max-height:90px;object-fit:contain}.company-body{padding:24px}.company h3{font-size:1.45rem;margin-bottom:8px}.tag{font-family:var(--mono);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:#3c8f31}.company p{color:#5d6d5d;line-height:1.6;margin:14px 0 20px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:12px;padding:13px 18px;background:linear-gradient(135deg,var(--green2),var(--green));color:#07130a;font-weight:900;text-transform:uppercase;letter-spacing:.08em;font-size:.82rem}.foot{position:relative;z-index:1;border-top:1px solid var(--line);padding:34px 0;color:#607064;font-family:var(--mono);font-size:.72rem} @media(max-width:900px){.companies{grid-template-columns:repeat(2,1fr)}}@media(max-width:640px){nav{height:72px;padding:0 6vw}.links{position:fixed;left:0;right:0;top:72px;display:flex;flex-direction:column;background:#fff;border-bottom:1px solid var(--line);padding:22px;transform:translateY(-130%);opacity:0;pointer-events:none;transition:.25s}.links.open{transform:translateY(0);opacity:1;pointer-events:auto}.ham{display:flex}.desktop-back{display:none}.hero{padding:66px 0 48px}.badge{font-size:.62rem;letter-spacing:.15em;line-height:1.5;align-items:flex-start}.badge:before{width:24px;margin-top:.55em}.companies{grid-template-columns:1fr}.hero h1{font-size:3.25rem}.section{padding-top:28px}.filter{flex:1 1 calc(50% - 10px);text-align:center}.company-logo{height:145px}} 
+</style>
+</head>
+<body>
+<div class="grid-bg"></div><div class="glow"></div>
+<nav>
+  <a class="logo" href="index.html"><img src="assets/logo-aioti.png" alt="AIOTI"></a>
+  <ul class="links" id="links">
+    <li><a href="index.html">Página principal</a></li>
+    <li><a href="index.html#projetos">Projetos</a></li>
+    <li><a href="index.html#servicos">Serviços</a></li>
+    <li><a href="monitoramento-solar.html">Monitoramento Solar</a></li>
+    <li><a href="index.html#contato">Contato</a></li>
+  </ul>
+  <a class="back desktop-back" href="index.html">← Voltar ao site</a>
+  <button class="ham" id="ham" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+</nav>
+<header class="hero wrap">
+  <div class="badge">AIOTI · Portfólio</div>
+  <h1>Empresas &<span>Produtos</span></h1>
+  <p>Conheça as marcas e soluções que integram o portfólio AIOTI — da automação industrial à infraestrutura elétrica.</p>
+</header>
+<main class="section wrap">
+  <div class="slabel">Portfólio</div>
+  <h2>Nossas <span>Empresas</span></h2>
+  <p class="lead">Clique em um card para ver os produtos detalhados de cada parceiro.</p>
+  <div class="filters" id="filters">
+    <button class="filter active" data-filter="all">Todas</button>
+    <button class="filter" data-filter="automacao">Automação</button>
+    <button class="filter" data-filter="luminarias">Luminárias</button>
+    <button class="filter" data-filter="instrumentacao">Instrumentação</button>
+    <button class="filter" data-filter="ferramentas">Ferramentas</button>
+  </div>
+  <div class="companies" id="companies"></div>
+</main>gitignore
+<footer class="foot wrap">© <span id="yr"></span> AIOTI Soluções Industriais · Fortaleza – CE</footer>
+<script>
+const companies=[
+ {id:'siemens',name:'Siemens',cat:'automacao',logo:'assets/siemens.png',desc:'Automação industrial, controle, acionamentos e soluções para operações conectadas.'},
+ {id:'delta',name:'Delta',cat:'automacao',logo:'assets/delta.png',desc:'Componentes e soluções para controle, automação, energia e eficiência operacional.'},
+ {id:'conexled',name:'Conexled',cat:'luminarias',logo:'assets/conexled.png',desc:'Luminárias industriais, comerciais e aplicações especiais.'},
+ {id:'digitrol',name:'Digitrol',cat:'instrumentacao',logo:'assets/digitrol.png',desc:'Instrumentação, medição e controle para processos industriais.'},
+ {id:'enmac',name:'Enmac',cat:'ferramentas',logo:'assets/enmac.png',desc:'Ferramentas, soluções técnicas e apoio para manutenção industrial.'},
+ {id:'microautomacao',name:'Micro Automação',cat:'automacao',logo:'assets/micro-automacao.png',desc:'Componentes de automação, interface, controle e integração de sistemas.'},
+ {id:'atlascopco',name:'Atlas Copco',cat:'instrumentacao',logo:'assets/atlas-copco.png',desc:'Soluções industriais para ar comprimido, eficiência e infraestrutura produtiva.'},
+ {id:'poleoduto',name:'Poleoduto',cat:'instrumentacao',logo:'assets/poleoduto.png',desc:'Soluções técnicas voltadas para infraestrutura, processo e operação industrial.'}
+];
+const grid=document.getElementById('companies');
+function render(filter='all'){
+ grid.innerHTML=companies.filter(c=>filter==='all'||c.cat===filter).map(c=>`<article class="company"><div class="company-logo"><img src="${c.logo}" alt="${c.name}"></div><div class="company-body"><div class="tag">${c.cat.replace('-',' ')}</div><h3>${c.name}</h3><p>${c.desc}</p><a class="btn" href="empresa-detalhe.html?empresa=${c.id}">Ver produtos →</a></div></article>`).join('');
+}
+render();
+document.querySelectorAll('.filter').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.filter)});
+document.getElementById('ham').onclick=()=>document.getElementById('links').classList.toggle('open');
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

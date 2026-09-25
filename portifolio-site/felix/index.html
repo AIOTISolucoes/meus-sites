@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panificadora Félix | Pães, Bolos, Doces e Salgados em Fortaleza</title>
+  <meta name="description" content="Panificadora Félix em Fortaleza, CE: pães, bolos, doces e salgados fresquinhos todos os dias. Kits para festa e encomendas direto pelo WhatsApp." />
+  <meta name="theme-color" content="#0f0a06" />
+  <link rel="icon" href="assets/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=1" />
+</head>
+<body>
+
+  <!-- ===== INTRO: trigo + pão se desenhando ===== -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <svg class="intro-logo" viewBox="0 0 240 260">
+      <path id="i-trigo1" d="M120 20 Q108 55 120 90 Q132 55 120 20 Z" fill="none" stroke="#d8a94a" stroke-width="4" stroke-linejoin="round" />
+      <path id="i-trigo2" d="M96 34 Q104 60 120 82" fill="none" stroke="#d8a94a" stroke-width="4" stroke-linecap="round" />
+      <path id="i-trigo3" d="M144 34 Q136 60 120 82" fill="none" stroke="#d8a94a" stroke-width="4" stroke-linecap="round" />
+      <path id="i-pao" d="M55 165 Q55 110 120 110 Q185 110 185 165 Q185 195 120 195 Q55 195 55 165 Z"
+            fill="none" stroke="#d8a94a" stroke-width="4.5" stroke-linejoin="round" />
+      <path id="i-corte1" d="M90 122 Q95 145 88 168" fill="none" stroke="#d8a94a" stroke-width="3" stroke-linecap="round" />
+      <path id="i-corte2" d="M120 116 Q125 145 118 172" fill="none" stroke="#d8a94a" stroke-width="3" stroke-linecap="round" />
+      <path id="i-corte3" d="M150 122 Q155 145 148 168" fill="none" stroke="#d8a94a" stroke-width="3" stroke-linecap="round" />
+      <text id="i-texto" x="120" y="230" text-anchor="middle" font-family="'Playfair Display', serif" font-style="italic" font-weight="700"
+            font-size="34" fill="#f7ecd9">Félix</text>
+      <text id="i-sub" x="120" y="248" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="600"
+            letter-spacing="3" font-size="10" fill="#d8a94a">PANIFICADORA</text>
+    </svg>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav" id="nav">
+    <a class="nav-logo" href="#inicio" aria-label="Panificadora Félix">
+      <img src="assets/logo.jpg" alt="Logo Panificadora Félix" class="nav-logo-icone" />
+      <span>Félix<em>panificadora</em></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#cardapio">Cardápio</a>
+      <a href="#kits">Kits de Festa</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#sobre">A Loja</a>
+    </nav>
+    <a class="btn btn-ouro nav-cta" href="https://wa.me/5585984222690" target="_blank" rel="noopener">Fazer encomenda</a>
+  </header>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="inicio">
+      <div class="hero-texto">
+        <span class="selo">✦ panificadora artesanal em Fortaleza ✦</span>
+        <h1 class="hero-titulo">
+          <span class="palavra">Pão</span>
+          <span class="palavra">quentinho,</span>
+          <span class="palavra destaque">bolo
+            <svg class="risco" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 16 Q80 6 150 13 Q225 20 296 9" fill="none" stroke="#d8a94a" stroke-width="7" stroke-linecap="round"/></svg>
+          </span>
+          <span class="palavra">na</span>
+          <span class="palavra">medida</span>
+          <span class="palavra">certa</span>
+        </h1>
+        <p class="hero-sub">Qualidade em tudo que faz! Pães e salgados, bolos e doces fresquinhos todos os dias. Faça sua encomenda direto no WhatsApp e receba certinho.</p>
+        <div class="hero-cta">
+          <a class="btn btn-ouro" href="https://wa.me/5585984222690" target="_blank" rel="noopener">Pedir no WhatsApp</a>
+          <a class="btn btn-borda" href="#cardapio">Ver cardápio ↓</a>
+        </div>
+        <ul class="provas">
+          <li><strong>456+</strong><span>clientes no Instagram</span></li>
+          <li><strong>100%</strong><span>fresquinho, todo dia</span></li>
+          <li><strong>Fortaleza</strong><span>CE, entrega combinada</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-visual">
+        <span class="miolo-dourado" aria-hidden="true"></span>
+        <svg class="icone-flutua icf-1" viewBox="0 0 80 80"><path d="M20 55 Q20 25 40 25 Q60 25 60 55 Q60 68 40 68 Q20 68 20 55 Z" /><path d="M28 34 Q40 30 52 34" /></svg>
+        <svg class="icone-flutua icf-2" viewBox="0 0 80 80"><circle cx="40" cy="40" r="24" /><path d="M28 34 q6 -6 12 0 M40 34 q6 -6 12 0" /><circle cx="30" cy="46" r="2.4" fill="currentColor" /><circle cx="42" cy="50" r="2.4" fill="currentColor" /><circle cx="50" cy="40" r="2.4" fill="currentColor" /></svg>
+        <svg class="icone-flutua icf-3" viewBox="0 0 80 80"><path d="M40 14 Q30 34 40 54 Q50 34 40 14 Z" /><path d="M22 26 Q30 40 40 50 M58 26 Q50 40 40 50" /></svg>
+        <svg class="icone-flutua icf-4" viewBox="0 0 80 80"><path d="M18 30 L40 18 L62 30 L62 46 Q62 62 40 62 Q18 62 18 46 Z" /><path d="M28 34 q12 8 24 0" /></svg>
+        <figure class="foto-emoldurada foto-hero">
+          <img src="assets/p2.jpg" alt="Salgadinhos fresquinhos da Félix Panificadora" />
+          <figcaption>salgadinhos fresquinhos</figcaption>
+          <i class="corte c-tl"></i><i class="corte c-tr"></i><i class="corte c-bl"></i><i class="corte c-br"></i>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===== MARQUEE ===== -->
+    <div class="faixa" aria-hidden="true">
+      <div class="faixa-mov">
+        <span>PÃES ✦ BOLOS ✦ DOCES ✦ SALGADOS ✦ ENCOMENDAS ✦ KITS DE FESTA ✦ TORTAS ✦ DOCINHOS ✦&nbsp;</span>
+        <span>PÃES ✦ BOLOS ✦ DOCES ✦ SALGADOS ✦ ENCOMENDAS ✦ KITS DE FESTA ✦ TORTAS ✦ DOCINHOS ✦&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ===== CARDÁPIO: ícones que se desenham ===== -->
+    <section class="secao" id="cardapio">
+      <h2 class="titulo"><span class="titulo-mini">saindo do forno</span>O que a gente faz de melhor</h2>
+      <div class="serv-grid">
+        <article class="serv">
+          <svg class="serv-icone" viewBox="0 0 80 80"><path d="M14 46 Q14 20 40 20 Q66 20 66 46 Q66 60 40 60 Q14 60 14 46 Z" /><path d="M22 30 Q40 25 58 30" /><path d="M26 40 Q40 36 54 40" /></svg>
+          <h3>Pães</h3>
+          <p>Pão fresquinho assado todos os dias, no ponto certo pra sua mesa.</p>
+        </article>
+        <article class="serv">
+          <svg class="serv-icone" viewBox="0 0 80 80"><path d="M18 40 H62 V60 Q62 66 56 66 H24 Q18 66 18 60 Z" /><path d="M22 40 Q22 22 40 22 Q58 22 58 40" /><circle cx="40" cy="16" r="3" /></svg>
+          <h3>Bolos e Tortas</h3>
+          <p>Do simples ao decorado, do tamanho certo pra sua ocasião.</p>
+        </article>
+        <article class="serv">
+          <svg class="serv-icone" viewBox="0 0 80 80"><circle cx="40" cy="40" r="26" /><path d="M30 32 q10 -8 20 0 M28 44 q12 10 24 0" /></svg>
+          <h3>Doces e Docinhos</h3>
+          <p>Brigadeiro, docinhos de festa e sobremesas pra adoçar o dia.</p>
+        </article>
+        <article class="serv">
+          <svg class="serv-icone" viewBox="0 0 80 80"><path d="M40 16 Q28 34 40 52 Q52 34 40 16 Z" /><path d="M22 28 Q30 40 40 48 M58 28 Q50 40 40 48" /></svg>
+          <h3>Salgados</h3>
+          <p>Coxinha, esfiha, empada e muito mais, prontos pra sua festa.</p>
+        </article>
+        <article class="serv">
+          <svg class="serv-icone" viewBox="0 0 80 80"><rect x="16" y="30" width="48" height="34" rx="4" /><path d="M16 42 H64" /><path d="M40 30 V64 M28 20 L34 30 M52 20 L46 30" /></svg>
+          <h3>Kits de Festa</h3>
+          <p>Torta, salgadinhos, docinhos e refrigerante num kit só.</p>
+        </article>
+        <article class="serv">
+          <svg class="serv-icone" viewBox="0 0 80 80"><rect x="14" y="34" width="52" height="28" rx="4" /><path d="M22 34 V26 Q22 18 30 18 H50 Q58 18 58 26 V34" /><path d="M28 46 H52" /></svg>
+          <h3>Encomendas</h3>
+          <p>Peça pelo WhatsApp com antecedência e retire ou receba certinho.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== divisória ===== -->
+    <div class="linha-divisoria" aria-hidden="true">
+      <svg viewBox="0 0 1200 40" preserveAspectRatio="none" class="linha-corte"><path d="M0 20 H1200" stroke-dasharray="10 9" /></svg>
+      <span class="pontinho">✦</span>
+    </div>
+
+    <!-- ===== PRATO DO DIA ===== -->
+    <section class="prato-dia">
+      <div class="prato-caixa">
+        <span class="prato-selo">fim de semana</span>
+        <h2>Panelada aos fins de semana</h2>
+        <p>Acompanha arroz e farofa de cuscuz. Só sábado e domingo, enquanto durar.</p>
+        <div class="prato-rodape">
+          <span class="prato-preco">R$ 17,99</span>
+          <a class="btn btn-creme" href="https://wa.me/5585984222690?text=Oi!%20Quero%20encomendar%20a%20panelada%20do%20fim%20de%20semana." target="_blank" rel="noopener">Encomendar agora</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== KITS DE FESTA ===== -->
+    <section class="secao" id="kits">
+      <h2 class="titulo"><span class="titulo-mini">pra comemorar junto</span>Kits de Festa</h2>
+      <div class="kits-grid">
+        <article class="kit-card">
+          <span class="kit-tag">hora do bolo</span>
+          <h3>Kit: Hora do bolo</h3>
+          <ul>
+            <li>01 torta (para 10 pessoas)</li>
+            <li>50 salgadinhos (2 sabores)</li>
+            <li>01 refrigerante 2L (Kuat/Fanta)</li>
+          </ul>
+          <span class="kit-preco">R$ 94,99</span>
+          <a class="btn btn-borda-ouro" href="https://wa.me/5585984222690?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Kit%20Hora%20do%20Bolo." target="_blank" rel="noopener">Quero este kit</a>
+        </article>
+        <article class="kit-card kit-destaque">
+          <span class="kit-tag kit-tag-ouro">mais pedido</span>
+          <h3>Kit: Celebre você</h3>
+          <ul>
+            <li>01 torta (para 15 pessoas)</li>
+            <li>100 salgadinhos (4 sabores)</li>
+            <li>50 docinhos</li>
+            <li>01 refrigerante 2L (Kuat/Fanta)</li>
+          </ul>
+          <span class="kit-preco">R$ 159,99</span>
+          <a class="btn btn-ouro" href="https://wa.me/5585984222690?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Kit%20Celebre%20Voc%C3%AA." target="_blank" rel="noopener">Quero este kit</a>
+        </article>
+        <article class="kit-card">
+          <span class="kit-tag">festa grande</span>
+          <h3>Kit: Império</h3>
+          <ul>
+            <li>01 torta (para 20 pessoas)</li>
+            <li>150 salgadinhos (4 sabores)</li>
+            <li>50 docinhos</li>
+            <li>01 empadão de frango</li>
+            <li>01 refrigerante 2L</li>
+          </ul>
+          <span class="kit-preco">R$ 349,99</span>
+          <a class="btn btn-borda-ouro" href="https://wa.me/5585984222690?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Kit%20Imp%C3%A9rio." target="_blank" rel="noopener">Quero este kit</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== GALERIA ===== -->
+    <section class="galeria" id="galeria">
+      <figure class="foto-emoldurada foto-galeria">
+        <img src="assets/p2.jpg" alt="Vitrine de salgados da Panificadora Félix" />
+        <i class="corte c-tl"></i><i class="corte c-tr"></i><i class="corte c-bl"></i><i class="corte c-br"></i>
+      </figure>
+      <div class="galeria-texto">
+        <h2 class="titulo titulo-claro"><span class="titulo-mini">direto da vitrine</span>Feito com carinho, todo dia</h2>
+        <p>Cada bandeja sai fresquinha da <strong>Félix</strong> pensando em quem vai levar pra casa: pão de sal, coxinha, esfiha, empada e muito mais, prontos pra qualquer hora do dia.</p>
+        <ul class="galeria-lista">
+          <li>🥖 Produção própria, todos os dias</li>
+          <li>🎂 Bolos sob encomenda no tamanho que precisar</li>
+          <li>📦 Salgados por bandeja pra festa ou pro dia a dia</li>
+          <li>💬 Pedido rápido direto pelo WhatsApp</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== SOBRE ===== -->
+    <section class="secao sobre" id="sobre">
+      <div class="sobre-texto">
+        <h2 class="titulo"><span class="titulo-mini">@panificadoraafelix</span>Uma padaria de bairro, feita de gente boa</h2>
+        <p>A <strong>Panificadora Félix</strong> fica em Fortaleza, Ceará, e é aquela padaria de confiança pertinho de casa: pão quentinho de manhã, salgado pra festa e bolo pra qualquer ocasião. Qualidade em tudo que faz, do pão simples ao kit completo.</p>
+        <ul class="sobre-lista">
+          <li>📍 Fortaleza, CE</li>
+          <li>🍞 Pães e salgados frescos todos os dias</li>
+          <li>🎂 Bolos, doces e kits sob encomenda</li>
+          <li>📲 Encomendas direto pelo WhatsApp</li>
+        </ul>
+        <a class="btn btn-borda" href="https://www.instagram.com/panificadoraafelix/" target="_blank" rel="noopener">Seguir @panificadoraafelix ↗</a>
+      </div>
+      <div class="sobre-selo">
+        <img src="assets/logo.jpg" alt="Logo Panificadora Félix" />
+      </div>
+    </section>
+
+    <!-- ===== CTA FINAL ===== -->
+    <section class="secao convite">
+      <div class="convite-caixa">
+        <h2>Bateu a vontade de um pão quentinho?</h2>
+        <p>Manda um "oi" no WhatsApp e já garanta sua encomenda.</p>
+        <div class="convite-botoes">
+          <a class="btn btn-preto" href="https://wa.me/5585984222690" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+          <a class="btn btn-borda-preto" href="https://www.instagram.com/panificadoraafelix/" target="_blank" rel="noopener">@panificadoraafelix ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <span>FÉLIX • panificadora artesanal em Fortaleza</span>
+    <a href="https://www.instagram.com/panificadoraafelix/" target="_blank" rel="noopener">Instagram</a>
+    <span class="rodape-credito">site por <a href="../index.html">maxyzao.dev</a></span>
+  </footer>
+
+  <!-- ===== bot de atendimento: captura leads pelo chat ===== -->
+  <div id="sb-chat" data-url="https://agentes-s68ksrzb97z5q4qqp7f8nq.streamlit.app/?agente=felix&embed=true&cor=d8a94a"></div>
+  <script>
+  (function () {
+    var chatUrl = document.getElementById("sb-chat").getAttribute("data-url");
+
+    var css = document.createElement("style");
+    css.textContent =
+      "#sb-chat-btn{position:fixed;right:20px;bottom:20px;width:62px;height:62px;border-radius:50%;border:0;cursor:pointer;" +
+      "background:#d8a94a;box-shadow:0 8px 24px rgba(216,169,74,.45);z-index:99999;" +
+      "font-size:28px;line-height:1;display:flex;align-items:center;justify-content:center;transition:transform .18s}" +
+      "#sb-chat-btn:hover{transform:scale(1.08) rotate(-6deg)}" +
+      "#sb-chat-btn::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:3px solid rgba(216,169,74,.5);animation:sb-pulso 2s ease-out infinite}" +
+      "@keyframes sb-pulso{0%{transform:scale(.85);opacity:1}100%{transform:scale(1.35);opacity:0}}" +
+      "#sb-chat-balao{position:fixed;right:94px;bottom:32px;background:#f7ecd9;color:#0f0a06;font-family:'Poppins',sans-serif;" +
+      "font-weight:700;font-size:.88rem;padding:10px 16px;border-radius:6px 6px 2px 6px;box-shadow:0 8px 22px rgba(0,0,0,.4);" +
+      "z-index:99999;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s;pointer-events:none;white-space:nowrap}" +
+      "#sb-chat-balao.mostra{opacity:1;transform:translateY(0)}" +
+      "#sb-chat-box{position:fixed;right:20px;bottom:94px;width:380px;height:560px;border:3px solid #d8a94a;border-radius:10px;" +
+      "overflow:hidden;display:none;box-shadow:0 16px 48px rgba(0,0,0,.5);background:#1b130c;z-index:99999}" +
+      "#sb-chat-box.aberto{display:block}" +
+      "#sb-chat-box iframe{width:100%;height:100%;border:0}" +
+      "@media (max-width:480px){#sb-chat-box{right:8px;left:8px;width:auto;height:72vh}#sb-chat-balao{font-size:.8rem}}";
+    document.head.appendChild(css);
+
+    var balao = document.createElement("div");
+    balao.id = "sb-chat-balao";
+    balao.textContent = "Quer fazer uma encomenda? Fala comigo!";
+
+    var btn = document.createElement("button");
+    btn.id = "sb-chat-btn";
+    btn.setAttribute("aria-label", "Falar com o atendimento");
+    btn.textContent = "💬";
+
+    var box = document.createElement("div");
+    box.id = "sb-chat-box";
+    var carregado = false;
+
+    btn.addEventListener("click", function () {
+      if (!carregado) {
+        var frame = document.createElement("iframe");
+        frame.src = chatUrl;
+        frame.title = "Atendimento Félix";
+        box.appendChild(frame);
+        carregado = true;
+      }
+      box.classList.toggle("aberto");
+      balao.classList.remove("mostra");
+      btn.textContent = box.classList.contains("aberto") ? "✕" : "💬";
+    });
+
+    document.body.appendChild(box);
+    document.body.appendChild(balao);
+    document.body.appendChild(btn);
+    setTimeout(function () { if (!box.classList.contains("aberto")) balao.classList.add("mostra"); }, 4200);
+    setTimeout(function () { balao.classList.remove("mostra"); }, 13000);
+  })();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="js/main.js?v=1"></script>
+</body>
+</html>

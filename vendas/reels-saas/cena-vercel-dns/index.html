@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cena Vercel DNS</title>
+  <style>
+    :root {
+      --ink: #ededed;
+      --muted: #8d8d8d;
+      --line: #292929;
+      --page: #0a0a0a;
+      --panel: #111111;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #050505;
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body { display: grid; place-items: center; }
+
+    .reel {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(780px 760px at 54% 44%, rgba(255,255,255,.078), transparent 69%),
+        linear-gradient(180deg, #050505 0%, #090909 48%, #030303 100%);
+    }
+
+    .reel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 46%, transparent 43%, rgba(0,0,0,.42) 100%);
+    }
+
+    .ambient {
+      position: absolute;
+      left: 160px;
+      top: 560px;
+      width: 720px;
+      height: 720px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.07);
+      filter: blur(150px);
+      opacity: var(--ambient-opacity, 0);
+      transform: scale(var(--ambient-scale, .7));
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      pointer-events: none;
+      opacity: .05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
+    }
+
+    .scene-label {
+      position: absolute;
+      left: 70px;
+      top: 290px;
+      z-index: 4;
+      color: rgba(255,255,255,.84);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -.35px;
+      opacity: var(--label-opacity, 0);
+      transform: translateY(var(--label-y, 16px));
+    }
+
+    .scene-label span { color: #777; font-weight: 460; }
+
+    .camera {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 1380px;
+      height: 940px;
+      opacity: var(--camera-opacity, 0);
+      transform-origin: 50% 47%;
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+      transform:
+        translate3d(calc(-50% + var(--camera-x, 0px)), var(--camera-y, 540px), 0)
+        perspective(1900px)
+        rotateX(var(--camera-rx, 6deg))
+        rotateY(var(--camera-ry, -10deg))
+        rotateZ(var(--camera-rz, 1.4deg))
+        scale(var(--camera-scale, .6));
+    }
+
+    .browser {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border: 1px solid #343434;
+      border-radius: 18px;
+      background: var(--page);
+      box-shadow:
+        0 74px 190px rgba(0,0,0,.76),
+        0 18px 50px rgba(0,0,0,.5),
+        inset 0 1px 0 rgba(255,255,255,.09);
+    }
+
+    .chrome {
+      height: 64px;
+      display: grid;
+      grid-template-columns: 122px 1fr 122px;
+      align-items: center;
+      padding: 0 18px;
+      border-bottom: 1px solid #252525;
+      background: #151515;
+    }
+
+    .traffic { display: flex; gap: 10px; }
+    .traffic span { width: 13px; height: 13px; border-radius: 50%; background: #464646; }
+    .traffic span:first-child { background: #ff5f57; }
+    .traffic span:nth-child(2) { background: #febc2e; }
+    .traffic span:nth-child(3) { background: #28c840; }
+
+    .address {
+      justify-self: center;
+      width: 700px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid #333;
+      border-radius: 10px;
+      color: #b5b5b5;
+      background: #202020;
+      font-size: 14px;
+    }
+
+    .lock { width: 9px; height: 8px; border: 1.5px solid #888; border-radius: 2px; position: relative; }
+    .lock::before { content: ""; position: absolute; width: 6px; height: 6px; left: 0; top: -7px; border: 1.5px solid #888; border-bottom: 0; border-radius: 6px 6px 0 0; }
+    .chrome-tools { justify-self: end; display: flex; gap: 16px; color: #8d8d8d; font-size: 20px; }
+
+    .webview { position: relative; height: calc(100% - 64px); overflow: hidden; background: var(--page); }
+    .screen { position: absolute; inset: 0; will-change: transform, opacity; }
+    .domains { opacity: var(--domains-opacity, 1); transform: translateX(var(--domains-x, 0px)); }
+    .dns { opacity: var(--dns-opacity, 0); transform: translateX(var(--dns-x, 54px)); }
+
+    .topbar {
+      height: 76px;
+      display: grid;
+      grid-template-columns: 280px 1fr auto;
+      align-items: center;
+      gap: 22px;
+      padding: 0 34px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(10,10,10,.96);
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 17px; font-weight: 600; color: #f3f3f3; }
+    .triangle { width: 0; height: 0; border-left: 11px solid transparent; border-right: 11px solid transparent; border-bottom: 20px solid #f3f3f3; }
+    .divider { width: 1px; height: 25px; background: #333; margin: 0 3px; }
+    .team { color: #d3d3d3; }
+    .nav { display: flex; justify-content: center; gap: 30px; font-size: 14px; color: #777; }
+    .nav .active { color: #efefef; }
+    .actions { display: flex; align-items: center; gap: 13px; }
+    .icon-button, .avatar { height: 34px; min-width: 34px; display: grid; place-items: center; border: 1px solid #343434; border-radius: 8px; background: #161616; color: #c6c6c6; font-size: 13px; }
+    .avatar { border-radius: 50%; background: linear-gradient(145deg, #d5d5d5, #676767); color: #111; font-weight: 700; }
+
+    .domain-content { padding: 54px 70px 70px; }
+    .head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 34px; }
+    h1 { margin: 0; font-size: 30px; line-height: 1.15; letter-spacing: -1.05px; font-weight: 620; }
+    .sub { margin-top: 9px; color: #858585; font-size: 15px; }
+    .primary { height: 40px; display: inline-flex; align-items: center; gap: 9px; padding: 0 17px; border: 1px solid #f0f0f0; border-radius: 8px; background: #f0f0f0; color: #111; font-size: 14px; font-weight: 600; }
+
+    .search { height: 42px; width: 100%; display: flex; align-items: center; padding: 0 15px; margin-bottom: 18px; border: 1px solid #303030; border-radius: 9px; color: #707070; background: #0e0e0e; font-size: 13px; }
+    .domain-table { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .table-head, .domain-row { display: grid; grid-template-columns: 1.55fr .9fr .8fr 40px; align-items: center; padding: 0 22px; }
+    .table-head { min-height: 48px; color: #747474; background: #0e0e0e; font-size: 12px; border-bottom: 1px solid var(--line); }
+    .domain-row { min-height: 92px; background: #101010; box-shadow: inset 0 0 0 var(--row-ring, 0px) rgba(255,255,255,var(--row-ring-alpha, 0)); }
+    .domain-name { display: flex; align-items: center; gap: 14px; font-size: 15px; font-weight: 600; }
+    .globe { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid #343434; border-radius: 9px; color: #bcbcbc; font-size: 18px; }
+    .secondary { color: #8a8a8a; font-size: 13px; }
+    .status { display: flex; align-items: center; gap: 8px; color: #a9a9a9; font-size: 13px; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #47a66a; box-shadow: 0 0 0 3px rgba(71,166,106,.1); }
+    .more { color: #777; font-size: 20px; }
+
+    .dns-shell { display: grid; grid-template-columns: 236px 1fr; height: 100%; }
+    .sidebar { padding: 30px 18px; border-right: 1px solid var(--line); background: #0b0b0b; }
+    .back { color: #8b8b8b; font-size: 13px; margin: 4px 10px 27px; }
+    .domain-id { margin: 0 10px 28px; font-size: 14px; font-weight: 600; color: #e1e1e1; }
+    .side-item { height: 38px; display: flex; align-items: center; padding: 0 11px; border-radius: 7px; color: #7e7e7e; font-size: 13px; margin-bottom: 3px; }
+    .side-item.active { color: #ededed; background: #1a1a1a; }
+
+    .dns-main { min-width: 0; }
+    .dns-head { height: 76px; display: flex; align-items: center; justify-content: space-between; padding: 0 36px; border-bottom: 1px solid var(--line); }
+    .dns-title { font-size: 16px; font-weight: 600; }
+    .dns-body { padding: 38px 42px 60px; }
+    .dns-body h1 { font-size: 27px; }
+    .dns-body .sub { font-size: 14px; }
+
+    .record-panel { margin-top: 31px; border-top: 1px solid #2d2d2d; padding-top: 26px; }
+    .record-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 19px; }
+    .record-title h2 { margin: 0; font-size: 17px; letter-spacing: -.25px; }
+    .preset { color: #9a9a9a; font-size: 12px; }
+    .form-grid { display: grid; grid-template-columns: 132px 166px 1fr 104px 82px; gap: 10px; align-items: end; }
+    .field label { display: block; margin: 0 0 8px 2px; color: #7e7e7e; font-size: 11px; }
+    .input { position: relative; height: 42px; display: flex; align-items: center; padding: 0 12px; border: 1px solid #343434; border-radius: 8px; background: #111; color: #d7d7d7; font-size: 13px; box-shadow: 0 0 0 var(--field-ring, 0px) rgba(255,255,255,var(--field-ring-alpha, 0)); }
+    .input.type { justify-content: space-between; }
+    .chevron { color: #777; font-size: 12px; }
+    .caret { width: 1px; height: 18px; background: #e8e8e8; margin-left: 2px; opacity: var(--caret-opacity, 0); }
+    .typed { white-space: nowrap; overflow: hidden; width: var(--typed-width, 0%); }
+    .add-button { height: 42px; display: grid; place-items: center; border: 1px solid #efefef; border-radius: 8px; background: #efefef; color: #111; font-size: 13px; font-weight: 600; transform: scale(var(--add-scale, 1)); box-shadow: 0 0 0 var(--add-ring, 0px) rgba(255,255,255,var(--add-ring-alpha, 0)); }
+
+    .dropdown { position: absolute; z-index: 6; left: 42px; top: 255px; width: 132px; padding: 6px; border: 1px solid #363636; border-radius: 9px; background: #171717; box-shadow: 0 16px 42px rgba(0,0,0,.55); opacity: var(--dropdown-opacity, 0); transform: translateY(var(--dropdown-y, -8px)) scale(.98); transform-origin: top; }
+    .option { height: 31px; display: flex; align-items: center; padding: 0 9px; border-radius: 6px; color: #a4a4a4; font-size: 12px; }
+    .option.selected { background: #292929; color: #f0f0f0; }
+
+    .records { margin-top: 29px; border: 1px solid #292929; border-radius: 10px; overflow: hidden; }
+    .records-head, .record-row { display: grid; grid-template-columns: 102px 150px 1fr 100px; align-items: center; padding: 0 16px; }
+    .records-head { min-height: 39px; background: #0d0d0d; color: #707070; font-size: 10px; }
+    .record-row { min-height: 62px; border-top: 1px solid #292929; background: #101010; color: #b9b9b9; font-size: 12px; }
+    .record-row.new { opacity: var(--new-row-opacity, 0); transform: translateY(var(--new-row-y, 13px)); background: rgba(36,80,50,var(--new-row-bg, 0)); }
+    .type-tag { width: 29px; height: 25px; display: grid; place-items: center; border: 1px solid #3b3b3b; border-radius: 6px; color: #d9d9d9; font-size: 11px; font-weight: 600; }
+    .verified { color: #65bd81; font-weight: 600; }
+
+    .cursor {
+      position: absolute;
+      z-index: 12;
+      left: 0;
+      top: 0;
+      width: 25px;
+      height: 34px;
+      opacity: var(--cursor-opacity, 0);
+      transform: translate3d(var(--cursor-x, 950px), var(--cursor-y, 330px), 0) scale(var(--cursor-scale, 1));
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,.68));
+      will-change: transform, opacity;
+    }
+
+    .cursor::before { content: ""; position: absolute; width: 0; height: 0; border-right: 18px solid transparent; border-top: 28px solid #f2f2f2; transform: rotate(-20deg); transform-origin: 4px 4px; }
+    .cursor::after { content: ""; position: absolute; left: 5px; top: 3px; width: 0; height: 0; border-right: 13px solid transparent; border-top: 22px solid #171717; transform: rotate(-20deg); transform-origin: 3px 3px; }
+    .ripple { position: absolute; z-index: 11; left: 0; top: 0; width: 48px; height: 48px; border: 2px solid rgba(255,255,255,.65); border-radius: 50%; opacity: var(--ripple-opacity, 0); transform: translate3d(calc(var(--ripple-x, 0px) - 24px), calc(var(--ripple-y, 0px) - 24px), 0) scale(var(--ripple-scale, .2)); }
+
+    .toast { position: absolute; right: 26px; bottom: 24px; z-index: 10; min-width: 250px; height: 54px; display: flex; align-items: center; gap: 12px; padding: 0 16px; border: 1px solid #3b3b3b; border-radius: 10px; background: #191919; box-shadow: 0 18px 50px rgba(0,0,0,.45); color: #dedede; font-size: 12px; opacity: var(--toast-opacity, 0); transform: translateY(var(--toast-y, 18px)); }
+    .check { width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; background: #387b4c; color: #fff; font-size: 13px; }
+
+    .flash { position: absolute; inset: 0; z-index: 40; pointer-events: none; background: #fff; opacity: var(--flash-opacity, 0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .camera { opacity: 1; transform: translate3d(-50%, 530px, 0) scale(.68); }
+      .ambient { opacity: .6; }
+    }
+  </style>
+</head>
+<body>
+  <main class="reel" aria-label="Cena vertical mostrando a configuração de DNS na Vercel">
+    <div class="ambient"></div>
+    <div class="scene-label">Configuração de DNS <span>/ Vercel</span></div>
+
+    <div class="camera">
+      <section class="browser" aria-label="Recriação visual do painel de DNS da Vercel">
+        <div class="chrome">
+          <div class="traffic"><span></span><span></span><span></span></div>
+          <div class="address"><span class="lock"></span><span>vercel.com/domains</span></div>
+          <div class="chrome-tools"><span>↻</span><span>⋯</span></div>
+        </div>
+
+        <div class="webview">
+          <div class="screen domains">
+            <header class="topbar">
+              <div class="brand"><span class="triangle"></span><span class="divider"></span><span class="team">igor's projects</span></div>
+              <nav class="nav"><span>Overview</span><span>Integrations</span><span>Activity</span><span class="active">Domains</span><span>Usage</span></nav>
+              <div class="actions"><span class="icon-button">?</span><span class="avatar">I</span></div>
+            </header>
+            <div class="domain-content">
+              <div class="head">
+                <div><h1>Domains</h1><div class="sub">Manage domains across all of your projects.</div></div>
+                <button class="primary">+ Add Existing</button>
+              </div>
+              <div class="search">Search domains...</div>
+              <div class="domain-table">
+                <div class="table-head"><span>Domain</span><span>Registrar</span><span>Status</span><span></span></div>
+                <div class="domain-row">
+                  <div class="domain-name"><span class="globe">◎</span><span>orbitacrm.dev</span></div>
+                  <div class="secondary">Third Party</div>
+                  <div class="status"><span class="status-dot"></span><span>Valid Configuration</span></div>
+                  <div class="more">⋯</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="screen dns">
+            <div class="dns-shell">
+              <aside class="sidebar">
+                <div class="back">‹ All Domains</div>
+                <div class="domain-id">orbitacrm.dev</div>
+                <div class="side-item">Overview</div>
+                <div class="side-item active">DNS Records</div>
+                <div class="side-item">Nameservers</div>
+                <div class="side-item">Transfer</div>
+                <div class="side-item">Advanced</div>
+              </aside>
+              <div class="dns-main">
+                <div class="dns-head"><div class="dns-title">Advanced Settings</div><div class="actions"><span class="icon-button">?</span><span class="avatar">I</span></div></div>
+                <div class="dns-body">
+                  <h1>DNS Records</h1>
+                  <div class="sub">Create and manage records for orbitacrm.dev.</div>
+                  <div class="record-panel">
+                    <div class="record-title"><h2>Add a DNS Record</h2><span class="preset">Add DNS Preset</span></div>
+                    <div class="form-grid">
+                      <div class="field"><label>Type</label><div class="input type"><span class="type-value">A</span><span class="chevron">⌄</span></div></div>
+                      <div class="field"><label>Name</label><div class="input name-input"><span class="typed name-text">@</span><span class="caret name-caret"></span></div></div>
+                      <div class="field"><label>Value</label><div class="input value-input"><span class="typed value-text">76.76.21.21</span><span class="caret value-caret"></span></div></div>
+                      <div class="field"><label>TTL</label><div class="input">60</div></div>
+                      <div class="add-button">Add</div>
+                    </div>
+                    <div class="records">
+                      <div class="records-head"><span>TYPE</span><span>NAME</span><span>VALUE</span><span>STATUS</span></div>
+                      <div class="record-row"><span><span class="type-tag">TXT</span></span><span>_vercel</span><span>vc-domain-verify</span><span>Active</span></div>
+                      <div class="record-row new"><span><span class="type-tag">A</span></span><span>@</span><span>76.76.21.21</span><span class="verified">Added</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown">
+              <div class="option selected">A</div>
+              <div class="option">AAAA</div>
+              <div class="option">CNAME</div>
+              <div class="option">TXT</div>
+            </div>
+            <div class="toast"><span class="check">✓</span><span>DNS record added successfully</span></div>
+          </div>
+
+          <div class="ripple"></div>
+          <div class="cursor"></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="flash"></div>
+    <div class="grain"></div>
+  </main>
+
+  <script>
+    const root = document.documentElement;
+    const clamp = (v, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+    const mix = (a, b, t) => a + (b - a) * t;
+    const seg = (t, a, b) => clamp((t - a) / (b - a));
+    const out = t => 1 - Math.pow(1 - clamp(t), 4);
+    const smooth = t => { t = clamp(t); return t < .5 ? 8 * t ** 4 : 1 - ((-2 * t + 2) ** 4) / 2; };
+    const set = (name, value) => root.style.setProperty(name, value);
+
+    window.__setTime = milliseconds => {
+      const t = milliseconds / 1000;
+      const intro = out(seg(t, 0, .75));
+      const firstZoom = smooth(seg(t, .58, 1.55));
+      const screenChange = smooth(seg(t, 1.58, 2.08));
+      const formZoom = smooth(seg(t, 2.0, 3.0));
+      const actionPan = smooth(seg(t, 4.42, 5.28));
+      const finalZoom = smooth(seg(t, 4.85, 6.2));
+      const settle = Math.sin(seg(t, 5.75, 6.5) * Math.PI) * .005;
+
+      set('--camera-opacity', clamp(intro * 1.15));
+      set('--camera-scale', mix(.52, .64, intro) + mix(0, .09, firstZoom) + mix(0, .19, formZoom) + mix(0, .07, finalZoom) + settle);
+      set('--camera-x', `${mix(48, 0, intro) + mix(0, 10, firstZoom) + mix(0, 78, formZoom) + mix(0, -250, actionPan) + mix(0, 18, finalZoom)}px`);
+      set('--camera-y', `${mix(665, 548, intro) + mix(0, -25, firstZoom) + mix(0, 42, formZoom) + mix(0, 24, finalZoom)}px`);
+      set('--camera-rx', `${mix(9, 2.8, intro) + mix(0, -2.8, firstZoom)}deg`);
+      set('--camera-ry', `${mix(-14, -5, intro) + mix(0, 5, firstZoom)}deg`);
+      set('--camera-rz', `${mix(2.2, .65, intro) + mix(0, -.65, firstZoom)}deg`);
+      set('--ambient-opacity', mix(0, .86, intro));
+      set('--ambient-scale', mix(.62, 1.08, out(seg(t, 0, 3.1))));
+      set('--label-opacity', seg(t, .22, .78) * (1 - seg(t, 1.52, 1.9)));
+      set('--label-y', `${mix(16, 0, out(seg(t, .22, .78)))}px`);
+
+      set('--domains-opacity', 1 - screenChange);
+      set('--domains-x', `${mix(0, -56, screenChange)}px`);
+      set('--dns-opacity', screenChange);
+      set('--dns-x', `${mix(56, 0, screenChange)}px`);
+      set('--flash-opacity', Math.sin(seg(t, 1.7, 1.94) * Math.PI) * .1);
+
+      const cursorIn = out(seg(t, .68, 1.0));
+      let cx = 1020;
+      let cy = 300;
+      if (t < 1.5) {
+        const m = smooth(seg(t, .88, 1.36));
+        cx = mix(1030, 405, m);
+        cy = mix(300, 348, m);
+      } else if (t < 2.2) {
+        const m = smooth(seg(t, 1.72, 2.14));
+        cx = mix(405, 310, m);
+        cy = mix(348, 304, m);
+      } else if (t < 3.35) {
+        const m = smooth(seg(t, 2.2, 2.72));
+        cx = mix(310, 306, m);
+        cy = mix(304, 309, m);
+      } else if (t < 4.0) {
+        const m = smooth(seg(t, 3.34, 3.82));
+        cx = mix(306, 478, m);
+        cy = mix(309, 310, m);
+      } else if (t < 4.8) {
+        const m = smooth(seg(t, 3.92, 4.58));
+        cx = mix(478, 736, m);
+        cy = mix(310, 310, m);
+      } else {
+        const m = smooth(seg(t, 4.74, 5.23));
+        cx = mix(736, 1094, m);
+        cy = mix(310, 310, m);
+      }
+      set('--cursor-opacity', cursorIn);
+      set('--cursor-x', `${cx}px`);
+      set('--cursor-y', `${cy}px`);
+
+      const clicks = [seg(t, 1.34, 1.58), seg(t, 2.52, 2.76), seg(t, 3.12, 3.34), seg(t, 5.18, 5.46)];
+      let activeClick = -1;
+      clicks.forEach((value, index) => { if (value > 0 && value < 1) activeClick = index; });
+      const clickValue = activeClick >= 0 ? clicks[activeClick] : 0;
+      const clickLocations = [[405,348],[306,309],[306,354],[1094,310]];
+      const ripplePoint = clickLocations[Math.max(0, activeClick)];
+      set('--cursor-scale', clickValue > .18 && clickValue < .58 ? .83 : 1);
+      set('--ripple-opacity', activeClick >= 0 ? Math.sin(clickValue * Math.PI) * .75 : 0);
+      set('--ripple-scale', mix(.18, 1.3, out(clickValue)));
+      set('--ripple-x', `${ripplePoint[0]}px`);
+      set('--ripple-y', `${ripplePoint[1]}px`);
+
+      const rowPress = Math.sin(seg(t, 1.3, 1.58) * Math.PI);
+      set('--row-ring', `${rowPress * 7}px`);
+      set('--row-ring-alpha', rowPress * .07);
+
+      const dropOpen = smooth(seg(t, 2.57, 2.84)) * (1 - smooth(seg(t, 3.18, 3.43)));
+      set('--dropdown-opacity', dropOpen);
+      set('--dropdown-y', `${mix(-8, 0, out(dropOpen))}px`);
+
+      const nameType = out(seg(t, 3.56, 3.9));
+      const valueType = out(seg(t, 4.08, 4.7));
+      set('--typed-width', '100%');
+      document.querySelector('.name-text').style.width = `${nameType * 13}px`;
+      document.querySelector('.value-text').style.width = `${valueType * 82}px`;
+      document.querySelector('.name-caret').style.opacity = t > 3.46 && t < 4.02 ? 1 : 0;
+      document.querySelector('.value-caret').style.opacity = t > 3.98 && t < 4.82 ? 1 : 0;
+      const fieldPulse = Math.sin(seg(t, 4.06, 4.74) * Math.PI);
+      set('--field-ring', `${fieldPulse * 4}px`);
+      set('--field-ring-alpha', fieldPulse * .055);
+
+      const addPress = Math.sin(seg(t, 5.16, 5.45) * Math.PI);
+      set('--add-scale', 1 - addPress * .055);
+      set('--add-ring', `${addPress * 8}px`);
+      set('--add-ring-alpha', addPress * .12);
+      const success = out(seg(t, 5.42, 5.85));
+      set('--new-row-opacity', success);
+      set('--new-row-y', `${mix(13, 0, success)}px`);
+      set('--new-row-bg', success * .18);
+      set('--toast-opacity', success);
+      set('--toast-y', `${mix(18, 0, success)}px`);
+    };
+
+    window.__setTime(0);
+    if (!new URLSearchParams(location.search).has('render')) {
+      const start = performance.now();
+      const duration = 6600;
+      function play(now) {
+        window.__setTime((now - start) % duration);
+        requestAnimationFrame(play);
+      }
+      requestAnimationFrame(play);
+    }
+  </script>
+</body>
+</html>

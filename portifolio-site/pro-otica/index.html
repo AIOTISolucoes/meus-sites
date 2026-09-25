@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#151a21">
+  <meta name="description" content="Conceito de site para a Pró-Ótica no José Walter, Fortaleza. Armações e atendimento personalizado.">
+  <title>Pró-Ótica | José Walter</title>
+  <link rel="preload" href="assets/hero.webp" as="image" type="image/webp">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="css/style.css?v=1">
+  <link rel="stylesheet" href="css/living-grid.css?v=2">
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+  <button class="scroll-orbit" type="button" aria-label="Progresso da página. Voltar ao topo"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"></circle><circle class="scroll-orbit-value" cx="24" cy="24" r="20" pathLength="100"></circle></svg><span>0%</span></button>
+  <header class="nav" id="nav">
+    <a class="brand" href="#inicio" aria-label="Pró-Ótica, início"><strong>PRÓ</strong><span>ÓTICA</span></a>
+    <button class="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i class="ph ph-list"></i></button>
+    <nav id="menu" aria-label="Navegação principal"><a href="#colecao">Armações</a><a href="#estilo">Descobrir estilo</a><a href="#loja">Loja</a><a class="nav-cta" href="https://www.instagram.com/pro.otica/" target="_blank" rel="noopener">Falar com a equipe <i class="ph ph-arrow-up-right"></i></a></nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio">
+      <img class="hero-photo" src="assets/hero.webp" alt="Três armações contemporâneas em composição de acrílico, luz e sombra" width="1536" height="1024">
+      <div class="living-grid" data-living-grid="assets/hero.webp" data-variant="optic" aria-hidden="true"></div>
+      <div class="hero-lens" aria-hidden="true"><span></span><i></i></div>
+      <div class="hero-copy">
+        <p class="eyebrow">Ótica no José Walter</p>
+        <h1>Seu rosto muda a armação. <em>E vice-versa.</em></h1>
+        <p>Um começo visual para você chegar à loja sabendo o que quer experimentar.</p>
+        <div class="actions"><a class="btn primary" href="#estilo">Encontrar meu estilo</a><a class="btn glass" href="#colecao">Ver armações</a></div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true"><div>TRANSLÚCIDA&nbsp;&nbsp; GEOMÉTRICA&nbsp;&nbsp; METAL&nbsp;&nbsp; LEVE&nbsp;&nbsp; MARCANTE&nbsp;&nbsp; TRANSLÚCIDA&nbsp;&nbsp; GEOMÉTRICA&nbsp;&nbsp; METAL&nbsp;&nbsp; LEVE&nbsp;&nbsp; MARCANTE&nbsp;&nbsp;</div></div>
+
+    <section class="collection" id="colecao">
+      <div class="collection-head reveal"><h2>Três traços. A mesma intenção.</h2><p>Use as formas como referência. Modelos, cores, lentes, marcas e disponibilidade são confirmados pela equipe.</p></div>
+      <div class="frame-gallery">
+        <article class="frame-card"><div class="frame-image black"><img src="assets/hero.webp" alt="Armação geométrica preta"></div><div><span>Contraste</span><h3>Geometria</h3><p>Linhas definidas e presença visual.</p></div></article>
+        <article class="frame-card"><div class="frame-image blue"><img src="assets/hero.webp" alt="Armação translúcida azul"></div><div><span>Cor</span><h3>Transparência</h3><p>Leveza com um ponto de cor.</p></div></article>
+        <article class="frame-card"><div class="frame-image metal"><img src="assets/hero.webp" alt="Armação fina de metal"></div><div><span>Precisão</span><h3>Metal</h3><p>Traço fino e desenho essencial.</p></div></article>
+      </div>
+    </section>
+
+    <section class="finder" id="estilo">
+      <div class="finder-portrait"><img src="assets/retrato.webp" alt="Pessoa usando armação translúcida azul" width="1128" height="1410"><div class="lens-window" aria-hidden="true"></div></div>
+      <div class="finder-content">
+        <div class="finder-heading reveal"><h2>Qual presença combina com você?</h2><p>Este guia trata somente de estilo. Medidas, lentes e qualquer necessidade visual exigem avaliação profissional.</p></div>
+        <form id="style-form" class="style-form">
+          <fieldset><legend>O que você quer transmitir?</legend><div class="choices"><button type="button" data-vibe="leve">Leve</button><button type="button" data-vibe="criativa">Criativa</button><button type="button" data-vibe="marcante">Marcante</button></div></fieldset>
+          <fieldset><legend>Qual material te chama atenção?</legend><div class="choices"><button type="button" data-material="metal">Metal</button><button type="button" data-material="translucida">Translúcida</button><button type="button" data-material="acetato">Acetato</button></div></fieldset>
+          <div class="style-result" id="style-result" aria-live="polite"><span>Sua referência</span><strong>Escolha duas opções</strong><p>Uma direção de estilo aparece aqui.</p></div>
+          <a class="btn primary disabled" id="style-contact" href="https://www.instagram.com/pro.otica/" target="_blank" rel="noopener">Levar para a equipe</a>
+        </form>
+      </div>
+    </section>
+
+    <section class="journey">
+      <div class="journey-title reveal"><h2>Da referência à prova.</h2><p>Um fluxo curto para deixar o atendimento mais objetivo.</p></div>
+      <div class="journey-stack">
+        <article><i class="ph ph-selection"></i><div><h3>Escolha uma direção</h3><p>Formato, cor e material ajudam a equipe a separar opções.</p></div></article>
+        <article><i class="ph ph-chat-circle-text"></i><div><h3>Converse com a loja</h3><p>Envie sua referência e confirme o que está disponível.</p></div></article>
+        <article><i class="ph ph-eyeglasses"></i><div><h3>Experimente de perto</h3><p>Ajuste e proporção só podem ser avaliados presencialmente.</p></div></article>
+      </div>
+    </section>
+
+    <section class="location" id="loja">
+      <div class="location-copy reveal"><h2>Seu próximo olhar começa no José Walter.</h2><p>Rua Clarice Lispector, quadra 07, bloco 15, lote 01, Prefeito José Walter, Fortaleza.</p><div class="actions"><a class="btn primary" href="https://www.waze.com/live-map/directions/br/ce/otica-pro-otica-no-jose-walter-%2C-fortaleza-ce?to=place.ChIJ__YZ5RtRxwcRKjzXu7Z1atU" target="_blank" rel="noopener">Traçar rota</a><a class="btn line" href="tel:+5585987310313">Ligar</a></div></div>
+      <div class="optic-orbit" aria-hidden="true"><span>O</span><i></i><b></b></div>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="#inicio"><strong>PRÓ</strong><span>ÓTICA</span></a><p>Conceito visual para apresentação. Produtos, serviços, horários, preços, marcas e estoque devem ser confirmados com a loja.<small class="ui-credit">Interações livres adaptadas de <a href="https://skiper-ui.com/" target="_blank" rel="noopener">Skiper UI</a> e direção de movimento inspirada no catálogo <a href="https://www.originkit.dev/" target="_blank" rel="noopener">OriginKit</a>.</small></p><a href="https://www.instagram.com/pro.otica/" target="_blank" rel="noopener">@pro.otica</a></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script><script src="js/living-grid.js?v=2"></script><script src="js/premium-ui.js?v=1"></script><script src="js/main.js?v=2"></script><script src="js/chat.js?v=1"></script>
+</body>
+</html>

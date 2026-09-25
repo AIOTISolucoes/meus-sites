@@ -1,0 +1,770 @@
+/* ==========================================================================
+   GENTLEMAN BARBEARIA — Maraponga, Fortaleza (CE)
+
+   Paleta medida no pixel das fotos DELES:
+     preto     #0f1216  — a fachada e o fundo da logo
+     laranja   #e2621c  — o poste de barbeiro da porta (laranja/branco/azul)
+     azul      #1b2532  — a terceira faixa do mesmo poste
+     tijolo    #8a3f2b  — a parede do salão, que aparece em quase toda foto
+     osso      #f4f1ea  — a superfície clara
+
+   ⚠️ ESTA É A 4ª BARBEARIA DO PORTFÓLIO. As outras três (LS, Drummer,
+   Diretoria) são AMARELO SOBRE PRETO. Esta escapa porque a logo dela é
+   BRANCA sobre preto: a cor não vem da marca, vem do poste da fachada.
+   Se algum dia parecerem parentes, mexer no azul e no tijolo — nunca puxar
+   o laranja pro amarelo, que é o que reaproximaria das outras.
+
+   Contraste conferido (WCAG AA pede 4,5):
+     laranja  sobre preto ... 5,36  ✅
+     laranja  sobre osso .... 3,10  ❌  -> por isso existe --laranja-tinta
+     laranja-tinta sobre osso 5,77  ✅
+     cinza-claro sobre preto  5,43  ✅
+     cinza sobre osso ....... 5,30  ✅
+
+   Paletas já usadas no portfólio (não repetir):
+     Colmeia mel+rosa · Sabtec preto+limão · Félix preto+dourado ·
+     Estúdio champagne+dourado · Claudia marinho+azul · Spaço café+creme ·
+     Butterfly preto+dourado claro · Fisioclin creme+terracota+verde-água ·
+     JK magenta+menta · Reserva vermelho+madeira · LS preto+limão ácido ·
+     Drummer latão+papel branco · Diretoria laranja-mel+tijolo claro
+   ========================================================================== */
+
+:root {
+  --preto: #0f1216;
+  --preto-fundo: #08090c;      /* intro e rodapé: o tom mais fundo */
+  --preto-carta: #161b21;      /* cartão sobre fundo escuro */
+  --laranja: #e2621c;          /* o poste. Só sobre ESCURO. */
+  --laranja-clara: #f0813d;    /* 2º tom, gradiente e detalhe */
+  --laranja-tinta: #a33d08;    /* a mesma cor escurecida pra virar LETRA no claro */
+  --azul: #1b2532;
+  --azul-claro: #34455c;
+  --tijolo: #8a3f2b;
+  --osso: #f4f1ea;
+  --osso-fundo: #eae5da;       /* alterna duas seções claras */
+  --tinta: #14181d;
+  --tinta-suave: #5b6472;      /* texto secundário sobre claro */
+  --tinta-clara: #7f8b9c;      /* texto secundário sobre escuro */
+  --display: 'Prata', Georgia, serif;
+  --sans: 'Epilogue', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--osso);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ficar visível no teclado é o mínimo — o site é de agendamento */
+:focus-visible { outline: 2px solid var(--laranja); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------------------------------------------------------- TIPOGRAFIA */
+
+.etiqueta {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--laranja-tinta);
+  margin-bottom: 1.3rem;
+}
+
+.titulo-secao {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -.01em;
+}
+
+/* A palavra em destaque sai em LARANJA CHAPADO, não em degradê-sobre-texto.
+   Motivo: a Prata é uma didone, os traços finos dela têm ~1px — degradê em
+   background-clip come esses traços e a palavra fica esfarrapada. */
+.titulo-secao em,
+.hero-titulo em,
+#contato h2 em { font-style: normal; color: var(--laranja-tinta); }
+
+.secao-topo { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto 4rem; padding: 0 6vw; }
+.secao-topo.centro { text-align: center; }
+
+.secao-texto { margin-top: 1.2rem; font-size: 1.02rem; line-height: 1.7; color: var(--tinta-suave); max-width: 46ch; }
+.secao-topo.centro .secao-texto { margin-inline: auto; }
+
+/* -------------------------------------------------------------- BOTÕES */
+
+.btn-principal,
+.btn-vazado {
+  display: inline-block;
+  font-size: .9rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 1.05rem 2.2rem;
+  border-radius: 2px;              /* barbearia é reta: nada de pílula */
+  transition: transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease, border-color .3s ease;
+}
+
+.btn-principal {
+  background: linear-gradient(135deg, var(--laranja), #c9500f);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(178, 70, 12, .3);
+}
+.btn-principal:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(178, 70, 12, .42); }
+
+.btn-vazado { border: 1px solid rgba(20, 24, 29, .3); color: var(--tinta); }
+.btn-vazado:hover { background: var(--azul); color: var(--osso); border-color: var(--azul); }
+
+.btn-principal.grande, .btn-vazado.grande { padding: 1.2rem 2.8rem; font-size: .95rem; }
+
+/* ========================= INTRO ========================= */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--preto-fundo);
+  display: grid;
+  place-items: center;
+}
+
+.intro-marca { width: min(56vw, 430px); color: #fff; }
+#brasao-intro { width: 100%; display: block; }
+
+/* A cabeça e a faixa são SILHUETAS PREENCHIDAS: em contorno o bigode e a
+   gravata viram rabisco (lição paga no LS e na Diretoria). Quem se desenha
+   traço a traço é só o script "Gentleman" — e é ele o momento da intro. */
+#brasao-intro .cabeca,
+#brasao-intro .faixa { opacity: 0; }
+
+/* ========================= NAV ========================= */
+
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  padding: .85rem 6vw;
+  background: rgba(15, 18, 22, .9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 98, 28, .18);
+  transform: translateY(-110%);   /* a intro traz ela pra baixo no fim */
+}
+
+.nav-marca { display: flex; align-items: center; gap: .75rem; color: var(--osso); }
+/* na nav vai SÓ a cabeça: o brasão inteiro vira borrão abaixo de ~90px */
+.nav-logo { width: 34px; height: 34px; flex: none; }
+.nav-marca span {
+  font-family: var(--display);
+  font-size: 1.06rem;
+  letter-spacing: .02em;
+  color: var(--osso);
+  white-space: nowrap;
+}
+.nav-marca em {
+  font-style: normal;
+  font-family: var(--sans);
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--laranja);
+}
+
+.nav-links { display: flex; gap: 1.8rem; }
+.nav-links a { font-size: .84rem; letter-spacing: .04em; color: var(--tinta-clara); position: relative; padding-bottom: 3px; }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: var(--laranja);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .35s ease;
+}
+.nav-links a:hover { color: var(--osso); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.btn-nav {
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .66rem 1.4rem;
+  border-radius: 2px;
+  background: var(--laranja);
+  color: #fff;
+  transition: background .3s ease, transform .3s ease;
+}
+.btn-nav:hover { background: var(--laranja-clara); transform: translateY(-2px); }
+
+/* ========================= HERO ========================= */
+
+#inicio {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 9rem 6vw 5rem;
+  background: var(--preto);
+  color: var(--osso);
+  overflow: hidden;
+}
+
+/* o canvas do poste de barbeiro ocupa o hero inteiro atrás do texto */
+#poste { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+
+#inicio::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 34%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(15, 18, 22, 0), var(--preto) 88%);
+}
+
+.hero-conteudo { position: relative; z-index: 3; max-width: 660px; }
+
+/* véu de leitura: sem ele as faixas do poste passam por trás das letras */
+.hero-conteudo::before {
+  content: '';
+  position: absolute;
+  left: -14%; top: -16%;
+  width: 132%; height: 136%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(58% 54% at 32% 48%, rgba(15, 18, 22, .93), rgba(15, 18, 22, 0) 72%);
+}
+
+#inicio .etiqueta { color: var(--laranja); }
+
+.hero-titulo {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.7rem, 6.8vw, 5.2rem);
+  line-height: 1.05;
+  letter-spacing: -.015em;
+}
+/* o overflow:hidden é o que permite o título subir de baixo. O padding-top
+   com margin-top negativo devolve o espaço do ACENTO, que o overflow cortaria
+   (custou uma correção no Drummer, em "TODO DIA É DIA") */
+.hero-titulo .linha { display: block; overflow: hidden; padding-top: .12em; margin-top: -.12em; }
+.hero-titulo .linha > span { display: block; }
+.hero-titulo em { font-style: normal; color: var(--laranja); }
+
+.hero-texto {
+  margin-top: 1.6rem;
+  max-width: 44ch;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: rgba(244, 241, 234, .78);
+}
+
+.hero-acoes { margin-top: 2.3rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+#inicio .btn-vazado { border-color: rgba(244, 241, 234, .32); color: var(--osso); }
+#inicio .btn-vazado:hover { background: var(--osso); color: var(--preto); border-color: var(--osso); }
+
+.hero-dados { margin-top: 3.2rem; display: flex; flex-wrap: wrap; gap: 2.4rem; }
+.hero-dados div { display: flex; flex-direction: column; gap: .3rem; }
+.hero-dados strong { font-family: var(--display); font-weight: 400; font-size: 1.6rem; color: var(--laranja-clara); }
+.hero-dados span {
+  font-size: .74rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 234, .5);
+}
+
+.rolar {
+  position: absolute;
+  left: 6vw; bottom: 2rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  font-size: .7rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 234, .45);
+}
+.rolar i { width: 54px; height: 1px; background: rgba(244, 241, 234, .3); position: relative; overflow: hidden; }
+.rolar i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--laranja);
+  transform: translateX(-100%);
+  animation: correr 2.6s ease-in-out infinite;
+}
+@keyframes correr {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
+}
+
+/* ========================= SERVIÇOS ========================= */
+
+#servicos { position: relative; z-index: 2; padding: 6.5rem 0 5.5rem; background: var(--osso); }
+
+.grade-servicos {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+  gap: 1.2rem;
+}
+
+.servico {
+  position: relative;
+  background: #fff;
+  border: 1px solid rgba(20, 24, 29, .1);
+  border-radius: 3px;
+  padding: 2.2rem 1.8rem 2rem;
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+/* a listra do poste no pé de cada cartão: some quando o cartão está parado */
+.servico::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: repeating-linear-gradient(115deg,
+    var(--laranja) 0 8px, #fff 8px 16px, var(--azul) 16px 24px, #fff 24px 32px);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s ease;
+}
+.servico:hover {
+  transform: translateY(-6px);
+  border-color: rgba(226, 98, 28, .3);
+  box-shadow: 0 20px 44px rgba(20, 24, 29, .12);
+}
+.servico:hover::after { transform: scaleX(1); }
+
+.servico .icone { width: 52px; height: 52px; color: var(--laranja-tinta); margin-bottom: 1.4rem; }
+.servico h3 { font-family: var(--display); font-weight: 400; font-size: 1.3rem; margin-bottom: .6rem; }
+.servico p { font-size: .94rem; line-height: 1.7; color: var(--tinta-suave); }
+
+.servico-preco {
+  display: block;
+  margin-top: 1rem;
+  font-family: var(--display);
+  font-size: 1.5rem;
+  color: var(--laranja-tinta);
+}
+/* a ressalva vai na PRÓPRIA linha: em linha com o valor ela quebra no meio
+   ("· tabela da / porta") e parece defeito */
+.servico-preco small {
+  display: block;
+  margin-top: .2rem;
+  font-family: var(--sans);
+  font-size: .74rem;
+  letter-spacing: .06em;
+  color: var(--tinta-suave);
+}
+
+/* A nota da data não é enfeite: promoção vence, e é a data que protege quem
+   está lendo. Mesmo padrão adotado na JK Papelaria. */
+.nota-preco {
+  max-width: 1240px;
+  margin: 2.4rem auto 0;
+  padding: 1rem 6vw 0;
+  font-size: .82rem;
+  line-height: 1.6;
+  color: var(--tinta-suave);
+}
+.nota-preco strong { color: var(--tinta); font-weight: 600; }
+
+/* ================= SEÇÃO-ASSINATURA: MONTE O SEU GENTLEMAN ================= */
+
+#assinatura {
+  position: relative;
+  z-index: 2;
+  padding: 6.5rem 6vw 6rem;
+  background: var(--preto);
+  color: var(--osso);
+  overflow: hidden;
+}
+#assinatura .etiqueta { color: var(--laranja); }
+#assinatura .secao-texto { color: rgba(244, 241, 234, .7); }
+
+/* faixa de poste atravessando o topo da seção */
+#assinatura::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(115deg,
+    var(--laranja) 0 14px, var(--osso) 14px 28px, var(--azul) 28px 42px, var(--osso) 42px 56px);
+  opacity: .85;
+}
+
+.montador {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: 3.4rem;
+  align-items: center;
+}
+
+/* --- o palco onde o retrato é redesenhado ---
+   Placa CLARA dentro de uma seção escura, de propósito: o cabelo precisa ser
+   tinta sobre claro pra que o platinado (que é claro) tenha o que contrastar.
+   Num palco escuro, cabelo preto e fundo preto viram a mesma coisa. */
+.palco {
+  position: relative;
+  background:
+    radial-gradient(78% 66% at 50% 38%, #fffdf8, transparent 76%),
+    var(--osso);
+  border: 1px solid rgba(226, 98, 28, .35);
+  border-radius: 3px;
+  /* a folga de baixo é o lugar da legenda: sem ela o texto cai por cima das
+     lapelas e o desenho fica com uma tarja atravessada no peito */
+  padding: 1.4rem 1.4rem 3.2rem;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  box-shadow: 0 24px 54px rgba(0, 0, 0, .45);
+}
+/* a listra do poste no pé da placa, como a moldura de um cartaz de barbearia */
+.palco::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 6px;
+  background: repeating-linear-gradient(115deg,
+    var(--laranja) 0 10px, #fff 10px 20px, var(--azul) 20px 30px, #fff 30px 40px);
+}
+
+#retrato { width: 100%; height: 100%; display: block; }
+
+/* --- as partes do retrato --- */
+#retrato #rosto { fill: #e2d6c4; stroke: var(--tinta); stroke-width: 2.4; }
+#retrato #orelha { fill: none; stroke: var(--tinta); stroke-width: 2.2; stroke-linecap: round; }
+#retrato #olho { fill: var(--tinta); }
+#retrato .traje path,
+#retrato .traje circle { fill: var(--tinta); }
+
+#retrato .cabelo { fill: var(--tinta); }
+/* o platinado é a única opção que muda a COR do fio, não o desenho dele —
+   é isso que ele é na vida real: descoloração, não corte diferente */
+#retrato .cabelo[data-cabelo="platinado"] { fill: url(#platina); stroke: var(--tinta); stroke-width: 2; }
+
+#retrato #mechas path { fill: none; stroke: rgba(20, 24, 29, .5); stroke-width: 2; stroke-linecap: round; }
+
+#retrato .barba { fill: var(--tinta); }
+#retrato .barba.risco { fill: none; stroke: var(--tinta); stroke-width: 7; stroke-linecap: round; }
+#retrato #bigode { fill: var(--tinta); }
+
+#retrato #sobrancelha-feita,
+#retrato #sobrancelha-natural { fill: var(--tinta); }
+
+/* tudo que é trocável nasce escondido; o JS acende a escolha certa */
+#retrato .cabelo,
+#retrato .barba,
+#retrato #mechas,
+#retrato #bigode,
+#retrato #sobrancelha-feita,
+#retrato #sobrancelha-natural { opacity: 0; }
+
+/* a navalha que varre a troca: é ela que esconde o corte entre um cabelo e
+   outro. Sem ela a troca pisca e parece falha de carregamento. */
+#lamina {
+  position: absolute;
+  top: -14%; bottom: -14%;
+  width: 54px;
+  left: -80px;
+  pointer-events: none;
+  /* sobre placa clara o brilho tem que ter CORPO, não só luz: o miolo é a
+     lâmina (escura), as bordas é que reluzem */
+  background: linear-gradient(100deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, .95) 30%,
+    rgba(226, 98, 28, .85) 50%,
+    rgba(27, 37, 50, .55) 66%,
+    rgba(255, 255, 255, 0));
+  filter: blur(1.5px);
+  opacity: 0;
+  transform: rotate(9deg);
+}
+
+.palco-legenda {
+  position: absolute;
+  left: 1.4rem; right: 1.4rem; bottom: 1.3rem;
+  text-align: center;
+  font-size: .72rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+/* --- os controles --- */
+.escolhas { display: flex; flex-direction: column; gap: 1.7rem; }
+
+.escolha > h3 {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--laranja);
+  margin-bottom: .85rem;
+}
+
+.opcoes { display: flex; flex-wrap: wrap; gap: .55rem; }
+
+.opcao {
+  font-family: inherit;
+  font-size: .88rem;
+  font-weight: 400;
+  color: rgba(244, 241, 234, .8);
+  background: var(--preto-carta);
+  border: 1px solid rgba(244, 241, 234, .16);
+  border-radius: 2px;
+  padding: .68rem 1.15rem;
+  cursor: pointer;
+  transition: border-color .25s ease, color .25s ease, background .25s ease, transform .25s ease;
+}
+.opcao:hover { border-color: rgba(226, 98, 28, .55); color: var(--osso); transform: translateY(-2px); }
+.opcao[aria-pressed="true"] {
+  background: var(--laranja);
+  border-color: var(--laranja);
+  color: #fff;
+  font-weight: 500;
+}
+
+/* --- a conta, montada com a tabela real deles --- */
+.conta {
+  margin-top: .4rem;
+  border-top: 1px solid rgba(244, 241, 234, .14);
+  padding-top: 1.3rem;
+}
+.conta-linhas { display: flex; flex-direction: column; gap: .5rem; }
+.conta-linha {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: .92rem;
+  color: rgba(244, 241, 234, .78);
+}
+.conta-linha span:last-child { color: var(--osso); white-space: nowrap; }
+.conta-linha.combo span:last-child { color: var(--laranja-clara); }
+.conta-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(244, 241, 234, .14);
+}
+.conta-total > span { font-size: .74rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(244, 241, 234, .55); }
+.conta-total strong { font-family: var(--display); font-weight: 400; font-size: 2rem; color: var(--laranja-clara); }
+.conta-aviso { margin-top: .9rem; font-size: .79rem; line-height: 1.6; color: rgba(244, 241, 234, .55); }
+.montador .btn-principal { margin-top: 1.4rem; }
+
+/* ==================== TRILHO HORIZONTAL ==================== */
+
+#galeria { position: relative; z-index: 2; background: var(--osso-fundo); overflow: hidden; }
+
+.trilho { height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.trilho-interno { display: flex; align-items: center; gap: 2rem; padding: 0 6vw; will-change: transform; }
+
+.painel { flex: none; }
+.painel-abre { width: min(78vw, 430px); }
+.painel-abre p { margin-top: 1.3rem; font-size: 1rem; line-height: 1.7; color: var(--tinta-suave); max-width: 34ch; }
+.painel-abre .seta { width: 110px; margin-top: 2rem; color: var(--laranja-tinta); }
+
+.painel-foto {
+  position: relative;
+  width: min(64vw, 296px);
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 22px 48px rgba(20, 24, 29, .2);
+}
+.painel-foto img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+/* véu quente: uniformiza fotos que vieram de post e de frame de reel, e
+   protege a legenda. Quente de propósito — a parede de tijolo é a marca
+   visual do salão e lavar a cor dela tiraria o que o site tem de deles. */
+.painel-foto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(200deg, rgba(138, 63, 43, .2), rgba(15, 18, 22, .1) 40%, rgba(8, 9, 12, .82));
+}
+.painel-foto figcaption {
+  position: absolute;
+  left: 1.2rem; right: 1.2rem; bottom: 1.1rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  color: var(--osso);
+}
+.painel-foto figcaption strong { font-family: var(--display); font-weight: 400; font-size: 1.1rem; }
+.painel-foto figcaption span {
+  font-size: .7rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--laranja-clara);
+}
+
+/* ========================= ONDE FICA / HORÁRIO ========================= */
+
+#onde { position: relative; z-index: 2; padding: 6.5rem 6vw; background: var(--osso); }
+
+.onde-grade {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 3.2rem;
+  align-items: center;
+}
+
+.onde-foto { position: relative; border-radius: 3px; overflow: hidden; box-shadow: 0 22px 50px rgba(20, 24, 29, .18); }
+.onde-foto img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+
+.horarios { list-style: none; margin-top: 1.8rem; border-top: 1px solid rgba(20, 24, 29, .12); }
+.horarios li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .95rem 0;
+  border-bottom: 1px solid rgba(20, 24, 29, .12);
+  font-size: .98rem;
+}
+.horarios li span:first-child { color: var(--tinta-suave); }
+.horarios li strong { font-weight: 500; }
+/* o dia de hoje ganha a listra do poste na frente */
+.horarios li[data-hoje] { color: var(--laranja-tinta); }
+.horarios li[data-hoje] span:first-child { color: var(--laranja-tinta); font-weight: 600; }
+.horarios li[data-hoje] strong { color: var(--laranja-tinta); }
+
+.endereco { margin-top: 2rem; font-size: 1.02rem; line-height: 1.75; color: var(--tinta-suave); }
+.endereco strong { display: block; font-weight: 600; color: var(--tinta); font-size: 1.1rem; margin-bottom: .3rem; }
+.onde-acoes { margin-top: 1.8rem; display: flex; flex-wrap: wrap; gap: .9rem; }
+
+/* ========================= CONTATO ========================= */
+
+#contato { position: relative; z-index: 2; padding: 6.5rem 6vw; background: var(--azul); color: var(--osso); }
+
+.contato-caixa { max-width: 760px; margin: 0 auto; text-align: center; }
+.contato-caixa h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5.2vw, 3.7rem);
+  line-height: 1.1;
+}
+#contato h2 em { color: var(--laranja-clara); }
+.contato-caixa > p { margin-top: 1.3rem; font-size: 1.04rem; line-height: 1.75; color: rgba(244, 241, 234, .78); }
+.contato-acoes { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+#contato .btn-vazado { border-color: rgba(244, 241, 234, .34); color: var(--osso); }
+#contato .btn-vazado:hover { background: var(--osso); color: var(--azul); border-color: var(--osso); }
+.contato-nota { display: block; margin-top: 1.9rem; font-size: .84rem; color: rgba(244, 241, 234, .55); }
+
+/* ========================= RODAPÉ ========================= */
+
+footer {
+  position: relative;
+  z-index: 2;
+  background: var(--preto-fundo);
+  color: rgba(244, 241, 234, .5);
+  padding: 2.3rem 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .74rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+footer a { color: var(--laranja); }
+
+/* ========================= RESPONSIVO ========================= */
+
+@media (max-width: 900px) {
+  .montador { grid-template-columns: 1fr; gap: 2.4rem; }
+  .onde-grade { grid-template-columns: 1fr; gap: 2.4rem; }
+  .onde-foto img { aspect-ratio: 4 / 3; }
+}
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  /* não cabem os dois: o subtítulo sai e o botão fica, é ele que faz render */
+  .nav-marca em { display: none; }
+  .nav-marca span { font-size: .96rem; }
+  #nav { padding-inline: 4vw; gap: .8rem; }
+  .btn-nav { padding: .58rem 1.05rem; font-size: .72rem; }
+
+  .etiqueta { font-size: .64rem; letter-spacing: .2em; }
+
+  #inicio { padding-top: 7.5rem; min-height: 94svh; }
+  .hero-dados { gap: 1.5rem 2rem; }
+  .hero-dados strong { font-size: 1.35rem; }
+  .rolar { display: none; }
+
+  /* no celular o texto ocupa a largura toda: o halo vira faixa central,
+     senão fica um borrão deslocado atrás das letras */
+  .hero-conteudo::before {
+    left: -20%;
+    width: 140%;
+    background: radial-gradient(64% 52% at 50% 48%, rgba(15, 18, 22, .94), rgba(15, 18, 22, 0) 74%);
+  }
+
+  #servicos, #assinatura, #onde, #contato { padding-top: 4.6rem; padding-bottom: 4.4rem; }
+  /* a folga de baixo continua sendo o lugar da legenda — encolher os quatro
+     lados de uma vez joga o texto por cima das lapelas */
+  .palco { padding: 1rem 1rem 2.6rem; }
+  .palco-legenda { left: .8rem; right: .8rem; bottom: 1rem; font-size: .64rem; letter-spacing: .14em; }
+
+  /* o trilho vira arrasto com o dedo (o pin do scrub é só desktop) */
+  .trilho {
+    height: auto;
+    padding: 4.6rem 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* sem isto o snap engole o padding lateral e o título nasce colado
+       na borda esquerda da tela */
+    scroll-padding-inline: 6vw;
+    -webkit-overflow-scrolling: touch;
+  }
+  .trilho::-webkit-scrollbar { display: none; }
+  .trilho-interno { gap: 1.1rem; }
+  .painel { scroll-snap-align: center; }
+  .painel-abre { width: 82vw; scroll-snap-align: start; }
+  .painel-foto { width: 68vw; }
+
+  .hero-acoes .btn-principal,
+  .hero-acoes .btn-vazado,
+  .contato-acoes .btn-principal,
+  .contato-acoes .btn-vazado,
+  .montador .btn-principal { width: 100%; text-align: center; }
+
+  footer { flex-direction: column; text-align: center; gap: .6rem; }
+}
+
+/* Cortar só o que se repete sozinho pra sempre e o que persegue o ponteiro.
+   Transição de hover FICA: ela responde a uma ação da pessoa.
+   ⚠️ O PC do usuário reporta reduce, então é ESTE o caminho que ele vê. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rolar i::after { animation: none; opacity: .6; transform: none; }
+  .servico:hover, .opcao:hover, .btn-principal:hover, .btn-nav:hover { transform: none; }
+}

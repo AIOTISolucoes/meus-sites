@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claudia Andrade — Massoterapia | Alívio de dores e tensão muscular</title>
+<meta name="description" content="Massagem relaxante, esportiva, terapêutica e ventosaterapia com Claudia Andrade. Alívio para dores, stress e desconfortos musculares. Atendimento individual com hora marcada.">
+<meta name="theme-color" content="#0e2445">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css?v=2">
+</head>
+<body>
+
+<!-- ================= INTRO ================= -->
+<div id="intro">
+  <div class="intro-marca">
+    <svg id="logo-intro" viewBox="0 0 240 190" aria-label="Claudia Andrade Massoterapia">
+      <!-- a marca dela: uma onda aberta abraçando um rosto de perfil -->
+      <g fill="none" stroke="#7FB0EA" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M58 120 C 40 94, 48 56, 76 36 C 102 17, 140 18, 166 36"/>
+        <path class="tr" d="M64 132 C 86 148, 122 152, 150 140"/>
+      </g>
+      <g fill="none" stroke="#DCE9F8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M110 46 C 128 42, 143 54, 142 68 C 141 77, 149 83, 152 89 C 154 93, 149 95, 144 96 C 144 102, 145 107, 139 109 C 135 110, 131 109, 128 107 C 127 116, 118 122, 108 123"/>
+      </g>
+      <text class="marca-nome" x="120" y="158" text-anchor="middle">CLAUDIA ANDRADE</text>
+      <text class="marca-sub" x="120" y="176" text-anchor="middle">M A S S O T E R A P I A</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ================= NAV ================= -->
+<header id="nav">
+  <a class="nav-marca" href="#inicio">
+    <svg viewBox="0 0 240 160" class="nav-logo" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M58 120 C 40 94, 48 56, 76 36 C 102 17, 140 18, 166 36"/>
+        <path d="M64 132 C 86 148, 122 152, 150 140"/>
+        <path d="M110 46 C 128 42, 143 54, 142 68 C 141 77, 149 83, 152 89 C 154 93, 149 95, 144 96 C 144 102, 145 107, 139 109 C 135 110, 131 109, 128 107 C 127 116, 118 122, 108 123"/>
+      </g>
+    </svg>
+    <span>Claudia Andrade <em>massoterapia</em></span>
+  </a>
+  <nav class="nav-links">
+    <a href="#servicos">Serviços</a>
+    <a href="#onde-doi">Onde dói</a>
+    <a href="#sessao">A sessão</a>
+    <a href="#respire">Respire</a>
+  </nav>
+  <a class="btn-nav" href="https://wa.me/5585985802528" target="_blank" rel="noopener">Agendar</a>
+</header>
+
+<!-- ================= HERO ================= -->
+<section id="inicio">
+  <!-- ondas de alívio: linhas de contorno que afundam sob o ponteiro e voltam devagar -->
+  <canvas id="ondas" aria-hidden="true"></canvas>
+
+  <div class="hero-conteudo">
+    <span class="etiqueta">massoterapia · alívio de dores e tensão</span>
+    <h1 class="hero-titulo">
+      <span class="linha"><span>Alívio para</span></span>
+      <span class="linha"><span>o corpo que</span></span>
+      <span class="linha"><span><em>não para</em></span></span>
+    </h1>
+    <p class="hero-texto">
+      Massagem relaxante, esportiva e terapêutica — e ventosaterapia para soltar a
+      musculatura das costas. Atendimento individual, com hora marcada.
+    </p>
+    <div class="hero-acoes">
+      <a class="btn-principal" href="https://wa.me/5585985802528?text=Oi%20Claudia!%20Vim%20pelo%20site%20e%20quero%20agendar%20uma%20sess%C3%A3o." target="_blank" rel="noopener">Agendar no WhatsApp</a>
+      <a class="btn-vazado" href="#onde-doi">Onde está doendo?</a>
+    </div>
+    <div class="hero-dados">
+      <div><strong>4</strong><span>técnicas na mesa</span></div>
+      <div><strong>1 a 1</strong><span>atendimento individual</span></div>
+      <div><strong>Hora marcada</strong><span>combinada no WhatsApp</span></div>
+    </div>
+  </div>
+
+  <div class="rolar"><span>role</span><i></i></div>
+</section>
+
+<!-- ================= SERVIÇOS ================= -->
+<section id="servicos">
+  <div class="secao-topo">
+    <span class="etiqueta">o que eu faço</span>
+    <h2 class="titulo-secao">Quatro caminhos<br>para o mesmo <em>alívio</em></h2>
+  </div>
+
+  <div class="grade-servicos">
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M17 34 C 17 22, 24 15, 32 15 C 40 15, 47 22, 47 34"/>
+        <path class="tr" d="M12 42 C 20 36, 26 48, 34 42 C 42 36, 46 48, 53 42"/>
+        <path class="tr" d="M12 52 C 20 46, 26 58, 34 52 C 42 46, 46 58, 53 52"/>
+      </svg>
+      <h3>Massagem relaxante</h3>
+      <p>Pressão suave e ritmo constante para baixar o stress do dia. Para quem dorme mal, vive no aperto e precisa desacelerar.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M19 32 L 45 32"/>
+        <path class="tr" d="M19 20 L 19 44"/>
+        <path class="tr" d="M12 25 L 12 39"/>
+        <path class="tr" d="M45 20 L 45 44"/>
+        <path class="tr" d="M52 25 L 52 39"/>
+      </svg>
+      <h3>Massagem esportiva</h3>
+      <p>Antes ou depois do treino: prepara a musculatura, ajuda na recuperação e alivia a sobrecarga de quem treina forte.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle class="tr" cx="32" cy="36" r="5"/>
+        <circle class="tr" cx="32" cy="36" r="13"/>
+        <circle class="tr" cx="32" cy="36" r="21"/>
+        <path class="tr" d="M32 36 L 46 12"/>
+      </svg>
+      <h3>Massagem terapêutica</h3>
+      <p>Trabalho focado no ponto de tensão — pescoço, ombros, lombar. Para quem passa o dia sentado ou carrega peso.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M23 46 L 25 26 C 25 19, 39 19, 39 26 L 41 46 C 41 53, 23 53, 23 46 Z"/>
+        <path class="tr" d="M32 21 L 32 12"/>
+        <path class="tr" d="M14 34 C 11 38, 11 44, 14 48"/>
+        <path class="tr" d="M50 34 C 53 38, 53 44, 50 48"/>
+      </svg>
+      <h3>Ventosaterapia</h3>
+      <p>As ventosas puxam a pele e soltam a musculatura profunda das costas. É o atendimento que mais faço por aqui.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ONDE DÓI (mapa do corpo — seção-assinatura) ============ -->
+<section id="onde-doi">
+  <div class="secao-topo centro">
+    <span class="etiqueta">mapa do incômodo</span>
+    <h2 class="titulo-secao">Onde <em>dói</em>?</h2>
+    <p class="secao-texto">Toque na região que incomoda e veja o que eu costumo indicar.</p>
+  </div>
+
+  <div class="mapa-bloco">
+    <div class="mapa-corpo">
+      <svg viewBox="0 0 240 510" class="corpo" aria-hidden="true">
+        <!-- As formas ficam aqui e são usadas DUAS vezes: uma pra desenhar a
+             silhueta e outra como recorte das regiões. Sem o recorte, a região
+             marcada vira uma bola azul flutuando por cima do corpo; com ele, o
+             destaque respeita o contorno (e só o corpo recebe o clique). -->
+        <defs>
+          <path id="c-pescoco" d="M107 62 L107 92 C 112 95, 128 95, 133 92 L133 62 Z"/>
+          <ellipse id="c-cabeca" cx="120" cy="46" rx="25" ry="30"/>
+          <path id="c-tronco" d="M120 86 C 106 86, 98 92, 88 102 C 80 109, 74 118, 72 130
+                   L 80 138 C 84 168, 82 196, 86 214 L 84 252
+                   C 100 260, 140 260, 156 252 L 154 214
+                   C 158 196, 156 168, 160 138 L 168 130
+                   C 166 118, 160 109, 152 102 C 142 92, 134 86, 120 86 Z"/>
+          <path id="c-braco-e" d="M72 130 C 64 150, 60 178, 58 206 C 56 226, 54 246, 56 262
+                   C 58 270, 66 271, 69 264 C 72 250, 74 230, 76 210
+                   C 79 186, 82 158, 80 138 Z"/>
+          <path id="c-braco-d" d="M168 130 C 176 150, 180 178, 182 206 C 184 226, 186 246, 184 262
+                   C 182 270, 174 271, 171 264 C 168 250, 166 230, 164 210
+                   C 161 186, 158 158, 160 138 Z"/>
+          <path id="c-perna-e" d="M86 254 C 84 300, 86 340, 90 380 C 93 412, 95 450, 96 486
+                   C 97 496, 108 498, 110 488 C 112 452, 114 414, 116 380
+                   C 118 344, 119 300, 118 256 C 108 260, 96 259, 86 254 Z"/>
+          <path id="c-perna-d" d="M154 254 C 156 300, 154 340, 150 380 C 147 412, 145 450, 144 486
+                   C 143 496, 132 498, 130 488 C 128 452, 126 414, 124 380
+                   C 122 344, 121 300, 122 256 C 132 260, 144 259, 154 254 Z"/>
+          <clipPath id="recorte-corpo">
+            <use href="#c-pescoco"/>
+            <use href="#c-cabeca"/>
+            <use href="#c-tronco"/>
+            <use href="#c-braco-e"/>
+            <use href="#c-braco-d"/>
+            <use href="#c-perna-e"/>
+            <use href="#c-perna-d"/>
+          </clipPath>
+        </defs>
+
+        <!-- silhueta de costas, em traço macio -->
+        <g class="silhueta">
+          <use href="#c-pescoco"/>
+          <use href="#c-cabeca"/>
+          <use href="#c-tronco"/>
+          <use href="#c-braco-e"/>
+          <use href="#c-braco-d"/>
+          <use href="#c-perna-e"/>
+          <use href="#c-perna-d"/>
+          <!-- eixo da coluna: é o que faz o desenho ler como "de costas" -->
+          <path class="coluna" d="M120 104 L120 246"/>
+        </g>
+
+        <!-- regiões clicáveis -->
+        <g class="zonas" clip-path="url(#recorte-corpo)">
+          <ellipse class="zona" data-zona="cabeca" cx="120" cy="46" rx="30" ry="35" tabindex="0" role="button" aria-label="Cabeça e stress"/>
+          <ellipse class="zona" data-zona="ombros" cx="120" cy="110" rx="56" ry="26" tabindex="0" role="button" aria-label="Pescoço e ombros"/>
+          <ellipse class="zona" data-zona="costas" cx="120" cy="188" rx="48" ry="54" tabindex="0" role="button" aria-label="Costas e lombar"/>
+          <ellipse class="zona" data-zona="pernas" cx="120" cy="378" rx="46" ry="128" tabindex="0" role="button" aria-label="Pernas cansadas"/>
+        </g>
+
+        <!-- pontinhos pulsantes: é o que convida a tocar -->
+        <g class="pontos">
+          <circle class="ponto" data-ponto="cabeca" cx="148" cy="24" r="4"/>
+          <circle class="ponto" data-ponto="ombros" cx="172" cy="104" r="4"/>
+          <circle class="ponto" data-ponto="costas" cx="172" cy="182" r="4"/>
+          <circle class="ponto" data-ponto="pernas" cx="166" cy="378" r="4"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="mapa-painel">
+      <div class="painel-convite" data-painel="vazio">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <path d="M24 8 C 24 8, 12 20, 12 30 C 12 37, 17 41, 24 41 C 31 41, 36 37, 36 30 C 36 20, 24 8, 24 8 Z"/>
+        </svg>
+        <p>Escolha um ponto no corpo ao lado.</p>
+      </div>
+
+      <article class="painel-zona" data-painel="cabeca" hidden>
+        <span class="etiqueta">cabeça e stress</span>
+        <h3>Cabeça pesada, dia pesado</h3>
+        <p>Quando o aperto vem do stress, o corpo inteiro fecha: mandíbula travada, sono
+           ruim, ombro subindo até a orelha. A sessão aqui é de desaceleração — ritmo
+           lento e pressão constante, do começo ao fim.</p>
+        <div class="chips"><span>Relaxante</span></div>
+        <a class="btn-principal" href="https://wa.me/5585985802528?text=Oi%20Claudia!%20Ando%20muito%20tenso(a)%20e%20queria%20uma%20massagem%20relaxante." target="_blank" rel="noopener">Falar sobre isso</a>
+      </article>
+
+      <article class="painel-zona" data-painel="ombros" hidden>
+        <span class="etiqueta">pescoço e ombros</span>
+        <h3>O nó de quem vive no computador</h3>
+        <p>É a queixa que mais chega aqui. Trabalho o ponto de tensão devagar, camada por
+           camada, até a musculatura soltar — e a ventosa entra quando a mão sozinha não
+           alcança.</p>
+        <div class="chips"><span>Terapêutica</span><span>Ventosaterapia</span></div>
+        <a class="btn-principal" href="https://wa.me/5585985802528?text=Oi%20Claudia!%20Estou%20com%20dor%20no%20pesco%C3%A7o%20e%20ombros." target="_blank" rel="noopener">Falar sobre isso</a>
+      </article>
+
+      <article class="painel-zona" data-painel="costas" hidden>
+        <span class="etiqueta">costas e lombar</span>
+        <h3>Onde o dia inteiro se acumula</h3>
+        <p>Peso, postura e horas sentado param todos no mesmo lugar. É aqui que a ventosa
+           faz mais diferença: ela puxa a pele e chega na camada que a mão sozinha não
+           solta.</p>
+        <div class="chips"><span>Ventosaterapia</span><span>Terapêutica</span></div>
+        <a class="btn-principal" href="https://wa.me/5585985802528?text=Oi%20Claudia!%20Minha%20dor%20%C3%A9%20nas%20costas%2Flombar." target="_blank" rel="noopener">Falar sobre isso</a>
+      </article>
+
+      <article class="painel-zona" data-painel="pernas" hidden>
+        <span class="etiqueta">pernas</span>
+        <h3>Pernas pesadas no fim do dia</h3>
+        <p>De quem fica muito tempo em pé — ou de quem treinou forte e a musculatura não
+           devolveu. Movimento longo, sentido certo, sem pressa.</p>
+        <div class="chips"><span>Relaxante</span><span>Esportiva</span></div>
+        <a class="btn-principal" href="https://wa.me/5585985802528?text=Oi%20Claudia!%20Minhas%20pernas%20vivem%20cansadas." target="_blank" rel="noopener">Falar sobre isso</a>
+      </article>
+    </div>
+  </div>
+
+  <p class="aviso">
+    Massoterapia é bem-estar, não é consulta. Eu não faço diagnóstico nem indico
+    tratamento: se a dor é forte, não passa, veio de queda ou lesão, ou se você está
+    grávida ou em tratamento de saúde, fale antes com o profissional que te acompanha.
+  </p>
+</section>
+
+<!-- ================= COMO É A SESSÃO ================= -->
+<section id="sessao">
+  <div class="secao-topo">
+    <span class="etiqueta">como funciona</span>
+    <h2 class="titulo-secao">Como é a <em>sessão</em></h2>
+  </div>
+
+  <div class="passos">
+    <div class="trilha"><i class="trilha-cheia"></i></div>
+    <ol>
+      <li data-passo>
+        <span class="num">01</span>
+        <h3>Você me conta</h3>
+        <p>Manda no WhatsApp o que está incomodando e há quanto tempo. Sem formulário, sem enrolação.</p>
+      </li>
+      <li data-passo>
+        <span class="num">02</span>
+        <h3>Combinamos o horário</h3>
+        <p>Olho a agenda e te retorno com as opções que tenho. O endereço vai junto na confirmação.</p>
+      </li>
+      <li data-passo>
+        <span class="num">03</span>
+        <h3>Conversa antes de começar</h3>
+        <p>Pergunto sobre lesões, cirurgias, gravidez e o que dói. É isso que define a pressão e a técnica do dia.</p>
+      </li>
+      <li data-passo>
+        <span class="num">04</span>
+        <h3>A sessão</h3>
+        <p>Ambiente calmo, óleo morno e ritmo constante. Se a pressão incomodar, você fala na hora — a gente ajusta.</p>
+      </li>
+      <li data-passo>
+        <span class="num">05</span>
+        <h3>Depois</h3>
+        <p>Água, calor e um alongamento simples para segurar o alívio até a próxima.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ GALERIA (trilho horizontal) ============ -->
+<section id="galeria">
+  <div class="trilho">
+    <div class="trilho-interno">
+      <div class="painel painel-abre">
+        <span class="etiqueta">no atendimento</span>
+        <h2 class="titulo-secao">Um pouco do<br><em>trabalho</em></h2>
+        <p>Role para o lado — tudo aqui é atendimento real.</p>
+        <svg class="seta" viewBox="0 0 120 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <path d="M2 12 H 112"/><path d="M100 4 L 112 12 L 100 20"/>
+        </svg>
+      </div>
+
+      <figure class="painel painel-foto">
+        <img src="assets/claudia.jpg" alt="Claudia Andrade atendendo, massagem na perna" loading="lazy">
+        <figcaption><strong>Claudia em atendimento</strong><span>massagem nas pernas</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/ventosas.jpg" alt="Ventosas aplicadas ao longo das costas" loading="lazy">
+        <figcaption><strong>Costas inteiras</strong><span>ventosaterapia</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/costas.jpg" alt="Detalhe das ventosas sobre a musculatura das costas" loading="lazy">
+        <figcaption><strong>Camada profunda</strong><span>ventosaterapia</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/lombar.jpg" alt="Massagem terapêutica na região lombar" loading="lazy">
+        <figcaption><strong>Ponto de tensão</strong><span>terapêutica na lombar</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/pernas.jpg" alt="Massagem relaxante nas pernas" loading="lazy">
+        <figcaption><strong>Movimento longo</strong><span>relaxante nas pernas</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESPIRE ================= -->
+<section id="respire">
+  <div class="respire-caixa">
+    <span class="etiqueta">antes de sair</span>
+    <h2 class="titulo-secao">Respire <em>três vezes</em></h2>
+    <p>Acompanhe o círculo: inspire enquanto ele cresce, segure, solte devagar.
+       É o mesmo ritmo que eu peço no começo de cada sessão.</p>
+
+    <div class="respiro" id="respiro">
+      <div class="halo"></div>
+      <div class="bola"></div>
+      <span class="instrucao">inspire</span>
+    </div>
+
+    <p class="contagem" id="contagem">respiração 1 de 3</p>
+  </div>
+</section>
+
+<!-- ================= CONTATO ================= -->
+<section id="contato">
+  <div class="contato-caixa">
+    <h2>Vamos tirar esse<br>peso das <em>costas</em>?</h2>
+    <p>Me manda uma mensagem contando o que está doendo. Eu respondo com os horários que tenho.</p>
+    <div class="contato-acoes">
+      <a class="btn-principal grande" href="https://wa.me/5585985802528?text=Oi%20Claudia!%20Vim%20pelo%20site%20e%20quero%20agendar%20uma%20sess%C3%A3o." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      <a class="btn-vazado grande" href="https://www.instagram.com/_massoterapeuta.claudia/" target="_blank" rel="noopener">@_massoterapeuta.claudia ↗</a>
+    </div>
+    <span class="contato-nota">Atendimento individual, com hora marcada. O endereço eu passo na confirmação.</span>
+  </div>
+</section>
+
+<footer>
+  <span>CLAUDIA ANDRADE · MASSOTERAPIA · alívio de dores, stress e desconfortos musculares</span>
+  <span>site por <a href="#">maxyzao.dev</a></span>
+</footer>
+
+<!-- ================= CHAT IA ================= -->
+<div id="sb-chat" data-url="https://agentes-s68ksrzb97z5q4qqp7f8nq.streamlit.app/?agente=claudia_massoterapia&embed=true&cor=1f4e96"></div>
+<script>
+(function () {
+  var chatUrl = document.getElementById("sb-chat").getAttribute("data-url");
+
+  var css = document.createElement("style");
+  css.textContent =
+    "#sb-chat-btn{position:fixed;right:20px;bottom:20px;width:62px;height:62px;border-radius:50%;border:0;cursor:pointer;" +
+    "background:linear-gradient(140deg,#1f4e96,#4d86d6);color:#eef5ff;font-size:26px;line-height:1;z-index:960;" +
+    "box-shadow:0 14px 34px rgba(14,36,69,.34);transition:transform .25s ease}" +
+    "#sb-chat-btn:hover{transform:scale(1.08) rotate(-6deg)}" +
+    "#sb-chat-btn::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(31,78,150,.45);animation:sb-pulso 2.4s ease-out infinite}" +
+    "@keyframes sb-pulso{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.35);opacity:0}}" +
+    "#sb-chat-balao{position:fixed;right:94px;bottom:32px;background:#fff;color:#0e2445;font-family:'Manrope',sans-serif;" +
+    "font-size:.9rem;padding:10px 16px;border-radius:999px;box-shadow:0 10px 28px rgba(14,36,69,.18);z-index:959;" +
+    "opacity:0;transform:translateY(6px);transition:.4s ease;pointer-events:none;white-space:nowrap}" +
+    "#sb-chat-balao.mostra{opacity:1;transform:translateY(0)}" +
+    "#sb-chat-box{position:fixed;right:20px;bottom:94px;width:380px;height:560px;border:2px solid #1f4e96;border-radius:14px;" +
+    "overflow:hidden;background:#fff;box-shadow:0 24px 60px rgba(14,36,69,.28);z-index:960;display:none}" +
+    "#sb-chat-box.aberto{display:block}" +
+    "#sb-chat-box iframe{width:100%;height:100%;border:0;display:block}" +
+    "@media (max-width:480px){#sb-chat-box{right:8px;left:8px;width:auto;height:72vh}#sb-chat-balao{display:none}}";
+  document.head.appendChild(css);
+
+  var balao = document.createElement("div");
+  balao.id = "sb-chat-balao";
+  balao.textContent = "Quer agendar? Fala comigo";
+
+  var btn = document.createElement("button");
+  btn.id = "sb-chat-btn";
+  btn.setAttribute("aria-label", "Abrir atendimento");
+  btn.textContent = "💬";
+
+  var box = document.createElement("div");
+  box.id = "sb-chat-box";
+  var carregado = false;
+
+  btn.addEventListener("click", function () {
+    if (!carregado) {
+      var frame = document.createElement("iframe");
+      frame.src = chatUrl;
+      frame.title = "Atendimento Claudia Andrade";
+      box.appendChild(frame);
+      carregado = true;
+    }
+    box.classList.toggle("aberto");
+    balao.classList.remove("mostra");
+    btn.textContent = box.classList.contains("aberto") ? "✕" : "💬";
+  });
+
+  document.body.appendChild(box);
+  document.body.appendChild(balao);
+  document.body.appendChild(btn);
+  setTimeout(function () { if (!box.classList.contains("aberto")) balao.classList.add("mostra"); }, 4500);
+  setTimeout(function () { balao.classList.remove("mostra"); }, 14000);
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="js/main.js?v=2"></script>
+</body>
+</html>

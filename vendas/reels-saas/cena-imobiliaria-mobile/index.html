@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cena mobile da Ah Imobiliária</title>
+  <style>
+    :root {
+      --vinho: #6e181b;
+      --vinho-profundo: #350b0d;
+      --ouro: #c3a45d;
+      --creme: #f7f2e9;
+      --tinta: #231d1d;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #160607;
+      font-family: "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input { font: inherit; }
+
+    .reel {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      isolation: isolate;
+      color: #fff;
+      background:
+        linear-gradient(180deg, rgba(38, 7, 9, .84), rgba(17, 4, 5, .95)),
+        url("../../../ah-imobiliaria/assets/orizon/facade-night.jpg") 48% 50% / cover;
+    }
+
+    .reel::before {
+      content: "";
+      position: absolute;
+      inset: -70px;
+      z-index: -1;
+      background:
+        radial-gradient(700px 900px at 50% 42%, rgba(195, 164, 93, .16), transparent 67%),
+        linear-gradient(180deg, rgba(110, 24, 27, .12), rgba(0, 0, 0, .44));
+      filter: blur(12px);
+      transform: scale(1.06);
+    }
+
+    .vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 40;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 47%, rgba(0, 0, 0, .46) 110%);
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      z-index: 41;
+      pointer-events: none;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.93' numOctaves='3' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .headline {
+      position: absolute;
+      top: 48px;
+      left: 70px;
+      right: 70px;
+      z-index: 30;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      opacity: var(--headline-opacity, 0);
+      transform: translateY(var(--headline-y, 18px));
+    }
+
+    .headline__copy { display: grid; gap: 4px; }
+    .headline__eyebrow {
+      color: #dcc78f;
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .headline__title {
+      font-size: 34px;
+      font-weight: 650;
+      letter-spacing: -1.2px;
+    }
+    .headline__live {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 5px;
+      color: rgba(255, 255, 255, .74);
+      font-size: 17px;
+      font-weight: 550;
+    }
+    .headline__live::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #dcc78f;
+      box-shadow: 0 0 0 5px rgba(220, 199, 143, .12);
+    }
+
+    .camera {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      perspective: 1900px;
+      pointer-events: none;
+    }
+
+    .phone-stage {
+      position: absolute;
+      left: 50%;
+      top: 150px;
+      width: 760px;
+      height: 1648px;
+      opacity: var(--phone-opacity, 0);
+      transform-origin: 50% 47%;
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+      transform:
+        translate3d(calc(-50% + var(--phone-x, 0px)), var(--phone-y, 28px), 0)
+        rotateX(var(--phone-rx, 2deg))
+        rotateY(var(--phone-ry, -7deg))
+        rotateZ(var(--phone-rz, 1.2deg))
+        scale(var(--phone-scale, .91));
+    }
+
+    .phone {
+      position: absolute;
+      inset: 0;
+      padding: 17px;
+      border: 2px solid rgba(255, 255, 255, .32);
+      border-radius: 76px;
+      background: linear-gradient(145deg, #3f3b3b, #111, #4b4646);
+      box-shadow:
+        0 92px 180px rgba(0, 0, 0, .72),
+        0 28px 68px rgba(0, 0, 0, .55),
+        inset 0 1px 1px rgba(255, 255, 255, .5);
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      left: -5px;
+      top: 310px;
+      width: 5px;
+      height: 132px;
+      border-radius: 5px 0 0 5px;
+      background: #242121;
+      box-shadow: 0 158px 0 #242121;
+    }
+
+    .phone::after {
+      content: "";
+      position: absolute;
+      right: -5px;
+      top: 405px;
+      width: 5px;
+      height: 190px;
+      border-radius: 0 5px 5px 0;
+      background: #242121;
+    }
+
+    .screen {
+      position: relative;
+      width: 726px;
+      height: 1614px;
+      overflow: hidden;
+      border-radius: 61px;
+      background: #f7f3eb;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14);
+    }
+
+    .phone-canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 390px;
+      height: 866px;
+      overflow: hidden;
+      transform-origin: 0 0;
+      transform: scale(1.86154);
+      background: #f7f3eb;
+    }
+
+    .status {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 50;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 17px;
+      color: #1d1818;
+      background: rgba(250, 247, 241, .96);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .status__icons { display: flex; align-items: center; gap: 5px; }
+    .signal { display: flex; align-items: end; gap: 1px; height: 8px; }
+    .signal i { display: block; width: 2px; background: #1d1818; border-radius: 2px; }
+    .signal i:nth-child(1) { height: 3px; }
+    .signal i:nth-child(2) { height: 5px; }
+    .signal i:nth-child(3) { height: 7px; }
+    .battery { width: 15px; height: 7px; border: 1px solid #1d1818; border-radius: 2px; padding: 1px; }
+    .battery::before { content: ""; display: block; width: 9px; height: 3px; border-radius: 1px; background: #1d1818; }
+
+    .island {
+      position: absolute;
+      top: 7px;
+      left: 50%;
+      z-index: 70;
+      width: 78px;
+      height: 20px;
+      border-radius: 18px;
+      background: #050505;
+      transform: translateX(-50%);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05);
+    }
+
+    .browser-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 26px;
+      z-index: 45;
+      height: 42px;
+      display: grid;
+      grid-template-columns: 32px 1fr 32px;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 9px;
+      border-bottom: 1px solid rgba(41, 29, 29, .1);
+      background: rgba(247, 243, 235, .97);
+      color: #3e3434;
+    }
+
+    .browser-bar__icon {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: #6b5b5b;
+      font-size: 16px;
+    }
+
+    .address {
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(110, 24, 27, .1);
+      border-radius: 10px;
+      background: #eee8de;
+      color: #594b4b;
+      font-size: 9px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .lock {
+      position: relative;
+      width: 7px;
+      height: 6px;
+      border-radius: 1px;
+      background: var(--vinho);
+    }
+    .lock::before {
+      content: "";
+      position: absolute;
+      left: 1px;
+      top: -4px;
+      width: 5px;
+      height: 5px;
+      border: 1px solid var(--vinho);
+      border-bottom: 0;
+      border-radius: 5px 5px 0 0;
+    }
+
+    .viewport {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 68px;
+      height: 776px;
+      overflow: hidden;
+      background: #f8f4ec;
+    }
+
+    iframe {
+      position: absolute;
+      inset: 0;
+      width: 390px;
+      height: 776px;
+      border: 0;
+      background: #f8f4ec;
+    }
+
+    #site-frame {
+      z-index: 1;
+      opacity: var(--site-opacity, 1);
+      transform: translateX(var(--site-x, 0px)) scale(var(--site-scale, 1));
+      transform-origin: center;
+    }
+
+    #admin-frame {
+      z-index: 2;
+      opacity: var(--admin-opacity, 0);
+      transform: translateX(var(--admin-x, 34px)) scale(var(--admin-scale, .985));
+      transform-origin: center;
+    }
+
+    .chat-trigger {
+      position: absolute;
+      right: 18px;
+      bottom: 22px;
+      z-index: 9;
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: var(--vinho);
+      color: #fff;
+      box-shadow: 0 10px 28px rgba(76, 10, 14, .32);
+      opacity: var(--chat-trigger-opacity, 1);
+      transform: scale(var(--chat-trigger-scale, 1));
+    }
+    .chat-trigger svg { width: 25px; height: 25px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+
+    .chat {
+      position: absolute;
+      inset: 7px 7px 10px;
+      z-index: 12;
+      overflow: hidden;
+      border: 1px solid rgba(110, 24, 27, .16);
+      border-radius: 19px;
+      background: #faf7f1;
+      box-shadow: 0 24px 70px rgba(42, 13, 14, .28);
+      opacity: var(--chat-opacity, 0);
+      transform-origin: 92% 94%;
+      transform: translateY(var(--chat-y, 38px)) scale(var(--chat-scale, .88));
+      pointer-events: none;
+    }
+
+    .chat__header {
+      height: 62px;
+      display: grid;
+      grid-template-columns: 38px 1fr 28px;
+      align-items: center;
+      gap: 9px;
+      padding: 0 13px;
+      color: #fff;
+      background: var(--vinho);
+    }
+
+    .chat__avatar {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .25);
+      border-radius: 50%;
+      background: #f8f4ec;
+    }
+    .chat__avatar img { width: 29px; height: 29px; object-fit: contain; }
+    .chat__name { font-size: 12px; font-weight: 700; }
+    .chat__status { margin-top: 2px; color: rgba(255, 255, 255, .72); font-size: 9px; }
+    .chat__header > span:nth-child(2) { display: grid; }
+    .chat__close { color: rgba(255, 255, 255, .8); font-size: 19px; text-align: center; }
+
+    .chat__body {
+      position: absolute;
+      inset: 62px 0 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      padding: 15px 13px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(195, 164, 93, .1), transparent 24%),
+        #f7f3eb;
+    }
+
+    .day {
+      align-self: center;
+      margin-bottom: 3px;
+      color: #897a72;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .message {
+      max-width: 84%;
+      padding: 9px 10px;
+      border-radius: 13px;
+      color: #403535;
+      background: #fff;
+      box-shadow: 0 3px 11px rgba(54, 30, 30, .07);
+      font-size: 10.5px;
+      line-height: 1.38;
+      opacity: var(--message-opacity, 1);
+      transform: translateY(var(--message-y, 0px));
+    }
+    .message--bot { align-self: flex-start; border-top-left-radius: 4px; }
+    .message--user {
+      align-self: flex-end;
+      color: #fff;
+      background: var(--vinho);
+      border-top-right-radius: 4px;
+    }
+    .message small { display: block; margin-top: 4px; color: #a18f88; font-size: 7px; text-align: right; }
+    .message--user small { color: rgba(255, 255, 255, .62); }
+
+    .typing {
+      align-self: flex-start;
+      display: flex;
+      gap: 4px;
+      padding: 10px 12px;
+      border-radius: 13px 13px 13px 4px;
+      background: #fff;
+      box-shadow: 0 3px 11px rgba(54, 30, 30, .07);
+      opacity: var(--typing-opacity, 0);
+      transform: translateY(var(--typing-y, 7px));
+    }
+    .typing i { width: 5px; height: 5px; border-radius: 50%; background: #b69d96; opacity: .7; }
+
+    .recommendation {
+      align-self: flex-start;
+      width: 91%;
+      overflow: hidden;
+      border: 1px solid rgba(110, 24, 27, .12);
+      border-radius: 13px;
+      background: #fff;
+      box-shadow: 0 7px 18px rgba(54, 30, 30, .1);
+      opacity: var(--result-opacity, 0);
+      transform: translateY(var(--result-y, 12px));
+    }
+    .recommendation img { display: block; width: 100%; height: 104px; object-fit: cover; object-position: center 54%; }
+    .recommendation__copy { display: grid; gap: 3px; padding: 9px 10px 10px; }
+    .recommendation__place { color: var(--vinho); font-size: 8px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .recommendation__title { color: #302727; font-size: 11px; font-weight: 700; line-height: 1.25; }
+    .recommendation__meta { color: #786a65; font-size: 8.5px; }
+    .recommendation__price { margin-top: 2px; color: var(--vinho); font-size: 11px; font-weight: 750; }
+
+    .chat__input {
+      position: absolute;
+      inset: auto 0 0;
+      height: 60px;
+      display: grid;
+      grid-template-columns: 1fr 38px;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 11px;
+      border-top: 1px solid rgba(110, 24, 27, .09);
+      background: #fff;
+    }
+    .chat__field {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 0 12px;
+      border: 1px solid #dfd6cc;
+      border-radius: 12px;
+      color: #433838;
+      background: #faf8f4;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+    .chat__field.empty { color: #a29690; }
+    .caret { display: inline-block; width: 1px; height: 14px; margin-left: 2px; background: var(--vinho); opacity: var(--caret-opacity, 1); }
+    .chat__send {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #fff;
+      background: var(--vinho);
+    }
+    .chat__send svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+    .touch {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 35;
+      width: 34px;
+      height: 34px;
+      border: 1.5px solid rgba(255, 255, 255, .92);
+      border-radius: 50%;
+      background: rgba(110, 24, 27, .27);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, .22), inset 0 0 0 7px rgba(255, 255, 255, .18);
+      opacity: var(--touch-opacity, 0);
+      transform: translate3d(calc(var(--touch-x, 334px) - 17px), calc(var(--touch-y, 730px) - 17px), 0) scale(var(--touch-scale, 1));
+    }
+
+    .ripple {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 34;
+      width: 54px;
+      height: 54px;
+      border: 2px solid rgba(195, 164, 93, .9);
+      border-radius: 50%;
+      opacity: var(--ripple-opacity, 0);
+      transform: translate3d(calc(var(--ripple-x, 334px) - 27px), calc(var(--ripple-y, 730px) - 27px), 0) scale(var(--ripple-scale, .2));
+    }
+
+    .gesture {
+      position: absolute;
+      left: 50%;
+      bottom: 7px;
+      z-index: 80;
+      width: 105px;
+      height: 4px;
+      border-radius: 5px;
+      background: rgba(19, 16, 16, .85);
+      transform: translateX(-50%);
+    }
+
+    .chapters {
+      position: absolute;
+      left: 94px;
+      right: 94px;
+      bottom: 50px;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      opacity: var(--chapters-opacity, 0);
+      transform: translateY(var(--chapters-y, 12px));
+    }
+    .chapter {
+      position: relative;
+      padding-top: 10px;
+      color: rgba(255, 255, 255, .42);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .11em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .chapter::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, .15);
+    }
+    .chapter.active { color: #fff; }
+    .chapter.active::before { background: var(--ouro); box-shadow: 0 0 18px rgba(195, 164, 93, .45); }
+
+    .flash {
+      position: absolute;
+      inset: 0;
+      z-index: 39;
+      pointer-events: none;
+      background: #fff3d4;
+      opacity: var(--flash-opacity, 0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .phone-stage { opacity: 1; transform: translate3d(-50%, 0, 0); }
+      .headline, .chapters { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="reel" aria-label="Demonstração mobile do site e painel da Ah Imobiliária">
+    <header class="headline">
+      <div class="headline__copy">
+        <span class="headline__eyebrow">MVP funcionando</span>
+        <span class="headline__title" id="scene-title">Site, chat e painel.</span>
+      </div>
+      <span class="headline__live">online</span>
+    </header>
+
+    <div class="camera">
+      <div class="phone-stage">
+        <div class="phone">
+          <div class="screen">
+            <div class="phone-canvas">
+              <div class="status">
+                <span>9:41</span>
+                <span class="status__icons"><span class="signal"><i></i><i></i><i></i></span><span>5G</span><span class="battery"></span></span>
+              </div>
+              <div class="island"></div>
+              <div class="browser-bar">
+                <span class="browser-bar__icon">‹</span>
+                <div class="address"><span class="lock"></span><span id="address-text">ah-imobiliaria.vercel.app</span></div>
+                <span class="browser-bar__icon">⋯</span>
+              </div>
+
+              <div class="viewport">
+                <iframe id="site-frame" title="Site mobile da Ah Imobiliária"></iframe>
+                <iframe id="admin-frame" title="Painel mobile da Ah Imobiliária"></iframe>
+
+                <button class="chat-trigger" type="button" aria-label="Abrir atendimento">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-8.5 8 9.5 9.5 0 0 1-3.7-.9L4 20l1.3-3.5A8 8 0 1 1 20 11.5Z"/><path d="M8 11.5h.01M12 11.5h.01M16 11.5h.01" stroke-linecap="round"/></svg>
+                </button>
+
+                <section class="chat" aria-label="Conversa com atendimento virtual">
+                  <header class="chat__header">
+                    <span class="chat__avatar"><img src="../../../ah-imobiliaria/marca.svg" alt=""></span>
+                    <span><span class="chat__name">Atendimento Ah Imobiliária</span><span class="chat__status">online agora</span></span>
+                    <span class="chat__close">×</span>
+                  </header>
+                  <div class="chat__body">
+                    <span class="day">Hoje</span>
+                    <div class="message message--bot" id="greeting">Olá! Me conta o tipo de imóvel, bairro e faixa de valor que você procura.<small>09:41</small></div>
+                    <div class="message message--user" id="user-message">Quero um apartamento com 3 quartos na região do Papicu.<small>09:41</small></div>
+                    <div class="typing" id="typing"><i></i><i></i><i></i></div>
+                    <div class="recommendation" id="recommendation">
+                      <img src="../../../ah-imobiliaria/assets/orizon/facade.jpg" alt="Fachada do empreendimento Orizon Rooftop">
+                      <div class="recommendation__copy">
+                        <span class="recommendation__place">Papicu, Fortaleza</span>
+                        <span class="recommendation__title">Orizon Rooftop</span>
+                        <span class="recommendation__meta">2 ou 3 quartos · suíte · rooftop de lazer</span>
+                        <span class="recommendation__price">A partir de R$ 339 mil</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="chat__input">
+                    <div class="chat__field" id="chat-field"><span id="typed-text"></span><span class="caret"></span></div>
+                    <span class="chat__send"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 3-7.5 18-3.2-7.3L3 10.5 21 3Z"/><path d="m10.3 13.7 4.2-4.2"/></svg></span>
+                  </div>
+                </section>
+
+                <div class="ripple"></div>
+                <div class="touch"></div>
+              </div>
+              <div class="gesture"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="chapters" aria-label="Capítulos da demonstração">
+      <span class="chapter active" data-chapter="site">Site</span>
+      <span class="chapter" data-chapter="bot">Bot</span>
+      <span class="chapter" data-chapter="painel">Painel</span>
+    </nav>
+
+    <div class="flash"></div>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+  </main>
+
+  <script type="module">
+    const root = document.documentElement;
+    const siteFrame = document.querySelector('#site-frame');
+    const adminFrame = document.querySelector('#admin-frame');
+    const addressText = document.querySelector('#address-text');
+    const sceneTitle = document.querySelector('#scene-title');
+    const typedText = document.querySelector('#typed-text');
+    const chatField = document.querySelector('#chat-field');
+
+    const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+    const mix = (a, b, amount) => a + (b - a) * amount;
+    const segment = (time, start, end) => clamp((time - start) / (end - start));
+    const smooth = value => { value = clamp(value); return value * value * (3 - 2 * value); };
+    const out = value => 1 - Math.pow(1 - clamp(value), 4);
+    const set = (name, value) => root.style.setProperty(name, value);
+    const query = (frame, selector) => frame.contentDocument?.querySelector(selector);
+
+    const phrase = 'Quero um apartamento com 3 quartos no Papicu';
+    const now = Date.now();
+    const isoAgo = (days, hours = 0) => new Date(now - (days * 24 + hours) * 3600_000).toISOString();
+
+    const properties = [
+      {
+        id: 'video-orizon', codigo: 301, titulo: 'Orizon Rooftop no Papicu', finalidade: 'venda',
+        tipo: 'apartamento', status: 'disponivel', destaque: true, preco: 339000, quartos: 3,
+        suites: 1, banheiros: 2, vagas: 1, area_util: 62.83, bairro: 'Papicu', cidade: 'Fortaleza',
+        uf: 'CE', descricao: 'Apartamentos de 2 e 3 quartos com suíte e rooftop de lazer.',
+        criado_em: isoAgo(50), atualizado_em: isoAgo(1), comodidades: ['Piscina', 'Rooftop', 'Academia'],
+      },
+      {
+        id: 'video-meireles', codigo: 302, titulo: 'Apartamento com vista para o mar', finalidade: 'venda',
+        tipo: 'apartamento', status: 'disponivel', destaque: true, preco: 848000, quartos: 3,
+        suites: 2, banheiros: 3, vagas: 2, area_util: 118, bairro: 'Meireles', cidade: 'Fortaleza',
+        uf: 'CE', descricao: 'Andar alto e varanda ampla perto da Beira-Mar.',
+        criado_em: isoAgo(38), atualizado_em: isoAgo(2), comodidades: ['Varanda', 'Piscina', 'Portaria 24h'],
+      },
+      {
+        id: 'video-eusebio', codigo: 303, titulo: 'Casa térrea em condomínio', finalidade: 'venda',
+        tipo: 'casa', status: 'reservado', destaque: false, preco: 1240000, quartos: 4,
+        suites: 3, banheiros: 4, vagas: 4, area_util: 245, bairro: 'Eusébio', cidade: 'Eusébio',
+        uf: 'CE', descricao: 'Casa com piscina privativa, jardim e segurança 24 horas.',
+        criado_em: isoAgo(22), atualizado_em: isoAgo(3), comodidades: ['Piscina privativa', 'Jardim'],
+      },
+    ];
+
+    const leadSeed = [
+      ['lead-01', 'Mariana Lopes', 'site', 'novo', 0, 690000, ['Aldeota'], 'Apartamento de 3 quartos'],
+      ['lead-02', 'Carlos Andrade', 'whatsapp', 'em_atendimento', 1, 840000, ['Meireles'], 'Imóvel perto da praia'],
+      ['lead-03', 'Bianca Torres', 'instagram', 'qualificado', 2, 1240000, ['Eusébio'], 'Casa em condomínio'],
+      ['lead-04', 'Rafael Nogueira', 'site', 'visita_agendada', 3, 339000, ['Papicu'], 'Orizon Rooftop'],
+      ['lead-05', 'Ana Beatriz', 'indicacao', 'proposta', 5, 780000, ['Cocó'], 'Apartamento com varanda'],
+      ['lead-06', 'Diego Martins', 'whatsapp', 'fechado', 7, 515000, ['Aldeota'], 'Apartamento reformado'],
+      ['lead-07', 'Fernanda Lima', 'site', 'novo', 8, 430000, ['Papicu'], 'Primeiro imóvel'],
+      ['lead-08', 'João Pedro', 'portal', 'em_atendimento', 10, 950000, ['Meireles'], 'Cobertura'],
+      ['lead-09', 'Luciana Reis', 'instagram', 'qualificado', 12, 610000, ['Guararapes'], 'Três quartos'],
+      ['lead-10', 'Paulo Henrique', 'telefone', 'perdido', 14, 380000, ['Papicu'], 'Apartamento compacto'],
+      ['lead-11', 'Sofia Mendes', 'site', 'novo', 18, 720000, ['Cocó'], 'Perto do parque'],
+      ['lead-12', 'Marcelo Alves', 'whatsapp', 'visita_agendada', 21, 1100000, ['Eusébio'], 'Casa com quatro quartos'],
+    ];
+
+    const leads = leadSeed.map(([id, nome, origem, status, days, valor, bairros, resumo], index) => ({
+      id, nome, telefone: `55859999${String(2100 + index)}`, origem, status, prioridade: index % 4,
+      finalidade: 'venda', tipo: index % 3 === 2 ? 'casa' : 'apartamento', bairros,
+      preco_min: Math.round(valor * .82), preco_max: valor, quartos_min: index % 3 === 2 ? 4 : 3,
+      valor_potencial: valor, resumo, ia_ativa: index !== 1, tags: index % 2 ? ['quente'] : ['novo contato'],
+      criado_em: isoAgo(days, index), atualizado_em: isoAgo(Math.max(0, days - 1)), ultimo_contato: isoAgo(Math.max(0, days - 1), 2),
+      proximo_contato: index === 0 ? new Date(now - 86400_000).toISOString().slice(0, 10) : null,
+    }));
+
+    const interactions = [
+      { id: 'msg-1', lead_id: 'lead-01', tipo: 'mensagem', direcao: 'entrada', autor: 'Mariana Lopes', canal: 'site', conteudo: 'Quero um apartamento com 3 quartos na Aldeota.', criado_em: isoAgo(0, 3), automatico: false },
+      { id: 'msg-2', lead_id: 'lead-01', tipo: 'mensagem', direcao: 'saida', autor: 'Assistente IA', canal: 'site', conteudo: 'Encontrei opções dentro da sua faixa. Posso organizar uma visita?', criado_em: isoAgo(0, 2), automatico: true },
+      { id: 'msg-3', lead_id: 'lead-02', tipo: 'mensagem', direcao: 'entrada', autor: 'Carlos Andrade', canal: 'whatsapp', conteudo: 'A unidade ainda está disponível?', criado_em: isoAgo(1, 2), automatico: false },
+      { id: 'msg-4', lead_id: 'lead-03', tipo: 'mensagem', direcao: 'entrada', autor: 'Bianca Torres', canal: 'instagram', conteudo: 'Quero conhecer a casa no sábado.', criado_em: isoAgo(2, 2), automatico: false },
+    ];
+
+    const media = [
+      ['media-1', 'video-orizon', '/ah-imobiliaria/assets/orizon/facade.jpg'],
+      ['media-2', 'video-meireles', '/ah-imobiliaria/assets/orizon/pool.jpg'],
+      ['media-3', 'video-eusebio', '/ah-imobiliaria/assets/orizon/facade-night.jpg'],
+    ].map(([id, imovel_id, url], ordem) => ({ id, imovel_id, tipo: 'foto', url, blob: null, mime: 'image/jpeg', legenda: null, ordem }));
+
+    function frameReady(frame) {
+      return new Promise(resolve => {
+        if (frame.contentDocument?.readyState === 'complete') resolve();
+        else frame.addEventListener('load', resolve, { once: true });
+      });
+    }
+
+    function injectFrameStyles(frame, admin = false) {
+      if (!admin) {
+        frame.contentDocument.documentElement.classList.remove('motion-ok', 'com-abertura', 'abertura-calma');
+        frame.contentDocument.querySelector('#hero-midia')?.classList.remove('hero__midia--carregando');
+        const principal = frame.contentDocument.querySelector('#hero-img-principal');
+        const secundaria = frame.contentDocument.querySelector('#hero-img-secundaria');
+        if (principal) principal.src = '/ah-imobiliaria/assets/orizon/facade.jpg';
+        if (secundaria) secundaria.src = '/ah-imobiliaria/assets/orizon/pool.jpg';
+        const fotoPrincipal = frame.contentDocument.querySelector('#hero-foto-principal');
+        const fotoSecundaria = frame.contentDocument.querySelector('#hero-foto-secundaria');
+        if (fotoPrincipal) fotoPrincipal.style.background = "url('/ah-imobiliaria/assets/orizon/facade.jpg') center / cover";
+        if (fotoSecundaria) fotoSecundaria.style.background = "url('/ah-imobiliaria/assets/orizon/pool.jpg') center / cover";
+        frame.contentDocument.querySelectorAll('.pal, .reveal, .reveal-y, .hero__camada, .hero__fio').forEach(element => {
+          element.style.setProperty('opacity', '1', 'important');
+          element.style.setProperty('visibility', 'visible', 'important');
+          element.style.setProperty('transform', 'none', 'important');
+        });
+      }
+      const style = frame.contentDocument.createElement('style');
+      style.textContent = `
+        html { scroll-behavior: auto !important; }
+        *, *::before, *::after { animation-duration: 0s !important; animation-delay: 0s !important; transition-duration: 0s !important; }
+        #abertura, .chat-btn, .chat-balao, .chat-painel { display: none !important; }
+        ${admin ? '#recado-modo { display: none !important; } .admin { padding-top: 1rem !important; }' : ''}
+      `;
+      frame.contentDocument.head.appendChild(style);
+      frame.contentWindow.scrollTo(0, 0);
+    }
+
+    async function bootstrap() {
+      const local = await import('/ah-imobiliaria/js/local.js');
+      await local.importar({
+        formato: 'ah-imobiliaria/carteira', versao: 2, exportado_em: new Date().toISOString(),
+        imoveis: properties, midias: media, leads, interacoes: interactions, visitas: [
+          { id: 'visit-1', lead_id: 'lead-04', quando: isoAgo(-2), status: 'agendada', observacao: 'Visita ao decorado', criado_em: isoAgo(1) },
+          { id: 'visit-2', lead_id: 'lead-12', quando: isoAgo(-4), status: 'agendada', observacao: 'Visita com a família', criado_em: isoAgo(2) },
+        ],
+        configuracao_ia: { id: 'principal', modo: 'automatico', agente: 'ah_imobiliaria', canais: ['site', 'whatsapp'], atualizado_em: new Date().toISOString() },
+      }, { substituir: true });
+
+      siteFrame.src = '/ah-imobiliaria/index.html?reels=1';
+      adminFrame.src = '/ah-imobiliaria/admin.html?reels=1';
+      await Promise.all([frameReady(siteFrame), frameReady(adminFrame)]);
+      await new Promise(resolve => setTimeout(resolve, 1100));
+      injectFrameStyles(siteFrame, false);
+      injectFrameStyles(adminFrame, true);
+      await new Promise(resolve => setTimeout(resolve, 450));
+      window.__ready = true;
+      window.__setTime(0);
+    }
+
+    function setChapter(active) {
+      document.querySelectorAll('.chapter').forEach(item => item.classList.toggle('active', item.dataset.chapter === active));
+    }
+
+    function showAdminView(showCrm) {
+      const doc = adminFrame.contentDocument;
+      if (!doc) return;
+      const propertyView = doc.querySelector('#vista-imoveis');
+      const crmView = doc.querySelector('#vista-crm');
+      const propertyTab = doc.querySelector('#aba-imoveis');
+      const crmTab = doc.querySelector('#aba-crm');
+      if (!propertyView || !crmView) return;
+      propertyView.hidden = showCrm;
+      crmView.hidden = !showCrm;
+      propertyTab?.setAttribute('aria-selected', String(!showCrm));
+      crmTab?.setAttribute('aria-selected', String(showCrm));
+      const title = doc.querySelector('#painel-titulo');
+      if (title) title.textContent = showCrm ? 'Leads e funil' : 'Imóveis';
+    }
+
+    let leadOpened = false;
+
+    window.__setTime = milliseconds => {
+      const t = milliseconds / 1000;
+      const intro = out(segment(t, 0, .85));
+      const scrollSite = smooth(segment(t, .72, 3.15));
+      const chatOpen = smooth(segment(t, 3.25, 3.72));
+      const typing = segment(t, 4.35, 5.72);
+      const userSent = smooth(segment(t, 5.70, 5.98));
+      const botTypingIn = smooth(segment(t, 5.98, 6.16));
+      const botResult = smooth(segment(t, 6.42, 6.82));
+      const adminSwitch = smooth(segment(t, 7.20, 7.72));
+      const crmSwitch = smooth(segment(t, 9.65, 10.02));
+      const adminScroll = smooth(segment(t, 10.15, 12.48));
+      const leadOpen = smooth(segment(t, 12.72, 13.12));
+
+      set('--headline-opacity', intro);
+      set('--headline-y', `${mix(18, 0, intro)}px`);
+      set('--chapters-opacity', intro);
+      set('--chapters-y', `${mix(12, 0, intro)}px`);
+      set('--phone-opacity', intro);
+      set('--phone-y', `${mix(58, 0, intro)}px`);
+      set('--phone-rx', `${mix(5, 0.7, intro)}deg`);
+      set('--phone-ry', `${mix(-8, 0, intro)}deg`);
+      set('--phone-rz', `${mix(1.4, 0, intro)}deg`);
+
+      let cameraScale = mix(.91, 1, intro);
+      let cameraX = 0;
+      if (t >= 3.0 && t < 7.2) {
+        const focus = smooth(segment(t, 3.0, 3.75));
+        cameraScale = mix(1, 1.04, focus);
+        cameraX = mix(0, -10, focus);
+      } else if (t >= 7.2) {
+        cameraScale = mix(1.015, 1.04, adminSwitch);
+        cameraX = mix(0, 4, adminSwitch);
+      }
+      if (t >= 12.7) cameraScale = mix(cameraScale, 1.055, leadOpen);
+      set('--phone-scale', cameraScale);
+      set('--phone-x', `${cameraX}px`);
+
+      const homeMax = Math.max(0, (siteFrame.contentDocument?.documentElement.scrollHeight ?? 2100) - 776);
+      siteFrame.contentWindow?.scrollTo(0, Math.min(homeMax, mix(0, 1160, scrollSite)));
+
+      set('--chat-trigger-opacity', 1 - chatOpen);
+      set('--chat-trigger-scale', mix(1, .72, chatOpen));
+      set('--chat-opacity', chatOpen * (1 - adminSwitch));
+      set('--chat-y', `${mix(38, 0, chatOpen)}px`);
+      set('--chat-scale', mix(.88, 1, chatOpen));
+
+      const greeting = document.querySelector('#greeting');
+      greeting.style.setProperty('--message-opacity', smooth(segment(t, 3.78, 4.06)));
+      greeting.style.setProperty('--message-y', `${mix(9, 0, smooth(segment(t, 3.78, 4.06)))}px`);
+
+      const count = Math.floor(phrase.length * typing);
+      typedText.textContent = phrase.slice(0, count);
+      chatField.classList.toggle('empty', count === 0);
+      set('--caret-opacity', Math.floor(t * 4) % 2 ? .25 : 1);
+
+      const userMessage = document.querySelector('#user-message');
+      userMessage.style.setProperty('--message-opacity', userSent);
+      userMessage.style.setProperty('--message-y', `${mix(10, 0, userSent)}px`);
+      typedText.style.opacity = 1 - userSent;
+
+      const typingVisible = botTypingIn * (1 - smooth(segment(t, 6.22, 6.44)));
+      set('--typing-opacity', typingVisible);
+      set('--typing-y', `${mix(7, 0, botTypingIn)}px`);
+      set('--result-opacity', botResult);
+      set('--result-y', `${mix(12, 0, botResult)}px`);
+
+      set('--site-opacity', 1 - adminSwitch);
+      set('--site-x', `${mix(0, -38, adminSwitch)}px`);
+      set('--site-scale', mix(1, .975, adminSwitch));
+      set('--admin-opacity', adminSwitch);
+      set('--admin-x', `${mix(34, 0, adminSwitch)}px`);
+      set('--admin-scale', mix(.985, 1, adminSwitch));
+
+      if (t < 7.2) {
+        addressText.textContent = 'ah-imobiliaria.vercel.app';
+        sceneTitle.textContent = t < 3.25 ? 'Site responsivo no ar.' : 'Atendimento com IA.';
+        setChapter(t < 3.25 ? 'site' : 'bot');
+      } else {
+        addressText.textContent = 'ah-imobiliaria.vercel.app/admin.html';
+        sceneTitle.textContent = t < 9.65 ? 'Painel do corretor.' : 'Leads e funil em tempo real.';
+        setChapter('painel');
+      }
+
+      showAdminView(t >= 9.65);
+      if (t < 9.65) {
+        adminFrame.contentWindow?.scrollTo(0, mix(0, 250, smooth(segment(t, 8.0, 9.45))));
+      } else {
+        adminFrame.contentWindow?.scrollTo(0, mix(0, 1180, adminScroll));
+      }
+
+      if (t >= 12.72 && !leadOpened) {
+        const card = query(adminFrame, '.lead-card');
+        card?.click();
+        leadOpened = Boolean(card);
+      }
+      if (leadOpened) {
+        const leadScroller = query(adminFrame, '.lead-dialog__grade');
+        const timeline = query(adminFrame, '.lead-timeline');
+        if (leadScroller && timeline) {
+          const detailScroll = smooth(segment(t, 13.28, 14.55));
+          const target = Math.max(0,
+            timeline.getBoundingClientRect().top - leadScroller.getBoundingClientRect().top + leadScroller.scrollTop - 82);
+          leadScroller.scrollTop = mix(0, target, detailScroll);
+        }
+      }
+
+      const touchSiteMove = smooth(segment(t, 2.86, 3.28));
+      const touchSendMove = smooth(segment(t, 5.38, 5.70));
+      const touchAdminMove = smooth(segment(t, 9.25, 9.66));
+      let touchX = 337;
+      let touchY = 724;
+      let touchOpacity = 0;
+      if (t >= 2.82 && t < 3.58) {
+        touchX = mix(250, 337, touchSiteMove);
+        touchY = mix(625, 724, touchSiteMove);
+        touchOpacity = smooth(segment(t, 2.82, 3.1)) * (1 - smooth(segment(t, 3.42, 3.58)));
+      } else if (t >= 5.28 && t < 5.94) {
+        touchX = mix(230, 346, touchSendMove);
+        touchY = mix(728, 747, touchSendMove);
+        touchOpacity = smooth(segment(t, 5.28, 5.48)) * (1 - smooth(segment(t, 5.78, 5.94)));
+      } else if (t >= 9.18 && t < 9.88) {
+        touchX = mix(260, 188, touchAdminMove);
+        touchY = mix(215, 190, touchAdminMove);
+        touchOpacity = smooth(segment(t, 9.18, 9.38)) * (1 - smooth(segment(t, 9.72, 9.88)));
+      }
+      set('--touch-x', `${touchX}px`);
+      set('--touch-y', `${touchY}px`);
+      set('--touch-opacity', touchOpacity);
+      set('--touch-scale', .92 + .08 * Math.sin(t * 10));
+
+      const tap1 = 1 - Math.abs(t - 3.30) / .24;
+      const tap2 = 1 - Math.abs(t - 5.72) / .22;
+      const tap3 = 1 - Math.abs(t - 9.66) / .22;
+      const tap = Math.max(0, tap1, tap2, tap3);
+      const tapPosition = tap1 >= tap2 && tap1 >= tap3 ? [337, 724] : tap2 >= tap3 ? [346, 747] : [188, 190];
+      set('--ripple-x', `${tapPosition[0]}px`);
+      set('--ripple-y', `${tapPosition[1]}px`);
+      set('--ripple-opacity', tap * .88);
+      set('--ripple-scale', .25 + (1 - tap) * 1.25);
+
+      const flash = smooth(segment(t, 7.20, 7.30)) * (1 - smooth(segment(t, 7.30, 7.55)));
+      set('--flash-opacity', flash * .12);
+    };
+
+    window.__ready = false;
+    bootstrap().catch(error => {
+      console.error(error);
+      window.__bootstrapError = String(error?.stack || error);
+    });
+  </script>
+</body>
+</html>

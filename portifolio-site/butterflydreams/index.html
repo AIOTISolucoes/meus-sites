@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Butterfly Dreams Salon — Colorimetria, Corte e Alisamento | Fortaleza-CE</title>
+<meta name="description" content="Salão especialista em colorimetria, corte e alisamentos em Fortaleza-CE. Mechas, chocolates, loiros e correção de cor na Rua Getúlio Vargas, 1010.">
+<meta name="theme-color" content="#12100d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css?v=1">
+</head>
+<body>
+
+<!-- ================= INTRO ================= -->
+<div id="intro">
+  <div class="intro-marca">
+    <svg id="logo-intro" viewBox="0 0 260 210" aria-label="Butterfly Dreams Salon">
+      <!-- a borboleta da marca, redesenhada em traço pra poder se desenhar -->
+      <g fill="none" stroke="#e6d2a8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M130 62 L130 128"/>
+        <path class="tr" d="M130 62 C 124 52, 116 48, 112 40"/>
+        <path class="tr" d="M130 62 C 136 52, 144 48, 148 40"/>
+        <path class="tr" d="M128 70 C 104 40, 62 34, 48 56 C 36 74, 58 92, 82 90 C 100 89, 118 82, 128 74"/>
+        <path class="tr" d="M132 70 C 156 40, 198 34, 212 56 C 224 74, 202 92, 178 90 C 160 89, 142 82, 132 74"/>
+        <path class="tr" d="M128 78 C 110 92, 82 108, 76 128 C 72 142, 92 148, 108 138 C 120 130, 127 114, 128 100"/>
+        <path class="tr" d="M132 78 C 150 92, 178 108, 184 128 C 188 142, 168 148, 152 138 C 140 130, 133 114, 132 100"/>
+      </g>
+      <text class="marca-nome" x="130" y="172" text-anchor="middle">BUTTERFLY DREAMS</text>
+      <text class="marca-sub" x="130" y="192" text-anchor="middle">S A L O N</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ================= NAV ================= -->
+<header id="nav">
+  <a class="nav-marca" href="#inicio">
+    <svg viewBox="0 0 260 170" class="nav-logo" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M130 62 L130 128"/>
+        <path d="M128 70 C 104 40, 62 34, 48 56 C 36 74, 58 92, 82 90 C 100 89, 118 82, 128 74"/>
+        <path d="M132 70 C 156 40, 198 34, 212 56 C 224 74, 202 92, 178 90 C 160 89, 142 82, 132 74"/>
+        <path d="M128 78 C 110 92, 82 108, 76 128 C 72 142, 92 148, 108 138 C 120 130, 127 114, 128 100"/>
+        <path d="M132 78 C 150 92, 178 108, 184 128 C 188 142, 168 148, 152 138 C 140 130, 133 114, 132 100"/>
+      </g>
+    </svg>
+    <span>Butterfly Dreams <em>salon</em></span>
+  </a>
+  <nav class="nav-links">
+    <a href="#servicos">Serviços</a>
+    <a href="#escala">A escala</a>
+    <a href="#galeria">Trabalhos</a>
+    <a href="#casa">A casa</a>
+  </nav>
+  <a class="btn-nav" href="https://wa.me/message/34GOBJWBTFBIG1" target="_blank" rel="noopener">Agendar</a>
+</header>
+
+<!-- ================= HERO ================= -->
+<section id="inicio">
+  <!-- mechas de cor caindo: cada faixa é um tom real de colorimetria -->
+  <canvas id="mechas" aria-hidden="true"></canvas>
+
+  <div class="hero-conteudo">
+    <span class="etiqueta">colorimetria · corte · alisamento · fortaleza</span>
+    <h1 class="hero-titulo">
+      <span class="linha"><span>A cor certa</span></span>
+      <span class="linha"><span>não é sorte.</span></span>
+      <span class="linha"><span><em>É cálculo.</em></span></span>
+    </h1>
+    <p class="hero-texto">
+      Mechas, chocolates, loiros e correção de cor — com quem entende de
+      colorimetria antes de encostar no seu cabelo.
+    </p>
+    <div class="hero-acoes">
+      <a class="btn-principal" href="https://wa.me/message/34GOBJWBTFBIG1" target="_blank" rel="noopener">Agendar no WhatsApp</a>
+      <a class="btn-vazado" href="#escala">Ver a escala de cor</a>
+    </div>
+    <div class="hero-dados">
+      <div><strong>+1.900</strong><span>seguidoras no Instagram</span></div>
+      <div><strong>3</strong><span>frentes: cor, corte e alisamento</span></div>
+      <div><strong>Fortaleza</strong><span>Rua Getúlio Vargas, 1010</span></div>
+    </div>
+  </div>
+
+  <div class="rolar"><span>role</span><i></i></div>
+</section>
+
+<!-- ================= SERVIÇOS ================= -->
+<section id="servicos">
+  <div class="secao-topo">
+    <span class="etiqueta">o que fazemos</span>
+    <h2 class="titulo-secao">Três frentes,<br>uma <em>técnica</em></h2>
+  </div>
+
+  <div class="grade-servicos">
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <circle class="tr" cx="32" cy="32" r="21"/>
+        <path class="tr" d="M32 11 L32 53"/>
+        <path class="tr" d="M13.8 21.5 L50.2 42.5"/>
+        <path class="tr" d="M13.8 42.5 L50.2 21.5"/>
+        <circle class="tr" cx="32" cy="32" r="7"/>
+      </svg>
+      <h3>Colorimetria</h3>
+      <p>Mechas, iluminado, chocolates e loiros. E correção de cor, quando o resultado anterior não foi o combinado.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M15 13 C 27 27, 37 35, 49 51"/>
+        <path class="tr" d="M49 13 C 37 27, 27 35, 15 51"/>
+        <circle class="tr" cx="17" cy="53" r="6"/>
+        <circle class="tr" cx="47" cy="53" r="6"/>
+      </svg>
+      <h3>Corte</h3>
+      <p>Corte pensado no seu rosto e na sua rotina — o que você consegue manter em casa, e não só no dia do salão.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M18 12 C 26 22, 12 30, 20 40 C 26 47, 16 50, 20 55"/>
+        <path class="tr" d="M32 12 C 40 22, 26 30, 34 40 C 40 47, 30 50, 34 55"/>
+        <path class="tr" d="M46 14 L 46 52"/>
+        <path class="tr" d="M40 20 L 52 20"/>
+      </svg>
+      <h3>Alisamento</h3>
+      <p>Progressiva e redução de volume, com avaliação do fio antes: cabelo que já passou por química pede outro caminho.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ A ESCALA (seção-assinatura) ============ -->
+<section id="escala">
+  <div class="secao-topo centro">
+    <span class="etiqueta">colorimetria de verdade</span>
+    <h2 class="titulo-secao">Dá pra chegar<br>no <em>loiro que eu quero</em>?</h2>
+    <p class="secao-texto">
+      Essa é a pergunta que mais chega aqui. A resposta não é chute: é a escala
+      de níveis que todo colorista usa. Escolha onde seu cabelo está hoje e onde
+      você quer chegar.
+    </p>
+  </div>
+
+  <div class="escala-bloco">
+    <div class="escala-coluna">
+      <span class="escala-rotulo">Meu cabelo hoje</span>
+      <div class="niveis" id="niveis-de" role="listbox" aria-label="Nível atual"></div>
+    </div>
+
+    <div class="escala-meio">
+      <div class="fundo-caixa">
+        <span class="fundo-rotulo">o que aparece no caminho</span>
+        <div class="fundo-cor" id="fundo-cor"></div>
+        <strong id="fundo-nome">—</strong>
+        <p id="fundo-texto">Escolha os dois lados.</p>
+      </div>
+      <div class="salto">
+        <strong id="salto-num">0</strong>
+        <span id="salto-txt">níveis de clareamento</span>
+      </div>
+      <p class="veredito" id="veredito"></p>
+    </div>
+
+    <div class="escala-coluna">
+      <span class="escala-rotulo">Onde quero chegar</span>
+      <div class="niveis" id="niveis-para" role="listbox" aria-label="Nível desejado"></div>
+    </div>
+  </div>
+
+  <p class="aviso">
+    Isto é o princípio da técnica, não um orçamento nem uma promessa. Quantas
+    sessões o seu cabelo vai precisar — e se ele aguenta — só a avaliação do fio
+    na cadeira responde.
+  </p>
+</section>
+
+<!-- ============ GALERIA ============ -->
+<section id="galeria">
+  <div class="trilho">
+    <div class="trilho-interno">
+      <div class="painel painel-abre">
+        <span class="etiqueta">feito na cadeira</span>
+        <h2 class="titulo-secao">Trabalhos<br><em>da casa</em></h2>
+        <p>Role para o lado — tudo aqui saiu deste salão.</p>
+        <svg class="seta" viewBox="0 0 120 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <path d="M2 12 H 112"/><path d="M100 4 L 112 12 L 100 20"/>
+        </svg>
+      </div>
+
+      <figure class="painel painel-foto">
+        <img src="assets/mechas.jpg" alt="Cabelo com mechas iluminadas e ondas" loading="lazy">
+        <figcaption><strong>Iluminado</strong><span>mechas</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/chocolate.jpg" alt="Cabelo em tom chocolate com reflexos" loading="lazy">
+        <figcaption><strong>Chocolate</strong><span>colorimetria</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/loiro.jpg" alt="Cabelo loiro iluminado com ondas" loading="lazy">
+        <figcaption><strong>Loiro</strong><span>clareamento</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/corte.jpg" alt="Corte finalizado no salão" loading="lazy">
+        <figcaption><strong>Corte</strong><span>finalização</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/ondas.jpg" alt="Ondas modeladas com brilho" loading="lazy">
+        <figcaption><strong>Ondas</strong><span>produção</span></figcaption>
+      </figure>
+
+      <figure class="painel painel-foto">
+        <img src="assets/producao.jpg" alt="Produção completa de cabelo" loading="lazy">
+        <figcaption><strong>Produção</strong><span>dia do evento</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= A CASA ================= -->
+<section id="casa">
+  <div class="casa-foto" data-parallax="0.12">
+    <img src="assets/salao.jpg" alt="Atendimento no Butterfly Dreams Salon" loading="lazy">
+  </div>
+  <div class="casa-texto">
+    <span class="etiqueta">onde a gente fica</span>
+    <h2 class="titulo-secao">Butterfly Dreams<br><em>Salon</em></h2>
+    <p class="destaque">Especialista em revelar sua melhor versão.</p>
+    <ul class="lista-casa">
+      <li data-item>
+        <strong>Endereço</strong>
+        <span>Rua Getúlio Vargas, 1010 — Fortaleza, CE</span>
+      </li>
+      <li data-item>
+        <strong>Agendamento</strong>
+        <span>Pelo WhatsApp, com hora marcada.</span>
+      </li>
+      <li data-item>
+        <strong>Instagram</strong>
+        <a href="https://www.instagram.com/butterfly_dreamssalon/" target="_blank" rel="noopener">@butterfly_dreamssalon ↗</a>
+      </li>
+    </ul>
+    <a class="btn-principal" href="https://www.google.com/maps/search/?api=1&query=Rua+Get%C3%BAlio+Vargas+1010+Fortaleza+CE" target="_blank" rel="noopener">Ver no mapa</a>
+  </div>
+</section>
+
+<!-- ================= CONTATO ================= -->
+<section id="contato">
+  <div class="contato-caixa">
+    <h2>Vamos descobrir<br>a sua <em>cor</em>?</h2>
+    <p>Manda uma mensagem contando o que você quer fazer — e, se puder, uma foto do seu cabelo hoje. Isso já adianta metade da conversa.</p>
+    <div class="contato-acoes">
+      <a class="btn-principal grande" href="https://wa.me/message/34GOBJWBTFBIG1" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      <a class="btn-vazado grande" href="https://www.instagram.com/butterfly_dreamssalon/" target="_blank" rel="noopener">@butterfly_dreamssalon ↗</a>
+    </div>
+    <span class="contato-nota">Rua Getúlio Vargas, 1010 — Fortaleza, CE. Atendimento com hora marcada.</span>
+  </div>
+</section>
+
+<footer>
+  <span>BUTTERFLY DREAMS SALON · COLORIMETRIA · CORTE · ALISAMENTO · FORTALEZA-CE</span>
+  <span>site por <a href="#">maxyzao.dev</a></span>
+</footer>
+
+<script src="js/chat.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="js/main.js?v=1"></script>
+</body>
+</html>

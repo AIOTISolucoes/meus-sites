@@ -1,0 +1,728 @@
+/* ==========================================================================
+   NORTH BARBER SHOP — Parquelândia · Kennedy · Montese (Fortaleza-CE)
+
+   Paleta medida no pixel da logo e das fotos DELES:
+     marinho   #01052a  — o fundo da logo, medido (9.089 px, a cor dominante)
+     azul      #16407a  — o anel fino da logo
+     vermelho  #c62430  — a faixa do poste de barbeiro, que é o acento
+     gelo      #eef2f8  — a superfície clara
+
+   ⚠️ A Claudia também é marinho + azul + gelo. O que separa: aqui existe
+   VERMELHO (ela não tem nenhum) e o marinho é muito mais fundo. Se ficarem
+   parecidos, aumentar a presença do vermelho — nunca clarear o marinho, que
+   é a cor medida da marca.
+
+   ⚠️ 5ª barbearia do portfólio. As outras: LS limão ácido, Drummer latão,
+   Diretoria laranja-mel, Gentleman laranja do poste. Esta é a única AZUL.
+
+   Contraste conferido (WCAG AA pede 4,5):
+     gelo sobre marinho ....... 17,4 ✅
+     vermelho sobre marinho ....  4,0 ❌ -> só para BLOCO, nunca para texto
+     vermelho-claro s/ marinho .  5,6 ✅ (é o que vira letra no escuro)
+     vermelho s/ gelo ..........  5,3 ✅
+     cinza-claro s/ marinho ....  6,2 ✅
+   ========================================================================== */
+
+:root {
+  --marinho: #01052a;
+  --marinho-fundo: #000318;    /* intro e rodapé: o tom mais fundo */
+  --marinho-carta: #0a1136;    /* cartão sobre fundo escuro */
+  --azul: #16407a;
+  --azul-claro: #4d80cf;
+  --vermelho: #c62430;         /* o poste. Bloco e detalhe. */
+  --vermelho-claro: #f2606a;   /* a versão que vira LETRA sobre escuro */
+  --gelo: #eef2f8;
+  --gelo-fundo: #e2e9f3;       /* alterna duas seções claras */
+  --tinta: #0b1024;
+  --tinta-suave: #55617d;      /* texto secundário sobre claro */
+  --tinta-clara: #8e9bb5;      /* texto secundário sobre escuro */
+  --display: 'Sora', system-ui, sans-serif;
+  --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--gelo);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+:focus-visible { outline: 2px solid var(--vermelho); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------------------------------------------------------- TIPOGRAFIA */
+
+.etiqueta {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--vermelho);
+  margin-bottom: 1.2rem;
+}
+
+.titulo-secao {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(2.1rem, 4.8vw, 3.7rem);
+  line-height: 1.1;
+  letter-spacing: -.028em;
+}
+
+.titulo-secao em,
+.hero-titulo em,
+#contato h2 em { font-style: normal; color: var(--vermelho); }
+
+.secao-topo { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto 3.6rem; padding: 0 6vw; }
+.secao-topo.centro { text-align: center; }
+
+.secao-texto { margin-top: 1.1rem; font-size: 1.02rem; line-height: 1.7; color: var(--tinta-suave); max-width: 48ch; }
+.secao-topo.centro .secao-texto { margin-inline: auto; }
+
+/* -------------------------------------------------------------- BOTÕES */
+
+.btn-principal,
+.btn-vazado {
+  display: inline-block;
+  font-family: var(--display);
+  font-size: .88rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  padding: 1.02rem 2.1rem;
+  border-radius: 10px;
+  transition: transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease, border-color .3s ease;
+}
+
+.btn-principal {
+  background: linear-gradient(135deg, var(--vermelho), #9d1520);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(150, 20, 30, .32);
+}
+.btn-principal:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(150, 20, 30, .45); }
+
+.btn-vazado { border: 1px solid rgba(11, 16, 36, .26); color: var(--tinta); }
+.btn-vazado:hover { background: var(--marinho); color: var(--gelo); border-color: var(--marinho); }
+
+.btn-principal.grande, .btn-vazado.grande { padding: 1.18rem 2.7rem; font-size: .95rem; }
+
+/* ========================= INTRO ========================= */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--marinho-fundo);
+  display: grid;
+  place-items: center;
+}
+
+.intro-marca { position: relative; width: min(56vw, 400px); color: var(--gelo); }
+#marca-intro { width: 100%; display: block; }
+
+/* O anel fino da logo não sobrevive ao limiar do vetorizador (é um traço de
+   1px em azul sobre marinho). Como é um círculo perfeito, ele é redesenhado
+   aqui — e é ele que se desenha na intro. */
+#marca-intro .anel { fill: none; stroke: var(--azul-claro); stroke-width: 1.1; opacity: .75; }
+#marca-intro .alto,
+#marca-intro .meio,
+#marca-intro .baixo { opacity: 0; }
+
+/* ========================= NAV ========================= */
+
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  padding: .85rem 6vw;
+  background: rgba(1, 5, 42, .92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(77, 128, 207, .22);
+  transform: translateY(-110%);
+}
+
+.nav-marca { display: flex; align-items: center; gap: .7rem; color: var(--gelo); }
+.nav-logo { width: 34px; height: 34px; flex: none; }
+.nav-marca span {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -.01em;
+  color: var(--gelo);
+  white-space: nowrap;
+}
+.nav-marca em {
+  font-style: normal;
+  font-size: .64rem;
+  font-weight: 600;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--vermelho-claro);
+}
+
+.nav-links { display: flex; gap: 1.7rem; }
+.nav-links a { font-size: .84rem; color: var(--tinta-clara); position: relative; padding-bottom: 3px; }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 2px;
+  background: var(--vermelho);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .35s ease;
+}
+.nav-links a:hover { color: var(--gelo); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.btn-nav {
+  font-family: var(--display);
+  font-size: .8rem;
+  font-weight: 600;
+  padding: .64rem 1.35rem;
+  border-radius: 8px;
+  background: var(--vermelho);
+  color: #fff;
+  transition: background .3s ease, transform .3s ease;
+}
+.btn-nav:hover { background: #e03744; transform: translateY(-2px); }
+
+/* ========================= HERO ========================= */
+
+#inicio {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 9rem 6vw 5rem;
+  background: var(--marinho);
+  color: var(--gelo);
+  overflow: hidden;
+}
+
+#poste { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+
+#inicio::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 32%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(1, 5, 42, 0), var(--marinho) 88%);
+}
+
+.hero-conteudo { position: relative; z-index: 3; max-width: 680px; }
+.hero-conteudo::before {
+  content: '';
+  position: absolute;
+  left: -14%; top: -16%;
+  width: 132%; height: 136%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(58% 54% at 32% 48%, rgba(1, 5, 42, .93), rgba(1, 5, 42, 0) 72%);
+}
+
+#inicio .etiqueta { color: var(--vermelho-claro); }
+
+.hero-titulo {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 6.4vw, 4.9rem);
+  line-height: 1.03;
+  letter-spacing: -.04em;
+}
+/* o padding-top com margin negativo devolve o espaço do ACENTO, que o
+   overflow:hidden cortaria (lição paga no Drummer, em "TODO DIA É DIA") */
+.hero-titulo .linha { display: block; overflow: hidden; padding-top: .1em; margin-top: -.1em; }
+.hero-titulo .linha > span { display: block; }
+.hero-titulo em { font-style: normal; color: var(--vermelho-claro); }
+
+.hero-texto {
+  margin-top: 1.5rem;
+  max-width: 46ch;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: rgba(238, 242, 248, .78);
+}
+
+.hero-acoes { margin-top: 2.2rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+#inicio .btn-vazado { border-color: rgba(238, 242, 248, .32); color: var(--gelo); }
+#inicio .btn-vazado:hover { background: var(--gelo); color: var(--marinho); border-color: var(--gelo); }
+
+.hero-dados { margin-top: 3rem; display: flex; flex-wrap: wrap; gap: 2.4rem; }
+.hero-dados div { display: flex; flex-direction: column; gap: .3rem; }
+.hero-dados strong { font-family: var(--display); font-weight: 700; font-size: 1.6rem; color: var(--gelo); }
+.hero-dados span {
+  font-size: .74rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: rgba(238, 242, 248, .5);
+}
+
+.rolar {
+  position: absolute;
+  left: 6vw; bottom: 2rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  font-size: .7rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(238, 242, 248, .45);
+}
+.rolar i { width: 54px; height: 2px; background: rgba(238, 242, 248, .22); position: relative; overflow: hidden; }
+.rolar i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--vermelho);
+  transform: translateX(-100%);
+  animation: correr 2.6s ease-in-out infinite;
+}
+@keyframes correr {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
+}
+
+/* ========================= SERVIÇOS ========================= */
+
+#servicos { position: relative; z-index: 2; padding: 6.5rem 0 5.5rem; background: var(--gelo); }
+
+.grade-servicos {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+
+.servico {
+  position: relative;
+  background: #fff;
+  border: 1px solid rgba(11, 16, 36, .09);
+  border-radius: 14px;
+  padding: 2.1rem 1.7rem 1.9rem;
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+.servico::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  border-radius: 0 0 14px 14px;
+  background: repeating-linear-gradient(115deg,
+    var(--vermelho) 0 8px, #fff 8px 16px, var(--azul) 16px 24px, #fff 24px 32px);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s ease;
+}
+.servico:hover {
+  transform: translateY(-6px);
+  border-color: rgba(198, 36, 48, .28);
+  box-shadow: 0 20px 44px rgba(11, 16, 36, .12);
+}
+.servico:hover::after { transform: scaleX(1); }
+
+.servico .icone { width: 50px; height: 50px; color: var(--vermelho); margin-bottom: 1.3rem; }
+.servico h3 { font-family: var(--display); font-weight: 600; font-size: 1.16rem; margin-bottom: .55rem; letter-spacing: -.015em; }
+.servico p { font-size: .93rem; line-height: 1.68; color: var(--tinta-suave); }
+
+.servico-preco {
+  display: block;
+  margin-top: .95rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--vermelho);
+}
+.servico-preco small {
+  display: block;
+  margin-top: .2rem;
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: .74rem;
+  letter-spacing: .04em;
+  color: var(--tinta-suave);
+}
+
+.nota-preco {
+  max-width: 1240px;
+  margin: 2.2rem auto 0;
+  padding: 1rem 6vw 0;
+  font-size: .82rem;
+  line-height: 1.65;
+  color: var(--tinta-suave);
+}
+.nota-preco strong { color: var(--tinta); font-weight: 600; }
+
+/* ============ SEÇÃO-ASSINATURA: A CONTA DO PLANO ============ */
+
+#assinatura {
+  position: relative;
+  z-index: 2;
+  padding: 6.5rem 6vw 6rem;
+  background: var(--marinho);
+  color: var(--gelo);
+  overflow: hidden;
+}
+#assinatura .etiqueta { color: var(--vermelho-claro); }
+#assinatura .secao-texto { color: rgba(238, 242, 248, .72); }
+
+#assinatura::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(115deg,
+    var(--vermelho) 0 14px, var(--gelo) 14px 28px, var(--azul-claro) 28px 42px, var(--gelo) 42px 56px);
+  opacity: .9;
+}
+
+.calculadora { max-width: 1080px; margin: 0 auto; }
+
+/* --- o controle: quantas idas por mês --- */
+.mostrador {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 2.8rem;
+}
+.mostrador-numero {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(3.4rem, 9vw, 5.6rem);
+  line-height: 1;
+  letter-spacing: -.05em;
+  color: var(--gelo);
+}
+.mostrador-numero span { color: var(--vermelho-claro); }
+.mostrador-legenda { font-size: .95rem; color: rgba(238, 242, 248, .66); }
+
+/* Os degraus são BOTÕES, não um <input range>: são 6 valores inteiros, e
+   arrastar um controle contínuo pra cair num inteiro é pior do que clicar
+   no número que se quer. Também funciona no teclado sem truque. */
+.degraus { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; }
+.degrau {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1rem;
+  min-width: 54px;
+  color: rgba(238, 242, 248, .75);
+  background: var(--marinho-carta);
+  border: 1px solid rgba(238, 242, 248, .16);
+  border-radius: 10px;
+  padding: .7rem 1rem;
+  cursor: pointer;
+  transition: border-color .25s ease, color .25s ease, background .25s ease, transform .25s ease;
+}
+.degrau:hover { border-color: rgba(198, 36, 48, .6); color: var(--gelo); transform: translateY(-2px); }
+.degrau[aria-pressed="true"] {
+  background: var(--vermelho);
+  border-color: var(--vermelho);
+  color: #fff;
+}
+
+/* --- os três planos --- */
+.planos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.1rem;
+}
+
+.plano {
+  position: relative;
+  background: var(--marinho-carta);
+  border: 1px solid rgba(238, 242, 248, .14);
+  border-radius: 16px;
+  padding: 1.8rem 1.6rem 1.6rem;
+  transition: border-color .35s ease, transform .35s ease;
+}
+.plano.destaque { border-color: rgba(198, 36, 48, .6); }
+.plano.destaque::before {
+  content: 'mais completo';
+  position: absolute;
+  top: -10px; left: 1.6rem;
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  background: var(--vermelho);
+  color: #fff;
+  padding: .28rem .7rem;
+  border-radius: 6px;
+}
+
+.plano h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.02rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--gelo);
+  margin-bottom: .8rem;
+}
+.plano-mes { display: flex; align-items: baseline; gap: .35rem; color: rgba(238, 242, 248, .82); }
+.plano-mes strong { font-family: var(--display); font-weight: 700; font-size: 1.85rem; color: var(--gelo); }
+.plano-mes span { font-size: .84rem; color: rgba(238, 242, 248, .55); }
+
+/* a conta que a pessoa veio ver: quanto sai CADA ida */
+.plano-cada {
+  margin-top: 1.1rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(238, 242, 248, .14);
+}
+.plano-cada b {
+  display: block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 2.1rem;
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  color: var(--vermelho-claro);
+}
+.plano-cada em {
+  font-style: normal;
+  font-size: .78rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: rgba(238, 242, 248, .5);
+}
+
+.incluso {
+  max-width: 1080px;
+  margin: 2.6rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(238, 242, 248, .14);
+}
+.incluso h3 {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--vermelho-claro);
+  margin-bottom: 1.2rem;
+}
+.incluso ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: .7rem 1.6rem; }
+.incluso li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: .94rem;
+  line-height: 1.6;
+  color: rgba(238, 242, 248, .8);
+}
+.incluso li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: .55em;
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  background: var(--vermelho);
+}
+.conta-aviso { margin-top: 1.8rem; font-size: .82rem; line-height: 1.65; color: rgba(238, 242, 248, .55); max-width: 66ch; }
+.calculadora .btn-principal { margin-top: 1.6rem; }
+
+/* ========================= AS TRÊS UNIDADES ========================= */
+
+#unidades { position: relative; z-index: 2; padding: 6.5rem 6vw; background: var(--gelo-fundo); }
+
+.grade-unidades {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.4rem;
+}
+
+.unidade {
+  background: #fff;
+  border: 1px solid rgba(11, 16, 36, .09);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+.unidade:hover { transform: translateY(-6px); box-shadow: 0 22px 48px rgba(11, 16, 36, .14); }
+.unidade img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.unidade-corpo { padding: 1.6rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: .6rem; flex: 1; }
+.unidade h3 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -.02em;
+}
+.unidade p { font-size: .93rem; line-height: 1.6; color: var(--tinta-suave); }
+.unidade .tel { font-family: var(--display); font-weight: 600; font-size: 1rem; color: var(--marinho); }
+.unidade .btn-principal { margin-top: auto; text-align: center; }
+.unidade-extras { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .2rem; }
+.unidade-extras span {
+  font-size: .7rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--azul);
+  background: rgba(22, 64, 122, .09);
+  border-radius: 5px;
+  padding: .26rem .6rem;
+}
+
+/* ==================== TRILHO HORIZONTAL ==================== */
+
+#galeria { position: relative; z-index: 2; background: var(--gelo); overflow: hidden; }
+
+.trilho { height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.trilho-interno { display: flex; align-items: center; gap: 1.9rem; padding: 0 6vw; will-change: transform; }
+
+.painel { flex: none; }
+.painel-abre { width: min(78vw, 420px); }
+.painel-abre p { margin-top: 1.2rem; font-size: 1rem; line-height: 1.7; color: var(--tinta-suave); max-width: 34ch; }
+.painel-abre .seta { width: 110px; margin-top: 1.9rem; color: var(--vermelho); }
+
+.painel-foto {
+  position: relative;
+  width: min(64vw, 296px);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 22px 48px rgba(11, 16, 36, .2);
+}
+.painel-foto img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+/* véu marinho: uniformiza fotos que vieram de post e de frame de reel, e
+   protege a legenda */
+.painel-foto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(200deg, rgba(22, 64, 122, .24), rgba(1, 5, 42, .1) 40%, rgba(0, 3, 24, .84));
+}
+.painel-foto figcaption {
+  position: absolute;
+  left: 1.2rem; right: 1.2rem; bottom: 1.1rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: .22rem;
+  color: var(--gelo);
+}
+.painel-foto figcaption strong { font-family: var(--display); font-weight: 600; font-size: 1.05rem; letter-spacing: -.015em; }
+.painel-foto figcaption span {
+  font-size: .69rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--vermelho-claro);
+}
+
+/* ========================= CONTATO ========================= */
+
+#contato { position: relative; z-index: 2; padding: 6.5rem 6vw; background: var(--azul); color: var(--gelo); }
+
+.contato-caixa { max-width: 760px; margin: 0 auto; text-align: center; }
+.contato-caixa h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -.035em;
+}
+#contato h2 em { color: #ffd9dc; }
+.contato-caixa > p { margin-top: 1.2rem; font-size: 1.04rem; line-height: 1.75; color: rgba(238, 242, 248, .82); }
+.contato-acoes { margin-top: 2.3rem; display: flex; flex-wrap: wrap; gap: .9rem; justify-content: center; }
+#contato .btn-vazado { border-color: rgba(238, 242, 248, .36); color: var(--gelo); }
+#contato .btn-vazado:hover { background: var(--gelo); color: var(--azul); border-color: var(--gelo); }
+.contato-nota { display: block; margin-top: 1.8rem; font-size: .84rem; color: rgba(238, 242, 248, .6); }
+
+/* ========================= RODAPÉ ========================= */
+
+footer {
+  position: relative;
+  z-index: 2;
+  background: var(--marinho-fundo);
+  color: rgba(238, 242, 248, .5);
+  padding: 2.2rem 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .74rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+footer a { color: var(--vermelho-claro); }
+
+/* ========================= RESPONSIVO ========================= */
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  .nav-marca em { display: none; }
+  .nav-marca span { font-size: .94rem; }
+  #nav { padding-inline: 4vw; gap: .8rem; }
+  .btn-nav { padding: .56rem 1rem; font-size: .74rem; }
+
+  .etiqueta { font-size: .64rem; letter-spacing: .2em; }
+
+  #inicio { padding-top: 7.5rem; min-height: 94svh; }
+  .hero-dados { gap: 1.4rem 2rem; }
+  .hero-dados strong { font-size: 1.35rem; }
+  .rolar { display: none; }
+
+  /* no celular o texto ocupa a largura toda: o halo vira faixa central,
+     senão fica um borrão deslocado atrás das letras */
+  .hero-conteudo::before {
+    left: -20%;
+    width: 140%;
+    background: radial-gradient(64% 52% at 50% 48%, rgba(1, 5, 42, .94), rgba(1, 5, 42, 0) 74%);
+  }
+
+  #servicos, #assinatura, #unidades, #contato { padding-top: 4.6rem; padding-bottom: 4.4rem; }
+  .degrau { min-width: 46px; padding: .6rem .8rem; font-size: .92rem; }
+
+  /* o trilho vira arrasto com o dedo (o pin do scrub é só desktop) */
+  .trilho {
+    height: auto;
+    padding: 4.6rem 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* sem isto o snap engole o padding lateral e o título nasce colado
+       na borda esquerda da tela */
+    scroll-padding-inline: 6vw;
+    -webkit-overflow-scrolling: touch;
+  }
+  .trilho::-webkit-scrollbar { display: none; }
+  .trilho-interno { gap: 1rem; }
+  .painel { scroll-snap-align: center; }
+  .painel-abre { width: 82vw; scroll-snap-align: start; }
+  .painel-foto { width: 68vw; }
+
+  .hero-acoes .btn-principal,
+  .hero-acoes .btn-vazado,
+  .contato-acoes .btn-principal,
+  .contato-acoes .btn-vazado,
+  .calculadora .btn-principal { width: 100%; text-align: center; }
+
+  footer { flex-direction: column; text-align: center; gap: .6rem; }
+}
+
+/* Cortar só o que se repete sozinho pra sempre e o que persegue o ponteiro.
+   ⚠️ O PC do usuário reporta reduce, então é ESTE o caminho que ele vê. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rolar i::after { animation: none; opacity: .6; transform: none; }
+  .servico:hover, .unidade:hover, .degrau:hover,
+  .btn-principal:hover, .btn-nav:hover { transform: none; }
+}

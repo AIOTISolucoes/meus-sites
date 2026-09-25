@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fisioclin — Clínica de Medicina e Saúde em Messejana, Fortaleza</title>
+<meta name="description" content="Fisioterapia, Pilates, Psicologia, Fonoaudiologia, Nutrição e Terapia Ocupacional para crianças, adultos e idosos. Particular e planos de saúde. Rua Angélica Gurgel, 226 — Messejana, Fortaleza-CE.">
+<meta name="theme-color" content="#f7f4ef">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- ao editar css/js, SUBIR o ?v=N: senão o navegador serve cache velho e o
+     JS pode quebrar em silêncio (já aconteceu no portfólio) -->
+<link rel="stylesheet" href="css/estilo.css?v=4">
+</head>
+<body>
+
+<!-- ================= INTRO =================
+     A logo deles redesenhada em SVG: a figura humana em movimento (cabeça +
+     corpo que desce curvando + o leque de traços do braço). A do Instagram vem
+     em 150×150 e não serve pra nada. Todo path com class="tr" se desenha. -->
+<div id="intro" aria-hidden="true">
+  <div class="intro-marca">
+    <svg id="logo-intro" viewBox="0 0 240 200" aria-label="Fisioclin">
+      <g transform="translate(78 6) scale(.86)" fill="none" stroke="#7a4a34"
+         stroke-linecap="round" stroke-linejoin="round">
+        <ellipse class="tr" cx="42" cy="21" rx="4.6" ry="3.4" stroke-width="5.6" transform="rotate(-18 42 21)"/>
+        <path class="tr" stroke-width="3.4" d="M47 31 C 60 22 76 19 90 21"/>
+        <path class="tr" stroke-width="2.1" d="M48 39 C 61 32 74 30 86 31"/>
+        <path class="tr" stroke-width="3.1" d="M36 34 C 25 34 13 38 4 46"/>
+        <path class="tr" stroke-width="5.2" d="M44 29 C 48 45 46 62 38 76 C 34 83 28 88 21 90"/>
+      </g>
+      <text class="marca-nome" x="120" y="160" text-anchor="middle">FISIOCLIN</text>
+      <text class="marca-sub" x="120" y="180" text-anchor="middle">MEDICINA E SAÚDE</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ================= NAV ================= -->
+<header id="nav">
+  <a class="nav-marca" href="#inicio">
+    <svg viewBox="0 0 100 100" class="nav-logo" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="42" cy="21" rx="4.6" ry="3.4" stroke-width="5.6" transform="rotate(-18 42 21)"/>
+        <path stroke-width="3.4" d="M47 31 C 60 22 76 19 90 21"/>
+        <path stroke-width="2.1" d="M48 39 C 61 32 74 30 86 31"/>
+        <path stroke-width="3.1" d="M36 34 C 25 34 13 38 4 46"/>
+        <path stroke-width="5.2" d="M44 29 C 48 45 46 62 38 76 C 34 83 28 88 21 90"/>
+      </g>
+    </svg>
+    <span>FISIOCLIN <em>Messejana</em></span>
+  </a>
+  <nav class="nav-links">
+    <a href="#servicos">Especialidades</a>
+    <a href="#assinatura">Por onde começar</a>
+    <a href="#casa">A clínica</a>
+    <a href="#contato">Contato</a>
+  </nav>
+  <a class="btn-nav" href="https://wa.me/5585994118007?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20atendimento." target="_blank" rel="noopener">Agendar</a>
+</header>
+
+<!-- ================= HERO =================
+     O canvas desenha o cobogó da fachada (painel vazado de triângulos em
+     relevo). A luz segue o ponteiro, como o sol batendo na parede de verdade. -->
+<section id="inicio">
+  <canvas id="fundo" aria-hidden="true"></canvas>
+
+  <div class="hero-conteudo">
+    <span class="etiqueta">Clínica de medicina e saúde · Messejana, Fortaleza</span>
+    <h1 class="hero-titulo">
+      <span class="linha"><span>Todo o cuidado</span></span>
+      <span class="linha"><span>da sua família</span></span>
+      <span class="linha"><span>no <em>mesmo lugar</em>.</span></span>    </h1>
+    <p class="hero-texto">
+      Fisioterapia, Pilates, Psicologia, Fonoaudiologia, Nutrição e Terapia
+      Ocupacional para crianças, adultos e idosos — atendimento particular e
+      por planos de saúde.
+    </p>
+    <div class="hero-acoes">
+      <a class="btn-principal" href="https://wa.me/5585994118007?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20atendimento." target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
+      <a class="btn-vazado" href="#assinatura">Não sei por onde começar</a>
+    </div>
+    <!-- 3 fatos, todos conferíveis no perfil e na fachada. Nada inventado. -->
+    <div class="hero-dados">
+      <div><strong>6</strong><span>especialidades na casa</span></div>
+      <div><strong>Particular</strong><span>e planos de saúde</span></div>
+      <div><strong>Messejana</strong><span>Rua Angélica Gurgel, 226</span></div>
+    </div>
+  </div>
+
+  <div class="rolar"><span>role</span><i></i></div>
+</section>
+
+<!-- ================= ESPECIALIDADES ================= -->
+<section id="servicos">
+  <div class="secao-topo">
+    <span class="etiqueta">o que a casa atende</span>
+    <h2 class="titulo-secao">Uma equipe inteira,<br>debaixo do <em>mesmo teto</em></h2>
+    <p class="secao-texto">
+      É o que faz diferença quando um cuidado puxa o outro: a criança que está
+      em fonoaudiologia não precisa de outra clínica para a psicologia.
+    </p>
+  </div>
+
+  <div class="grade-servicos">
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M33 7c-7 9 7 16 0 25s6 16-1 25"/>
+        <path class="tr" d="M21 13h24"/>
+        <path class="tr" d="M18 25h24"/>
+        <path class="tr" d="M22 37h24"/>
+        <path class="tr" d="M19 49h24"/>
+      </svg>
+      <h3>Fisioterapia</h3>
+      <p>Reabilitação de dores, lesões e limitações de movimento, com plano montado a partir da avaliação.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse class="tr" cx="32" cy="32" rx="19" ry="19"/>
+        <path class="tr" d="M13 26c-6 2-6 10 0 12"/>
+        <path class="tr" d="M51 26c6 2 6 10 0 12"/>
+      </svg>
+      <h3>Pilates</h3>
+      <p>Trabalho de força, postura e consciência corporal em turmas acompanhadas de perto.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M40 54v-7c8-4 12-11 12-19 0-11-9-20-20-20S12 17 12 28c0 6 2 9 5 12v14"/>
+        <path class="tr" d="M32 34c-4 0-6-3-6-6s3-5 6-4 6-1 6-4-2-5-5-5"/>
+      </svg>
+      <h3>Psicologia</h3>
+      <p>Acompanhamento para adultos e também psicologia infantil, em consultórios reservados.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M36 52v-8c7-4 11-11 11-18 0-11-9-19-20-19S8 15 8 26c0 5 2 9 5 12v14"/>
+        <path class="tr" d="M44 22c4 3 6 6 6 10s-2 7-6 10"/>
+        <path class="tr" d="M52 16c6 4 8 9 8 16s-3 12-8 16"/>
+      </svg>
+      <h3>Fonoaudiologia</h3>
+      <p>Fala, linguagem, voz e deglutição — com atendimento infantil entre as especialidades da casa.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M14 30c0-9 7-16 18-16s18 7 18 16c0 12-8 22-18 22s-18-10-18-22z"/>
+        <path class="tr" d="M32 52V24"/>
+        <path class="tr" d="M32 30c-5-2-8-7-7-13 6 0 10 4 11 9"/>
+      </svg>
+      <h3>Nutrição</h3>
+      <p>Orientação alimentar montada para a rotina de quem procura, sem dieta de prateleira.</p>
+    </article>
+
+    <article class="servico" data-svc>
+      <svg class="icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path class="tr" d="M22 34V14a4 4 0 018 0v18"/>
+        <path class="tr" d="M30 30V11a4 4 0 018 0v21"/>
+        <path class="tr" d="M38 32V17a4 4 0 018 0v21"/>
+        <path class="tr" d="M46 30a4 4 0 018 0v10c0 10-7 18-17 18s-15-6-17-13l-4-11a4 4 0 016-4l6 8"/>
+      </svg>
+      <h3>Terapia Ocupacional</h3>
+      <p>Autonomia nas tarefas do dia a dia — para crianças, adultos e pessoas idosas.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ SEÇÃO-ASSINATURA: "Por onde eu começo?" ============
+     A dúvida real de quem chega numa clínica com seis especialidades é qual
+     profissional procurar. Duas perguntas (pra quem é / o que busca) e o painel
+     da fachada acende a especialidade indicada.
+
+     ATENÇÃO ao mexer: isto NÃO pode virar triagem clínica. Não se pergunta
+     sintoma nem se devolve diagnóstico, e toda resposta lembra que quem define
+     o plano é a avaliação presencial. -->
+<section id="assinatura">
+  <div class="secao-topo centro">
+    <span class="etiqueta">e se eu não souber o que procurar?</span>
+    <h2 class="titulo-secao">Por onde eu <em>começo</em>?</h2>
+    <p class="secao-texto">
+      Responda duas coisas e a parede mostra em qual especialidade esse cuidado
+      costuma começar aqui.
+    </p>
+  </div>
+
+  <div class="guia">
+    <div class="guia-passos">
+      <div class="passo">
+        <div class="passo-titulo"><span>Passo 1</span> <b id="pergunta-quem">Para quem é o cuidado?</b></div>
+        <div class="opcoes" id="quem" role="group" aria-labelledby="pergunta-quem">
+          <button class="opcao" type="button" aria-pressed="false" data-quem="crianca">Uma criança</button>
+          <button class="opcao" type="button" aria-pressed="false" data-quem="adulto">Um adulto</button>
+          <button class="opcao" type="button" aria-pressed="false" data-quem="idoso">Uma pessoa idosa</button>
+        </div>
+      </div>
+
+      <div class="passo travado" id="passo2">
+        <div class="passo-titulo"><span>Passo 2</span> <b id="pergunta-oque">O que você está buscando?</b></div>
+        <div class="opcoes" id="oque" role="group" aria-labelledby="pergunta-oque">
+          <button class="opcao" type="button" aria-pressed="false" data-oque="movimento" disabled>Dor ou dificuldade de movimento</button>
+          <button class="opcao" type="button" aria-pressed="false" data-oque="fala" disabled>Fala, linguagem ou voz</button>
+          <button class="opcao" type="button" aria-pressed="false" data-oque="emocional" disabled>Emoções, comportamento ou aprendizagem</button>
+          <button class="opcao" type="button" aria-pressed="false" data-oque="alimentacao" disabled>Alimentação</button>
+          <button class="opcao" type="button" aria-pressed="false" data-oque="autonomia" disabled>Autonomia no dia a dia</button>
+          <button class="opcao" type="button" aria-pressed="false" data-oque="postura" disabled>Condicionamento e postura</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- as células do painel são geradas no main.js: são ~200 triângulos, não
+         faz sentido escrever à mão -->
+    <div class="painel-cobogo">
+      <svg id="cobogo" viewBox="0 0 100 106" aria-hidden="true"></svg>
+      <div class="painel-legenda" id="legenda">
+        <i></i><span>A parede da fachada — ela acende conforme você responde.</span>
+      </div>
+    </div>
+
+    <div class="resultado" id="resultado" role="status" aria-live="polite" aria-atomic="true" hidden>
+        <span class="rot">costuma começar em</span>
+        <h3 id="res-titulo"></h3>
+        <p id="res-texto"></p>
+        <span class="ressalva">
+          Quem define o plano é a avaliação presencial — e, se o caso pedir outra
+          especialidade, ela também fica aqui na casa.
+        </span>
+      <a class="btn-principal" id="res-zap" href="https://wa.me/5585994118007" target="_blank" rel="noopener">Falar com a recepção</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= A CLÍNICA ================= -->
+<section id="casa">
+  <div class="casa-grade">
+    <figure class="casa-foto" data-parallax="0.06">
+      <img src="assets/fachada.jpg" alt="Fachada da Fisioclin: painel branco vazado de triângulos com a placa redonda verde-água da clínica" loading="lazy">
+      <figcaption>Rua Angélica Gurgel, 226 — Messejana</figcaption>
+    </figure>
+
+    <div class="casa-texto">
+      <span class="etiqueta">a clínica</span>
+      <h2 class="titulo-secao">Um prédio pensado<br>para <em>atender bem</em></h2>
+      <p class="secao-texto">
+        A estrutura é o que permite juntar tantas especialidades no mesmo
+        endereço sem ninguém esperar em pé no corredor.
+      </p>
+      <ul class="casa-itens">
+        <li data-item>Consultórios amplos e climatizados</li>
+        <li data-item>Elevador — acesso a todos os andares</li>
+        <li data-item>Recepção e sala de espera</li>
+        <li data-item>Wi-Fi para quem acompanha</li>
+        <li data-item>Sistema de câmeras</li>
+        <li data-item>Ambiente multiprofissional</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTATO ================= -->
+<section id="contato">
+  <div class="contato-caixa">
+    <h2>Vamos marcar<br>a sua <em>avaliação</em>?</h2>
+    <p>
+      Mande uma mensagem contando para quem é o atendimento e qual
+      especialidade você procura. A recepção confirma o horário disponível e,
+      se você tiver plano de saúde, verifica a cobertura.
+    </p>
+    <div class="contato-acoes">
+      <a class="btn-principal grande" href="https://wa.me/5585994118007?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20atendimento." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      <a class="btn-vazado grande" href="https://www.instagram.com/fisioclinmessejana/" target="_blank" rel="noopener">@fisioclinmessejana ↗</a>
+    </div>
+
+    <div class="contato-fichas">
+      <div class="ficha">
+        <span>Endereço</span>
+        <strong><a href="https://www.google.com/maps/search/?api=1&query=Rua+Ang%C3%A9lica+Gurgel%2C+226+-+Messejana%2C+Fortaleza+-+CE%2C+60871-030" target="_blank" rel="noopener">Rua Angélica Gurgel, 226<br>Messejana · Fortaleza-CE ↗</a></strong>
+      </div>
+      <div class="ficha">
+        <span>WhatsApp</span>
+        <strong><a href="https://wa.me/5585994118007" target="_blank" rel="noopener">(85) 99411-8007</a></strong>
+      </div>
+      <div class="ficha">
+        <span>Telefones</span>
+        <strong><a href="tel:+558532740300">(85) 3274-0300</a><br><a href="tel:+558531119919">(85) 3111-9919</a></strong>
+      </div>
+    </div>
+
+    <span class="contato-nota">
+      Agendamentos e informações pelo WhatsApp. Horários e disponibilidade de
+      cada especialidade são confirmados pela recepção.
+    </span>
+  </div>
+</section>
+
+<footer>
+  <span>Fisioclin · Clínica de Medicina e Saúde · Messejana, Fortaleza-CE</span>
+  <span>site por <a href="https://www.instagram.com/maxyzao/" target="_blank" rel="noopener">maxyzao</a></span>
+</footer>
+
+<!-- ================= CHAT DE IA ================= -->
+<script src="js/chat.js?v=4"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="js/main.js?v=4"></script>
+</body>
+</html>

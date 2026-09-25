@@ -1,0 +1,155 @@
+<!doctype html><meta charset="utf-8">
+<title>bancada do retrato</title>
+<style>
+  body{margin:0;background:#0f1216;color:#f4f1ea;font:14px system-ui;padding:20px}
+  .grade{display:flex;flex-wrap:wrap;gap:14px}
+  .cel{background:#f4f1ea;border:1px solid #e2621c;width:240px;position:relative}
+  .cel svg{width:100%;display:block}
+  .cel b{position:absolute;left:0;right:0;bottom:6px;text-align:center;color:#5b6472;font:600 10px system-ui;letter-spacing:.14em;text-transform:uppercase}
+  #rosto{fill:#e2d6c4;stroke:#14181d;stroke-width:2.4}
+  #orelha{fill:none;stroke:#14181d;stroke-width:2.2}
+  #olho{fill:#14181d}
+  .traje path,.traje circle{fill:#14181d}
+  .cabelo{fill:#14181d}
+  .cabelo[data-cabelo="platinado"]{fill:url(#platina);stroke:#14181d;stroke-width:2}
+  #mechas path{fill:none;stroke:rgba(20,24,29,.5);stroke-width:2;stroke-linecap:round}
+  .barba{fill:#14181d}
+  .barba.risco{fill:none;stroke:#14181d;stroke-width:7;stroke-linecap:round}
+  #bigode{fill:#14181d}
+  #sobrancelha-feita,#sobrancelha-natural{fill:#14181d}
+</style>
+<div class="grade" id="grade"></div>
+<script>
+const SVG = `
+<svg viewBox="0 0 300 360">
+  <defs><linearGradient id="platina" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#fbfbfa"/><stop offset="52%" stop-color="#d8dbdd"/>
+    <stop offset="100%" stop-color="#a9b0b5"/></linearGradient></defs>
+
+  <path id="rosto" d="M205 360 L 205 250
+    C 205 238, 211 228, 217 216
+    C 227 196, 231 168, 227 142
+    C 221 106, 195 80, 161 73
+    C 133 67, 107 76, 96 96
+    C 89 108, 87 124, 89 138
+    C 90 144, 93 147, 91 152
+    C 87 162, 81 170, 73 180
+    C 67 187, 65 190, 70 193
+    C 77 196, 84 196, 86 200
+    C 88 205, 83 208, 85 212
+    C 87 216, 92 216, 90 221
+    C 88 226, 86 229, 90 235
+    C 97 243, 110 248, 124 248
+    C 136 248, 146 249, 152 250
+    C 150 266, 149 292, 149 360 Z"/>
+
+  <!-- a orelha é um traço ABERTO, em C: fechada vira ovo boiando no rosto -->
+  <path id="orelha" d="M179 155 C 192 151, 198 162, 195 176
+    C 192 191, 185 197, 178 194"/>
+  <path id="olho" d="M99 146 C 106 141, 116 141, 121 145 C 115 150, 105 151, 99 146 Z"/>
+
+  <g id="cabelos">
+    <path class="cabelo" data-cabelo="topete" d="M95 100
+      C 86 80, 92 52, 116 41
+      C 136 32, 152 38, 158 50
+      C 170 32, 194 29, 208 45
+      C 222 61, 228 94, 228 128
+      C 228 144, 226 158, 223 170
+      C 219 132, 207 106, 187 92
+      C 165 76, 127 74, 107 86
+      C 100 90, 97 95, 95 100 Z"/>
+
+    <path class="cabelo" data-cabelo="degrade" d="M96 98
+      C 91 82, 99 64, 117 55
+      C 139 45, 172 48, 192 64
+      C 213 81, 226 106, 228 134
+      C 229 147, 228 158, 226 168
+      C 222 136, 212 110, 194 96
+      C 172 79, 130 78, 109 87
+      C 102 90, 98 94, 96 98 Z"/>
+
+    <path class="cabelo" data-cabelo="cachos" d="M95 100
+      C 84 88, 86 68, 99 60
+      C 95 46, 108 34, 121 40
+      C 124 24, 143 20, 152 33
+      C 161 18, 181 21, 185 37
+      C 200 32, 212 47, 208 61
+      C 222 70, 229 96, 229 128
+      C 229 146, 227 160, 224 172
+      C 220 132, 208 106, 188 92
+      C 166 76, 127 74, 107 86
+      C 100 90, 97 95, 95 100 Z"/>
+
+    <path class="cabelo" data-cabelo="platinado" d="M96 98
+      C 91 82, 99 64, 117 55
+      C 139 45, 172 48, 192 64
+      C 213 81, 226 106, 228 134
+      C 229 147, 228 158, 226 168
+      C 222 136, 212 110, 194 96
+      C 172 79, 130 78, 109 87
+      C 102 90, 98 94, 96 98 Z"/>
+  </g>
+  <g id="mechas">
+    <path d="M124 72 C 134 66, 150 63, 164 66"/>
+    <path d="M140 88 C 154 82, 174 82, 188 90"/>
+    <path d="M186 76 C 197 84, 206 96, 212 110"/>
+  </g>
+
+  <g id="barbas">
+    <path class="barba" data-barba="cheia" d="M199 150
+      C 207 180, 199 214, 177 234
+      C 159 250, 131 256, 111 248
+      C 99 243, 91 238, 87 232
+      C 85 227, 88 225, 90 220
+      C 92 215, 87 215, 85 211
+      C 83 207, 88 204, 86 199
+      C 95 207, 105 211, 119 210
+      C 141 208, 161 195, 173 175
+      C 181 161, 189 152, 199 150 Z"/>
+    <path class="barba risco" data-barba="desenhada" d="M195 154
+      C 203 182, 195 214, 175 233
+      C 157 249, 130 255, 110 247
+      C 98 242, 90 237, 86 231"/>
+  </g>
+
+  <path id="bigode" d="M84 197 C 93 192, 106 191, 116 195
+    C 124 198, 127 203, 122 206 C 113 210, 97 207, 88 203
+    C 84 201, 82 199, 84 197 Z"/>
+
+  <path id="sobrancelha-feita" d="M87 130 C 94 125, 105 124, 113 127
+    C 115 128, 115 132, 112 133 C 102 136, 91 136, 87 134 Z"/>
+  <path id="sobrancelha-natural" d="M86 129 C 93 123, 106 122, 115 126
+    C 118 127, 117 133, 113 134 C 102 138, 90 138, 86 135 Z
+    M 111 118 C 115 117, 118 120, 116 123 Z"/>
+
+  <!-- O traje vem POR ÚLTIMO: desenhado antes, o pescoço passa por cima e a
+       gravata-borboleta some — e é ela que faz o desenho ser o brasão deles. -->
+  <g class="traje">
+    <path d="M149 286 L 88 360 L 149 360 Z"/>
+    <path d="M205 286 L 266 360 L 205 360 Z"/>
+    <path d="M177 303 L 141 285 L 141 321 Z"/>
+    <path d="M177 303 L 213 285 L 213 321 Z"/>
+    <circle cx="177" cy="303" r="9"/>
+  </g>
+</svg>`;
+
+const casos = [
+  ['topete','cheia',false],['degrade','cheia',false],['cachos','cheia',false],
+  ['platinado','cheia',false],['topete','desenhada',false],['topete','feita',false],
+  ['degrade','feita',true],['platinado','desenhada',true],
+];
+for (const [cab, bar, sob] of casos) {
+  const d = document.createElement('div');
+  d.className = 'cel';
+  d.innerHTML = SVG + `<b>${cab} · ${bar}${sob ? ' · sob' : ''}</b>`;
+  const s = d.querySelector('svg');
+  s.querySelectorAll('.cabelo').forEach(p => p.style.display = p.dataset.cabelo === cab ? '' : 'none');
+  s.querySelectorAll('.barba').forEach(p => p.style.display = p.dataset.barba === bar ? '' : 'none');
+  s.querySelector('#mechas').style.display = cab === 'platinado' ? '' : 'none';
+  s.querySelector('#bigode').style.display = bar === 'feita' ? 'none' : '';
+  s.querySelector('#sobrancelha-feita').style.display = sob ? '' : 'none';
+  s.querySelector('#sobrancelha-natural').style.display = sob ? 'none' : '';
+  // ids repetidos entre cópias: o gradiente só precisa existir uma vez
+  grade.appendChild(d);
+}
+</script>

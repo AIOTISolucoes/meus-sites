@@ -1,0 +1,698 @@
+/* ==========================================================================
+   LS BARBEARIA — estilo
+
+   Novo Mondubim, Fortaleza. @lsbarbearia_
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- TOKENS
+
+   Paletas já usadas (não repetir, senão os sites do portfólio se confundem):
+     Colmeia .... mel + rosa pastel
+     Sabtec ..... preto + verde-limão #98cb32
+     Félix ...... preto + dourado #d8a94a
+     Estúdio .... champagne #f7f1e8 + dourado #c0954a
+     Claudia .... marinho #0e2445 + azul #1f4e96 + gelo
+     Spaço ...... café #422307 + creme #e4ddcd
+     Butterfly .. preto + champagne #c9a86a sobre marfim
+     Fisioclin .. creme #f7f4ef + terracota #7a4a34 + verde-água
+     JK ......... magenta #cc0084 + verde-menta #18b484
+     Reserva .... vermelho #9f092c + madeira #b47d42 sobre areia
+
+   ⚠️ LS é preto + AMARELO, e o Félix é preto + dourado. O que separa os dois:
+   o amarelo aqui é ácido (#faec41, amostrado no pixel da logo), não dourado; e
+   a superfície clara não é creme, é o CONCRETO cinza da parede da barbearia —
+   a mesma do mural do brasão, medida nas fotos do feed. Se ainda parecerem
+   parentes no portfólio, esfriar mais o concreto (nunca esquentar o amarelo).
+
+   Fontes já usadas: Cormorant+Jost, Fraunces+Manrope, Archivo Black,
+   Bodoni Moda+Karla, Marcellus+Mulish, Bricolage+Figtree, Newsreader+Outfit+
+   Caveat, Instrument Serif+DM Sans.
+   Aqui: OSWALD (condensada, é a letra da faixa do próprio brasão) + BARLOW. */
+
+:root {
+  --preto: #12100a;          /* fundo das seções escuras */
+  --preto-fundo: #0a0906;    /* o tom mais fundo: intro, galeria e rodapé */
+  --marca: #faec41;          /* o amarelo da logo, medido no pixel */
+  --marca-quente: #e0cf1f;   /* 2º tom, pra degradê de botão */
+
+  /* o amarelo é claro demais pra virar texto sobre fundo claro (daria ~1,1:1).
+     Onde ele precisa ser LIDO sobre o concreto, entra esta versão escurecida —
+     mesmo matiz, 5,2:1. O amarelo puro fica pra fundo, traço e realce. */
+  --marca-escura: #6b5f00;
+
+  --concreto: #e8e6e1;       /* a parede da barbearia */
+  --concreto-fundo: #dcd9d2; /* variação pra alternar duas seções claras */
+  --tinta: #16140e;          /* texto principal */
+  --tinta-suave: #56534a;    /* texto secundário — 6,2:1 sobre o concreto */
+
+  --display: 'Oswald', 'Arial Narrow', sans-serif;
+  --sans: 'Barlow', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--concreto);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* profundidade sem textura repetida (o grid de quadradinhos foi rejeitado no
+   portfólio — não reintroduzir) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(56vw 40vw at 10% 16%, rgba(250, 236, 65, .10), transparent 70%),
+    radial-gradient(44vw 34vw at 90% 64%, rgba(22, 20, 14, .07), transparent 72%);
+}
+
+/* ---------------------------------------------------------- TIPOGRAFIA */
+
+.etiqueta {
+  display: inline-block;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: .74rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--marca-escura);
+  margin-bottom: 1.3rem;
+}
+
+.titulo-secao {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5.4vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: .005em;
+  text-transform: uppercase;
+}
+
+/* A palavra em destaque NÃO sai em itálico: a Oswald não tem itálico de
+   verdade e o navegador inclinaria a fonte na marra. Em vez disso ela ganha o
+   amarelo como TRAÇO DE PINCEL por trás — o amarelo vira fundo, não texto, e
+   a palavra continua legível (o amarelo como letra daria 1,1:1 no concreto). */
+.titulo-secao em,
+#contato h2 em {
+  font-style: normal;
+  background-image: linear-gradient(var(--marca), var(--marca));
+  background-repeat: no-repeat;
+  background-size: 100% .3em;
+  background-position: 0 84%;
+  padding-inline: .06em;
+}
+
+.secao-topo { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto 4.2rem; padding: 0 6vw; }
+.secao-topo.centro { text-align: center; }
+
+.secao-texto { margin-top: 1.2rem; font-size: 1.02rem; line-height: 1.7; color: var(--tinta-suave); max-width: 44ch; }
+.secao-topo.centro .secao-texto { margin-inline: auto; }
+
+/* -------------------------------------------------------------- BOTÕES */
+
+.btn-principal,
+.btn-vazado {
+  display: inline-block;
+  font-family: var(--display);
+  font-size: .95rem;
+  font-weight: 500;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  padding: 1.02rem 2.2rem;
+  border-radius: 4px;   /* quadrado, não pílula: a marca é heráldica */
+  border: 0;
+  cursor: pointer;
+  transition: transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease, border-color .3s ease;
+}
+
+/* texto PRETO sobre o amarelo — branco sobre #faec41 é ilegível */
+.btn-principal {
+  background: linear-gradient(140deg, var(--marca), var(--marca-quente));
+  color: var(--preto);
+  box-shadow: 0 14px 30px rgba(18, 16, 10, .26);
+}
+.btn-principal:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(18, 16, 10, .34); }
+
+.btn-vazado { background: none; color: inherit; border: 1px solid rgba(22, 20, 14, .3); }
+.btn-vazado:hover { background: var(--preto); color: var(--marca); border-color: var(--preto); }
+
+.btn-principal.grande, .btn-vazado.grande { padding: 1.18rem 2.7rem; font-size: 1rem; }
+
+/* ========================= INTRO ========================= */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--preto-fundo);
+  display: grid;
+  place-items: center;
+}
+
+.intro-marca { width: min(42vw, 330px); }
+#logo-intro { width: 100%; overflow: visible; }
+
+/* a faixa do brasão já é desenhada em traço; o nome é o texto DENTRO dela */
+#logo-intro .marca-faixa {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: .05em;
+  fill: var(--marca);
+}
+#logo-intro .marca-sub {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 8.4px;
+  letter-spacing: .42em;
+  fill: rgba(250, 236, 65, .62);
+}
+#logo-intro .marca-faixa,
+#logo-intro .marca-sub { opacity: 0; }
+
+/* ========================= NAV ========================= */
+
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  padding: .9rem 6vw;
+  background: rgba(232, 230, 225, .9);
+  backdrop-filter: blur(12px);
+  transform: translateY(-110%);   /* a intro traz ela pra baixo no fim */
+}
+
+.nav-marca { display: flex; align-items: center; gap: .7rem; color: var(--tinta); }
+.nav-logo { width: 30px; height: 34px; flex: none; }
+.nav-marca span {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.04rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--tinta);
+  white-space: nowrap;
+}
+.nav-marca em {
+  font-style: normal;
+  font-size: .76rem;
+  letter-spacing: .16em;
+  color: var(--tinta-suave);
+}
+
+.nav-links { display: flex; gap: 1.9rem; }
+.nav-links a {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: .92rem;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  position: relative;
+  padding-bottom: 3px;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 2px;
+  background: var(--marca);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .35s ease;
+}
+.nav-links a:hover { color: var(--tinta); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.btn-nav {
+  font-family: var(--display);
+  font-size: .86rem;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .62rem 1.5rem;
+  border-radius: 4px;
+  background: var(--preto);
+  color: var(--marca);
+  transition: background .3s ease, transform .3s ease;
+}
+.btn-nav:hover { background: #2a2618; transform: translateY(-2px); }
+
+/* ========================= HERO ========================= */
+
+#inicio {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 6vw 5rem;
+  background: linear-gradient(168deg, #17150d 0%, var(--preto) 54%, var(--preto-fundo) 100%);
+  color: #f2efe4;
+  overflow: hidden;
+}
+
+/* o campo de pontos do degradê ocupa o hero inteiro atrás do texto */
+#inicio canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+
+/* o fundo animado some no rodapé da seção, sem linha de corte */
+#inicio::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 30%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(10, 9, 6, 0), var(--preto-fundo) 88%);
+}
+
+.hero-conteudo { position: relative; z-index: 3; max-width: 660px; }
+
+/* véu de leitura: halo do próprio fundo atrás do texto. Sem ele o campo de
+   pontos passa por trás das letras e o título perde contraste. */
+.hero-conteudo::before {
+  content: '';
+  position: absolute;
+  left: -12%; top: -14%;
+  width: 128%; height: 132%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(58% 52% at 34% 46%, rgba(10, 9, 6, .9), rgba(10, 9, 6, 0) 72%);
+}
+
+#inicio .etiqueta { color: var(--marca); }
+
+.hero-titulo {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: .98;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+}
+/* o overflow:hidden na linha é o que permite o título subir de baixo */
+.hero-titulo .linha { display: block; overflow: hidden; }
+.hero-titulo .linha > span { display: block; }
+/* sobre o preto o amarelo pode ser LETRA: 14:1 */
+.hero-titulo em { font-style: normal; color: var(--marca); }
+
+.hero-texto {
+  margin-top: 1.7rem;
+  max-width: 48ch;
+  font-size: 1.06rem;
+  line-height: 1.72;
+  color: rgba(242, 239, 228, .82);
+}
+
+.hero-acoes { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+#inicio .btn-vazado { border-color: rgba(242, 239, 228, .36); color: #f2efe4; }
+#inicio .btn-vazado:hover { background: #f2efe4; color: var(--preto); border-color: #f2efe4; }
+
+.hero-dados { margin-top: 3.4rem; display: flex; flex-wrap: wrap; gap: 2.6rem; }
+.hero-dados div { display: flex; flex-direction: column; gap: .3rem; }
+.hero-dados strong {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.7rem;
+  letter-spacing: .02em;
+  color: var(--marca);
+}
+.hero-dados span {
+  font-size: .76rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 228, .56);
+}
+
+.rolar {
+  position: absolute;
+  left: 6vw; bottom: 2rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  font-size: .72rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 228, .5);
+}
+.rolar i { width: 54px; height: 1px; background: rgba(242, 239, 228, .3); position: relative; overflow: hidden; }
+.rolar i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--marca);
+  transform: translateX(-100%);
+  animation: correr 2.6s ease-in-out infinite;
+}
+@keyframes correr {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
+}
+
+/* ========================= CARDS ========================= */
+
+#servicos { position: relative; z-index: 2; padding: 7rem 0 6rem; }
+
+.grade-servicos {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.4rem;
+}
+
+.servico {
+  background: #fbfaf7;
+  border: 1px solid rgba(22, 20, 14, .1);
+  border-radius: 6px;
+  padding: 2.4rem 1.9rem 2.2rem;
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+.servico:hover {
+  transform: translateY(-6px);
+  border-color: var(--marca);
+  box-shadow: 0 22px 44px rgba(22, 20, 14, .12);
+}
+/* o traço do ícone precisa de contraste no card claro: usa o amarelo escuro */
+.servico .icone { width: 56px; height: 56px; color: var(--marca-escura); margin-bottom: 1.5rem; }
+.servico h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.3rem;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  margin-bottom: .7rem;
+}
+.servico p { font-size: .95rem; line-height: 1.7; color: var(--tinta-suave); }
+
+/* ==========================================================================
+   SEÇÃO-ASSINATURA: O SELETOR DE DEGRADÊ
+   ========================================================================== */
+
+#assinatura {
+  position: relative;
+  z-index: 2;
+  padding: 6.5rem 0 7rem;
+  background: var(--concreto-fundo);
+}
+
+.fade-palco {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.fade-cabeca {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 380px);
+  aspect-ratio: 360 / 438;   /* precisa bater com L/A no main.js */
+  /* espaço pra dica caber embaixo: colada no canvas ela cruza o pescoço */
+  margin-bottom: 2.4rem;
+}
+
+/* touch-action:none é o que permite arrastar pra cima e pra baixo no celular
+   sem que o gesto vire rolagem da página */
+#fade-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: ns-resize;
+  touch-action: none;
+  border-radius: 6px;
+  outline-offset: 4px;
+}
+#fade-canvas:focus-visible { outline: 2px solid var(--marca-escura); }
+
+.fade-dica {
+  position: absolute;
+  left: 50%; bottom: -1.9rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--display);
+  font-size: .74rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  transition: opacity .5s ease;
+  pointer-events: none;
+}
+.fade-dica.some { opacity: 0; }
+
+.fade-rotulo {
+  display: block;
+  font-family: var(--display);
+  font-size: .74rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--marca-escura);
+}
+.fade-nome {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin: .5rem 0 .9rem;
+}
+.fade-desc {
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--tinta-suave);
+  max-width: 40ch;
+  min-height: 5.2rem;   /* trava a altura: sem isto o bloco pula ao trocar */
+}
+
+.fade-presets { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.6rem 0 2rem; }
+.fade-preset {
+  font-family: var(--display);
+  font-size: .85rem;
+  font-weight: 400;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .6rem 1.15rem;
+  border-radius: 4px;
+  border: 1px solid rgba(22, 20, 14, .24);
+  background: none;
+  color: var(--tinta);
+  cursor: pointer;
+  transition: background .25s ease, color .25s ease, border-color .25s ease;
+}
+.fade-preset:hover { border-color: var(--preto); }
+.fade-preset.ativo { background: var(--preto); color: var(--marca); border-color: var(--preto); }
+
+.fade-nota { display: block; margin-top: 1rem; font-size: .84rem; line-height: 1.6; color: var(--tinta-suave); }
+
+/* ==================== TRILHO HORIZONTAL ==================== */
+
+/* fundo preto: as fotos são frames de reel e brilham mais sobre o escuro */
+#galeria { position: relative; z-index: 2; background: var(--preto-fundo); color: #f2efe4; overflow: hidden; }
+#galeria .etiqueta { color: var(--marca); }
+#galeria .titulo-secao em { background-image: none; color: var(--marca); }
+
+.trilho { height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.trilho-interno { display: flex; align-items: center; gap: 2.4rem; padding: 0 6vw; will-change: transform; }
+
+.painel { flex: none; }
+.painel-abre { width: min(78vw, 420px); }
+.painel-abre p { margin-top: 1.3rem; font-size: 1rem; line-height: 1.7; color: rgba(242, 239, 228, .66); max-width: 34ch; }
+.painel-abre .seta { width: 110px; margin-top: 2rem; color: var(--marca); }
+
+.painel-foto {
+  position: relative;
+  width: min(64vw, 300px);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, .5);
+}
+.painel-foto img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+/* véu quente por cima: uniformiza fotos de origem irregular (metade veio de
+   reel, metade de post, com temperaturas diferentes) */
+.painel-foto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(200deg, rgba(250, 236, 65, .12), rgba(10, 9, 6, .1) 40%, rgba(10, 9, 6, .8));
+}
+.painel-foto figcaption {
+  position: absolute;
+  left: 1.3rem; right: 1.3rem; bottom: 1.2rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  color: #f4f1e6;
+}
+.painel-foto figcaption strong {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+.painel-foto figcaption span {
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--marca);
+}
+
+/* ========================= CONTATO ========================= */
+
+/* a única seção AMARELA do site: é o ponto de virada, e o amarelo cheio só
+   funciona porque o texto em cima é preto (17:1) */
+#contato {
+  position: relative;
+  z-index: 2;
+  padding: 7rem 6vw;
+  background: var(--marca);
+  color: var(--preto);
+}
+
+.contato-caixa { max-width: 780px; margin: 0 auto; text-align: center; }
+.contato-caixa h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5.6vw, 4.2rem);
+  /* mais folgado que os outros títulos: o bloco preto do <em> tem padding
+     próprio e encostava na linha de cima com entrelinha 1,02 */
+  line-height: 1.18;
+  text-transform: uppercase;
+}
+/* dentro do amarelo o realce vira o inverso: bloco PRETO com a palavra
+   amarela dentro. Aqui é bloco cheio, e não a faixa de pincel das outras
+   seções: a faixa em altura de "em" cortava o topo das maiúsculas. */
+#contato h2 em {
+  background-image: none;
+  background: var(--preto);
+  color: var(--marca);
+  padding: .04em .16em .09em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.contato-caixa > p { margin-top: 1.4rem; font-size: 1.06rem; line-height: 1.72; color: rgba(18, 16, 10, .82); }
+.contato-acoes { margin-top: 2.6rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+/* sobre o amarelo o botão amarelo sumiria: aqui o principal é PRETO */
+#contato .btn-principal { background: var(--preto); color: var(--marca); box-shadow: 0 14px 30px rgba(18, 16, 10, .22); }
+#contato .btn-vazado { border-color: rgba(18, 16, 10, .4); color: var(--preto); }
+#contato .btn-vazado:hover { background: var(--preto); color: var(--marca); }
+.contato-nota { display: block; margin-top: 2rem; font-size: .86rem; line-height: 1.6; color: rgba(18, 16, 10, .72); }
+
+/* ========================= RODAPÉ ========================= */
+
+footer {
+  position: relative;
+  z-index: 2;
+  background: var(--preto-fundo);
+  color: rgba(242, 239, 228, .58);
+  padding: 2.4rem 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: .78rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  /* o botão de chat é fixo no canto e senta em cima do "site por" quando a
+     página chega no fim */
+  padding-right: 7rem;
+}
+footer a { color: var(--marca); }
+
+/* ========================= RESPONSIVO ========================= */
+
+@media (max-width: 900px) {
+  .fade-palco { grid-template-columns: 1fr; gap: 2.4rem; }
+  .fade-controles { text-align: center; }
+  .fade-desc { margin-inline: auto; min-height: 0; }
+  .fade-presets { justify-content: center; }
+}
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  /* não cabem os dois: o subtítulo da marca sai e o botão fica — é ele que
+     faz o site render */
+  .nav-marca em { display: none; }
+  .nav-marca span { font-size: .92rem; }
+  #nav { padding-inline: 4vw; gap: .8rem; }
+  .btn-nav { padding: .58rem 1.1rem; font-size: .8rem; }
+
+  /* a entrelinha larga da etiqueta quebra em duas linhas em tela estreita */
+  .etiqueta { font-size: .66rem; letter-spacing: .2em; }
+
+  #inicio { padding-top: 7rem; min-height: 92svh; }
+  .hero-dados { gap: 1.5rem 2rem; }
+  .hero-dados strong { font-size: 1.35rem; }
+  .rolar { display: none; }
+
+  /* no celular o texto ocupa a largura toda: o halo vira faixa central,
+     senão fica um borrão deslocado atrás das letras */
+  .hero-conteudo::before {
+    left: -20%;
+    width: 140%;
+    background: radial-gradient(64% 50% at 50% 48%, rgba(10, 9, 6, .92), rgba(10, 9, 6, 0) 74%);
+  }
+
+  #servicos, #galeria, #contato, #assinatura { padding-top: 5rem; padding-bottom: 4.6rem; }
+
+  /* o trilho vira arrasto com o dedo (o pin do scrub é só desktop) */
+  .trilho {
+    height: auto;
+    padding: 5rem 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* sem isto o snap encosta o 1º painel na borda e engole o padding
+       lateral: o título nasce colado no canto esquerdo da tela */
+    scroll-padding-inline: 6vw;
+    -webkit-overflow-scrolling: touch;
+  }
+  .trilho::-webkit-scrollbar { display: none; }
+  .trilho-interno { gap: 1.2rem; }
+  .painel { scroll-snap-align: center; }
+  .painel-abre { width: 82vw; scroll-snap-align: start; }
+  .painel-foto { width: 68vw; }
+
+  .hero-acoes .btn-principal,
+  .hero-acoes .btn-vazado,
+  .contato-acoes .btn-principal,
+  .contato-acoes .btn-vazado { width: 100%; text-align: center; }
+
+  /* empilhado e centralizado, o recuo pro botão de chat desalinharia tudo */
+  footer { flex-direction: column; text-align: center; gap: .6rem; padding-right: 6vw; padding-bottom: 5.5rem; }
+}
+
+/* Cortar só o que se repete sozinho pra sempre. Hover e arrasto FICAM: eles
+   respondem a uma ação da pessoa, não ficam agitando a tela.
+   O risco de navalha do hero também fica — ele só existe onde o ponteiro
+   passou, e é o que mostra o que a barbearia faz. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rolar i::after { animation: none; opacity: .5; transform: none; }
+  .servico:hover { transform: none; }
+  .btn-principal:hover, .btn-nav:hover { transform: none; }
+}

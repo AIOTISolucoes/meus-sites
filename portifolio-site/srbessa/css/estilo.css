@@ -1,0 +1,490 @@
+/* ==========================================================================
+   [[CLIENTE]] — estilo
+
+   Só o esqueleto que se repete em todo site de cliente. A personalidade mora
+   em duas coisas: os tokens do :root logo abaixo e a seção-assinatura, que
+   entra no fim do arquivo.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- TOKENS
+   Trocar SÓ este bloco já vira o site inteiro de cara.
+
+   Paletas já usadas (não repetir, senão os sites do portfólio se confundem):
+     Colmeia .... mel + rosa pastel
+     Sabtec ..... preto + verde-limão #98cb32
+     Félix ...... preto + dourado #d8a94a
+     Estúdio .... champagne #f7f1e8 + dourado #c0954a
+     Claudia .... marinho #0e2445 + azul #1f4e96 + gelo
+
+   Fontes já usadas: Cormorant Garamond + Jost (Estúdio), Fraunces + Manrope
+   (Claudia), Archivo Black (Sabtec). Uma serifada pros títulos e uma sem
+   serifa pro texto costuma resolver. */
+
+:root {
+  --escuro: #0e2445;         /* fundo das seções escuras e texto sobre claro */
+  --escuro-fundo: #091830;   /* o tom mais fundo: intro e rodapé */
+  --marca: #1f4e96;          /* a cor da logo do cliente, medida no pixel */
+  --marca-clara: #4d86d6;    /* 2º tom, pra gradiente e detalhe sobre escuro */
+  --claro: #eef4fb;          /* fundo das seções claras */
+  --claro-fundo: #e3edf8;    /* variação pra alternar duas seções claras */
+  --quente: #f7f2ea;         /* creme/areia, pra quebrar a monotonia */
+  --tinta: #0f2340;          /* texto principal */
+  --tinta-suave: #4f6383;    /* texto secundário */
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Manrope', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--claro);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* fundo com profundidade sem textura repetida (o grid de quadradinhos foi
+   rejeitado pelo usuário no portfólio — não reintroduzir) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(58vw 42vw at 12% 18%, rgba(77, 134, 214, .13), transparent 70%),
+    radial-gradient(46vw 36vw at 88% 62%, rgba(31, 78, 150, .10), transparent 72%);
+}
+
+/* ---------------------------------------------------------- TIPOGRAFIA */
+
+.etiqueta {
+  display: inline-block;
+  font-size: .72rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--marca);
+  margin-bottom: 1.3rem;
+}
+
+.titulo-secao {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.3rem, 5.2vw, 4.2rem);
+  line-height: 1.07;
+  letter-spacing: -.015em;
+}
+
+/* a palavra em destaque de cada título sai em itálico com degradê */
+.titulo-secao em,
+.hero-titulo em,
+#contato h2 em {
+  font-style: italic;
+  background: linear-gradient(96deg, var(--marca), var(--marca-clara) 46%, var(--marca));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.secao-topo { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto 4.2rem; padding: 0 6vw; }
+.secao-topo.centro { text-align: center; }
+
+.secao-texto { margin-top: 1.2rem; font-size: 1.02rem; color: var(--tinta-suave); max-width: 42ch; }
+.secao-topo.centro .secao-texto { margin-inline: auto; }
+
+/* -------------------------------------------------------------- BOTÕES */
+
+.btn-principal,
+.btn-vazado {
+  display: inline-block;
+  font-size: .93rem;
+  font-weight: 500;
+  letter-spacing: .03em;
+  padding: 1.02rem 2.2rem;
+  border-radius: 999px;
+  transition: transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease, border-color .3s ease;
+}
+
+.btn-principal {
+  background: linear-gradient(140deg, var(--marca), var(--marca-clara));
+  color: #f2f7fd;
+  box-shadow: 0 14px 32px rgba(20, 55, 110, .28);
+}
+.btn-principal:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(20, 55, 110, .36); }
+
+.btn-vazado { border: 1px solid rgba(15, 35, 64, .26); }
+.btn-vazado:hover { background: var(--escuro); color: var(--claro); border-color: var(--escuro); }
+
+.btn-principal.grande, .btn-vazado.grande { padding: 1.18rem 2.7rem; font-size: 1rem; }
+
+/* ========================= INTRO ========================= */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--escuro-fundo);
+  display: grid;
+  place-items: center;
+}
+
+.intro-marca { width: min(48vw, 430px); }
+#logo-intro { width: 100%; overflow: visible; }
+
+#logo-intro .marca-nome {
+  font-family: var(--serif);
+  font-size: 17px;
+  letter-spacing: .3em;
+  fill: #e6effb;
+}
+#logo-intro .marca-sub {
+  font-family: var(--sans);
+  font-size: 8.4px;
+  letter-spacing: .5em;
+  /* a cor da marca costuma sumir no fundo escuro da intro: usar o tom claro */
+  fill: var(--marca-clara);
+}
+#logo-intro .marca-nome,
+#logo-intro .marca-sub { opacity: 0; }
+
+/* ========================= NAV ========================= */
+
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  padding: .9rem 6vw;
+  background: rgba(238, 244, 251, .88);
+  backdrop-filter: blur(12px);
+  transform: translateY(-110%);   /* a intro traz ela pra baixo no fim */
+}
+
+.nav-marca { display: flex; align-items: center; gap: .7rem; color: var(--marca); }
+.nav-logo { width: 40px; height: 27px; flex: none; }
+.nav-marca span {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  color: var(--tinta);
+  white-space: nowrap;
+}
+.nav-marca em { font-style: italic; font-size: .88rem; color: var(--marca); }
+
+.nav-links { display: flex; gap: 1.9rem; }
+.nav-links a { font-size: .9rem; color: var(--tinta-suave); position: relative; padding-bottom: 3px; }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: var(--marca);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .35s ease;
+}
+.nav-links a:hover { color: var(--marca); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.btn-nav {
+  font-size: .86rem;
+  font-weight: 500;
+  padding: .62rem 1.5rem;
+  border-radius: 999px;
+  background: var(--escuro);
+  color: var(--claro);
+  transition: background .3s ease, transform .3s ease;
+}
+.btn-nav:hover { background: var(--marca); transform: translateY(-2px); }
+
+/* ========================= HERO ========================= */
+
+#inicio {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 6vw 5rem;
+  background: linear-gradient(170deg, var(--escuro) 0%, #10294f 52%, var(--escuro-fundo) 100%);
+  color: #e9f1fb;
+  overflow: hidden;
+}
+
+/* canvas da seção-assinatura, se houver: ocupa o hero inteiro atrás do texto */
+#inicio canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+
+/* o fundo animado some no rodapé da seção, sem linha de corte */
+#inicio::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 30%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(9, 24, 48, 0), var(--escuro-fundo) 88%);
+}
+
+.hero-conteudo { position: relative; z-index: 3; max-width: 640px; }
+
+/* véu de leitura: halo do próprio fundo atrás do texto. Sem ele, o que estiver
+   animado passa por trás das letras e o título perde contraste. */
+.hero-conteudo::before {
+  content: '';
+  position: absolute;
+  left: -12%; top: -14%;
+  width: 128%; height: 132%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(58% 52% at 34% 46%, rgba(9, 24, 48, .88), rgba(9, 24, 48, 0) 72%);
+}
+
+#inicio .etiqueta { color: var(--marca-clara); }
+
+.hero-titulo {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.9rem, 7.4vw, 5.6rem);
+  line-height: 1.02;
+  letter-spacing: -.02em;
+}
+/* o overflow:hidden na linha é o que permite o título subir de baixo */
+.hero-titulo .linha { display: block; overflow: hidden; }
+.hero-titulo .linha > span { display: block; }
+.hero-titulo em {
+  background: linear-gradient(96deg, var(--marca-clara), #cfe1f7 48%, var(--marca-clara));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.hero-texto {
+  margin-top: 1.7rem;
+  max-width: 46ch;
+  font-size: 1.06rem;
+  line-height: 1.72;
+  color: rgba(233, 241, 251, .82);
+}
+
+.hero-acoes { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+#inicio .btn-vazado { border-color: rgba(233, 241, 251, .34); color: #e9f1fb; }
+#inicio .btn-vazado:hover { background: #e9f1fb; color: var(--escuro); border-color: #e9f1fb; }
+
+.hero-dados { margin-top: 3.4rem; display: flex; flex-wrap: wrap; gap: 2.6rem; }
+.hero-dados div { display: flex; flex-direction: column; gap: .3rem; }
+.hero-dados strong { font-family: var(--serif); font-weight: 300; font-size: 1.75rem; color: #cfe1f7; }
+.hero-dados span {
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(233, 241, 251, .55);
+}
+
+.rolar {
+  position: absolute;
+  left: 6vw; bottom: 2rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  font-size: .72rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(233, 241, 251, .5);
+}
+.rolar i { width: 54px; height: 1px; background: rgba(233, 241, 251, .34); position: relative; overflow: hidden; }
+.rolar i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #cfe1f7;
+  transform: translateX(-100%);
+  animation: correr 2.6s ease-in-out infinite;
+}
+@keyframes correr {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
+}
+
+/* ========================= CARDS ========================= */
+
+#servicos { position: relative; z-index: 2; padding: 7rem 0 6rem; }
+
+.grade-servicos {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.4rem;
+}
+
+.servico {
+  background: #fff;
+  border: 1px solid rgba(31, 78, 150, .12);
+  border-radius: 20px;
+  padding: 2.4rem 1.9rem 2.2rem;
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+.servico:hover {
+  transform: translateY(-6px);
+  border-color: rgba(31, 78, 150, .3);
+  box-shadow: 0 22px 48px rgba(20, 55, 110, .13);
+}
+.servico .icone { width: 58px; height: 58px; color: var(--marca); margin-bottom: 1.5rem; }
+.servico h3 { font-family: var(--serif); font-weight: 400; font-size: 1.34rem; margin-bottom: .7rem; }
+.servico p { font-size: .95rem; line-height: 1.7; color: var(--tinta-suave); }
+
+/* ==================== TRILHO HORIZONTAL ==================== */
+
+#galeria { position: relative; z-index: 2; background: var(--claro-fundo); overflow: hidden; }
+
+.trilho { height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.trilho-interno { display: flex; align-items: center; gap: 2.4rem; padding: 0 6vw; will-change: transform; }
+
+.painel { flex: none; }
+.painel-abre { width: min(78vw, 440px); }
+.painel-abre p { margin-top: 1.3rem; font-size: 1rem; line-height: 1.7; color: var(--tinta-suave); max-width: 34ch; }
+.painel-abre .seta { width: 110px; margin-top: 2rem; color: var(--marca); }
+
+.painel-foto {
+  position: relative;
+  width: min(64vw, 300px);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 52px rgba(20, 55, 110, .16);
+}
+.painel-foto img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+/* véu na cor da marca: uniformiza fotos de origem irregular (foto de cliente
+   quase sempre é print de Instagram ou frame de reel) */
+.painel-foto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(200deg, rgba(31, 78, 150, .28), rgba(9, 24, 48, .12) 42%, rgba(9, 24, 48, .78));
+}
+.painel-foto figcaption {
+  position: absolute;
+  left: 1.3rem; right: 1.3rem; bottom: 1.2rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  color: #eaf2fc;
+}
+.painel-foto figcaption strong { font-family: var(--serif); font-weight: 400; font-size: 1.12rem; }
+.painel-foto figcaption span {
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(234, 242, 252, .7);
+}
+
+/* ========================= CONTATO ========================= */
+
+#contato { position: relative; z-index: 2; padding: 7rem 6vw; background: var(--quente); }
+
+.contato-caixa { max-width: 780px; margin: 0 auto; text-align: center; }
+.contato-caixa h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.3rem, 5.4vw, 4rem);
+  line-height: 1.08;
+}
+.contato-caixa > p { margin-top: 1.4rem; font-size: 1.05rem; line-height: 1.72; color: var(--tinta-suave); }
+.contato-acoes { margin-top: 2.6rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+.contato-nota { display: block; margin-top: 2rem; font-size: .84rem; color: rgba(79, 99, 131, .85); }
+
+/* ========================= RODAPÉ ========================= */
+
+footer {
+  position: relative;
+  z-index: 2;
+  background: var(--escuro-fundo);
+  color: rgba(233, 241, 251, .6);
+  padding: 2.4rem 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .78rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+footer a { color: var(--marca-clara); }
+
+/* ========================= RESPONSIVO ========================= */
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  /* não cabem os dois: o subtítulo da marca sai e o botão fica — é ele que
+     faz o site render */
+  .nav-marca em { display: none; }
+  .nav-marca span { font-size: .94rem; }
+  #nav { padding-inline: 4vw; gap: .8rem; }
+  .btn-nav { padding: .58rem 1.2rem; }
+
+  /* a entrelinha larga da etiqueta quebra em duas linhas em tela estreita */
+  .etiqueta { font-size: .66rem; letter-spacing: .2em; }
+
+  #inicio { padding-top: 7rem; min-height: 92svh; }
+  .hero-dados { gap: 1.6rem 2.2rem; }
+  .hero-dados strong { font-size: 1.45rem; }
+  .rolar { display: none; }
+
+  /* no celular o texto ocupa a largura toda: o halo vira faixa central,
+     senão fica um borrão deslocado atrás das letras */
+  .hero-conteudo::before {
+    left: -20%;
+    width: 140%;
+    background: radial-gradient(64% 50% at 50% 48%, rgba(9, 24, 48, .9), rgba(9, 24, 48, 0) 74%);
+  }
+
+  #servicos, #galeria, #contato { padding-top: 5rem; padding-bottom: 4.6rem; }
+
+  /* o trilho vira arrasto com o dedo (o pin do scrub é só desktop) */
+  .trilho {
+    height: auto;
+    padding: 5rem 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* sem isto o snap encosta o 1º painel na borda e engole o padding
+       lateral: o título nasce colado no canto esquerdo da tela */
+    scroll-padding-inline: 6vw;
+    -webkit-overflow-scrolling: touch;
+  }
+  .trilho::-webkit-scrollbar { display: none; }
+  .trilho-interno { gap: 1.2rem; }
+  .painel { scroll-snap-align: center; }
+  .painel-abre { width: 82vw; scroll-snap-align: start; }
+  .painel-foto { width: 68vw; }
+
+  .hero-acoes .btn-principal,
+  .hero-acoes .btn-vazado,
+  .contato-acoes .btn-principal,
+  .contato-acoes .btn-vazado { width: 100%; text-align: center; }
+
+  footer { flex-direction: column; text-align: center; gap: .6rem; }
+}
+
+/* Cortar só o que se repete sozinho pra sempre. Transição de hover fica:
+   ela responde a uma ação da pessoa, não fica agitando a tela. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rolar i::after { animation: none; opacity: .5; transform: none; }
+  .servico:hover { transform: none; }
+  .btn-principal:hover, .btn-nav:hover { transform: none; }
+}
+
+/* ==========================================================================
+   DAQUI PRA BAIXO: A SEÇÃO-ASSINATURA DESTE CLIENTE
+   ========================================================================== */

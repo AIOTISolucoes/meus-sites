@@ -1,0 +1,848 @@
+/* ==========================================================================
+   JK Papelaria Personalizada — estilo
+
+   Base: portifolio-site/_modelo. O que é só deste cliente:
+   os tokens abaixo, a seção "monte a caixinha" e as três proporções de painel
+   da galeria (as artes dela não são todas retrato).
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- TOKENS
+   Paletas já usadas (não repetir):
+     Colmeia .......... mel + rosa pastel
+     Sabtec ........... preto + verde-limão #98cb32
+     Félix ............ preto + dourado #d8a94a
+     Estúdio .......... champagne #f7f1e8 + dourado #c0954a
+     Claudia .......... marinho #0e2445 + azul #1f4e96
+     Spaço Beauty ..... café #422307 + creme #e4ddcd
+     Butterfly ........ marfim + champagne #c9a86a
+     Fisioclin ........ creme #f7f4ef + terracota #7a4a34 + verde-água
+
+   JK: as duas cores medidas no pixel da logo — o "JK" magenta e o anel verde.
+   Fontes já usadas: Cormorant+Jost, Fraunces+Manrope, Archivo Black,
+   Bodoni Moda+Karla, Marcellus+Mulish, Bricolage+Figtree.
+   Aqui: Newsreader (títulos) + Outfit (texto) + Caveat (o manuscrito). */
+
+:root {
+  --escuro: #3a0a2b;         /* ameixa: fundo escuro e texto sobre claro */
+  --escuro-fundo: #26041c;   /* o tom mais fundo: intro e rodapé */
+  --marca: #cc0084;          /* magenta do "JK" da logo */
+  --marca-clara: #ff62b5;    /* 2º tom, pra gradiente e detalhe sobre escuro */
+  --menta: #18b484;          /* verde do anel da logo */
+  --menta-clara: #6fe0bd;
+  --claro: #fff7fb;          /* fundo das seções claras */
+  --claro-fundo: #ffedf6;    /* variação pra alternar duas seções claras */
+  --quente: #f2fbf7;         /* verde bem claro, pra quebrar a monotonia */
+  --tinta: #2c1023;          /* texto principal */
+  --tinta-suave: #7a5468;    /* texto secundário */
+  --serif: 'Newsreader', Georgia, serif;
+  --sans: 'Outfit', system-ui, sans-serif;
+  --script: 'Caveat', 'Segoe Script', cursive;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--claro);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(56vw 40vw at 10% 16%, rgba(255, 98, 181, .13), transparent 70%),
+    radial-gradient(44vw 34vw at 90% 64%, rgba(24, 180, 132, .10), transparent 72%);
+}
+
+/* ---------------------------------------------------------- TIPOGRAFIA */
+
+.etiqueta {
+  display: inline-block;
+  font-size: .72rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--marca);
+  margin-bottom: 1.3rem;
+}
+
+.titulo-secao {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.3rem, 5.2vw, 4.2rem);
+  line-height: 1.07;
+  letter-spacing: -.015em;
+}
+
+/* A palavra destacada sai MANUSCRITA, não em itálico: é a assinatura da marca
+   ("Personalizando seu sonho" na logo é escrito à mão). Como a Caveat tem
+   corpo bem menor que a Newsreader no mesmo font-size, ela é compensada. */
+.titulo-secao em,
+.hero-titulo em,
+#contato h2 em {
+  font-family: var(--script);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.18em;
+  line-height: .85;
+  display: inline-block;
+  transform: rotate(-1.6deg);
+  background: linear-gradient(96deg, var(--marca), var(--marca-clara) 48%, var(--marca));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.secao-topo { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto 4.2rem; padding: 0 6vw; }
+.secao-topo.centro { text-align: center; }
+
+.secao-texto { margin-top: 1.2rem; font-size: 1.02rem; line-height: 1.7; color: var(--tinta-suave); max-width: 46ch; }
+.secao-topo.centro .secao-texto { margin-inline: auto; }
+
+/* -------------------------------------------------------------- BOTÕES */
+
+.btn-principal,
+.btn-vazado {
+  display: inline-block;
+  font-size: .93rem;
+  font-weight: 500;
+  letter-spacing: .03em;
+  padding: 1.02rem 2.2rem;
+  border-radius: 999px;
+  transition: transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease, border-color .3s ease;
+}
+
+.btn-principal {
+  background: linear-gradient(140deg, var(--marca), var(--marca-clara));
+  color: #fff4fa;
+  box-shadow: 0 14px 32px rgba(160, 10, 100, .28);
+}
+.btn-principal:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(160, 10, 100, .36); }
+
+.btn-vazado { border: 1px solid rgba(44, 16, 35, .24); }
+.btn-vazado:hover { background: var(--escuro); color: var(--claro); border-color: var(--escuro); }
+
+.btn-principal.grande, .btn-vazado.grande { padding: 1.18rem 2.7rem; font-size: 1rem; }
+
+/* ========================= INTRO ========================= */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--escuro-fundo);
+  display: grid;
+  place-items: center;
+}
+
+.intro-marca { width: min(52vw, 430px); }
+#logo-intro { width: 100%; overflow: visible; }
+
+#logo-intro .marca-jk {
+  font-family: var(--script);
+  font-weight: 700;
+  font-size: 62px;
+  fill: #ff8ecb;
+  opacity: 0;
+}
+#logo-intro .marca-nome {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: .28em;
+  fill: #ffe6f4;
+  opacity: 0;
+}
+#logo-intro .marca-sub {
+  font-family: var(--script);
+  font-size: 15px;
+  letter-spacing: .04em;
+  fill: var(--menta-clara);
+  opacity: 0;
+}
+
+/* ========================= NAV ========================= */
+
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  padding: .9rem 6vw;
+  background: rgba(255, 247, 251, .9);
+  backdrop-filter: blur(12px);
+  transform: translateY(-110%);
+}
+
+.nav-marca { display: flex; align-items: center; gap: .7rem; color: var(--menta); }
+.nav-logo { width: 34px; height: 34px; flex: none; }
+.nav-jk { font-family: var(--script); font-weight: 700; font-size: 46px; fill: var(--marca); }
+.nav-marca span {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  color: var(--tinta);
+  white-space: nowrap;
+}
+.nav-marca em { font-style: italic; font-size: .86rem; color: var(--marca); }
+
+.nav-links { display: flex; gap: 1.9rem; }
+.nav-links a { font-size: .9rem; color: var(--tinta-suave); position: relative; padding-bottom: 3px; }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: var(--marca);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .35s ease;
+}
+.nav-links a:hover { color: var(--marca); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.btn-nav {
+  font-size: .86rem;
+  font-weight: 500;
+  padding: .62rem 1.5rem;
+  border-radius: 999px;
+  background: var(--escuro);
+  color: var(--claro);
+  transition: background .3s ease, transform .3s ease;
+}
+.btn-nav:hover { background: var(--marca); transform: translateY(-2px); }
+
+/* ========================= HERO ========================= */
+
+#inicio {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 6vw 5rem;
+  background: linear-gradient(168deg, var(--escuro) 0%, #4b0d38 46%, var(--escuro-fundo) 100%);
+  color: #ffeaf6;
+  overflow: hidden;
+}
+
+#inicio canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+
+#inicio::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 30%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(38, 4, 28, 0), var(--escuro-fundo) 88%);
+}
+
+.hero-conteudo { position: relative; z-index: 3; max-width: 660px; }
+
+/* véu de leitura: sem ele as bandeirinhas passam por trás das letras */
+.hero-conteudo::before {
+  content: '';
+  position: absolute;
+  left: -12%; top: -14%;
+  width: 128%; height: 132%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(58% 52% at 34% 46%, rgba(38, 4, 28, .9), rgba(38, 4, 28, 0) 72%);
+}
+
+#inicio .etiqueta { color: var(--menta-clara); }
+
+.hero-titulo {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.7rem, 6.8vw, 5.2rem);
+  line-height: 1.04;
+  letter-spacing: -.02em;
+}
+/* o overflow:hidden na linha é o que permite o título subir de baixo */
+.hero-titulo .linha { display: block; overflow: hidden; padding-bottom: .06em; }
+.hero-titulo .linha > span { display: block; }
+.hero-titulo em {
+  background: linear-gradient(96deg, #ff8ecb, var(--menta-clara) 52%, #ff8ecb);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.hero-texto {
+  margin-top: 1.7rem;
+  max-width: 48ch;
+  font-size: 1.06rem;
+  line-height: 1.72;
+  color: rgba(255, 234, 246, .82);
+}
+
+.hero-acoes { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+#inicio .btn-vazado { border-color: rgba(255, 234, 246, .34); color: #ffeaf6; }
+#inicio .btn-vazado:hover { background: #ffeaf6; color: var(--escuro); border-color: #ffeaf6; }
+
+.hero-dados { margin-top: 3.4rem; display: flex; flex-wrap: wrap; gap: 2.6rem; }
+.hero-dados div { display: flex; flex-direction: column; gap: .3rem; }
+.hero-dados strong { font-family: var(--serif); font-weight: 400; font-size: 1.7rem; color: #ffd0e9; }
+.hero-dados span {
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255, 234, 246, .55);
+}
+
+.rolar {
+  position: absolute;
+  left: 6vw; bottom: 2rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  font-size: .72rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(255, 234, 246, .5);
+}
+.rolar i { width: 54px; height: 1px; background: rgba(255, 234, 246, .34); position: relative; overflow: hidden; }
+.rolar i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--menta-clara);
+  transform: translateX(-100%);
+  animation: correr 2.6s ease-in-out infinite;
+}
+@keyframes correr {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
+}
+
+/* ========================= CARDS ========================= */
+
+#servicos { position: relative; z-index: 2; padding: 7rem 0 6rem; }
+
+.grade-servicos {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  /* 280px em vez de 250: com 6 cards, 4 colunas deixam uma fileira de 2
+     sobrando. Em 3 colunas fecha 3 + 3. */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.4rem;
+}
+
+.servico {
+  background: #fff;
+  border: 1px solid rgba(204, 0, 132, .13);
+  border-radius: 20px;
+  padding: 2.4rem 1.9rem 2.2rem;
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+.servico:hover {
+  transform: translateY(-6px);
+  border-color: rgba(204, 0, 132, .32);
+  box-shadow: 0 22px 48px rgba(160, 10, 100, .13);
+}
+.servico .icone { width: 58px; height: 58px; color: var(--marca); margin-bottom: 1.5rem; }
+/* o 2º, 4º e 6º ícone saem no verde do anel: a logo tem as duas cores */
+.servico:nth-child(even) .icone { color: var(--menta); }
+.servico h3 { font-family: var(--serif); font-weight: 400; font-size: 1.34rem; margin-bottom: .7rem; }
+.servico p { font-size: .95rem; line-height: 1.7; color: var(--tinta-suave); }
+
+/* ========================= PROMOÇÕES ========================= */
+
+#promocoes { position: relative; z-index: 2; padding: 6rem 0 5rem; background: var(--claro-fundo); }
+
+.grade-promo {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.4rem;
+}
+
+.promo {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  padding: 2rem 1.6rem 1.6rem;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid rgba(204, 0, 132, .14);
+}
+.promo-valor {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.1rem;
+  line-height: 1;
+  color: var(--marca);
+}
+.promo h3 { font-family: var(--sans); font-weight: 500; font-size: 1.02rem; }
+.promo p { font-size: .92rem; line-height: 1.62; color: var(--tinta-suave); flex: 1; }
+/* a data é o que separa "promoção divulgada" de "tabela de preço" */
+.promo-data {
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--menta);
+  border-top: 1px solid rgba(24, 180, 132, .22);
+  padding-top: .8rem;
+}
+
+.promo-ressalva {
+  max-width: 58ch;
+  margin: 2.6rem auto 0;
+  padding: 0 6vw;
+  text-align: center;
+  font-size: .88rem;
+  line-height: 1.7;
+  color: var(--tinta-suave);
+}
+
+/* ============ SEÇÃO-ASSINATURA: MONTE A CAIXINHA ============ */
+
+#assinatura {
+  position: relative;
+  z-index: 2;
+  padding: 7rem 0 6rem;
+  background: var(--quente);
+}
+
+.montar {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) 1fr;
+  gap: 3.4rem;
+  align-items: center;
+}
+
+.montar-controles { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.campo { display: flex; flex-direction: column; gap: .55rem; }
+.campo > span {
+  font-size: .72rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+.campo input[type="text"],
+.campo select {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--tinta);
+  background: #fff;
+  border: 1px solid rgba(44, 16, 35, .16);
+  border-radius: 12px;
+  padding: .8rem 1rem;
+  width: 100%;
+  transition: border-color .25s ease, box-shadow .25s ease;
+}
+.campo input[type="text"]:focus,
+.campo select:focus {
+  outline: none;
+  border-color: var(--marca);
+  box-shadow: 0 0 0 3px rgba(204, 0, 132, .14);
+}
+
+.temas { display: flex; flex-wrap: wrap; gap: .5rem; }
+.tema {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  font-family: var(--sans);
+  font-size: .86rem;
+  color: var(--tinta);
+  background: #fff;
+  border: 1px solid rgba(44, 16, 35, .16);
+  border-radius: 999px;
+  padding: .46rem .9rem .46rem .5rem;
+  cursor: pointer;
+  transition: border-color .25s ease, background .25s ease;
+}
+.tema i {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  flex: none;
+  background: linear-gradient(135deg, var(--t1), var(--t2));
+}
+.tema[data-tema="ceu"]    { --t1: #3f8fd8; --t2: #bfe6f7; }
+.tema[data-tema="festa"]  { --t1: #cc0084; --t2: #18b484; }
+.tema[data-tema="jardim"] { --t1: #18b484; --t2: #f4e2a6; }
+.tema[data-tema="doce"]   { --t1: #ff62b5; --t2: #c9a6f0; }
+.tema:hover { border-color: rgba(204, 0, 132, .4); }
+.tema.ativo { border-color: var(--marca); background: rgba(204, 0, 132, .07); }
+
+.dobra-linha { display: flex; align-items: center; gap: .8rem; }
+.dobra-linha em {
+  font-style: normal;
+  font-size: .74rem;
+  letter-spacing: .1em;
+  color: var(--tinta-suave);
+  white-space: nowrap;
+}
+
+#jk-dobra {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--marca), var(--menta));
+  cursor: pointer;
+}
+#jk-dobra::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--marca);
+  box-shadow: 0 4px 12px rgba(160, 10, 100, .3);
+  cursor: grab;
+}
+#jk-dobra::-moz-range-thumb {
+  width: 22px; height: 22px;
+  border: 2px solid var(--marca);
+  border-radius: 50%;
+  background: #fff;
+  cursor: grab;
+}
+
+.montar-pedir { text-align: center; margin-top: .4rem; }
+
+/* ---- o palco 3D ---- */
+
+.montar-palco {
+  position: relative;
+  min-height: 520px;
+  display: grid;
+  place-items: center;
+  perspective: 1100px;
+  touch-action: pan-y;
+}
+
+.caixa {
+  --s: 150px;                /* aresta da caixinha */
+  position: relative;
+  width: var(--s);
+  height: var(--s);
+  transform-style: preserve-3d;
+  /* main.js escreve estas variáveis conforme a dobra e o arrasto.
+     Planificada, a folha tem 3 arestas de largura por 4 de altura e o centro
+     dela fica meia aresta acima do centro da caixa — daí o --desloc e a
+     --escala, que também servem de "câmera se aproximando" ao montar. */
+  transform:
+    translateY(var(--desloc, 0px))
+    scale(var(--escala, .58))
+    rotateX(var(--girox, 8deg))
+    rotateZ(var(--giroz, 0deg));
+  /* tema padrão; os data-tema abaixo sobrescrevem */
+  --c1: #3f8fd8;
+  --c2: #bfe6f7;
+  --c3: #f4fbff;
+}
+.caixa[data-tema="ceu"]    { --c1: #3f8fd8; --c2: #bfe6f7; --c3: #f4fbff; }
+.caixa[data-tema="festa"]  { --c1: #cc0084; --c2: #18b484; --c3: #fff6fb; }
+.caixa[data-tema="jardim"] { --c1: #18b484; --c2: #e2c25f; --c3: #f6fdf9; }
+.caixa[data-tema="doce"]   { --c1: #ff62b5; --c2: #a97ce0; --c3: #fdf6ff; }
+
+.parede {
+  position: absolute;
+  left: 0; top: 0;
+  width: var(--s);
+  height: var(--s);
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  border: 1px dashed color-mix(in srgb, var(--c1) 55%, transparent);
+  border-radius: 3px;
+  /* a "impressão": confete nas cores do tema + a faixa da base */
+  background-color: var(--c3);
+  background-image:
+    radial-gradient(circle at 22% 26%, var(--c2) 0 4.5px, transparent 5.5px),
+    radial-gradient(circle at 72% 44%, var(--c1) 0 3.5px, transparent 4.5px),
+    radial-gradient(circle at 44% 78%, var(--c2) 0 3.5px, transparent 4.5px),
+    radial-gradient(circle at 88% 86%, var(--c1) 0 2.5px, transparent 3.5px),
+    linear-gradient(180deg, transparent 0 76%, color-mix(in srgb, var(--c1) 82%, #fff) 76% 100%);
+  background-size: 42px 42px, 42px 42px, 42px 42px, 42px 42px, 100% 100%;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5);
+}
+
+/* Cada parede nasce ENCOSTADA na aresta da base e gira em torno dessa aresta.
+   --d é a dobra (0 = folha plana, 1 = caixinha montada), escrita pelo main.js. */
+.p-fundo { transform: none; z-index: 2; }
+
+/* Atenção aos SINAIS: o eixo Y do CSS aponta pra BAIXO, então a parede de
+   cima precisa de rotateX NEGATIVO pra subir na direção do observador e a de
+   baixo de POSITIVO. Com os dois iguais, duas paredes dobram pra fora e a
+   caixa vira uma flor aberta (foi o que aconteceu na primeira tentativa). */
+.p-norte {
+  transform-origin: center bottom;
+  transform: translateY(calc(var(--s) * -1)) rotateX(calc(var(--d, 0) * -90deg));
+}
+.p-sul {
+  transform-origin: center top;
+  transform: translateY(var(--s)) rotateX(calc(var(--d, 0) * 90deg));
+}
+.p-leste {
+  transform-origin: left center;
+  transform: translateX(var(--s)) rotateY(calc(var(--d, 0) * -90deg));
+}
+.p-oeste {
+  transform-origin: right center;
+  transform: translateX(calc(var(--s) * -1)) rotateY(calc(var(--d, 0) * 90deg));
+}
+.etiq-nome {
+  position: absolute;
+  inset: 0;
+  /* dobrando as paredes pra cima, a face impressa de uma delas fica virada
+     pro outro lado — sem isto o nome apareceria espelhado nela */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .1rem;
+  pointer-events: none;
+  /* o padding de baixo empurra o texto pro alto da parede: montada, a parede
+     da frente tampa a metade de baixo da parede do fundo e o nome saía
+     cortado pela metade */
+  padding: 0 .5rem 30%;
+  text-align: center;
+}
+.etiq-nome b {
+  font-family: var(--script);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1;
+  color: color-mix(in srgb, var(--c1) 88%, #2c1023);
+  overflow-wrap: anywhere;
+}
+.etiq-nome i {
+  font-style: normal;
+  font-family: var(--sans);
+  font-size: .6rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--c1) 70%, #2c1023);
+}
+
+.palco-nota {
+  position: absolute;
+  bottom: .6rem;
+  font-size: .74rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(122, 84, 104, .7);
+}
+
+.assinatura-ressalva {
+  max-width: 62ch;
+  margin: 3.6rem auto 0;
+  padding: 0 6vw;
+  text-align: center;
+  font-size: .9rem;
+  line-height: 1.7;
+  color: var(--tinta-suave);
+}
+
+/* ========================= FICHA ========================= */
+
+#ficha { position: relative; z-index: 2; padding: 7rem 0 6rem; background: var(--claro-fundo); }
+
+.ficha-caixa { max-width: 1240px; margin: 0 auto; }
+.ficha-caixa .secao-topo { margin-bottom: 3rem; }
+
+/* 4 itens em 2 colunas fecham 2 + 2; em auto-fit sobrava um sozinho embaixo */
+.lista-ficha {
+  list-style: none;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.6rem;
+}
+@media (max-width: 700px) { .lista-ficha { grid-template-columns: 1fr; } }
+.lista-ficha li {
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+  padding: 1.6rem 1.4rem;
+  background: #fff;
+  border-radius: 16px;
+  border-top: 3px solid var(--menta);
+}
+.lista-ficha li:nth-child(even) { border-top-color: var(--marca); }
+.lista-ficha strong { font-family: var(--serif); font-weight: 500; font-size: 1.08rem; }
+.lista-ficha span { font-size: .92rem; line-height: 1.65; color: var(--tinta-suave); }
+
+/* ==================== TRILHO HORIZONTAL ==================== */
+
+#galeria { position: relative; z-index: 2; background: var(--claro); overflow: hidden; }
+
+.trilho { height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.trilho-interno { display: flex; align-items: center; gap: 2.4rem; padding: 0 6vw; will-change: transform; }
+
+.painel { flex: none; }
+.painel-abre { width: min(78vw, 440px); }
+.painel-abre p { margin-top: 1.3rem; font-size: 1rem; line-height: 1.7; color: var(--tinta-suave); max-width: 34ch; }
+.painel-abre .seta { width: 110px; margin-top: 2rem; color: var(--marca); }
+
+.painel-foto {
+  position: relative;
+  width: min(64vw, 300px);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 52px rgba(160, 10, 100, .16);
+}
+.painel-foto img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+/* as artes dela não são todas retrato: forçar 3:4 em tudo cortaria o produto */
+.painel-foto.larga { width: min(80vw, 460px); }
+.painel-foto.larga img { aspect-ratio: 3 / 2; }
+.painel-foto.faixa { width: min(84vw, 520px); }
+.painel-foto.faixa img { aspect-ratio: 2 / 1; }
+
+/* Véu na cor da marca: uniformiza artes de origem irregular. São DUAS
+   camadas de propósito — a diagonal dá o tom da marca, e a vertical garante
+   fundo escuro atrás da legenda. Só com a diagonal, painel largo deixava o
+   canto de baixo à esquerda claro e a legenda branca sumia. */
+.painel-foto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(200deg, rgba(204, 0, 132, .2), rgba(38, 4, 28, 0) 48%),
+    linear-gradient(to top, rgba(38, 4, 28, .86) 0, rgba(38, 4, 28, .38) 26%, rgba(38, 4, 28, 0) 54%);
+}
+.painel-foto figcaption {
+  position: absolute;
+  left: 1.3rem; right: 1.3rem; bottom: 1.2rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  color: #fff0f8;
+}
+.painel-foto figcaption strong { font-family: var(--serif); font-weight: 400; font-size: 1.12rem; }
+.painel-foto figcaption span {
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255, 240, 248, .7);
+}
+
+/* ========================= CONTATO ========================= */
+
+#contato { position: relative; z-index: 2; padding: 7rem 6vw; background: var(--quente); }
+
+.contato-caixa { max-width: 780px; margin: 0 auto; text-align: center; }
+.contato-caixa h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.3rem, 5.4vw, 4rem);
+  line-height: 1.08;
+}
+.contato-caixa > p { margin-top: 1.4rem; font-size: 1.05rem; line-height: 1.72; color: var(--tinta-suave); }
+.contato-acoes { margin-top: 2.6rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+.contato-nota { display: block; margin-top: 2rem; font-size: .84rem; line-height: 1.7; color: rgba(122, 84, 104, .9); }
+
+/* ========================= RODAPÉ ========================= */
+
+footer {
+  position: relative;
+  z-index: 2;
+  background: var(--escuro-fundo);
+  color: rgba(255, 234, 246, .6);
+  padding: 2.4rem 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .78rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+footer a { color: var(--marca-clara); }
+
+/* ========================= RESPONSIVO ========================= */
+
+@media (max-width: 980px) {
+  .montar { grid-template-columns: 1fr; gap: 2.4rem; }
+  .montar-palco { min-height: 400px; order: -1; }
+}
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  .nav-marca em { display: none; }
+  .nav-marca span { font-size: .94rem; }
+  #nav { padding-inline: 4vw; gap: .8rem; }
+  .btn-nav { padding: .58rem 1.2rem; }
+
+  .etiqueta { font-size: .66rem; letter-spacing: .2em; }
+
+  #inicio { padding-top: 7rem; min-height: 92svh; }
+  .hero-dados { gap: 1.6rem 2.2rem; }
+  .hero-dados strong { font-size: 1.45rem; }
+  .rolar { display: none; }
+
+  .hero-conteudo::before {
+    left: -20%;
+    width: 140%;
+    background: radial-gradient(64% 50% at 50% 48%, rgba(38, 4, 28, .92), rgba(38, 4, 28, 0) 74%);
+  }
+
+  #servicos, #promocoes, #assinatura, #ficha, #galeria, #contato { padding-top: 5rem; padding-bottom: 4.6rem; }
+
+  .caixa { --s: 108px; }
+  .montar-palco { min-height: 330px; }
+
+  /* o trilho vira arrasto com o dedo (o pin do scrub é só desktop) */
+  .trilho {
+    height: auto;
+    padding: 5rem 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 6vw;
+    -webkit-overflow-scrolling: touch;
+  }
+  .trilho::-webkit-scrollbar { display: none; }
+  .trilho-interno { gap: 1.2rem; }
+  .painel { scroll-snap-align: center; }
+  .painel-abre { width: 82vw; scroll-snap-align: start; }
+  .painel-foto { width: 68vw; }
+  .painel-foto.larga, .painel-foto.faixa { width: 82vw; }
+
+  .hero-acoes .btn-principal,
+  .hero-acoes .btn-vazado,
+  .contato-acoes .btn-principal,
+  .contato-acoes .btn-vazado { width: 100%; text-align: center; }
+
+  footer { flex-direction: column; text-align: center; gap: .6rem; }
+}
+
+/* Cortar só o que se repete sozinho pra sempre. Transição de hover fica:
+   ela responde a uma ação da pessoa, não fica agitando a tela. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rolar i::after { animation: none; opacity: .5; transform: none; }
+  .servico:hover { transform: none; }
+  .btn-principal:hover, .btn-nav:hover { transform: none; }
+}

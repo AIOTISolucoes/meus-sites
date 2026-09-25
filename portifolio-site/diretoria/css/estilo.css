@@ -1,0 +1,743 @@
+/* ==========================================================================
+   DIRETORIA BARBER — estilo
+
+   Rua das Cerejeiras, 435 — Conjunto Esperança, Fortaleza.
+   @diretoriabarberoficial
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- TOKENS
+
+   Paletas já usadas (não repetir):
+     Colmeia · Sabtec · Félix (preto+dourado #d8a94a) · Estúdio (champagne+
+     dourado #c0954a) · Claudia · Spaço · Butterfly · Fisioclin · JK ·
+     Reserva · LS (preto + amarelo ácido #faec41 + concreto) ·
+     Drummer (papel branco + preto + latão #a97b2e)
+
+   ⚠️ ESTE É O TERCEIRO SITE DE BARBEARIA SEGUIDO e o quarto com cor
+   âmbar/dourada no portfólio. O que separa a Diretoria:
+
+   1. O âmbar DELES é #e8a71d — laranja-mel, medido no pixel da logo. O LS é
+      limão ácido #faec41 e o Drummer é latão fosco #a97b2e. São três amarelos
+      de matiz e saturação bem diferentes; não trocar por "um amarelo só".
+   2. A casa deles é CLÁSSICA: tijolo aparente, poste de barbeiro, sofá
+      capitonê, quadros emoldurados, toalha quente. Nada de moderno. Por isso
+      a superfície clara aqui é OSSO quente (papel velho de placa esmaltada) e
+      entra o TIJOLO #b58860 medido na parede deles — cor que nenhum outro
+      site do portfólio tem.
+   3. A tipografia é slab de placa antiga, não condensada de cartaz (Drummer)
+      nem heráldica (LS).
+
+   Fontes já usadas: Cormorant+Jost, Fraunces+Manrope, Archivo Black, Bodoni
+   Moda+Karla, Marcellus+Mulish, Bricolage+Figtree, Newsreader+Outfit+Caveat,
+   Instrument Serif+DM Sans, Oswald+Barlow (LS), Anton+Space Grotesk (Drummer).
+   Aqui: BEVAN (slab de placa) + WORK SANS. */
+
+:root {
+  --breu: #16110c;           /* preto quente da casa */
+  --breu-fundo: #0d0a07;     /* o tom mais fundo: intro, hero e rodapé */
+  --ambar: #e8a71d;          /* o âmbar da logo, medido no pixel */
+  --ambar-claro: #f6c445;    /* 2º tom, sobre o escuro */
+
+  --osso: #f3e9da;           /* placa esmaltada velha */
+  --osso-fundo: #e8dbc7;     /* variação pra alternar duas seções claras */
+  --tijolo: #b58860;         /* a parede deles, medida no pixel */
+  /* o tijolo puro dá 3,8:1 no osso — reprova pra texto miúdo. Esta versão
+     escurecida (5,1:1) é a que pode virar LETRA sobre o claro. */
+  --tijolo-escuro: #8f5230;
+
+  --tinta: #221a11;          /* texto principal */
+  --tinta-suave: #5f5040;    /* texto secundário — 6,5:1 sobre o osso */
+
+  --display: 'Bevan', Georgia, serif;
+  --sans: 'Work Sans', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--osso);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* profundidade sem textura repetida (o grid de quadradinhos foi rejeitado no
+   portfólio — não reintroduzir) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(56vw 40vw at 12% 14%, rgba(232, 167, 29, .12), transparent 70%),
+    radial-gradient(46vw 34vw at 88% 68%, rgba(181, 136, 96, .16), transparent 72%);
+}
+
+/* ---------------------------------------------------------- TIPOGRAFIA */
+
+.etiqueta {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--tijolo-escuro);
+  margin-bottom: 1.2rem;
+}
+
+.titulo-secao {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1.12;   /* Bevan tem ascendentes altas; apertar corta acento */
+  letter-spacing: .005em;
+}
+
+/* A palavra em destaque ganha o âmbar com uma sombra dura atrás — é o efeito
+   de letreiro pintado à mão, que combina com a casa. Nada de itálico: a Bevan
+   não tem itálico de verdade. */
+.titulo-secao em,
+#contato h2 em,
+.hero-titulo em {
+  font-style: normal;
+  color: var(--ambar);
+  text-shadow: 2px 2px 0 var(--breu);
+}
+
+.secao-topo { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto 3.6rem; padding: 0 6vw; }
+.secao-topo.centro { text-align: center; }
+
+.secao-texto { margin-top: 1.1rem; font-size: 1rem; line-height: 1.72; color: var(--tinta-suave); max-width: 46ch; }
+.secao-topo.centro .secao-texto { margin-inline: auto; }
+
+/* -------------------------------------------------------------- BOTÕES */
+
+.btn-principal,
+.btn-vazado {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: .86rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 1.02rem 2.1rem;
+  border-radius: 3px;
+  border: 2px solid var(--breu);
+  cursor: pointer;
+  transition: transform .25s ease, background .25s ease, color .25s ease, box-shadow .25s ease;
+}
+
+/* texto ESCURO sobre o âmbar: branco em cima de #e8a71d é ilegível */
+.btn-principal { background: var(--ambar); color: var(--breu); box-shadow: 4px 4px 0 var(--breu); }
+.btn-principal:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--breu); }
+
+.btn-vazado { background: none; color: var(--tinta); }
+.btn-vazado:hover { background: var(--breu); color: var(--ambar); }
+
+.btn-principal.grande, .btn-vazado.grande { padding: 1.16rem 2.6rem; font-size: .92rem; }
+
+/* ========================= INTRO ========================= */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--breu-fundo);
+  display: grid;
+  place-items: center;
+}
+
+.intro-marca { width: min(52vw, 360px); }
+#logo-intro { width: 100%; overflow: visible; }
+
+#logo-intro .marca-nome {
+  font-family: var(--display);
+  font-size: 30px;
+  letter-spacing: .04em;
+  fill: var(--osso);
+}
+#logo-intro .marca-sub {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: .36em;
+  fill: var(--ambar);
+}
+#logo-intro .marca-nome,
+#logo-intro .marca-sub { opacity: 0; }
+
+/* ========================= NAV ========================= */
+
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  padding: .8rem 6vw;
+  background: rgba(243, 233, 218, .93);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--breu);
+  transform: translateY(-110%);   /* a intro traz ela pra baixo no fim */
+}
+
+.nav-marca { display: flex; align-items: center; gap: .7rem; color: var(--tijolo-escuro); }
+.nav-logo { width: 36px; height: 24px; flex: none; }
+.nav-marca span {
+  font-family: var(--display);
+  font-size: 1rem;
+  letter-spacing: .02em;
+  color: var(--tinta);
+  white-space: nowrap;
+}
+.nav-marca em { font-style: normal; color: var(--tijolo-escuro); }
+
+.nav-links { display: flex; gap: 1.8rem; }
+.nav-links a {
+  font-size: .84rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  position: relative;
+  padding-bottom: 3px;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 2px;
+  background: var(--ambar);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .35s ease;
+}
+.nav-links a:hover { color: var(--tinta); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.btn-nav {
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .6rem 1.3rem;
+  border-radius: 3px;
+  background: var(--breu);
+  color: var(--ambar);
+  transition: background .25s ease, color .25s ease;
+}
+.btn-nav:hover { background: var(--ambar); color: var(--breu); }
+
+/* ========================= HERO ========================= */
+
+#inicio {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 6vw 5rem;
+  background: var(--breu-fundo);
+  color: var(--osso);
+  overflow: hidden;
+}
+
+/* as listras do poste de barbeiro, em CSS. É o objeto mais reconhecível da
+   casa deles (está em assets/poste-barbeiro.jpg) e não custa um canvas. */
+.poste {
+  position: absolute;
+  inset: -20% -10%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .16;
+  background: repeating-linear-gradient(
+    118deg,
+    var(--ambar) 0 26px,
+    transparent 26px 52px,
+    var(--tijolo) 52px 78px,
+    transparent 78px 104px);
+}
+
+/* o globo de luz do poste, que segue o ponteiro. Só transform, sem repintura:
+   é o efeito mais barato que ainda responde a quem está olhando. */
+.globo {
+  position: absolute;
+  left: 0; top: 0;
+  width: 620px; height: 620px;
+  margin: -310px 0 0 -310px;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(246, 196, 69, .2), rgba(246, 196, 69, .07) 42%, transparent 70%);
+  transform: translate3d(70vw, 46vh, 0);
+  will-change: transform;
+}
+
+#inicio::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 26%;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(13, 10, 7, 0), var(--breu-fundo) 90%);
+}
+
+.hero-conteudo { position: relative; z-index: 4; max-width: 640px; }
+
+/* véu de leitura: halo do próprio fundo atrás do texto. Sem ele as listras
+   passam por trás das letras e o título perde contraste. */
+.hero-conteudo::before {
+  content: '';
+  position: absolute;
+  left: -12%; top: -16%;
+  width: 130%; height: 136%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(58% 54% at 34% 46%, rgba(13, 10, 7, .93), rgba(13, 10, 7, 0) 72%);
+}
+
+#inicio .etiqueta { color: var(--ambar); }
+
+.hero-titulo {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 6.6vw, 5rem);
+  line-height: 1.1;
+  letter-spacing: .005em;
+}
+/* o overflow:hidden na linha é o que permite o título subir de baixo.
+   O padding-top com margem negativa devolve o espaço do acento e da sombra
+   dura do <em>, que a entrelinha apertada cortava. */
+.hero-titulo .linha {
+  display: block;
+  overflow: hidden;
+  padding: .14em 0 .1em;
+  margin-top: -.14em;
+}
+.hero-titulo .linha > span { display: block; }
+.hero-titulo em { text-shadow: 3px 3px 0 var(--breu-fundo); }
+
+.hero-texto {
+  margin-top: 1.5rem;
+  max-width: 48ch;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: rgba(243, 233, 218, .8);
+}
+
+.hero-acoes { margin-top: 2.2rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+#inicio .btn-principal { border-color: var(--ambar); box-shadow: 4px 4px 0 rgba(243, 233, 218, .28); }
+#inicio .btn-vazado { color: var(--osso); border-color: rgba(243, 233, 218, .45); }
+#inicio .btn-vazado:hover { background: var(--osso); color: var(--breu); border-color: var(--osso); }
+
+.hero-dados { margin-top: 3rem; display: flex; flex-wrap: wrap; gap: 2.4rem; }
+.hero-dados div { display: flex; flex-direction: column; gap: .3rem; }
+.hero-dados strong {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: var(--ambar-claro);
+}
+.hero-dados span {
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(243, 233, 218, .52);
+}
+
+.rolar {
+  position: absolute;
+  left: 6vw; bottom: 2rem;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  font-size: .7rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(243, 233, 218, .45);
+}
+.rolar i { width: 54px; height: 1px; background: rgba(243, 233, 218, .26); position: relative; overflow: hidden; }
+.rolar i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--ambar-claro);
+  transform: translateX(-100%);
+  animation: correr 2.6s ease-in-out infinite;
+}
+@keyframes correr {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
+}
+
+/* ==================== A PLACA DE PREÇOS ==================== */
+
+#servicos { position: relative; z-index: 2; padding: 7rem 0 6rem; }
+
+.placa {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 3rem 3rem 2.6rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+  background: var(--osso-fundo);
+  border: 3px solid var(--breu);
+  /* a moldura dupla é o que faz ler como PLACA e não como caixa de site */
+  box-shadow: 0 0 0 3px var(--osso-fundo) inset, 0 0 0 5px var(--breu) inset,
+              10px 10px 0 rgba(22, 17, 12, .14);
+}
+
+.placa-titulo {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.16rem;
+  letter-spacing: .03em;
+  color: var(--tijolo-escuro);
+  padding-bottom: .6rem;
+  margin-bottom: .4rem;
+  border-bottom: 2px solid var(--breu);
+}
+.placa-titulo + .placa-lista { margin-bottom: 2.2rem; }
+
+.placa-lista { list-style: none; }
+.placa-lista li {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+  padding: .62rem 0;
+  font-size: .98rem;
+}
+/* os pontinhos que ligam o nome ao preço, como em cardápio antigo */
+.placa-lista li::before {
+  content: '';
+  order: 1;
+  flex: 1;
+  height: 0;
+  border-bottom: 1px dotted rgba(34, 26, 17, .38);
+  transform: translateY(-.22em);
+}
+.placa-lista li span { order: 0; }
+.placa-lista li small { display: block; font-size: .76rem; color: var(--tinta-suave); letter-spacing: .02em; }
+.placa-lista li b {
+  order: 2;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.06rem;
+  white-space: nowrap;
+}
+
+.placa-nota {
+  margin-top: .4rem;
+  padding: 1rem 1.1rem;
+  background: var(--ambar);
+  color: var(--breu);
+  font-size: .9rem;
+  line-height: 1.65;
+  border: 2px solid var(--breu);
+}
+
+.comodidades { margin-top: 1.6rem; list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; }
+.comodidades li {
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .42rem .8rem;
+  border: 1px solid rgba(34, 26, 17, .3);
+  color: var(--tinta-suave);
+}
+
+/* ==========================================================================
+   SEÇÃO-ASSINATURA: A SEMANA
+   ========================================================================== */
+
+#assinatura {
+  position: relative;
+  z-index: 2;
+  padding: 6.5rem 0 7rem;
+  background: var(--breu);
+  color: var(--osso);
+}
+#assinatura .etiqueta { color: var(--ambar); }
+#assinatura .secao-texto { color: rgba(243, 233, 218, .72); }
+#assinatura .titulo-secao em { text-shadow: 3px 3px 0 var(--breu-fundo); }
+
+.semana { max-width: 1000px; margin: 0 auto; padding: 0 6vw; }
+
+.semana-veredito {
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.6rem;
+  min-height: 3.4rem;   /* trava a altura: sem isto o quadro pula ao arrastar */
+}
+#semana-hora {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2rem, 4.4vw, 3rem);
+  color: var(--ambar);
+  line-height: 1;
+}
+#semana-frase { font-size: 1.02rem; line-height: 1.5; color: rgba(243, 233, 218, .88); max-width: 40ch; }
+
+.semana-quadro {
+  position: relative;
+  padding: 2.2rem 0 .4rem;
+  cursor: ew-resize;
+  touch-action: none;   /* permite arrastar sem virar rolagem da página */
+  /* sem isto, arrastar a agulha SELECIONA os rótulos e pinta tudo de azul —
+     aparece feio no vídeo de venda e no uso real */
+  user-select: none;
+  -webkit-user-select: none;
+  outline-offset: 6px;
+}
+.semana-quadro:focus-visible { outline: 2px solid var(--ambar); }
+
+.semana-horas {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 1.6rem;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  color: rgba(243, 233, 218, .45);
+}
+.semana-horas span { position: absolute; transform: translateX(-50%); }
+
+.semana-linhas { display: flex; flex-direction: column; gap: 6px; }
+
+.dia {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+}
+.dia-nome {
+  flex: none;
+  width: 3.4rem;
+  font-size: .76rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(243, 233, 218, .6);
+}
+.dia-trilho {
+  position: relative;
+  flex: 1;
+  height: 26px;
+  background: rgba(243, 233, 218, .07);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.dia-bloco {
+  position: absolute;
+  top: 0; bottom: 0;
+  background: var(--tijolo);
+  transition: background .25s ease;
+}
+/* o bloco em que a agulha está agora acende no âmbar */
+.dia.aberto .dia-bloco.ativo { background: var(--ambar); }
+.dia-estado {
+  flex: none;
+  width: 4.6rem;
+  text-align: right;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(243, 233, 218, .35);
+  transition: color .25s ease;
+}
+.dia.aberto .dia-estado { color: var(--ambar); }
+
+.semana-agulha {
+  position: absolute;
+  top: 1.8rem; bottom: .4rem;
+  width: 2px;
+  background: var(--osso);
+  pointer-events: none;
+}
+.semana-agulha::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: -7px;
+  width: 13px; height: 13px;
+  margin-left: -6.5px;
+  background: var(--osso);
+  transform: rotate(45deg);
+}
+
+/* ==================== TRILHO HORIZONTAL ==================== */
+
+#galeria { position: relative; z-index: 2; background: var(--osso-fundo); overflow: hidden; }
+
+.trilho { height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.trilho-interno { display: flex; align-items: center; gap: 2.2rem; padding: 0 6vw; will-change: transform; }
+
+.painel { flex: none; }
+.painel-abre { width: min(78vw, 400px); }
+.painel-abre p { margin-top: 1.2rem; font-size: .98rem; line-height: 1.7; color: var(--tinta-suave); max-width: 34ch; }
+.painel-abre .seta { width: 110px; margin-top: 1.8rem; color: var(--tijolo-escuro); }
+
+/* as fotos ja vem com grade quente do disco (ver RETOMAR.md): preto levantado
+   e luz puxada pro ambar, que e o que uniformiza reels de temperaturas
+   diferentes sem apagar a cor do tijolo. */
+.painel-foto {
+  position: relative;
+  width: min(64vw, 290px);
+  overflow: hidden;
+  border: 3px solid var(--breu);
+  box-shadow: 8px 8px 0 rgba(22, 17, 12, .18);
+}
+.painel-foto img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.painel-foto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(13, 10, 7, 0) 48%, rgba(13, 10, 7, .85));
+}
+.painel-foto figcaption {
+  position: absolute;
+  left: 1.1rem; right: 1.1rem; bottom: 1rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: .18rem;
+  color: var(--osso);
+}
+.painel-foto figcaption strong {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.06rem;
+  letter-spacing: .02em;
+}
+.painel-foto figcaption span {
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ambar);
+}
+
+/* ========================= CONTATO ========================= */
+
+#contato { position: relative; z-index: 2; padding: 7rem 6vw; background: var(--osso); }
+
+.contato-caixa { max-width: 760px; margin: 0 auto; text-align: center; }
+.contato-caixa h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5.2vw, 3.8rem);
+  line-height: 1.12;
+}
+.contato-caixa > p { margin-top: 1.3rem; font-size: 1.02rem; line-height: 1.72; color: var(--tinta-suave); }
+.contato-acoes { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+.contato-nota { display: block; margin-top: 2rem; font-size: .84rem; line-height: 1.75; color: var(--tinta-suave); }
+
+/* ========================= RODAPÉ ========================= */
+
+footer {
+  position: relative;
+  z-index: 2;
+  background: var(--breu-fundo);
+  color: rgba(243, 233, 218, .55);
+  padding: 2.3rem 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .74rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  /* o botão de chat é fixo no canto e senta em cima do "site por" quando a
+     página chega no fim */
+  padding-right: 7rem;
+}
+footer a { color: var(--ambar); }
+
+/* ========================= RESPONSIVO ========================= */
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  /* não cabem os dois: o "Barber" sai e o botão fica — é ele que faz o site render */
+  .nav-marca em { display: none; }
+  .nav-marca span { font-size: .92rem; }
+  #nav { padding-inline: 4vw; gap: .8rem; }
+  .btn-nav { padding: .56rem 1.1rem; font-size: .72rem; }
+
+  /* a entrelinha larga da etiqueta quebra em duas linhas em tela estreita */
+  .etiqueta { font-size: .64rem; letter-spacing: .18em; }
+
+  #inicio { padding-top: 7rem; min-height: 92svh; }
+  .hero-dados { gap: 1.4rem 2rem; }
+  .hero-dados strong { font-size: 1.15rem; }
+  .rolar { display: none; }
+
+  /* no celular o texto ocupa a largura toda: o halo vira faixa central,
+     senão fica um borrão deslocado atrás das letras */
+  .hero-conteudo::before {
+    left: -20%;
+    width: 140%;
+    background: radial-gradient(64% 50% at 50% 48%, rgba(13, 10, 7, .94), rgba(13, 10, 7, 0) 74%);
+  }
+  /* no celular o ponteiro não existe: o globo fica parado no meto, só como luz */
+  .globo { transform: translate3d(50vw, 40vh, 0) !important; }
+
+  #servicos, #galeria, #contato, #assinatura { padding-top: 5rem; padding-bottom: 4.6rem; }
+
+  .placa { padding: 2rem 1.4rem 1.8rem; gap: 2rem; margin-inline: 5vw; }
+
+  /* a coluna do estado não cabe junto do trilho em tela estreita */
+  .dia-nome { width: 2.6rem; font-size: .68rem; letter-spacing: .08em; }
+  .dia-estado { width: 3.4rem; font-size: .62rem; letter-spacing: .06em; }
+  .semana-veredito { min-height: 5rem; }
+
+  /* o trilho vira arrasto com o dedo (o pin do scrub é só desktop) */
+  .trilho {
+    height: auto;
+    padding: 5rem 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* sem isto o snap encosta o 1º painel na borda e engole o padding
+       lateral: o título nasce colado no canto esquerdo da tela */
+    scroll-padding-inline: 6vw;
+    -webkit-overflow-scrolling: touch;
+  }
+  .trilho::-webkit-scrollbar { display: none; }
+  .trilho-interno { gap: 1.2rem; }
+  .painel { scroll-snap-align: center; }
+  .painel-abre { width: 82vw; scroll-snap-align: start; }
+  .painel-foto { width: 68vw; }
+
+  .hero-acoes .btn-principal,
+  .hero-acoes .btn-vazado,
+  .contato-acoes .btn-principal,
+  .contato-acoes .btn-vazado { width: 100%; text-align: center; }
+
+  /* empilhado e centralizado, o recuo pro botão de chat desalinharia tudo */
+  footer { flex-direction: column; text-align: center; gap: .6rem; padding-right: 6vw; padding-bottom: 5.5rem; }
+}
+
+/* Cortar só o que se repete sozinho pra sempre. Hover e o arrasto da agulha
+   FICAM: respondem a uma ação da pessoa. O globo também fica — ele só se move
+   junto com o ponteiro. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rolar i::after { animation: none; opacity: .5; transform: none; }
+  .btn-principal:hover { transform: none; }
+}

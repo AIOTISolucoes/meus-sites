@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cena Vercel</title>
+  <style>
+    :root {
+      --frame-w: 1080px;
+      --frame-h: 1920px;
+      --ink: #ededed;
+      --muted: #9a9a9a;
+      --line: #292929;
+      --panel: #111111;
+      --page: #0a0a0a;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #050505;
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+    }
+
+    .reel {
+      position: relative;
+      width: var(--frame-w);
+      height: var(--frame-h);
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(900px 640px at 50% 37%, rgba(255,255,255,.075), transparent 66%),
+        linear-gradient(180deg, #050505 0%, #090909 44%, #030303 100%);
+    }
+
+    .reel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 45%, transparent 45%, rgba(0,0,0,.38) 100%);
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      pointer-events: none;
+      opacity: .05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
+    }
+
+    .ambient {
+      position: absolute;
+      width: 650px;
+      height: 650px;
+      left: 215px;
+      top: 520px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.07);
+      filter: blur(140px);
+      transform: scale(var(--ambient-scale, .72));
+      opacity: var(--ambient-opacity, 0);
+    }
+
+    .camera {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 1360px;
+      height: 930px;
+      transform-origin: 50% 48%;
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+      opacity: var(--camera-opacity, 0);
+      transform:
+        translate3d(calc(-50% + var(--camera-x, 0px)), var(--camera-y, 510px), 0)
+        perspective(1800px)
+        rotateX(var(--camera-rx, 6deg))
+        rotateY(var(--camera-ry, -10deg))
+        rotateZ(var(--camera-rz, 1.2deg))
+        scale(var(--camera-scale, .61));
+    }
+
+    .browser {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border: 1px solid #333;
+      border-radius: 18px;
+      background: var(--page);
+      box-shadow:
+        0 70px 180px rgba(0,0,0,.74),
+        0 18px 48px rgba(0,0,0,.52),
+        inset 0 1px 0 rgba(255,255,255,.09);
+    }
+
+    .chrome {
+      height: 64px;
+      display: grid;
+      grid-template-columns: 122px 1fr 122px;
+      align-items: center;
+      padding: 0 18px;
+      border-bottom: 1px solid #252525;
+      background: #151515;
+    }
+
+    .traffic { display: flex; gap: 10px; }
+    .traffic span { width: 13px; height: 13px; border-radius: 50%; background: #464646; }
+    .traffic span:first-child { background: #ff5f57; }
+    .traffic span:nth-child(2) { background: #febc2e; }
+    .traffic span:nth-child(3) { background: #28c840; }
+
+    .address {
+      justify-self: center;
+      width: 690px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid #333;
+      border-radius: 10px;
+      color: #b8b8b8;
+      background: #202020;
+      font-size: 14px;
+      letter-spacing: -.1px;
+    }
+
+    .lock {
+      width: 9px;
+      height: 8px;
+      border: 1.5px solid #888;
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .lock::before {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      left: 0;
+      top: -7px;
+      border: 1.5px solid #888;
+      border-bottom: 0;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .chrome-tools { justify-self: end; display: flex; gap: 16px; color: #8d8d8d; font-size: 20px; }
+
+    .webview {
+      position: relative;
+      height: calc(100% - 64px);
+      background: var(--page);
+      overflow: hidden;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      opacity: var(--screen-opacity, 1);
+      transform: translate3d(var(--screen-x, 0), 0, 0);
+      will-change: transform, opacity;
+    }
+
+    .dashboard { --screen-opacity: var(--dash-opacity, 1); --screen-x: var(--dash-x, 0px); }
+    .new-project { --screen-opacity: var(--new-opacity, 0); --screen-x: var(--new-x, 40px); pointer-events: none; }
+
+    .topbar {
+      height: 76px;
+      display: grid;
+      grid-template-columns: 260px 1fr auto;
+      align-items: center;
+      gap: 22px;
+      padding: 0 34px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(10,10,10,.96);
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; color: #f5f5f5; font-size: 17px; font-weight: 600; }
+    .triangle { width: 0; height: 0; border-left: 11px solid transparent; border-right: 11px solid transparent; border-bottom: 20px solid #f3f3f3; }
+    .brand .divider { width: 1px; height: 25px; background: #333; margin: 0 3px; }
+    .team { color: #d3d3d3; }
+
+    .nav { display: flex; align-items: center; justify-content: center; gap: 30px; color: #777; font-size: 14px; }
+    .nav span.active { color: #f0f0f0; }
+
+    .actions { display: flex; align-items: center; gap: 13px; }
+    .icon-button, .avatar {
+      height: 34px;
+      min-width: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #343434;
+      border-radius: 8px;
+      background: #161616;
+      color: #c6c6c6;
+      font-size: 13px;
+    }
+    .avatar { border-radius: 50%; background: linear-gradient(145deg, #d5d5d5, #666); color: #111; font-weight: 700; }
+
+    .content { padding: 54px 70px 70px; }
+    .section-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 35px; }
+    h1 { margin: 0; font-size: 30px; line-height: 1.15; letter-spacing: -1.1px; font-weight: 620; }
+    .subtitle { margin-top: 9px; color: #848484; font-size: 15px; }
+
+    .primary {
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 0 17px;
+      border: 1px solid #f2f2f2;
+      border-radius: 8px;
+      background: #f2f2f2;
+      color: #111;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 0 0 var(--button-ring, 0px) rgba(255,255,255,var(--button-ring-alpha, 0));
+      transform: scale(var(--button-scale, 1));
+    }
+
+    .plus { font-size: 19px; line-height: 0; margin-top: -2px; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr .75fr;
+      min-height: 162px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 42px;
+    }
+
+    .stat { padding: 28px 30px; border-right: 1px solid var(--line); }
+    .stat:last-child { border-right: 0; }
+    .label { color: #878787; font-size: 13px; margin-bottom: 22px; }
+    .value { font-size: 25px; letter-spacing: -.7px; }
+    .spark { display: flex; gap: 5px; align-items: end; height: 36px; margin-top: 16px; }
+    .spark i { display: block; width: 6px; height: var(--h); background: #4a4a4a; border-radius: 2px; }
+    .spark i:last-child, .spark i:nth-last-child(2) { background: #a8a8a8; }
+
+    .projects-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 19px; }
+    .projects-title h2 { margin: 0; font-size: 18px; letter-spacing: -.35px; }
+    .filter { width: 246px; height: 38px; border: 1px solid #2d2d2d; border-radius: 8px; padding: 0 13px; color: #6f6f6f; display: flex; align-items: center; font-size: 13px; }
+
+    .project-row {
+      display: grid;
+      grid-template-columns: 54px 1fr auto;
+      align-items: center;
+      min-height: 110px;
+      padding: 19px 22px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #0e0e0e;
+    }
+    .project-mark { width: 42px; height: 42px; border: 1px solid #333; border-radius: 9px; display: grid; place-items: center; background: #181818; }
+    .project-mark .triangle { transform: scale(.58); }
+    .project-name { font-size: 15px; font-weight: 600; }
+    .project-url { margin-top: 6px; color: #747474; font-size: 13px; }
+    .deployed { color: #8f8f8f; font-size: 12px; }
+
+    .new-project .content { padding-top: 56px; }
+    .new-title { margin-bottom: 42px; }
+    .new-title h1 { font-size: 34px; }
+    .new-title p { margin: 10px 0 0; color: #828282; font-size: 15px; }
+
+    .repo-card {
+      width: 100%;
+      min-height: 430px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid #2b2b2b;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #0e0e0e;
+      box-shadow: 0 0 0 var(--repo-ring, 0px) rgba(255,255,255,var(--repo-ring-alpha, 0));
+    }
+
+    .repo-left { padding: 36px; border-right: 1px solid #2b2b2b; }
+    .repo-left h2, .drop h2 { margin: 0; font-size: 20px; letter-spacing: -.4px; }
+    .repo-left p, .drop p { color: #7e7e7e; font-size: 14px; line-height: 1.55; }
+    .git-option { height: 64px; margin-top: 30px; border: 1px solid #313131; border-radius: 9px; display: flex; align-items: center; justify-content: space-between; padding: 0 17px; background: #141414; }
+    .git-meta { display: flex; align-items: center; gap: 13px; }
+    .github { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: #eee; color: #111; font-size: 16px; font-weight: 800; }
+    .repo-name { font-size: 14px; color: #e0e0e0; }
+    .repo-sub { margin-top: 4px; color: #707070; font-size: 12px; }
+    .import { height: 32px; padding: 0 12px; border-radius: 7px; border: 1px solid #e7e7e7; background: #e7e7e7; color: #111; font-size: 12px; font-weight: 600; display: grid; place-items: center; }
+    .repo-search { height: 42px; margin-top: 14px; border: 1px solid #303030; border-radius: 8px; display: flex; align-items: center; padding: 0 13px; color: #676767; font-size: 13px; }
+
+    .drop { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 50px; background: radial-gradient(circle at 50% 45%, #151515, #0d0d0d 62%); }
+    .drop-icon { width: 74px; height: 74px; display: grid; place-items: center; border: 1px dashed #555; border-radius: 14px; margin-bottom: 24px; color: #d8d8d8; font-size: 30px; transform: translateY(var(--drop-y, 0)); }
+    .browse { margin-top: 22px; height: 38px; padding: 0 16px; display: flex; align-items: center; border: 1px solid #393939; border-radius: 8px; background: #171717; color: #d7d7d7; font-size: 13px; }
+
+    .cursor {
+      position: absolute;
+      z-index: 12;
+      left: 0;
+      top: 0;
+      width: 26px;
+      height: 34px;
+      opacity: var(--cursor-opacity, 0);
+      transform: translate3d(var(--cursor-x, 1130px), var(--cursor-y, 250px), 0) scale(var(--cursor-scale, 1));
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,.65));
+      will-change: transform, opacity;
+    }
+
+    .cursor::before {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 0 solid transparent;
+      border-right: 18px solid transparent;
+      border-top: 28px solid #f4f4f4;
+      transform: rotate(-20deg);
+      transform-origin: 4px 4px;
+    }
+
+    .cursor::after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 3px;
+      width: 0;
+      height: 0;
+      border-left: 0 solid transparent;
+      border-right: 13px solid transparent;
+      border-top: 22px solid #171717;
+      transform: rotate(-20deg);
+      transform-origin: 3px 3px;
+    }
+
+    .click-ripple {
+      position: absolute;
+      z-index: 11;
+      left: 1190px;
+      top: 137px;
+      width: 48px;
+      height: 48px;
+      border: 2px solid rgba(255,255,255,.68);
+      border-radius: 50%;
+      opacity: var(--ripple-opacity, 0);
+      transform: translate(-50%, -50%) scale(var(--ripple-scale, .2));
+    }
+
+    .flash {
+      position: absolute;
+      inset: 0;
+      z-index: 40;
+      background: #fff;
+      pointer-events: none;
+      opacity: var(--flash-opacity, 0);
+    }
+
+    .safe-title {
+      position: absolute;
+      left: 70px;
+      top: 288px;
+      z-index: 4;
+      color: rgba(255,255,255,.82);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -.35px;
+      opacity: var(--label-opacity, 0);
+      transform: translateY(var(--label-y, 18px));
+    }
+
+    .safe-title span { color: #7b7b7b; font-weight: 480; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .camera { transform: translate3d(-50%, 510px, 0) scale(.68); opacity: 1; }
+      .ambient { opacity: .6; }
+    }
+  </style>
+</head>
+<body>
+  <main class="reel" aria-label="Cena vertical mostrando um fluxo de deploy na Vercel">
+    <div class="ambient"></div>
+    <div class="safe-title">Deploy sem servidor <span>/ Vercel</span></div>
+
+    <div class="camera">
+      <section class="browser" aria-label="Recriação visual de um painel da Vercel">
+        <div class="chrome">
+          <div class="traffic"><span></span><span></span><span></span></div>
+          <div class="address"><span class="lock"></span><span>vercel.com/dashboard</span></div>
+          <div class="chrome-tools"><span>↻</span><span>⋯</span></div>
+        </div>
+
+        <div class="webview">
+          <div class="screen dashboard">
+            <header class="topbar">
+              <div class="brand"><span class="triangle"></span><span class="divider"></span><span class="team">igor's projects</span></div>
+              <nav class="nav"><span class="active">Overview</span><span>Integrations</span><span>Activity</span><span>Domains</span><span>Usage</span></nav>
+              <div class="actions"><span class="icon-button">?</span><span class="icon-button">⌁</span><span class="avatar">I</span></div>
+            </header>
+            <div class="content">
+              <div class="section-head">
+                <div><h1>Overview</h1><div class="subtitle">Your projects and recent deployments.</div></div>
+                <button class="primary"><span class="plus">+</span> Add New</button>
+              </div>
+              <div class="stats">
+                <div class="stat"><div class="label">Requests</div><div class="value">2.4K</div><div class="spark"><i style="--h:12px"></i><i style="--h:19px"></i><i style="--h:16px"></i><i style="--h:25px"></i><i style="--h:21px"></i><i style="--h:31px"></i><i style="--h:35px"></i><i style="--h:28px"></i></div></div>
+                <div class="stat"><div class="label">Bandwidth</div><div class="value">184 MB</div></div>
+                <div class="stat"><div class="label">Deployments</div><div class="value">12</div></div>
+              </div>
+              <div class="projects-title"><h2>Projects</h2><div class="filter">Search projects...</div></div>
+              <div class="project-row">
+                <div class="project-mark"><span class="triangle"></span></div>
+                <div><div class="project-name">saas-starter</div><div class="project-url">saas-starter.vercel.app</div></div>
+                <div class="deployed">Ready · 18s ago</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="screen new-project">
+            <header class="topbar">
+              <div class="brand"><span class="triangle"></span><span class="divider"></span><span class="team">New Project</span></div>
+              <nav class="nav"><span class="active">Import</span><span>Templates</span></nav>
+              <div class="actions"><span class="icon-button">?</span><span class="avatar">I</span></div>
+            </header>
+            <div class="content">
+              <div class="new-title"><h1>Let's build something new.</h1><p>Import a Git repository or upload your project to deploy.</p></div>
+              <div class="repo-card">
+                <div class="repo-left">
+                  <h2>Import Git Repository</h2>
+                  <p>Select a repository from your Git provider.</p>
+                  <div class="repo-search">Search repositories...</div>
+                  <div class="git-option">
+                    <div class="git-meta"><span class="github">G</span><div><div class="repo-name">igor-dev/saas-starter</div><div class="repo-sub">Next.js · updated now</div></div></div>
+                    <span class="import">Import</span>
+                  </div>
+                </div>
+                <div class="drop">
+                  <div class="drop-icon">↑</div>
+                  <h2>Upload your project</h2>
+                  <p>Drag and drop a folder here<br>to deploy it instantly.</p>
+                  <span class="browse">Browse files</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="click-ripple"></div>
+          <div class="cursor"></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="flash"></div>
+    <div class="grain"></div>
+  </main>
+
+  <script>
+    const root = document.documentElement;
+
+    const clamp = (v, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+    const mix = (a, b, t) => a + (b - a) * t;
+    const easeOut = t => 1 - Math.pow(1 - clamp(t), 4);
+    const easeInOut = t => {
+      t = clamp(t);
+      return t < .5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+    };
+    const segment = (time, start, end) => clamp((time - start) / (end - start));
+    const set = (name, value) => root.style.setProperty(name, value);
+
+    window.__setTime = (milliseconds) => {
+      const t = milliseconds / 1000;
+      const intro = easeOut(segment(t, 0, .72));
+      const approach = easeInOut(segment(t, .52, 1.82));
+      const click = segment(t, 1.72, 2.12);
+      const switchScreen = easeInOut(segment(t, 2.02, 2.52));
+      const finalZoom = easeInOut(segment(t, 2.4, 4.7));
+      const settle = Math.sin(clamp(segment(t, 4.5, 5.3)) * Math.PI) * 0.006;
+
+      set('--camera-opacity', clamp(intro * 1.12));
+      set('--camera-scale', mix(.53, .66, intro) + mix(0, .12, approach) + mix(0, .20, finalZoom) + settle);
+      set('--camera-x', `${mix(42, 0, intro) + mix(0, -42, approach) + mix(0, -150, finalZoom)}px`);
+      set('--camera-y', `${mix(655, 535, intro) + mix(0, -34, approach) + mix(0, 34, finalZoom)}px`);
+      set('--camera-rx', `${mix(9, 2.5, intro) + mix(0, -2.5, approach)}deg`);
+      set('--camera-ry', `${mix(-14, -5, intro) + mix(0, 5, approach)}deg`);
+      set('--camera-rz', `${mix(2.2, .7, intro) + mix(0, -.7, approach)}deg`);
+      set('--ambient-opacity', mix(0, .86, intro));
+      set('--ambient-scale', mix(.62, 1.06, easeOut(segment(t, 0, 2.8))));
+      set('--label-opacity', clamp(segment(t, .28, .86)) * (1 - clamp(segment(t, 2.15, 2.45))));
+      set('--label-y', `${mix(18, 0, easeOut(segment(t, .28, .86)))}px`);
+
+      const cursorIntro = easeOut(segment(t, .72, 1.05));
+      const cursorMove = easeInOut(segment(t, .92, 1.74));
+      const cursorExit = easeInOut(segment(t, 2.08, 2.38));
+      const cursorRepo = easeInOut(segment(t, 2.68, 4.0));
+      const cx1 = mix(1140, 1174, cursorMove);
+      const cy1 = mix(320, 142, cursorMove);
+      const cx2 = mix(1174, 1130, cursorExit);
+      const cy2 = mix(142, 300, cursorExit);
+      const cx3 = mix(1090, 515, cursorRepo);
+      const cy3 = mix(285, 470, cursorRepo);
+      set('--cursor-opacity', cursorIntro);
+      set('--cursor-x', `${t < 2.38 ? cx2 : cx3}px`);
+      set('--cursor-y', `${t < 2.38 ? cy2 : cy3}px`);
+      set('--cursor-scale', click > 0 && click < .45 ? .83 : 1);
+
+      const rippleLife = segment(t, 1.82, 2.18);
+      set('--ripple-opacity', rippleLife < 1 ? Math.sin(rippleLife * Math.PI) * .8 : 0);
+      set('--ripple-scale', mix(.18, 1.35, easeOut(rippleLife)));
+      const press = Math.sin(clamp(segment(t, 1.76, 2.0)) * Math.PI);
+      set('--button-scale', 1 - press * .045);
+      set('--button-ring', `${press * 8}px`);
+      set('--button-ring-alpha', press * .12);
+
+      set('--dash-opacity', 1 - switchScreen);
+      set('--dash-x', `${mix(0, -54, switchScreen)}px`);
+      set('--new-opacity', switchScreen);
+      set('--new-x', `${mix(54, 0, switchScreen)}px`);
+      set('--flash-opacity', Math.sin(clamp(segment(t, 2.14, 2.36)) * Math.PI) * .11);
+
+      const focus = easeOut(segment(t, 3.45, 4.35));
+      set('--repo-ring', `${focus * 8}px`);
+      set('--repo-ring-alpha', focus * .055);
+      set('--drop-y', `${Math.sin(clamp(segment(t, 3.0, 4.7)) * Math.PI) * -7}px`);
+    };
+
+    window.__setTime(0);
+
+    if (!new URLSearchParams(location.search).has('render')) {
+      const start = performance.now();
+      const duration = 5400;
+      function play(now) {
+        const elapsed = (now - start) % duration;
+        window.__setTime(elapsed);
+        requestAnimationFrame(play);
+      }
+      requestAnimationFrame(play);
+    }
+  </script>
+</body>
+</html>

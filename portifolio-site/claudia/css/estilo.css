@@ -1,0 +1,874 @@
+/* ==========================================================================
+   CLAUDIA ANDRADE — MASSOTERAPIA
+   azul-marinho profundo + azul da marca (#1f4e96) + azul-gelo + creme
+   ========================================================================== */
+
+:root {
+  --marinho: #0e2445;
+  --marinho-fundo: #091830;
+  --marca: #1f4e96;
+  --marca-claro: #4d86d6;
+  --gelo: #eef4fb;
+  --gelo-fundo: #e3edf8;
+  --creme: #f7f2ea;
+  --areia: #e9ddc9;
+  --tinta: #0f2340;
+  --tinta-suave: #4f6383;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Manrope', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--gelo);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* brumas de água paradas ao fundo: dão profundidade ao azul sem textura repetida */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(58vw 42vw at 12% 18%, rgba(77, 134, 214, .13), transparent 70%),
+    radial-gradient(46vw 36vw at 88% 62%, rgba(31, 78, 150, .10), transparent 72%);
+}
+
+/* ---------- tipografia base ---------- */
+
+.etiqueta {
+  display: inline-block;
+  font-size: .72rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--marca);
+  margin-bottom: 1.3rem;
+}
+
+.titulo-secao {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.3rem, 5.2vw, 4.2rem);
+  line-height: 1.07;
+  letter-spacing: -.015em;
+}
+
+.titulo-secao em,
+.hero-titulo em,
+#contato h2 em {
+  font-style: italic;
+  background: linear-gradient(96deg, #1f4e96, #6fa4e8 46%, #2a5fae);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.secao-topo { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto 4.2rem; padding: 0 6vw; }
+.secao-topo.centro { text-align: center; }
+
+.secao-texto {
+  margin-top: 1.2rem;
+  font-size: 1.02rem;
+  color: var(--tinta-suave);
+  max-width: 42ch;
+}
+.secao-topo.centro .secao-texto { margin-inline: auto; }
+
+/* ---------- botões ---------- */
+
+.btn-principal,
+.btn-vazado {
+  display: inline-block;
+  font-size: .93rem;
+  font-weight: 500;
+  letter-spacing: .03em;
+  padding: 1.02rem 2.2rem;
+  border-radius: 999px;
+  transition: transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease, border-color .3s ease;
+}
+
+.btn-principal {
+  background: linear-gradient(140deg, #1f4e96, #4d86d6);
+  color: #f2f7fd;
+  box-shadow: 0 14px 32px rgba(20, 55, 110, .28);
+}
+.btn-principal:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(20, 55, 110, .36); }
+
+.btn-vazado { border: 1px solid rgba(15, 35, 64, .26); }
+.btn-vazado:hover { background: var(--marinho); color: var(--gelo); border-color: var(--marinho); }
+
+.btn-principal.grande, .btn-vazado.grande { padding: 1.18rem 2.7rem; font-size: 1rem; }
+
+/* ==================== INTRO ==================== */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--marinho-fundo);
+  display: grid;
+  place-items: center;
+}
+
+.intro-marca { width: min(48vw, 430px); }
+
+#logo-intro { width: 100%; overflow: visible; }
+
+#logo-intro .marca-nome {
+  font-family: var(--serif);
+  font-size: 17px;
+  letter-spacing: .3em;
+  fill: #e6effb;
+}
+#logo-intro .marca-sub {
+  font-family: var(--sans);
+  font-size: 8.4px;
+  letter-spacing: .5em;
+  /* o azul da marca some no fundo marinho da intro: aqui vai o tom claro */
+  fill: #7fb0ea;
+}
+#logo-intro .marca-nome,
+#logo-intro .marca-sub { opacity: 0; }
+
+/* ==================== NAV ==================== */
+
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.4rem;
+  padding: .9rem 6vw;
+  background: rgba(238, 244, 251, .88);
+  backdrop-filter: blur(12px);
+  transform: translateY(-110%);
+}
+
+.nav-marca { display: flex; align-items: center; gap: .7rem; color: var(--marca); }
+.nav-logo { width: 40px; height: 27px; flex: none; }
+.nav-marca span {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  color: var(--tinta);
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+.nav-marca em {
+  font-style: italic;
+  font-size: .88rem;
+  color: var(--marca);
+}
+
+.nav-links { display: flex; gap: 1.9rem; }
+.nav-links a {
+  font-size: .9rem;
+  color: var(--tinta-suave);
+  position: relative;
+  padding-bottom: 3px;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: var(--marca);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .35s ease;
+}
+.nav-links a:hover { color: var(--marca); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.btn-nav {
+  font-size: .86rem;
+  font-weight: 500;
+  padding: .62rem 1.5rem;
+  border-radius: 999px;
+  background: var(--marinho);
+  color: var(--gelo);
+  transition: background .3s ease, transform .3s ease;
+}
+.btn-nav:hover { background: var(--marca); transform: translateY(-2px); }
+
+/* ==================== HERO ==================== */
+
+#inicio {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 6vw 5rem;
+  background: linear-gradient(170deg, #0e2445 0%, #10294f 52%, #091830 100%);
+  color: #e9f1fb;
+  overflow: hidden;
+}
+
+/* as ondas ocupam a seção inteira, atrás do texto */
+#ondas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* a última faixa das ondas some no rodapé da seção, sem linha de corte */
+#inicio::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 30%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(9, 24, 48, 0), #091830 88%);
+}
+
+.hero-conteudo {
+  position: relative;
+  z-index: 3;
+  max-width: 640px;
+}
+
+/* véu de leitura: halo do próprio fundo atrás do texto, senão as ondas
+   passam por trás das letras e o título perde contraste */
+.hero-conteudo::before {
+  content: '';
+  position: absolute;
+  left: -12%;
+  top: -14%;
+  width: 128%;
+  height: 132%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(58% 52% at 34% 46%, rgba(9, 24, 48, .88), rgba(9, 24, 48, 0) 72%);
+}
+
+#inicio .etiqueta { color: var(--marca-claro); }
+
+.hero-titulo {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.9rem, 7.4vw, 5.6rem);
+  line-height: 1.02;
+  letter-spacing: -.02em;
+}
+.hero-titulo .linha { display: block; overflow: hidden; }
+.hero-titulo .linha > span { display: block; }
+.hero-titulo em {
+  background: linear-gradient(96deg, #6fa4e8, #cfe1f7 48%, #7fb0ea);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.hero-texto {
+  margin-top: 1.7rem;
+  max-width: 46ch;
+  font-size: 1.06rem;
+  line-height: 1.72;
+  color: rgba(233, 241, 251, .82);
+}
+
+.hero-acoes { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+#inicio .btn-vazado { border-color: rgba(233, 241, 251, .34); color: #e9f1fb; }
+#inicio .btn-vazado:hover { background: #e9f1fb; color: var(--marinho); border-color: #e9f1fb; }
+
+.hero-dados {
+  margin-top: 3.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.6rem;
+}
+.hero-dados div { display: flex; flex-direction: column; gap: .3rem; }
+.hero-dados strong {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 1.75rem;
+  color: #cfe1f7;
+}
+.hero-dados span {
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(233, 241, 251, .55);
+}
+
+.rolar {
+  position: absolute;
+  left: 6vw;
+  bottom: 2rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  font-size: .72rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(233, 241, 251, .5);
+}
+.rolar i {
+  width: 54px; height: 1px;
+  background: rgba(233, 241, 251, .34);
+  position: relative;
+  overflow: hidden;
+}
+.rolar i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #cfe1f7;
+  transform: translateX(-100%);
+  animation: correr 2.6s ease-in-out infinite;
+}
+@keyframes correr {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
+}
+
+/* ==================== SERVIÇOS ==================== */
+
+#servicos {
+  position: relative;
+  z-index: 2;
+  padding: 7rem 0 6rem;
+}
+
+.grade-servicos {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.4rem;
+}
+
+.servico {
+  background: #fff;
+  border: 1px solid rgba(31, 78, 150, .12);
+  border-radius: 20px;
+  padding: 2.4rem 1.9rem 2.2rem;
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+.servico:hover {
+  transform: translateY(-6px);
+  border-color: rgba(31, 78, 150, .3);
+  box-shadow: 0 22px 48px rgba(20, 55, 110, .13);
+}
+
+.servico .icone { width: 58px; height: 58px; color: var(--marca); margin-bottom: 1.5rem; }
+.servico h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.34rem;
+  margin-bottom: .7rem;
+}
+.servico p { font-size: .95rem; line-height: 1.7; color: var(--tinta-suave); }
+
+/* ==================== ONDE DÓI ==================== */
+
+#onde-doi {
+  position: relative;
+  z-index: 2;
+  padding: 6.5rem 0 5.5rem;
+  background: var(--creme);
+}
+
+.mapa-bloco {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: minmax(240px, .78fr) 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.mapa-corpo { display: flex; justify-content: center; }
+/* o boneco é alto e estreito: presa pela ALTURA ele cabe na tela junto com o
+   painel; presa pela largura ele estoura a seção pra baixo */
+.corpo { height: min(56vh, 460px); width: auto; max-width: 100%; overflow: visible; }
+
+/* fill e stroke são herdados, então valem também dentro do <use> */
+.silhueta use {
+  fill: #e2ecf8;
+  stroke: rgba(31, 78, 150, .3);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+.silhueta .coluna {
+  fill: none;
+  stroke: rgba(31, 78, 150, .26);
+  stroke-width: 1;
+  stroke-dasharray: 3 6;
+  stroke-linecap: round;
+}
+
+/* as zonas ficam por cima da silhueta; o preenchimento quase invisível é o que
+   as mantém clicáveis (fill:none não recebe clique) */
+.zona {
+  fill: rgba(31, 78, 150, .001);
+  stroke: rgba(31, 78, 150, 0);
+  stroke-width: 1.4;
+  cursor: pointer;
+  transition: fill .35s ease, stroke .35s ease;
+  outline: none;
+}
+.zona:hover { fill: rgba(31, 78, 150, .14); stroke: rgba(31, 78, 150, .34); }
+.zona:focus-visible { stroke: var(--marca); stroke-dasharray: 4 4; }
+.zona.ativa { fill: rgba(31, 78, 150, .26); stroke: rgba(31, 78, 150, .5); }
+
+/* o pulso é feito com transform (e não animando o r do círculo): o atributo r
+   como propriedade CSS animável não é confiável fora do Chrome */
+.ponto {
+  fill: var(--marca);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulsar 2.8s ease-out infinite;
+}
+.pontos circle:nth-child(2) { animation-delay: .5s; }
+.pontos circle:nth-child(3) { animation-delay: 1s; }
+.pontos circle:nth-child(4) { animation-delay: 1.5s; }
+@keyframes pulsar {
+  0%   { opacity: .95; transform: scale(1); }
+  70%  { opacity: 0;   transform: scale(2.8); }
+  100% { opacity: 0;   transform: scale(2.8); }
+}
+/* escolhida a região, o convite pisca some: já cumpriu o papel */
+.mapa-bloco.escolhido .pontos { opacity: 0; transition: opacity .5s ease; }
+
+.mapa-painel {
+  position: relative;
+  background: #fff;
+  border: 1px solid rgba(31, 78, 150, .13);
+  border-radius: 22px;
+  padding: 2.6rem 2.4rem;
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 20px 46px rgba(20, 55, 110, .07);
+}
+
+/* display:flex venceria a regra [hidden] do navegador, e o convite ficaria
+   por cima do painel escolhido */
+.painel-convite[hidden] { display: none; }
+
+.painel-convite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  width: 100%;
+  text-align: center;
+  color: var(--tinta-suave);
+}
+.painel-convite svg { width: 46px; height: 46px; color: var(--marca); opacity: .7; }
+.painel-convite p { font-size: 1.02rem; }
+
+.painel-zona { width: 100%; }
+.painel-zona[hidden] { display: none; }
+.painel-zona h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.16;
+  margin-bottom: 1rem;
+}
+.painel-zona p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--tinta-suave);
+  max-width: 46ch;
+}
+
+.chips { display: flex; flex-wrap: wrap; gap: .55rem; margin: 1.5rem 0 1.9rem; }
+.chips span {
+  font-size: .78rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--marca);
+  border: 1px solid rgba(31, 78, 150, .3);
+  background: rgba(31, 78, 150, .06);
+  padding: .48rem 1rem;
+  border-radius: 999px;
+}
+
+.aviso {
+  max-width: 720px;
+  margin: 3.6rem auto 0;
+  padding: 0 6vw;
+  text-align: center;
+  font-size: .84rem;
+  line-height: 1.75;
+  color: rgba(79, 99, 131, .9);
+}
+
+/* ==================== COMO É A SESSÃO ==================== */
+
+#sessao {
+  position: relative;
+  z-index: 2;
+  padding: 7rem 0 6.5rem;
+  background: linear-gradient(168deg, #0e2445, #091830);
+  color: #e9f1fb;
+}
+#sessao .etiqueta { color: var(--marca-claro); }
+#sessao .titulo-secao em {
+  background: linear-gradient(96deg, #6fa4e8, #cfe1f7 48%, #7fb0ea);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.passos {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 6vw 0 calc(6vw + 46px);
+}
+
+/* trilha: a linha só se preenche conforme a pessoa rola — o progresso do
+   scroll vira o progresso da própria sessão */
+.trilha {
+  position: absolute;
+  left: 6vw;
+  top: .8rem;
+  bottom: 3.4rem;
+  width: 1px;
+  background: rgba(233, 241, 251, .16);
+}
+.trilha-cheia {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 100%;
+  background: linear-gradient(to bottom, #4d86d6, #cfe1f7);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.passos ol { list-style: none; display: flex; flex-direction: column; gap: 2.9rem; }
+.passos li { position: relative; }
+.passos li::before {
+  content: '';
+  position: absolute;
+  left: -46px;
+  top: .55rem;
+  transform: translateX(-50%);
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: #091830;
+  border: 1px solid rgba(233, 241, 251, .34);
+  transition: background .4s ease, border-color .4s ease, box-shadow .4s ease;
+}
+.passos li.aceso::before {
+  background: #cfe1f7;
+  border-color: #cfe1f7;
+  box-shadow: 0 0 0 5px rgba(77, 134, 214, .22);
+}
+.passos .num {
+  display: block;
+  font-size: .74rem;
+  letter-spacing: .28em;
+  color: var(--marca-claro);
+  margin-bottom: .5rem;
+}
+.passos h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.42rem;
+  margin-bottom: .55rem;
+}
+.passos p {
+  font-size: .98rem;
+  line-height: 1.75;
+  color: rgba(233, 241, 251, .74);
+  max-width: 54ch;
+}
+
+/* ==================== GALERIA (trilho horizontal) ==================== */
+
+#galeria {
+  position: relative;
+  z-index: 2;
+  background: var(--gelo-fundo);
+  overflow: hidden;
+}
+
+.trilho {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.trilho-interno {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  padding: 0 6vw;
+  will-change: transform;
+}
+
+.painel { flex: none; }
+
+.painel-abre { width: min(78vw, 440px); }
+.painel-abre p {
+  margin-top: 1.3rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--tinta-suave);
+  max-width: 34ch;
+}
+.painel-abre .seta { width: 110px; margin-top: 2rem; color: var(--marca); }
+
+/* as fotos são frames de vídeo, então entram pequenas e com um véu azul por
+   cima: uniformiza a origem irregular e amarra na paleta */
+.painel-foto {
+  position: relative;
+  width: min(64vw, 300px);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 52px rgba(20, 55, 110, .16);
+}
+.painel-foto img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+.painel-foto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(200deg, rgba(31, 78, 150, .28), rgba(9, 24, 48, .12) 42%, rgba(9, 24, 48, .78));
+}
+.painel-foto figcaption {
+  position: absolute;
+  left: 1.3rem;
+  right: 1.3rem;
+  bottom: 1.2rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  color: #eaf2fc;
+}
+.painel-foto figcaption strong {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.12rem;
+}
+.painel-foto figcaption span {
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(234, 242, 252, .7);
+}
+
+/* ==================== RESPIRE ==================== */
+
+#respire {
+  position: relative;
+  z-index: 2;
+  padding: 7rem 6vw 7.5rem;
+  background: linear-gradient(180deg, #091830, #0e2445 60%, #10294f);
+  color: #e9f1fb;
+  text-align: center;
+}
+#respire .etiqueta { color: var(--marca-claro); }
+#respire .titulo-secao em {
+  background: linear-gradient(96deg, #6fa4e8, #cfe1f7 48%, #7fb0ea);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.respire-caixa { max-width: 620px; margin: 0 auto; }
+.respire-caixa > p {
+  margin-top: 1.3rem;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: rgba(233, 241, 251, .76);
+}
+
+.respiro {
+  position: relative;
+  width: min(70vw, 260px);
+  height: min(70vw, 260px);
+  margin: 3.2rem auto 0;
+  display: grid;
+  place-items: center;
+}
+.respiro .halo,
+.respiro .bola {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+.respiro .halo {
+  border: 1px solid rgba(207, 225, 247, .22);
+}
+.respiro .bola {
+  background: radial-gradient(circle at 38% 34%, rgba(207, 225, 247, .34), rgba(31, 78, 150, .42) 62%, rgba(31, 78, 150, 0) 74%);
+  border: 1px solid rgba(111, 164, 232, .5);
+  transform: scale(.42);
+}
+.respiro .instrucao {
+  position: relative;
+  z-index: 2;
+  font-size: .82rem;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: #cfe1f7;
+}
+
+.contagem {
+  margin-top: 2.6rem;
+  font-size: .8rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(233, 241, 251, .5);
+}
+
+/* ==================== CONTATO ==================== */
+
+#contato {
+  position: relative;
+  z-index: 2;
+  padding: 7rem 6vw;
+  background: var(--creme);
+}
+
+.contato-caixa {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+.contato-caixa h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.3rem, 5.4vw, 4rem);
+  line-height: 1.08;
+}
+.contato-caixa > p {
+  margin-top: 1.4rem;
+  font-size: 1.05rem;
+  line-height: 1.72;
+  color: var(--tinta-suave);
+}
+.contato-acoes {
+  margin-top: 2.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+.contato-nota {
+  display: block;
+  margin-top: 2rem;
+  font-size: .84rem;
+  color: rgba(79, 99, 131, .85);
+}
+
+/* ==================== RODAPÉ ==================== */
+
+footer {
+  position: relative;
+  z-index: 2;
+  background: var(--marinho-fundo);
+  color: rgba(233, 241, 251, .6);
+  padding: 2.4rem 6vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .78rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+footer a { color: var(--marca-claro); }
+
+/* ==================== RESPONSIVO ==================== */
+
+@media (max-width: 900px) {
+  .mapa-bloco { grid-template-columns: 1fr; }
+  .corpo { max-width: 250px; }
+  .mapa-painel { min-height: 0; padding: 2.1rem 1.7rem; }
+}
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  /* sem espaço pros dois: o "massoterapia" sai e o botão de agendar fica —
+     é ele que faz o site render */
+  .nav-marca em { display: none; }
+  .nav-marca span { font-size: .94rem; }
+  #nav { padding-inline: 4vw; gap: .8rem; }
+  .btn-nav { padding: .58rem 1.2rem; }
+
+  /* a entrelinha larga da etiqueta quebra em duas linhas em tela estreita */
+  .etiqueta { font-size: .66rem; letter-spacing: .2em; }
+
+  #inicio { padding-top: 7rem; min-height: 92svh; }
+  .hero-dados { gap: 1.6rem 2.2rem; }
+  .hero-dados strong { font-size: 1.45rem; }
+  .rolar { display: none; }
+
+  /* no celular o texto ocupa a largura toda: o halo vira faixa central,
+     senão fica um borrão deslocado atrás das letras */
+  .hero-conteudo::before {
+    left: -20%;
+    width: 140%;
+    background: radial-gradient(64% 50% at 50% 48%, rgba(9, 24, 48, .9), rgba(9, 24, 48, 0) 74%);
+  }
+
+  #servicos, #onde-doi, #sessao, #respire, #contato { padding-top: 5rem; padding-bottom: 4.6rem; }
+
+  /* o trilho vira rolagem lateral com o dedo (o pin do scrub é só desktop) */
+  .trilho {
+    height: auto;
+    padding: 5rem 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* sem isso o snap encosta o 1º painel na borda e engole o padding lateral:
+       o título nasce colado no canto esquerdo da tela */
+    scroll-padding-inline: 6vw;
+    -webkit-overflow-scrolling: touch;
+  }
+  .trilho::-webkit-scrollbar { display: none; }
+  .trilho-interno { gap: 1.2rem; }
+  .painel { scroll-snap-align: center; }
+  .painel-abre { width: 82vw; scroll-snap-align: start; }
+  .painel-foto { width: 68vw; }
+
+  .passos { padding-left: calc(6vw + 34px); }
+  .passos li::before { left: -34px; }
+
+  .hero-acoes .btn-principal,
+  .hero-acoes .btn-vazado,
+  .contato-acoes .btn-principal,
+  .contato-acoes .btn-vazado { width: 100%; text-align: center; }
+
+  footer { flex-direction: column; text-align: center; gap: .6rem; }
+}
+
+/* Movimento reduzido não é tela parada: o que cai aqui é o que se repete
+   sozinho pra sempre. A respiração continua (ela É o conteúdo da seção) e as
+   ondas do hero seguem vivas, só que mais lentas e sem perseguir o ponteiro —
+   isso é tratado no JS. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rolar i::after { animation: none; opacity: .5; transform: none; }
+  .pontos circle { animation: none; opacity: .95; }
+  .servico:hover { transform: none; }
+  .btn-principal:hover, .btn-nav:hover { transform: none; }
+}

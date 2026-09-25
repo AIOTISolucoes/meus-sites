@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cena Supabase</title>
+  <style>
+    :root {
+      --green: #3ecf8e;
+      --green-soft: rgba(62,207,142,.12);
+      --page: #121212;
+      --panel: #181818;
+      --panel-2: #1d1d1d;
+      --line: #303030;
+      --ink: #ededed;
+      --muted: #8d8d8d;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #050706; color: var(--ink); font-family: "Segoe UI", Arial, Helvetica, sans-serif; -webkit-font-smoothing: antialiased; }
+    body { display: grid; place-items: center; }
+
+    .reel {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(760px 760px at 53% 44%, rgba(62,207,142,.075), transparent 70%),
+        linear-gradient(180deg, #050706 0%, #09100c 48%, #030504 100%);
+    }
+
+    .reel::after { content: ""; position: absolute; inset: 0; z-index: 20; pointer-events: none; background: radial-gradient(circle at 50% 46%, transparent 43%, rgba(0,0,0,.44) 100%); }
+    .ambient { position: absolute; left: 170px; top: 560px; width: 720px; height: 720px; border-radius: 50%; background: rgba(62,207,142,.08); filter: blur(155px); opacity: var(--ambient-opacity, 0); transform: scale(var(--ambient-scale, .7)); }
+    .grain { position: absolute; inset: 0; z-index: 30; pointer-events: none; opacity: .048; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E"); }
+
+    .scene-label { position: absolute; left: 70px; top: 290px; z-index: 4; color: rgba(255,255,255,.84); font-size: 20px; font-weight: 600; letter-spacing: -.35px; opacity: var(--label-opacity, 0); transform: translateY(var(--label-y, 16px)); }
+    .scene-label span { color: var(--green); font-weight: 500; }
+
+    .camera {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 1400px;
+      height: 950px;
+      opacity: var(--camera-opacity, 0);
+      transform-origin: 50% 47%;
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+      transform:
+        translate3d(calc(-50% + var(--camera-x, 0px)), var(--camera-y, 545px), 0)
+        perspective(1900px)
+        rotateX(var(--camera-rx, 6deg))
+        rotateY(var(--camera-ry, -10deg))
+        rotateZ(var(--camera-rz, 1.4deg))
+        scale(var(--camera-scale, .59));
+    }
+
+    .browser { position: absolute; inset: 0; overflow: hidden; border: 1px solid #363636; border-radius: 18px; background: var(--page); box-shadow: 0 76px 190px rgba(0,0,0,.76), 0 18px 54px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.08); }
+    .chrome { height: 64px; display: grid; grid-template-columns: 122px 1fr 122px; align-items: center; padding: 0 18px; border-bottom: 1px solid #292929; background: #171717; }
+    .traffic { display: flex; gap: 10px; }
+    .traffic span { width: 13px; height: 13px; border-radius: 50%; background: #484848; }
+    .traffic span:first-child { background: #ff5f57; }
+    .traffic span:nth-child(2) { background: #febc2e; }
+    .traffic span:nth-child(3) { background: #28c840; }
+    .address { justify-self: center; width: 700px; height: 38px; display: flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid #383838; border-radius: 10px; color: #b5b5b5; background: #222; font-size: 14px; }
+    .lock { width: 9px; height: 8px; border: 1.5px solid #888; border-radius: 2px; position: relative; }
+    .lock::before { content: ""; position: absolute; width: 6px; height: 6px; left: 0; top: -7px; border: 1.5px solid #888; border-bottom: 0; border-radius: 6px 6px 0 0; }
+    .chrome-tools { justify-self: end; display: flex; gap: 16px; color: #8d8d8d; font-size: 20px; }
+
+    .webview { position: relative; height: calc(100% - 64px); background: var(--page); overflow: hidden; }
+    .projectbar { height: 68px; display: grid; grid-template-columns: 280px 1fr auto; align-items: center; gap: 20px; padding: 0 24px; border-bottom: 1px solid var(--line); background: #171717; }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; }
+    .supabase-mark { position: relative; width: 25px; height: 28px; }
+    .supabase-mark::before, .supabase-mark::after { content: ""; position: absolute; width: 11px; height: 23px; background: var(--green); transform: skew(-22deg); border-radius: 2px; }
+    .supabase-mark::before { left: 3px; top: 0; clip-path: polygon(0 0,100% 0,100% 55%,0 55%); }
+    .supabase-mark::after { right: 3px; bottom: 0; clip-path: polygon(0 45%,100% 45%,100% 100%,0 100%); }
+    .slash { color: #575757; }
+    .project-name { color: #d8d8d8; }
+    .environment { justify-self: center; display: flex; align-items: center; gap: 8px; color: #9a9a9a; font-size: 12px; }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(62,207,142,.1); }
+    .top-actions { display: flex; align-items: center; gap: 10px; }
+    .top-button, .avatar { height: 32px; min-width: 32px; display: grid; place-items: center; border: 1px solid #3a3a3a; border-radius: 7px; background: #202020; color: #bdbdbd; font-size: 12px; }
+    .avatar { border-radius: 50%; background: #2d4b3c; color: #bdf4d7; font-weight: 700; }
+
+    .workspace { display: grid; grid-template-columns: 238px 1fr; height: calc(100% - 68px); }
+    .sidebar { position: relative; padding: 17px 12px; border-right: 1px solid var(--line); background: #151515; }
+    .side-section { margin: 9px 10px 11px; color: #666; font-size: 10px; text-transform: uppercase; letter-spacing: .9px; }
+    .nav-item { position: relative; height: 40px; display: grid; grid-template-columns: 29px 1fr; align-items: center; padding: 0 10px; border-radius: 7px; color: #8b8b8b; font-size: 13px; margin-bottom: 2px; }
+    .nav-icon { width: 21px; height: 21px; display: grid; place-items: center; border: 1px solid #3a3a3a; border-radius: 5px; color: #aaa; font-size: 10px; font-weight: 700; }
+    .active-layer { position: absolute; left: 12px; right: 12px; top: 49px; height: 40px; border-radius: 7px; background: #252525; border: 1px solid #343434; transform: translateY(var(--active-y, 0px)); transition: none; }
+    .nav-item.active { color: #eee; }
+    .nav-item.active .nav-icon { border-color: rgba(62,207,142,.55); color: var(--green); background: var(--green-soft); }
+    .db-tree { margin: 15px 9px 0 39px; color: #777; font-size: 12px; opacity: var(--tree-opacity, 1); }
+    .tree-item { height: 30px; display: flex; align-items: center; padding-left: 9px; border-left: 1px solid #343434; }
+    .tree-item.active { color: #dedede; background: #202020; border-radius: 0 6px 6px 0; }
+
+    .main { position: relative; min-width: 0; overflow: hidden; background: #121212; }
+    .screen { position: absolute; inset: 0; opacity: 0; will-change: transform, opacity; }
+    .screen.table { opacity: var(--table-opacity, 1); transform: translateX(var(--table-x, 0px)); }
+    .screen.auth { opacity: var(--auth-opacity, 0); transform: translateX(var(--auth-x, 46px)); }
+    .screen.storage { opacity: var(--storage-opacity, 0); transform: translateX(var(--storage-x, 46px)); }
+    .screen.api { opacity: var(--api-opacity, 0); transform: translateX(var(--api-x, 46px)); }
+
+    .screen-head { height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 26px; border-bottom: 1px solid var(--line); background: #161616; }
+    .screen-title { display: flex; align-items: center; gap: 11px; font-size: 15px; font-weight: 600; }
+    .schema { color: #797979; font-size: 12px; font-weight: 400; }
+    .head-actions { display: flex; gap: 9px; }
+    .button { height: 34px; display: inline-flex; align-items: center; gap: 8px; padding: 0 12px; border: 1px solid #3b3b3b; border-radius: 7px; background: #202020; color: #c7c7c7; font-size: 12px; }
+    .button.green { border-color: #3d9e70; background: #2d8b61; color: #f0fff7; }
+
+    .table-toolbar { height: 54px; display: flex; align-items: center; gap: 9px; padding: 0 22px; border-bottom: 1px solid var(--line); }
+    .search { width: 260px; height: 34px; display: flex; align-items: center; padding: 0 11px; border: 1px solid #343434; border-radius: 7px; color: #666; background: #171717; font-size: 12px; }
+    .mini-button { height: 34px; display: flex; align-items: center; padding: 0 11px; border: 1px solid #343434; border-radius: 7px; color: #888; background: #171717; font-size: 11px; }
+
+    .data-table { margin: 18px 22px; border: 1px solid #323232; border-radius: 8px; overflow: hidden; box-shadow: 0 0 0 var(--table-ring, 0px) rgba(62,207,142,var(--table-ring-alpha, 0)); }
+    .data-head, .data-row { display: grid; grid-template-columns: 58px 82px 180px 1fr 152px 112px; align-items: center; min-height: 49px; padding: 0 14px; }
+    .data-head { min-height: 42px; background: #191919; color: #737373; font-size: 10px; }
+    .data-row { border-top: 1px solid #2d2d2d; color: #b9b9b9; background: #141414; font-family: Consolas, monospace; font-size: 11px; }
+    .data-row:hover { background: #181d1a; }
+    .checkbox { width: 14px; height: 14px; border: 1px solid #4a4a4a; border-radius: 3px; }
+    .bool { color: var(--green); }
+
+    .section-body { padding: 28px 30px 50px; }
+    .section-copy h1 { margin: 0; font-size: 25px; letter-spacing: -.7px; font-weight: 620; }
+    .section-copy p { margin: 8px 0 0; color: #838383; font-size: 13px; }
+    .summary { display: grid; grid-template-columns: 1.15fr .85fr; gap: 13px; margin: 24px 0; }
+    .metric { min-height: 98px; padding: 18px 20px; border: 1px solid #303030; border-radius: 9px; background: #171717; }
+    .metric-label { color: #777; font-size: 11px; }
+    .metric-value { margin-top: 13px; font-size: 22px; letter-spacing: -.5px; }
+    .metric-note { margin-top: 7px; color: #6f6f6f; font-size: 11px; }
+
+    .users { border: 1px solid #303030; border-radius: 9px; overflow: hidden; box-shadow: 0 0 0 var(--auth-ring, 0px) rgba(62,207,142,var(--auth-ring-alpha, 0)); }
+    .users-head, .user-row { display: grid; grid-template-columns: 1.25fr .75fr .8fr .55fr; align-items: center; padding: 0 16px; }
+    .users-head { min-height: 40px; color: #6f6f6f; background: #181818; font-size: 10px; }
+    .user-row { min-height: 58px; border-top: 1px solid #2e2e2e; color: #b9b9b9; font-size: 11px; }
+    .user-email { display: flex; align-items: center; gap: 10px; color: #d0d0d0; }
+    .user-avatar { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: #253a31; color: #98dfbd; font-size: 10px; font-weight: 700; }
+    .provider { color: #a5a5a5; }
+    .confirmed { color: var(--green); }
+
+    .bucket-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-top: 24px; }
+    .bucket { min-height: 125px; display: grid; grid-template-columns: 46px 1fr auto; align-items: start; gap: 13px; padding: 20px; border: 1px solid #323232; border-radius: 9px; background: #171717; box-shadow: inset 0 0 0 var(--bucket-ring, 0px) rgba(62,207,142,var(--bucket-ring-alpha, 0)); }
+    .folder { width: 42px; height: 34px; display: grid; place-items: center; border: 1px solid #3d574b; border-radius: 7px; background: #1f3028; color: var(--green); font-size: 17px; }
+    .bucket-name { font-size: 13px; font-weight: 600; color: #d8d8d8; }
+    .bucket-meta { margin-top: 8px; color: #747474; font-size: 11px; line-height: 1.5; }
+    .privacy { color: #818181; font-size: 10px; }
+    .files { margin-top: 15px; border: 1px solid #303030; border-radius: 9px; overflow: hidden; }
+    .file-row { min-height: 48px; display: grid; grid-template-columns: 1fr 100px 100px; align-items: center; padding: 0 16px; border-bottom: 1px solid #2d2d2d; color: #aaa; font-size: 11px; }
+    .file-row:last-child { border-bottom: 0; }
+    .file-name { color: #d0d0d0; }
+
+    .api-layout { display: grid; grid-template-columns: .78fr 1.22fr; gap: 15px; margin-top: 24px; }
+    .endpoint-list { border: 1px solid #303030; border-radius: 9px; overflow: hidden; background: #161616; }
+    .endpoint { min-height: 54px; display: grid; grid-template-columns: 44px 1fr; align-items: center; padding: 0 13px; border-bottom: 1px solid #2d2d2d; color: #a7a7a7; font-size: 11px; }
+    .endpoint:last-child { border-bottom: 0; }
+    .endpoint.active { background: #1b2721; color: #e3e3e3; }
+    .method { color: var(--green); font-family: Consolas, monospace; font-weight: 700; }
+    .code-panel { border: 1px solid #343434; border-radius: 9px; overflow: hidden; background: #101312; box-shadow: 0 0 0 var(--api-ring, 0px) rgba(62,207,142,var(--api-ring-alpha, 0)); }
+    .code-tabs { height: 39px; display: flex; align-items: center; gap: 18px; padding: 0 15px; border-bottom: 1px solid #303530; color: #737873; font-size: 10px; }
+    .code-tabs .active { color: #d8dedb; }
+    pre { margin: 0; padding: 19px; color: #c0c8c3; font: 11px/1.75 Consolas, monospace; white-space: pre-wrap; }
+    .kw { color: #8ccfb0; }
+    .str { color: #d7c78c; }
+    .fn { color: #93b7db; }
+    .api-note { margin-top: 13px; padding: 12px 14px; border-left: 2px solid var(--green); background: rgba(62,207,142,.055); color: #8e9b94; font-size: 11px; }
+
+    .cursor { position: absolute; z-index: 12; left: 0; top: 0; width: 25px; height: 34px; opacity: var(--cursor-opacity, 0); transform: translate3d(var(--cursor-x, 980px), var(--cursor-y, 300px), 0) scale(var(--cursor-scale, 1)); filter: drop-shadow(0 2px 2px rgba(0,0,0,.68)); will-change: transform, opacity; }
+    .cursor::before { content: ""; position: absolute; width: 0; height: 0; border-right: 18px solid transparent; border-top: 28px solid #f2f2f2; transform: rotate(-20deg); transform-origin: 4px 4px; }
+    .cursor::after { content: ""; position: absolute; left: 5px; top: 3px; width: 0; height: 0; border-right: 13px solid transparent; border-top: 22px solid #171717; transform: rotate(-20deg); transform-origin: 3px 3px; }
+    .ripple { position: absolute; z-index: 11; left: 0; top: 0; width: 48px; height: 48px; border: 2px solid rgba(62,207,142,.78); border-radius: 50%; opacity: var(--ripple-opacity, 0); transform: translate3d(calc(var(--ripple-x, 0px) - 24px), calc(var(--ripple-y, 0px) - 24px), 0) scale(var(--ripple-scale, .2)); }
+    .feature-toast { position: absolute; right: 25px; bottom: 24px; z-index: 10; min-width: 250px; height: 54px; display: flex; align-items: center; gap: 12px; padding: 0 16px; border: 1px solid #365244; border-radius: 9px; background: #18241e; box-shadow: 0 18px 50px rgba(0,0,0,.44); color: #dce8e1; font-size: 12px; opacity: var(--toast-opacity, 0); transform: translateY(var(--toast-y, 18px)); }
+    .toast-check { width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; background: #2d875c; color: #fff; font-size: 13px; }
+    .flash { position: absolute; inset: 0; z-index: 40; pointer-events: none; background: #d9ffe9; opacity: var(--flash-opacity, 0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .camera { opacity: 1; transform: translate3d(-50%, 535px, 0) scale(.67); }
+      .ambient { opacity: .58; }
+    }
+  </style>
+</head>
+<body>
+  <main class="reel" aria-label="Cena vertical mostrando recursos do Supabase">
+    <div class="ambient"></div>
+    <div class="scene-label">Backend completo <span>/ Supabase</span></div>
+
+    <div class="camera">
+      <section class="browser" aria-label="Recriação visual do dashboard do Supabase">
+        <div class="chrome">
+          <div class="traffic"><span></span><span></span><span></span></div>
+          <div class="address"><span class="lock"></span><span>supabase.com/dashboard/project/orbitacrm</span></div>
+          <div class="chrome-tools"><span>↻</span><span>⋯</span></div>
+        </div>
+
+        <div class="webview">
+          <header class="projectbar">
+            <div class="brand"><span class="supabase-mark"></span><span>supabase</span><span class="slash">/</span><span class="project-name">orbitacrm</span></div>
+            <div class="environment"><span class="live-dot"></span><span>Project is healthy</span><span class="slash">/</span><span>Postgres 17.4</span></div>
+            <div class="top-actions"><span class="top-button">⌕</span><span class="top-button">?</span><span class="avatar">I</span></div>
+          </header>
+
+          <div class="workspace">
+            <aside class="sidebar">
+              <div class="active-layer"></div>
+              <div class="side-section">Project</div>
+              <div class="nav-item table-nav active"><span class="nav-icon">T</span><span>Table Editor</span></div>
+              <div class="nav-item auth-nav"><span class="nav-icon">U</span><span>Authentication</span></div>
+              <div class="nav-item storage-nav"><span class="nav-icon">F</span><span>Storage</span></div>
+              <div class="nav-item api-nav"><span class="nav-icon">&lt;/&gt;</span><span>API Docs</span></div>
+              <div class="nav-item"><span class="nav-icon">Q</span><span>SQL Editor</span></div>
+              <div class="side-section">Database</div>
+              <div class="nav-item"><span class="nav-icon">D</span><span>Database</span></div>
+              <div class="nav-item"><span class="nav-icon">R</span><span>Reports</span></div>
+              <div class="db-tree">
+                <div class="tree-item">public</div>
+                <div class="tree-item active">profiles</div>
+                <div class="tree-item">subscriptions</div>
+              </div>
+            </aside>
+
+            <div class="main">
+              <section class="screen table">
+                <div class="screen-head"><div class="screen-title">profiles <span class="schema">public</span></div><div class="head-actions"><span class="button">Enable Realtime</span><span class="button green">Insert row</span></div></div>
+                <div class="table-toolbar"><div class="search">Search this table...</div><div class="mini-button">Filter</div><div class="mini-button">Sort</div><div class="mini-button">Columns</div></div>
+                <div class="data-table">
+                  <div class="data-head"><span></span><span>id</span><span>full_name</span><span>email</span><span>plan</span><span>active</span></div>
+                  <div class="data-row"><span class="checkbox"></span><span>1042</span><span>Bruna Rocha</span><span>bruna@orbitacrm.test</span><span>pro</span><span class="bool">true</span></div>
+                  <div class="data-row"><span class="checkbox"></span><span>1043</span><span>Caio Martins</span><span>caio@orbitacrm.test</span><span>starter</span><span class="bool">true</span></div>
+                  <div class="data-row"><span class="checkbox"></span><span>1044</span><span>Marina Alves</span><span>marina@orbitacrm.test</span><span>pro</span><span class="bool">true</span></div>
+                  <div class="data-row"><span class="checkbox"></span><span>1045</span><span>Rafael Nunes</span><span>rafael@orbitacrm.test</span><span>trial</span><span class="bool">true</span></div>
+                </div>
+              </section>
+
+              <section class="screen auth">
+                <div class="screen-head"><div class="screen-title">Authentication <span class="schema">Users</span></div><div class="head-actions"><span class="button">Export</span><span class="button green">Add user</span></div></div>
+                <div class="section-body">
+                  <div class="section-copy"><h1>Users</h1><p>Manage everyone who can sign in to your application.</p></div>
+                  <div class="summary"><div class="metric"><div class="metric-label">Total users</div><div class="metric-value">1,284</div><div class="metric-note">Email and OAuth providers</div></div><div class="metric"><div class="metric-label">Active this week</div><div class="metric-value">436</div><div class="metric-note">34% of total users</div></div></div>
+                  <div class="users">
+                    <div class="users-head"><span>USER</span><span>PROVIDER</span><span>CREATED</span><span>STATUS</span></div>
+                    <div class="user-row"><span class="user-email"><span class="user-avatar">BR</span>bruna@orbitacrm.test</span><span class="provider">Email</span><span>Sep 2, 2026</span><span class="confirmed">Confirmed</span></div>
+                    <div class="user-row"><span class="user-email"><span class="user-avatar">CM</span>caio@orbitacrm.test</span><span class="provider">Google</span><span>Sep 1, 2026</span><span class="confirmed">Confirmed</span></div>
+                    <div class="user-row"><span class="user-email"><span class="user-avatar">MA</span>marina@orbitacrm.test</span><span class="provider">Email</span><span>Aug 29, 2026</span><span class="confirmed">Confirmed</span></div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="screen storage">
+                <div class="screen-head"><div class="screen-title">Storage <span class="schema">Files</span></div><div class="head-actions"><span class="button green">New bucket</span></div></div>
+                <div class="section-body">
+                  <div class="section-copy"><h1>Buckets</h1><p>Store and serve images, documents and user uploads.</p></div>
+                  <div class="bucket-grid">
+                    <div class="bucket"><span class="folder">▰</span><div><div class="bucket-name">avatars</div><div class="bucket-meta">184 objects<br>12.6 MB</div></div><span class="privacy">Public</span></div>
+                    <div class="bucket"><span class="folder">▰</span><div><div class="bucket-name">documents</div><div class="bucket-meta">67 objects<br>43.8 MB</div></div><span class="privacy">Private</span></div>
+                  </div>
+                  <div class="files">
+                    <div class="file-row"><span class="file-name">bruna-rocha.webp</span><span>86 KB</span><span>image/webp</span></div>
+                    <div class="file-row"><span class="file-name">caio-martins.webp</span><span>91 KB</span><span>image/webp</span></div>
+                    <div class="file-row"><span class="file-name">marina-alves.webp</span><span>78 KB</span><span>image/webp</span></div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="screen api">
+                <div class="screen-head"><div class="screen-title">API Docs <span class="schema">REST</span></div><div class="head-actions"><span class="button">Client libraries</span></div></div>
+                <div class="section-body">
+                  <div class="section-copy"><h1>Auto-generated API</h1><p>Use your database from the frontend with a secure REST endpoint.</p></div>
+                  <div class="api-layout">
+                    <div class="endpoint-list">
+                      <div class="endpoint active"><span class="method">GET</span><span>/rest/v1/profiles</span></div>
+                      <div class="endpoint"><span class="method">POST</span><span>/rest/v1/profiles</span></div>
+                      <div class="endpoint"><span class="method">GET</span><span>/rest/v1/subscriptions</span></div>
+                    </div>
+                    <div class="code-panel">
+                      <div class="code-tabs"><span class="active">JavaScript</span><span>cURL</span><span>Python</span></div>
+                      <pre><span class="kw">const</span> { data, error } = <span class="kw">await</span> supabase
+  .<span class="fn">from</span>(<span class="str">'profiles'</span>)
+  .<span class="fn">select</span>(<span class="str">'id, full_name, plan'</span>)
+  .<span class="fn">eq</span>(<span class="str">'active'</span>, <span class="kw">true</span>)</pre>
+                    </div>
+                  </div>
+                  <div class="api-note">Row Level Security controls which records each authenticated user can access.</div>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div class="ripple"></div>
+          <div class="cursor"></div>
+          <div class="feature-toast"><span class="toast-check">✓</span><span>Database, Auth, Storage and API ready</span></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="flash"></div>
+    <div class="grain"></div>
+  </main>
+
+  <script>
+    const root = document.documentElement;
+    const clamp = (v, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+    const mix = (a, b, t) => a + (b - a) * t;
+    const seg = (t, a, b) => clamp((t - a) / (b - a));
+    const out = t => 1 - Math.pow(1 - clamp(t), 4);
+    const smooth = t => { t = clamp(t); return t < .5 ? 8 * t ** 4 : 1 - ((-2 * t + 2) ** 4) / 2; };
+    const set = (name, value) => root.style.setProperty(name, value);
+
+    function setActive(name) {
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      document.querySelector(`.${name}-nav`)?.classList.add('active');
+    }
+
+    window.__setTime = milliseconds => {
+      const t = milliseconds / 1000;
+      const intro = out(seg(t, 0, .78));
+      const tableZoom = smooth(seg(t, .58, 1.75));
+      const authSwitch = smooth(seg(t, 2.32, 2.76));
+      const storageSwitch = smooth(seg(t, 4.20, 4.64));
+      const apiSwitch = smooth(seg(t, 6.02, 6.48));
+      const finalZoom = smooth(seg(t, 6.42, 8.0));
+      const panStorage = smooth(seg(t, 4.35, 5.18));
+      const panApi = smooth(seg(t, 6.14, 7.15));
+      const settle = Math.sin(seg(t, 7.7, 8.35) * Math.PI) * .005;
+
+      set('--camera-opacity', clamp(intro * 1.15));
+      set('--camera-scale', mix(.51, .63, intro) + mix(0, .10, tableZoom) + mix(0, .04, panStorage) + mix(0, .14, finalZoom) + settle);
+      set('--camera-x', `${mix(48, 0, intro) + mix(0, 24, tableZoom) + mix(0, -58, panStorage) + mix(0, -72, panApi)}px`);
+      set('--camera-y', `${mix(675, 548, intro) + mix(0, -16, tableZoom) + mix(0, 32, panStorage) + mix(0, 20, finalZoom)}px`);
+      set('--camera-rx', `${mix(9, 2.7, intro) + mix(0, -2.7, tableZoom)}deg`);
+      set('--camera-ry', `${mix(-14, -5, intro) + mix(0, 5, tableZoom)}deg`);
+      set('--camera-rz', `${mix(2.2, .65, intro) + mix(0, -.65, tableZoom)}deg`);
+      set('--ambient-opacity', mix(0, .88, intro));
+      set('--ambient-scale', mix(.62, 1.08, out(seg(t, 0, 3.2))));
+      set('--label-opacity', seg(t, .2, .78) * (1 - seg(t, 1.65, 2.02)));
+      set('--label-y', `${mix(16, 0, out(seg(t, .2, .78)))}px`);
+
+      const tableOut = authSwitch;
+      const authOut = storageSwitch;
+      const storageOut = apiSwitch;
+      set('--table-opacity', 1 - tableOut);
+      set('--table-x', `${mix(0, -44, tableOut)}px`);
+      set('--auth-opacity', authSwitch * (1 - authOut));
+      set('--auth-x', `${mix(44, 0, authSwitch) + mix(0, -44, authOut)}px`);
+      set('--storage-opacity', storageSwitch * (1 - storageOut));
+      set('--storage-x', `${mix(44, 0, storageSwitch) + mix(0, -44, storageOut)}px`);
+      set('--api-opacity', apiSwitch);
+      set('--api-x', `${mix(44, 0, apiSwitch)}px`);
+      set('--flash-opacity', (Math.sin(seg(t, 2.38, 2.62) * Math.PI) + Math.sin(seg(t, 4.27, 4.51) * Math.PI) + Math.sin(seg(t, 6.09, 6.34) * Math.PI)) * .065);
+
+      let active = 'table';
+      let activeY = 0;
+      if (t >= 2.52 && t < 4.42) { active = 'auth'; activeY = 42; }
+      if (t >= 4.42 && t < 6.25) { active = 'storage'; activeY = 84; }
+      if (t >= 6.25) { active = 'api'; activeY = 126; }
+      setActive(active);
+      set('--active-y', `${activeY}px`);
+      set('--tree-opacity', t < 2.35 ? 1 : 0);
+
+      const cursorIn = out(seg(t, .65, .98));
+      let cx = 1000;
+      let cy = 300;
+      if (t < 1.9) {
+        const m = smooth(seg(t, .88, 1.54));
+        cx = mix(1000, 470, m);
+        cy = mix(300, 346, m);
+      } else if (t < 2.7) {
+        const m = smooth(seg(t, 1.86, 2.38));
+        cx = mix(470, 112, m);
+        cy = mix(346, 169, m);
+      } else if (t < 4.55) {
+        const m = smooth(seg(t, 3.68, 4.30));
+        cx = mix(720, 112, m);
+        cy = mix(350, 211, m);
+      } else if (t < 6.38) {
+        const m = smooth(seg(t, 5.55, 6.18));
+        cx = mix(720, 112, m);
+        cy = mix(350, 253, m);
+      } else {
+        const m = smooth(seg(t, 6.55, 7.38));
+        cx = mix(112, 1010, m);
+        cy = mix(253, 402, m);
+      }
+      set('--cursor-opacity', cursorIn);
+      set('--cursor-x', `${cx}px`);
+      set('--cursor-y', `${cy}px`);
+
+      const clickTimes = [[2.28,2.56,112,169],[4.20,4.48,112,211],[6.02,6.31,112,253]];
+      let click = null;
+      clickTimes.forEach(([a,b,x,y]) => {
+        const p = seg(t,a,b);
+        if (p > 0 && p < 1) click = {p,x,y};
+      });
+      set('--cursor-scale', click && click.p > .18 && click.p < .58 ? .83 : 1);
+      set('--ripple-opacity', click ? Math.sin(click.p * Math.PI) * .78 : 0);
+      set('--ripple-scale', click ? mix(.18, 1.3, out(click.p)) : .2);
+      set('--ripple-x', `${click ? click.x : 0}px`);
+      set('--ripple-y', `${click ? click.y : 0}px`);
+
+      const tablePulse = Math.sin(seg(t, 1.35, 2.05) * Math.PI);
+      const authPulse = Math.sin(seg(t, 2.76, 3.66) * Math.PI);
+      const bucketPulse = Math.sin(seg(t, 4.68, 5.58) * Math.PI);
+      const apiPulse = Math.sin(seg(t, 6.5, 7.55) * Math.PI);
+      set('--table-ring', `${tablePulse * 6}px`);
+      set('--table-ring-alpha', tablePulse * .055);
+      set('--auth-ring', `${authPulse * 6}px`);
+      set('--auth-ring-alpha', authPulse * .055);
+      set('--bucket-ring', `${bucketPulse * 5}px`);
+      set('--bucket-ring-alpha', bucketPulse * .055);
+      set('--api-ring', `${apiPulse * 6}px`);
+      set('--api-ring-alpha', apiPulse * .07);
+
+      const toast = out(seg(t, 7.55, 8.0));
+      set('--toast-opacity', toast);
+      set('--toast-y', `${mix(18, 0, toast)}px`);
+    };
+
+    window.__setTime(0);
+    if (!new URLSearchParams(location.search).has('render')) {
+      const start = performance.now();
+      const duration = 8400;
+      function play(now) {
+        window.__setTime((now - start) % duration);
+        requestAnimationFrame(play);
+      }
+      requestAnimationFrame(play);
+    }
+  </script>
+</body>
+</html>
