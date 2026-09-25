@@ -77,6 +77,12 @@ def d20_signature(page: Page) -> None:
     # Resultado determinístico pela API usada pelo dado.
     page.evaluate("window.D20.showResult(4)")
     assert page.locator("[data-result-class]").inner_text() == "Bárbaro"
+    photo = page.locator("[data-result-photo] img")
+    assert photo.is_visible() and photo.get_attribute("src").endswith("cardapio/barbaro.webp")
+    page.evaluate("window.D20.showResult(18)")
+    assert photo.is_hidden()
+    assert "foto no pedido oficial" in page.locator("[data-result-photo]").get_attribute("data-note")
+    assert page.locator(".card-photo").count() == 7
     page.evaluate("window.D20.showResult(20)")
     assert "crítico" in page.locator("[data-result-class]").inner_text()
     tab = page.locator("#tab-entradas")

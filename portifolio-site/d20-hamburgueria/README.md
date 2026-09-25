@@ -34,7 +34,7 @@ descartada.
 ## Dados (fontes oficiais da casa, consultadas em 25/09/2026)
 
 Airgo (links oficiais), site de pedidos Saipos, iFood e 99Food. Endereço
-(Rua Maria Fernandes de Sousa, 58, Coité, Eusébio), WhatsApp
+(Rua Maria Fernandes de Sousa, 58, Eusébio; bairro divergente: Coité no iFood, Guariba numa arte da casa), WhatsApp
 (85) 98937-9116, Instagram @d20burger e cardápio: **confirmados**.
 Horário: “abre às 18h” (provável); dias a confirmar.
 
@@ -44,8 +44,18 @@ oficial. Aviso de alergia: a equipe confirma ingredientes.
 
 ## Imagens
 
-`assets/hero.webp`, `camadas.webp`, `guilda.webp`, `combo.webp`: geradas
-com GPT Images para a demonstração (conceituais, rotuladas no rodapé).
+- **Fotos reais do cardápio oficial** (Saipos da D20, baixadas em 25/09/2026)
+  em `assets/cardapio/`: Caçador, Bárbaro, Bruxa, Guerreiro, Monge,
+  Alquimista, Mímico, Entrada da Guilda e Combo D20. Aparecem nos cards do
+  cardápio, na lista de entradas, no combo e no resultado do dado (enquanto o
+  d20 gira, as fotos passam rápido e param no lanche sorteado). Berserker e
+  Explorador não têm foto no cardápio online: o site mostra um aviso, não uma
+  foto inventada. A arte “Dupla de dois” é um panfleto com preço e ficou de
+  fora. **Pedir autorização da casa para usar as fotos** antes de publicar.
+- **Conceituais (GPT Images):** `hero.webp`, `camadas.webp`, `guilda.webp`
+  (tábua da seção “Para dividir”). O `combo.webp` gerado foi removido.
+- A foto do Alquimista traz o endereço com o bairro **Guariba**; o iFood diz
+  **Coité**. O site mostra só “Eusébio” até a casa confirmar.
 
 ## Dependências externas
 

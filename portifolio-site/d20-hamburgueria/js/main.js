@@ -56,22 +56,50 @@
     actions: document.querySelector('[data-result-actions]'),
     whatsapp: document.querySelector('[data-result-whatsapp]')
   };
+  const photoBox = document.querySelector('[data-result-photo]');
+  const photoImg = document.createElement('img');
+  photoImg.width = 700; photoImg.height = 700; photoImg.alt = ''; photoImg.hidden = true;
+  const photos = cards.filter(card => card.dataset.photo).map(card => card.dataset.photo);
+  const guildPhoto = 'assets/cardapio/guilda.webp';
+  photos.concat(guildPhoto).forEach(src => { const pre = new Image(); pre.src = src; });
+  const setPhoto = (src, note = '') => {
+    photoImg.hidden = !src;
+    if (src) { if (!photoImg.isConnected) photoBox.append(photoImg); photoImg.src = src; photoImg.alt = note ? '' : 'Foto do lanche sorteado, do cardápio oficial'; }
+    photoBox.dataset.note = src ? '' : note;
+    photoBox.setAttribute('aria-hidden', String(!src));
+  };
+  let shuffleTimer = 0;
+  const startShuffle = () => {
+    if (reduce) return;
+    photoBox.classList.add('shuffling'); photoBox.classList.remove('landed');
+    let i = Math.floor(Math.random() * photos.length);
+    shuffleTimer = setInterval(() => { i = (i + 1) % photos.length; setPhoto(photos[i]); }, 95);
+  };
+  const stopShuffle = () => { clearInterval(shuffleTimer); photoBox.classList.remove('shuffling'); };
+
   const showResult = n => {
-    let name; let desc; let order;
+    let name; let desc; let order; let photo = ''; let note = '';
     if (n === 20) {
       name = 'Acerto crítico!';
       desc = 'A mesa ganhou motivo para pedir a Entrada da Guilda: as porções da casa numa tábua só.';
       order = 'uma Entrada da Guilda';
+      photo = guildPhoto;
     } else if (n === 1) {
       name = 'Falha crítica.';
       desc = 'Ninguém viu. Role de novo ou escolha direto no cardápio.';
       order = null;
+      note = 'Rola de novo!';
     } else {
       const hit = classes.find(item => n >= item.from && n <= item.to);
       name = hit.name;
       desc = `${hit.desc}. Pão brioche e blend bovino de 120 g.`;
       order = `${hit.name === 'Bruxa' ? 'uma' : 'um'} ${hit.name}`;
+      photo = cards.find(card => card.dataset.class === hit.name)?.dataset.photo || '';
+      note = `${hit.name}: foto no pedido oficial`;
     }
+    stopShuffle();
+    setPhoto(photo, note);
+    photoBox.classList.remove('landed'); void photoBox.offsetWidth; photoBox.classList.add('landed');
     out.number.textContent = n;
     out.name.textContent = name;
     out.desc.textContent = desc;
@@ -90,12 +118,14 @@
   };
   // O dado 3D (js/die.js, Three.js) registra window.D20Die. Sem WebGL, o botão
   // continua funcionando e só o número aparece.
+  setPhoto('', '?');
   window.D20 = { showResult, randomFace };
   const rollButton = document.querySelector('[data-roll]');
   const roll = () => {
     const n = randomFace();
     if (window.D20Die?.ready) {
       rollButton.disabled = true;
+      startShuffle();
       window.D20Die.roll(n).then(() => { showResult(n); rollButton.disabled = false; });
     } else {
       showResult(n);
