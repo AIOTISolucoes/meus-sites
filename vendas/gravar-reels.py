@@ -208,11 +208,31 @@ class Reel:
         if len(waited) > 45:                      # no máximo 1,5 s de "Pensando…"
             keep = waited[:: max(1, len(waited) // 45)][:45]
             self.frames[wait_start:] = keep
-        # Rola a conversa até a resposta ficar visível.
+        # Rola a conversa (suave, quadro a quadro) até a resposta ficar no topo.
+        self.hold(.3)
         try:
-            frame.evaluate("() => { const m = document.querySelectorAll('[data-testid=\"stChatMessage\"]'); m[m.length-1]?.scrollIntoView({block:'end'}); }")
-        except Exception:
-            pass
+            frame.evaluate("""() => {
+                const msgs = [...document.querySelectorAll('[data-testid="stChatMessage"]')];
+                const last = msgs[msgs.length - 1];
+                let box = last.parentElement;
+                while (box && !(box.scrollHeight > box.clientHeight + 4 &&
+                       /(auto|scroll)/.test(getComputedStyle(box).overflowY))) box = box.parentElement;
+                box = box || document.scrollingElement;
+                box.style.scrollBehavior = 'auto';
+                const top = box === document.scrollingElement ? 0 : box.getBoundingClientRect().top;
+                const prev = msgs[msgs.length - 2];
+                const anchor = prev || last;
+                window.__chatScroll = { box, start: box.scrollTop,
+                  end: box.scrollTop + anchor.getBoundingClientRect().top - top - 8 };
+            }""")
+            steps = round(.9 * FPS)
+            for i in range(steps):
+                t = (i + 1) / steps
+                e = 1 - (1 - t) ** 3
+                frame.evaluate("e => { const s = window.__chatScroll; s.box.scrollTop = s.start + (s.end - s.start) * e; }", e)
+                self.tick()
+        except Exception as exc:
+            print(f"[reels] rolagem do chat falhou: {exc}", file=sys.stderr)
         self.hold(4.0)
         return answered
 
