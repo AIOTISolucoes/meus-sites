@@ -63,6 +63,7 @@ abertura/fechamento do chat com Escape e foco, e funcionamento sem GSAP.
 ## Vídeos
 
 - Horizontal 1440×900: `vendas/video-farmacia-provisao.mp4` (`python vendas/gravar-videos-prospectos.py --only …`).
+- **Horizontal Full HD 1920×1080 (recomendado):** `vendas/hd/hd-farmacia-provisao.mp4` (`python vendas/gravar-horizontal-hd.py --only …`).
 - Reels 1080×1920, 30 fps: `vendas/reels/reels-farmacia-provisao.mp4` (`python vendas/gravar-reels.py --only …`).
 - Ambos exigem o site servido na porta 8602 e o app de agentes na 8512 com a
   chave do Groq; o gravador recusa vídeo sem resposta do agente.

@@ -34,6 +34,11 @@ nenhuma empresa contatada:
     `vendas/gravar-reels.py`, que controla o relógio da página (GSAP, Three.js,
     timers e animações CSS avançam 1/30 s por quadro), então saem lisos.
   - O gravador recusa gerar vídeo se o agente não responder.
+  - **Horizontais Full HD 1920×1080, 30 fps, CRF 16** em `vendas/hd/` (os
+    mesmos oito sites), gravados com `vendas/gravar-horizontal-hd.py`: relógio
+    controlado, captura em 2880×1620 reduzida para 1080p, desktop com cursor,
+    celular em mockup e chat real no final. São a versão recomendada para
+    Reels horizontal e apresentação.
 - Chave do Groq: vem de uma **API credential** do ambiente de nuvem (o proxy
   anexa o cabeçalho). No repositório não há chave; o app roda com
   `GROQ_API_KEY=via-proxy` só para passar a validação local.

@@ -73,6 +73,7 @@ python tests/test_new_sites_2026_09.py d20
 ## Vídeos
 
 - Horizontal 1440×900: `vendas/video-d20-hamburgueria.mp4` (`python vendas/gravar-videos-prospectos.py --only …`).
+- **Horizontal Full HD 1920×1080 (recomendado):** `vendas/hd/hd-d20-hamburgueria.mp4` (`python vendas/gravar-horizontal-hd.py --only …`).
 - Reels 1080×1920, 30 fps: `vendas/reels/reels-d20-hamburgueria.mp4` (`python vendas/gravar-reels.py --only …`).
 - Ambos exigem o site servido na porta 8602 e o app de agentes na 8512 com a
   chave do Groq; o gravador recusa vídeo sem resposta do agente.
