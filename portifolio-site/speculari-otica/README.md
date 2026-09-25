@@ -1,7 +1,7 @@
 # Speculari Ótica — conceito de site
 
-**Status:** em desenvolvimento. Código e testes prontos; faltam imagens finais
-(GPT Images), teste da resposta real do agente e vídeo. **Não publicado, não
+**Status:** em desenvolvimento. Código, imagens e testes prontos; faltam teste
+da resposta real do agente e vídeo. **Não publicado, não
 enviado à ótica.**
 
 ## Conceito visual
@@ -41,10 +41,9 @@ Fontes: [`vendas/pesquisa-proximos-5-2026-09-25.md`](../../vendas/pesquisa-proxi
 
 ## Imagens
 
-`assets/*.webp` são **placeholders temporários**. Substituir por
-`speculari-hero`, `speculari-dobradica`, `speculari-lente` (e opcionalmente
-`speculari-formatos`) de
-[`vendas/PROMPTS-ASSETS-5-SITES-2026-09-25.md`](../../vendas/PROMPTS-ASSETS-5-SITES-2026-09-25.md).
+Geradas com GPT Images para a demonstração (originais em
+`vendas/assets-proximos-sites/`), convertidas para WebP. São conceituais e
+estão rotuladas no rodapé.
 
 ## Dependências externas
 

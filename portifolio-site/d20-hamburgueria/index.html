@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#16110d">
+  <meta name="description" content="Conceito de site para a D20 Hamburgueria, no Eusébio. Escolha sua classe, role o dado e faça o pedido pelos canais oficiais.">
+  <title>D20 Hamburgueria | Eusébio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;700;900&family=Grenze+Gotisch:wght@600;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css">
+  <link rel="preload" href="assets/hero.webp" as="image" type="image/webp">
+  <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#inicio" aria-label="D20 Hamburgueria, início">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path class="d-out" d="M24 3 43 14v20L24 45 5 34V14Z"/><path class="d-in" d="M24 13 35 32H13Z"/><path class="d-lines" d="M24 3v10M43 14l-8 18M5 14l8 18M13 32 5 34M35 32l8 2M13 32l11 13 11-13"/></svg>
+      <span>D20 <small>Hamburgueria</small></span>
+    </a>
+    <button class="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i class="ph-bold ph-list" aria-hidden="true"></i></button>
+    <nav id="menu" aria-label="Navegação principal">
+      <a href="#dado">Rolar o dado</a>
+      <a href="#cardapio">Cardápio</a>
+      <a href="#guilda">Para dividir</a>
+      <a href="#pedir">Onde pedir</a>
+      <a class="nav-cta" href="https://d20hamburgueria.saipos.com/home" target="_blank" rel="noopener">Fazer pedido <i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <img class="hero-img" src="assets/hero.webp" alt="Smash burger com cheddar escorrendo e cebola caramelizada ao lado de um dado de vinte faces, sobre mesa de madeira escura" width="1920" height="1080" fetchpriority="high">
+      <div class="hero-copy">
+        <p class="hero-place">Hambúrguer artesanal · Eusébio</p>
+        <h1 id="hero-title">Escolha sua classe. <span>A chapa faz o resto.</span></h1>
+        <div class="hero-actions">
+          <a class="btn btn-ochre" href="https://d20hamburgueria.saipos.com/home" target="_blank" rel="noopener"><i class="ph-bold ph-hamburger" aria-hidden="true"></i> Fazer pedido</a>
+          <a class="btn btn-line" href="#dado"><i class="ph-bold ph-dice-five" aria-hidden="true"></i> Não sei o que pedir</a>
+        </div>
+      </div>
+      <p class="hero-roll" aria-hidden="true"><span>d20</span><span data-hero-roll>20</span></p>
+    </section>
+
+    <section class="roll" id="dado" aria-labelledby="roll-title">
+      <div class="roll-head">
+        <h2 id="roll-title">Na dúvida, <span>role o dado.</span></h2>
+        <p>Cada face leva a um hambúrguer do cardápio. Tirou 20? Acerto crítico. Tirou 1? Rola de novo, ninguém viu.</p>
+      </div>
+      <div class="roll-table">
+        <div class="die-scene" data-die-scene>
+          <svg class="die-fallback" viewBox="0 0 48 48" aria-hidden="true"><path class="d-out" d="M24 3 43 14v20L24 45 5 34V14Z"/><path class="d-in" d="M24 13 35 32H13Z"/><path class="d-lines" d="M24 3v10M43 14l-8 18M5 14l8 18M13 32 5 34M35 32l8 2M13 32l11 13 11-13"/><text x="24" y="28.5" text-anchor="middle">20</text></svg>
+          <div class="die-shadow" aria-hidden="true"></div>
+        </div>
+        <div class="roll-result" aria-live="polite">
+          <button class="btn btn-ochre btn-roll" type="button" data-roll><i class="ph-bold ph-dice-five" aria-hidden="true"></i> Rolar o d20</button>
+          <p class="result-number" data-result-number>—</p>
+          <h3 class="result-class" data-result-class>Sua classe aparece aqui</h3>
+          <p class="result-desc" data-result-desc>Role o dado ou escolha direto no cardápio.</p>
+          <div class="result-actions" data-result-actions hidden>
+            <a class="btn btn-ochre" data-result-whatsapp href="https://wa.me/5585989379116" target="_blank" rel="noopener"><i class="ph-bold ph-whatsapp-logo" aria-hidden="true"></i> Pedir pelo WhatsApp</a>
+            <a class="btn btn-line" href="https://d20hamburgueria.saipos.com/home" target="_blank" rel="noopener">Pedir no site oficial</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu" id="cardapio" aria-labelledby="menu-title">
+      <div class="menu-head">
+        <h2 id="menu-title">Cardápio da taverna</h2>
+        <div class="tabs" role="tablist" aria-label="Categorias do cardápio">
+          <button type="button" role="tab" id="tab-burgers" aria-selected="true" aria-controls="panel-burgers">Hambúrgueres</button>
+          <button type="button" role="tab" id="tab-entradas" aria-selected="false" aria-controls="panel-entradas" tabindex="-1">Entradas</button>
+          <button type="button" role="tab" id="tab-combos" aria-selected="false" aria-controls="panel-combos" tabindex="-1">Combos</button>
+        </div>
+      </div>
+      <p class="menu-note">Todos os hambúrgueres levam pão brioche e blend bovino de 120 g. Preços e disponibilidade aparecem no pedido oficial. Tem alergia ou restrição? Avise no pedido: a equipe confirma os ingredientes.</p>
+
+      <div class="panel" id="panel-burgers" role="tabpanel" aria-labelledby="tab-burgers">
+        <ul class="cards" data-cards>
+          <li class="card" data-class="Berserker" data-faces="18–19" data-desc="creme de cheddar, bacon, cebola crispy e maionese de jalapeño">
+            <span class="card-code">Do mês</span>
+            <h3>Berserker</h3>
+            <p>creme de cheddar, bacon, cebola crispy e maionese de jalapeño</p>
+            <span class="card-faces">Faces 18–19</span>
+            <a class="card-cta" href="https://wa.me/5585989379116?text=Boa%20noite%21%20Vi%20o%20site%20e%20eu%20gostaria%20de%20um%20Berserker%2C%20por%20favor%21" target="_blank" rel="noopener">Quero um Berserker <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+          </li>
+          <li class="card" data-class="Caçador" data-faces="2–3" data-desc="creme de provolone, chimichurri, alho frito e maionese defumada">
+            <span class="card-code">D3</span>
+            <h3>Caçador</h3>
+            <p>creme de provolone, chimichurri, alho frito e maionese defumada</p>
+            <span class="card-faces">Faces 2–3</span>
+            <a class="card-cta" href="https://wa.me/5585989379116?text=Boa%20noite%21%20Vi%20o%20site%20e%20eu%20gostaria%20de%20um%20Ca%C3%A7ador%2C%20por%20favor%21" target="_blank" rel="noopener">Quero um Caçador <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+          </li>
+          <li class="card" data-class="Bárbaro" data-faces="4–5" data-desc="queijo coalho, barbecue e costelinha defumada">
+            <span class="card-code">D4</span>
+            <h3>Bárbaro</h3>
+            <p>queijo coalho, barbecue e costelinha defumada</p>
+            <span class="card-faces">Faces 4–5</span>
+            <a class="card-cta" href="https://wa.me/5585989379116?text=Boa%20noite%21%20Vi%20o%20site%20e%20eu%20gostaria%20de%20um%20B%C3%A1rbaro%2C%20por%20favor%21" target="_blank" rel="noopener">Quero um Bárbaro <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+          </li>
+          <li class="card" data-class="Bruxa" data-faces="6–7" data-desc="queijo coalho, maionese de alho negro e cebola crocante">
+            <span class="card-code">D5</span>
+            <h3>Bruxa</h3>
+            <p>queijo coalho, maionese de alho negro e cebola crocante</p>
+            <span class="card-faces">Faces 6–7</span>
+            <a class="card-cta" href="https://wa.me/5585989379116?text=Boa%20noite%21%20Vi%20o%20site%20e%20eu%20gostaria%20de%20uma%20Bruxa%2C%20por%20favor%21" target="_blank" rel="noopener">Quero uma Bruxa <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+          </li>
+          <li class="card" data-class="Guerreiro" data-faces="8–9" data-desc="queijo coalho, abacaxi chapeado, teriyaki e maionese defumada">
+            <span class="card-code">D6</span>
+            <h3>Guerreiro</h3>
+            <p>queijo coalho, abacaxi chapeado, teriyaki e maionese defumada</p>
+            <span class="card-faces">Faces 8–9</span>
+            <a class="card-cta" href="https://wa.me/5585989379116?text=Boa%20noite%21%20Vi%20o%20site%20e%20eu%20gostaria%20de%20um%20Guerreiro%2C%20por%20favor%21" target="_blank" rel="noopener">Quero um Guerreiro <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+          </li>
+          <li class="card" data-class="Monge" data-faces="10–11" data-desc="molho agridoce, cream cheese e anéis de cebola">
+            <span class="card-code">D7</span>
+            <h3>Monge</h3>
+            <p>molho agridoce, cream cheese e anéis de cebola</p>
+            <span class="card-faces">Faces 10–11</span>
+            <a class="card-cta" href="https://wa.me/5585989379116?text=Boa%20noite%21%20Vi%20o%20site%20e%20eu%20gostaria%20de%20um%20Monge%2C%20por%20favor%21" target="_blank" rel="noopener">Quero um Monge <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+          </li>
+          <li class="card" data-class="Alquimista" data-faces="12–13" data-desc="cream cheese, bacon e geleia de pimenta">
+            <span class="card-code">D8</span>
+            <h3>Alquimista</h3>
+            <p>cream cheese, bacon e geleia de pimenta</p>
+            <span class="card-faces">Faces 12–13</span>
+            <a class="card-cta" href="https://wa.me/5585989379116?text=Boa%20noite%21%20Vi%20o%20site%20e%20eu%20gostaria%20de%20um%20Alquimista%2C%20por%20favor%21" target="_blank" rel="noopener">Quero um Alquimista <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+          </li>
+          <li class="card" data-class="Mímico" data-faces="14–15" data-desc="creme de cheddar, molho especial, alface e cebola">
+            <span class="card-code">D9</span>
+            <h3>Mímico</h3>
+            <p>creme de cheddar, molho especial, alface e cebola</p>
+            <span class="card-faces">Faces 14–15</span>
+            <a class="card-cta" href="https://wa.me/5585989379116?text=Boa%20noite%21%20Vi%20o%20site%20e%20eu%20gostaria%20de%20um%20M%C3%ADmico%2C%20por%20favor%21" target="_blank" rel="noopener">Quero um Mímico <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+          </li>
+          <li class="card" data-class="Explorador" data-faces="16–17" data-desc="o mais direto da casa; ingredientes no pedido oficial">
+            <span class="card-code">D10</span>
+            <h3>Explorador</h3>
+            <p>o mais direto da casa; ingredientes no pedido oficial</p>
+            <span class="card-faces">Faces 16–17</span>
+            <a class="card-cta" href="https://wa.me/5585989379116?text=Boa%20noite%21%20Vi%20o%20site%20e%20eu%20gostaria%20de%20um%20Explorador%2C%20por%20favor%21" target="_blank" rel="noopener">Quero um Explorador <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </div>
+      <div class="panel" id="panel-entradas" role="tabpanel" aria-labelledby="tab-entradas" hidden>
+        <ul class="list">
+          <li><strong>Entrada da Guilda</strong><span>onion rings, batata, bolinha de cheddar e bacon, croquete de costelinha e frango frito, com molhos da casa</span></li>
+          <li><strong>Costela com batata</strong><span>porção para dividir</span></li>
+          <li><strong>Frango frito</strong><span>empanado, com batata e molho da casa</span></li>
+          <li><strong>Queijo frito</strong><span>muçarela empanada com maionese da casa</span></li>
+          <li><strong>Croquete de costelinha</strong><span>costela suína ao barbecue, com maionese defumada</span></li>
+          <li><strong>Onion rings</strong><span>anéis de cebola com molho da casa</span></li>
+          <li><strong>Batata grande</strong><span>rústica ou ondulada, com molho da casa</span></li>
+        </ul>
+      </div>
+      <div class="panel" id="panel-combos" role="tabpanel" aria-labelledby="tab-combos" hidden>
+        <div class="combo">
+          <img src="assets/combo.webp" alt="Combo com hambúrguer embrulhado em papel, batata ondulada e refrigerante" width="1200" height="1500" loading="lazy">
+          <div>
+            <h3>Combo D20</h3>
+            <p>Hambúrguer à sua escolha, batata e refrigerante.</p>
+            <h3>Dupla de dois</h3>
+            <p>Para quem não joga sozinho.</p>
+            <a class="btn btn-ochre" href="https://d20hamburgueria.saipos.com/home" target="_blank" rel="noopener">Montar combo no site oficial</a>
+          </div>
+        </div>
+      </div>
+      <p class="menu-source">Itens conforme o cardápio oficial consultado em 25/09/2026. O cardápio pode mudar.</p>
+    </section>
+
+    <section class="forge" aria-labelledby="forge-title">
+      <div class="forge-sticky">
+        <h2 id="forge-title">Montado camada por camada, <span>na hora.</span></h2>
+        <figure class="forge-stack" data-forge>
+          <img src="assets/camadas.webp" alt="Hambúrguer desmontado em camadas: pão, molho, bacon, cheddar, carne com borda crocante e cebola" width="1200" height="1500" loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+    <section class="guild" id="guilda" aria-labelledby="guild-title">
+      <img src="assets/guilda.webp" alt="Tábua de entradas com onion rings, batata, frango frito, queijo frito e croquetes, com molhos da casa" width="1920" height="1080" loading="lazy">
+      <div class="guild-copy">
+        <h2 id="guild-title">A guilda chegou com fome.</h2>
+        <p>A Entrada da Guilda junta as porções da casa numa tábua só, para abrir a noite com a mesa inteira.</p>
+      </div>
+    </section>
+
+    <section class="order" id="pedir" aria-labelledby="order-title">
+      <h2 id="order-title">Escolha o portal</h2>
+      <p class="order-sub">O pedido é concluído nos canais oficiais da D20. O site só te leva até lá.</p>
+      <div class="portals">
+        <a class="portal portal-main" href="https://d20hamburgueria.saipos.com/home" target="_blank" rel="noopener"><i class="ph-bold ph-storefront" aria-hidden="true"></i><strong>Site de pedidos</strong><span>Plataforma oficial de delivery e retirada</span></a>
+        <a class="portal" href="https://api.whatsapp.com/send?phone=5585989379116" target="_blank" rel="noopener"><i class="ph-bold ph-whatsapp-logo" aria-hidden="true"></i><strong>WhatsApp</strong><span>(85) 98937-9116</span></a>
+        <a class="portal" href="https://www.ifood.com.br/delivery/eusebio-ce/d20-hamburgueria-coite/d3f327f1-2cff-4d7b-8056-0884e7a6a533" target="_blank" rel="noopener"><i class="ph-bold ph-moped" aria-hidden="true"></i><strong>iFood</strong><span>D20 Hamburgueria · Coité</span></a>
+        <a class="portal" href="https://oia.99app.com/dlp9/hNPHvT" target="_blank" rel="noopener"><i class="ph-bold ph-moped" aria-hidden="true"></i><strong>99Food</strong><span>Link oficial da casa</span></a>
+      </div>
+      <div class="where">
+        <p><i class="ph-bold ph-map-pin" aria-hidden="true"></i> Rua Maria Fernandes de Sousa, 58 · Coité, Eusébio</p>
+        <p><i class="ph-bold ph-clock" aria-hidden="true"></i> Abre às 18h. Dias de funcionamento: confirmar com a casa.</p>
+        <p><i class="ph-bold ph-instagram-logo" aria-hidden="true"></i> <a href="https://instagram.com/d20burger" target="_blank" rel="noopener">@d20burger</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-brand">D20 <span>Hamburgueria</span></p>
+    <p>Conceito de site para apresentação. As fotos são imagens ilustrativas geradas para a demonstração, não mostram os produtos da casa. Cardápio, endereço e canais vêm das páginas oficiais da D20 e precisam de confirmação antes da publicação.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js?v=1" defer></script>
+  <script src="js/die.js?v=1" type="module"></script>
+  <script src="js/chat.js?v=1" defer></script>
+</body>
+</html>

@@ -59,6 +59,36 @@ def speculari_signature(page: Page) -> None:
     assert "gatinho" in href and "metal dourado" in href and "bem marcante" in href, href
 
 
+def d20_signature(page: Page) -> None:
+    page.wait_for_function("() => !window.D20Die || window.D20Die.ready", timeout=8000)
+    button = page.locator("[data-roll]")
+    button.click()
+    page.wait_for_function("() => document.querySelector('[data-result-number]').textContent.trim() !== '—'", timeout=8000)
+    page.wait_for_function("() => !document.querySelector('[data-roll]').disabled", timeout=8000)
+    number = int(page.locator("[data-result-number]").inner_text())
+    assert 1 <= number <= 20, number
+    actions = page.locator("[data-result-actions]")
+    if number == 1:
+        assert actions.is_hidden()
+    else:
+        href = unquote(page.locator("[data-result-whatsapp]").get_attribute("href"))
+        assert href.startswith("https://wa.me/5585989379116?text="), href
+        assert f"Rolei {number}" in href, href
+    # Resultado determinístico pela API usada pelo dado.
+    page.evaluate("window.D20.showResult(4)")
+    assert page.locator("[data-result-class]").inner_text() == "Bárbaro"
+    page.evaluate("window.D20.showResult(20)")
+    assert "crítico" in page.locator("[data-result-class]").inner_text()
+    tab = page.locator("#tab-entradas")
+    tab.click()
+    assert page.locator("#panel-entradas").is_visible() and page.locator("#panel-burgers").is_hidden()
+    tab.press("ArrowRight")
+    assert page.locator("#tab-combos").get_attribute("aria-selected") == "true"
+    page.locator("#tab-combos").press("Home")
+    assert page.locator("#panel-burgers").is_visible()
+    assert page.locator(".forge .slice").count() == 7
+
+
 SITES = {
     "provisao": {
         "slug": "farmacia-provisao",
@@ -73,6 +103,14 @@ SITES = {
         "cta": 'a.btn-ivory[href="#formatos"]',
         "links": ["https://www.instagram.com/speculariotica/"],
         "signature": speculari_signature,
+    },
+    "d20": {
+        "slug": "d20-hamburgueria",
+        "title": "D20 Hamburgueria",
+        "cta": 'a.btn-ochre[href="https://d20hamburgueria.saipos.com/home"]',
+        "links": ["https://d20hamburgueria.saipos.com/home", "https://api.whatsapp.com/send?phone=5585989379116",
+                  "https://instagram.com/d20burger"],
+        "signature": d20_signature,
     },
 }
 

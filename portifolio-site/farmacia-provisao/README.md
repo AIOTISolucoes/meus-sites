@@ -1,7 +1,7 @@
 # Farmácia Provisão — conceito de site
 
-**Status:** em desenvolvimento. Código e testes prontos; faltam imagens finais
-(GPT Images), teste da resposta real do agente e vídeo. **Não publicado, não
+**Status:** em desenvolvimento. Código, imagens e testes prontos; faltam teste
+da resposta real do agente e vídeo. **Não publicado, não
 enviado à farmácia.**
 
 ## Conceito visual
@@ -38,11 +38,9 @@ Fontes: [`vendas/pesquisa-proximos-5-2026-09-25.md`](../../vendas/pesquisa-proxi
 
 ## Imagens
 
-`assets/hero.webp`, `assets/etiquetas.webp` e `assets/rotina.webp` são
-**placeholders temporários** (gradientes). Substituir pelos arquivos gerados
-com os prompts `provisao-hero`, `provisao-labels` e `provisao-rotina` de
-[`vendas/PROMPTS-ASSETS-5-SITES-2026-09-25.md`](../../vendas/PROMPTS-ASSETS-5-SITES-2026-09-25.md),
-convertidos para WebP (1920×1080 e 1200×1500).
+Geradas com GPT Images para a demonstração (originais em
+`vendas/assets-proximos-sites/`), convertidas para WebP. São conceituais e
+estão rotuladas no rodapé. A foto do hero foi espelhada para deixar o balcão do lado oposto ao texto.
 
 ## Dependências externas
 
