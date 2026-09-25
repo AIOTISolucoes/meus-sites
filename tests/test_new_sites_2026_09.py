@@ -43,6 +43,22 @@ def provisao_signature(page: Page) -> None:
     assert "farmacêutico" in unquote(whatsapp.get_attribute("href"))
 
 
+def speculari_signature(page: Page) -> None:
+    cta = page.locator("#studio-cta")
+    page.locator('label:has(input[name="shape"][value="cat"])').click()
+    page.locator('label:has(input[name="material"][value="metal dourado fino"])').click()
+    page.locator("#presence").fill("5")
+    page.locator("#presence").dispatch_event("input")
+    art = page.locator("[data-frame]")
+    assert art.get_attribute("data-shape") == "cat"
+    assert art.get_attribute("data-tone") == "gold"
+    assert page.locator(".frame .lens").first.get_attribute("href") == "#lens-cat"
+    assert "bem marcante" in page.locator("#presence-out").inner_text()
+    href = unquote(cta.get_attribute("href"))
+    assert href.startswith("https://wa.me/5585981082522?text="), href
+    assert "gatinho" in href and "metal dourado" in href and "bem marcante" in href, href
+
+
 SITES = {
     "provisao": {
         "slug": "farmacia-provisao",
@@ -50,6 +66,13 @@ SITES = {
         "cta": 'a.btn-coral[href="#gaveteiro"]',
         "links": ["tel:+5585981833811", "https://www.instagram.com/farmaciasprovisao/"],
         "signature": provisao_signature,
+    },
+    "speculari": {
+        "slug": "speculari-otica",
+        "title": "Speculari Ótica",
+        "cta": 'a.btn-ivory[href="#formatos"]',
+        "links": ["https://www.instagram.com/speculariotica/"],
+        "signature": speculari_signature,
     },
 }
 
