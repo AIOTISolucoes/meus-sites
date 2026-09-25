@@ -1,7 +1,6 @@
 # Nobre Restaurante e Pizzaria — conceito de site
 
-**Status:** em desenvolvimento. Código, imagens e testes prontos; faltam teste
-da resposta real do agente e vídeo. **Não publicado, não enviado à casa.**
+**Status:** site pronto, vídeo pronto, revisão pendente com o negócio. **Não publicado, não enviado à casa.**
 
 ## Conceito visual
 
@@ -57,6 +56,13 @@ ScrollTrigger. Sem GSAP, a pizza aparece inteira e o resto funciona.
 python -m http.server 8765 --bind 127.0.0.1
 python tests/test_new_sites_2026_09.py nobre
 ```
+
+## Vídeos
+
+- Horizontal 1440×900: `vendas/video-nobre-restaurante.mp4` (`python vendas/gravar-videos-prospectos.py --only …`).
+- Reels 1080×1920, 30 fps: `vendas/reels/reels-nobre-restaurante-pizzaria.mp4` (`python vendas/gravar-reels.py --only …`).
+- Ambos exigem o site servido na porta 8602 e o app de agentes na 8512 com a
+  chave do Groq; o gravador recusa vídeo sem resposta do agente.
 
 ## Agente
 

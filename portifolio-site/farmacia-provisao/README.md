@@ -1,7 +1,6 @@
 # Farmácia Provisão — conceito de site
 
-**Status:** em desenvolvimento. Código, imagens e testes prontos; faltam teste
-da resposta real do agente e vídeo. **Não publicado, não
+**Status:** site pronto, vídeo pronto, revisão pendente com o negócio. **Não publicado, não
 enviado à farmácia.**
 
 ## Conceito visual
@@ -60,6 +59,13 @@ python tests/test_new_sites_2026_09.py provisao
 O teste cobre 10 viewports (320 a 1920 px) com e sem movimento reduzido:
 overflow, H1, imagens, menu, teclado, gaveteiro + cupom + link do WhatsApp,
 abertura/fechamento do chat com Escape e foco, e funcionamento sem GSAP.
+
+## Vídeos
+
+- Horizontal 1440×900: `vendas/video-farmacia-provisao.mp4` (`python vendas/gravar-videos-prospectos.py --only …`).
+- Reels 1080×1920, 30 fps: `vendas/reels/reels-farmacia-provisao.mp4` (`python vendas/gravar-reels.py --only …`).
+- Ambos exigem o site servido na porta 8602 e o app de agentes na 8512 com a
+  chave do Groq; o gravador recusa vídeo sem resposta do agente.
 
 ## Agente
 

@@ -60,6 +60,13 @@ python tests/test_new_sites_2026_09.py originalfarma
 
 O teste baixa o `.ics` e confere `RRULE:FREQ=MONTHLY;BYMONTHDAY=…`.
 
+## Vídeos
+
+- Horizontal 1440×900: `vendas/video-originalfarma.mp4` (`python vendas/gravar-videos-prospectos.py --only …`).
+- Reels 1080×1920, 30 fps: `vendas/reels/reels-originalfarma.mp4` (`python vendas/gravar-reels.py --only …`).
+- Ambos exigem o site servido na porta 8602 e o app de agentes na 8512 com a
+  chave do Groq; o gravador recusa vídeo sem resposta do agente.
+
 ## Agente
 
 `originalfarma` em `agents.yaml`: organiza a consulta, aponta o lembrete do

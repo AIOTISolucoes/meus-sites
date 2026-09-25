@@ -23,11 +23,22 @@ nenhuma empresa contatada:
   `d20_hamburgueria`, `nobre_restaurante`, `originalfarma`.
 - Testes: `python tests/test_new_sites_2026_09.py` passou nos cinco sites em
   10 viewports (320 a 1920 px), com e sem movimento reduzido, e sem GSAP.
-- **Vídeos pendentes** dos cinco sites novos e **do Bar do Peixe**. O vídeo
-  atual do Bar do Peixe termina com o chat em “Pensando…” (último quadro
-  conferido), ao contrário do que diz a nota de 25/09 abaixo. O roteiro de
-  gravação (`gravar-videos-prospectos.py`) já inclui os cinco sites e recusa
-  gravar se o agente não responder. Falta a chave do Groq na sessão.
+- **Vídeos prontos** (conferidos quadro a quadro, todos com resposta real do
+  agente e sem tela de erro):
+  - Horizontais 1440×900, 25 fps, H.264 `yuv420p`: `video-d20-hamburgueria.mp4`,
+    `video-farmacia-provisao.mp4`, `video-speculari-otica.mp4`,
+    `video-nobre-restaurante.mp4`, `video-originalfarma.mp4` e
+    `video-bar-do-peixe.mp4` (regravado; o anterior terminava em “Pensando…”).
+  - **Reels/Stories 1080×1920, 30 fps, CRF 16** em `vendas/reels/`: os cinco
+    novos + Bar do Peixe, Farmácia Central e Pró-Ótica. Gravados com
+    `vendas/gravar-reels.py`, que controla o relógio da página (GSAP, Three.js,
+    timers e animações CSS avançam 1/30 s por quadro), então saem lisos.
+  - O gravador recusa gerar vídeo se o agente não responder.
+- Chave do Groq: vem de uma **API credential** do ambiente de nuvem (o proxy
+  anexa o cabeçalho). No repositório não há chave; o app roda com
+  `GROQ_API_KEY=via-proxy` só para passar a validação local.
+- App de agentes: `text-rendering: geometricPrecision` corrigiu espaços dentro
+  das palavras da fonte IBM Plex no chat.
 - Os vídeos da Farmácia Central e da Pró-Ótica foram conferidos por quadros:
   mostram a resposta real do agente.
 
