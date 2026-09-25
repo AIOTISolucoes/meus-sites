@@ -1,5 +1,19 @@
 # Sites e prospecção — retomada de 15/09/2026
 
+## Atualização de 25/09/2026
+
+- As demos 4 a 6 agora também têm vídeos demonstrativos revisados:
+  `video-bar-do-peixe.mp4` (24,32 s), `video-farmacia-central.mp4` (25,84 s)
+  e `video-pro-otica.mp4` (26,76 s).
+- Os três arquivos estão em H.264, 1440×900 e 25 fps. Mostram interação
+  desktop, adaptação mobile e conversa respondida pelo agente local.
+- Os sites Bar do Peixe, Farmácia Central e Pró-Ótica passaram no teste de
+  desktop, mobile, interações e `prefers-reduced-motion` antes das gravações.
+- O inventário passa a ter **23 sites personalizados e 23 vídeos principais**,
+  desconsiderando versões `-antigo` e os dois rascunhos de modelo.
+- Nenhuma empresa foi contatada e os dados comerciais ainda devem ser
+  confirmados antes de qualquer apresentação.
+
 ## Atualização de 16/09/2026
 
 - Os três primeiros prospectos agora têm site, agente e vídeo demonstrativo.
