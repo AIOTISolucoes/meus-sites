@@ -32,6 +32,7 @@ CHAT_APP = "http://127.0.0.1:8512/"
 W, H = 1440, 900
 FPS = 25
 WAIT_CAP = 3.0
+ALLOW_NO_ANSWER = False
 
 SITES = {
     "vizzio": {
@@ -99,6 +100,61 @@ SITES = {
         "mobile_title": "Seu próximo olhar também começa no toque.",
         "question": "Oi! Quero uma armação leve e translúcida. A equipe pode me ajudar a experimentar opções?",
         "output": ROOT / "vendas" / "video-pro-otica.mp4",
+    },
+    "provisao": {
+        "slug": "farmacia-provisao",
+        "agent": "farmacia_provisao",
+        "color": "e8876a",
+        "bg": "#0f3d47",
+        "ink": "#f4f8f8",
+        "name": "Farmácia Provisão",
+        "mobile_title": "O gaveteiro também cabe no bolso.",
+        "question": "Oi! Procuro protetor solar. Vocês conseguem ver se tem na loja antes de eu ir?",
+        "output": ROOT / "vendas" / "video-farmacia-provisao.mp4",
+    },
+    "speculari": {
+        "slug": "speculari-otica",
+        "agent": "speculari_otica",
+        "color": "d9b877",
+        "bg": "#111113",
+        "ink": "#f1ebdf",
+        "name": "Speculari Ótica",
+        "mobile_title": "Foco e ajuste, na palma da mão.",
+        "question": "Oi! Quero ajuda para escolher uma armação de grau. Posso provar alguns formatos na loja?",
+        "output": ROOT / "vendas" / "video-speculari-otica.mp4",
+    },
+    "d20": {
+        "slug": "d20-hamburgueria",
+        "agent": "d20_hamburgueria",
+        "color": "e0a93b",
+        "bg": "#16110d",
+        "ink": "#f5efe1",
+        "name": "D20 Hamburgueria",
+        "mobile_title": "Role o dado de qualquer mesa.",
+        "question": "Oi! Gosto de hambúrguer defumado e com bacon. Qual vocês indicam?",
+        "output": ROOT / "vendas" / "video-d20-hamburgueria.mp4",
+    },
+    "nobre": {
+        "slug": "nobre-restaurante-pizzaria",
+        "agent": "nobre_restaurante",
+        "color": "c9a45c",
+        "bg": "#3b1517",
+        "ink": "#f6efe3",
+        "name": "Nobre Restaurante e Pizzaria",
+        "mobile_title": "Do almoço à última fatia, no celular.",
+        "question": "Oi! Quero pedir uma pizza para quatro pessoas hoje à noite. Como faço?",
+        "output": ROOT / "vendas" / "video-nobre-restaurante.mp4",
+    },
+    "originalfarma": {
+        "slug": "originalfarma",
+        "agent": "originalfarma",
+        "color": "f2d56b",
+        "bg": "#2f3f6b",
+        "ink": "#f7f8fc",
+        "name": "Originalfarma",
+        "mobile_title": "Lembrete e atendimento no bolso.",
+        "question": "Oi! Tomo remédio de pressão todo mês. Vocês conseguem ver se tem na unidade Residencial?",
+        "output": ROOT / "vendas" / "video-originalfarma.mp4",
     },
 }
 
@@ -401,6 +457,93 @@ def pro_otica_sequence(rec: Recorder, page: Page) -> None:
     rec.click(page, '[data-material="translucida"]', 1.5)
 
 
+def provisao_sequence(rec: Recorder, page: Page) -> None:
+    rec.realtime(page, 1.8)
+    box = page.locator(".hero").bounding_box()
+    if box:
+        rec.move_to(page, box["x"] + box["width"] * .7, box["y"] + box["height"] * .3, .8, curve=18)
+        rec.move_to(page, box["x"] + box["width"] * .62, box["y"] + box["height"] * .7, .9, curve=-14)
+    cabinet = absolute_y(page, ".cabinet")
+    position = rec.scroll(page, page, 0, cabinet - 120, 2.0)
+    rec.click(page, '.drawer[data-need="Pele e proteção solar"]', .6)
+    field = page.locator("#receipt-item")
+    field.click()
+    for character in "protetor solar":
+        field.type(character, delay=0)
+        rec.save(page, .04)
+    rec.realtime(page, 1.0)
+    steps = absolute_y(page, "#como-funciona")
+    rec.scroll(page, page, position, steps + 700, 2.6)
+
+
+def speculari_sequence(rec: Recorder, page: Page) -> None:
+    rec.realtime(page, 1.2)
+    box = page.locator(".hero").bounding_box()
+    if box:
+        rec.move_to(page, box["x"] + box["width"] * .52, box["y"] + box["height"] * .38, .9, curve=20)
+        rec.move_to(page, box["x"] + box["width"] * .74, box["y"] + box["height"] * .5, 1.1, curve=-24)
+        rec.realtime(page, .6)
+    detail = absolute_y(page, "#detalhe")
+    position = rec.scroll(page, page, 0, detail + page.viewport_size["height"] * 1.3, 3.0)
+    shapes = absolute_y(page, ".studio")
+    position = rec.scroll(page, page, position, shapes - 100, 1.6)
+    rec.click(page, 'label:has(input[name="shape"][value="cat"])', .5)
+    rec.click(page, 'label:has(input[name="material"][value="metal dourado fino"])', .4)
+    page.locator("#presence").fill("4")
+    page.locator("#presence").dispatch_event("input")
+    rec.realtime(page, 1.2)
+
+
+def d20_sequence(rec: Recorder, page: Page) -> None:
+    rec.realtime(page, 1.8)
+    table = absolute_y(page, ".roll-table")
+    position = rec.scroll(page, page, 0, table - 90, 1.8)
+    rec.click(page, "[data-roll]", 2.2)
+    menu = absolute_y(page, "#cardapio")
+    position = rec.scroll(page, page, position, menu, 1.2)
+    position = rec.scroll(page, page, position, position + page.viewport_size["height"] * 1.1, 2.6)
+    forge = absolute_y(page, ".forge")
+    rec.scroll(page, page, position, forge + page.viewport_size["height"] * .9, 2.4)
+
+
+def nobre_sequence(rec: Recorder, page: Page) -> None:
+    rec.realtime(page, 1.0)
+    handle = page.locator(".dn-handle").bounding_box()
+    if handle:
+        x = handle["x"] + handle["width"] / 2
+        y = page.viewport_size["height"] * .42
+        rec.move_to(page, x, y, .6, curve=-10)
+        page.mouse.down()
+        for target in (x + 260, x - 380):
+            steps = 18
+            x0 = rec.cursor[0]
+            for index in range(steps):
+                t = (index + 1) / steps
+                rec.move(page, x0 + (target - x0) * t * t * (3 - 2 * t), y)
+                rec.save(page, 1 / FPS)
+        page.mouse.up()
+        rec.realtime(page, .5)
+    lunch = absolute_y(page, "#almoco")
+    position = rec.scroll(page, page, 0, lunch + 200, 2.0)
+    pizza = absolute_y(page, "#pizza")
+    position = rec.scroll(page, page, position, pizza + page.viewport_size["height"] * 1.2, 3.2)
+    units = absolute_y(page, "#unidades")
+    rec.scroll(page, page, position, units - 40, 1.8)
+    rec.click(page, '[data-unit="maranguape"]', 1.0)
+
+
+def originalfarma_sequence(rec: Recorder, page: Page) -> None:
+    rec.realtime(page, 1.8)
+    tags = absolute_y(page, ".tags")
+    position = rec.scroll(page, page, 0, tags - 220, 1.8)
+    rec.click(page, '.tag[data-need="um remédio de uso contínuo"]', .9)
+    calendar = absolute_y(page, ".calendar")
+    position = rec.scroll(page, page, position, calendar - 110, 1.6)
+    rec.click(page, ".day >> nth=11", 1.0)
+    almanac = absolute_y(page, "#folhinha")
+    rec.scroll(page, page, position, almanac + page.viewport_size["height"] * 1.4, 3.0)
+
+
 SEQUENCES = {
     "vizzio": vizzio_sequence,
     "morada": morada_sequence,
@@ -408,6 +551,11 @@ SEQUENCES = {
     "bar": bar_sequence,
     "farmacia": farmacia_sequence,
     "pro_otica": pro_otica_sequence,
+    "provisao": provisao_sequence,
+    "speculari": speculari_sequence,
+    "d20": d20_sequence,
+    "nobre": nobre_sequence,
+    "originalfarma": originalfarma_sequence,
 }
 
 
@@ -479,7 +627,8 @@ def encode(rec: Recorder, output: pathlib.Path) -> None:
     subprocess.run([
         "ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", manifest.name,
         "-fps_mode", "cfr", "-r", str(FPS), "-c:v", "libx264", "-preset", "slow",
-        "-crf", "19", "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(output),
+        "-crf", "19", "-vf", "scale=in_range=full:out_range=tv,format=yuv420p",
+        "-pix_fmt", "yuv420p", "-color_range", "tv", "-movflags", "+faststart", str(output),
     ], cwd=rec.directory, check=True)
 
 
@@ -499,6 +648,11 @@ def record_one(browser: Browser, key: str, config: dict[str, object]) -> dict[st
         SEQUENCES[key](rec, page)
         record_mobile(rec, context, config, site_url)
         answered = record_chat(rec, page, chat_frame, str(config["question"]))
+        if not answered and not ALLOW_NO_ANSWER:
+            raise RuntimeError(
+                f"{key}: o agente não respondeu (chave do Groq ou app Streamlit). "
+                "Vídeo não gravado para não sair com o chat em 'Pensando'."
+            )
         encode(rec, pathlib.Path(config["output"]))
         duration = round(sum(value for _, value in rec.frames), 2)
         result = {
@@ -526,7 +680,11 @@ def check_server() -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--only", choices=SITES, help="Grava somente um site.")
+    parser.add_argument("--allow-no-answer", action="store_true",
+                        help="Grava mesmo se o agente não responder (só para teste do roteiro).")
     args = parser.parse_args()
+    global ALLOW_NO_ANSWER
+    ALLOW_NO_ANSWER = args.allow_no_answer
     check_server()
     selected = [args.only] if args.only else list(SITES)
     results = []

@@ -1,6 +1,6 @@
 # Possíveis clientes para criação de sites
 
-Última atualização: **16/09/2026**.
+Última atualização: **25/09/2026** (candidatos 7 a 11 revisados em [pesquisa-proximos-5-2026-09-25.md](pesquisa-proximos-5-2026-09-25.md)).
 
 Estes negócios foram encontrados em pesquisa pública na região de Fortaleza,
 Messejana, Eusébio e Maracanaú. **Nenhum foi contatado.**
@@ -25,11 +25,11 @@ Maps.
 | Prioridade | Negócio | Segmento e região | Canal público | Contato | Situação |
 |---:|---|---|---|---|---|
 | 6 | Pró-Ótica | Ótica · José Walter | [@pro.otica](https://www.instagram.com/pro.otica/) | Telefone: (85) 98731-0313 | Fonte principal é o Waze; confirmar identidade e bio |
-| 7 | Farmácia Provisão | Farmácia · Maracanaú | [@farmaciasprovisao](https://www.instagram.com/farmaciasprovisao/) | Telefone: (85) 98183-3811 | Site próprio não localizado; confirmar dados atuais |
-| 8 | Speculari Ótica | Ótica · Dionísio Torres | [@speculariotica](https://www.instagram.com/speculariotica/) | Telefone publicado em 2025: (85) 98108-2522 | Há contato antigo divergente; validar antes da abordagem |
-| 9 | D20 Hamburgueria | Hamburgueria · Eusébio | [Página comercial](https://airgo.bio/d20hamburgueria) | WhatsApp: (85) 98937-9116 | Já usa Saipos e marketplaces; oferecer site integrado à estrutura existente |
-| 10 | Nobre Restaurante e Pizzaria | Alimentação · Maracanaú e Maranguape | [Linktree comercial](https://linktr.ee/nobrepizzariaeresto) | Telefone de Maracanaú: (85) 3015-4089 | Já usa MenuDino e pode ter fornecedor de marketing |
-| 11 | Originalfarma | Farmácia · Maracanaú | [@originalfarma01](https://www.instagram.com/originalfarma01/) | WhatsApp: (85) 98510-1245 | Candidato condicional; confirmar se domínio homônimo pertence ao grupo |
+| 7 | Farmácia Provisão | Farmácia · Centro, Maracanaú | [@farmaciasprovisao](https://www.instagram.com/farmaciasprovisao/) | Telefone: (85) 98183-3811 | Pin no Google Maps confirma o local; bio, horário e WhatsApp não confirmados. Demo criada |
+| 8 | Speculari Ótica | Ótica · Dionísio Torres | [@speculariotica](https://www.instagram.com/speculariotica/) | (85) 98108-2522 (2025) · divergente (85) 98644-0775 (2022) | Endereço confirmado por duas fontes e pin no Maps; confirmar número atual. Demo criada |
+| 9 | D20 Hamburgueria | Hamburgueria · Coité, Eusébio | [Airgo](https://airgo.bio/d20hamburgueria) · [@d20burger](https://instagram.com/d20burger) | WhatsApp: (85) 98937-9116 | Marca com tema de RPG; pedido pelo Saipos, iFood e 99Food; endereço no Saipos. Demo criada |
+| 10 | Nobre Restaurante e Pizzaria | Alimentação · Maracanaú e Maranguape | [Linktree comercial](https://linktr.ee/nobrepizzariaeresto) | WhatsApps por unidade e de reservas no Linktree | MenuDino por unidade (Maracanaú: almoço; Maranguape: pizza). Demo criada |
+| 11 | Originalfarma | Farmácia · Maracanaú e Fortaleza | [@originalfarma01](https://www.instagram.com/originalfarma01/) | WhatsApp: (85) 98510-1245 | Condicional: domínio homônimo não vinculado; várias fichas no Maps com telefones divergentes. Demo criada |
 
 ## Não incluir sem nova verificação
 

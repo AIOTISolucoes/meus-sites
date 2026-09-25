@@ -1,5 +1,36 @@
 # Sites e prospecção — retomada de 15/09/2026
 
+## Atualização de 25/09/2026 (sessão na nuvem)
+
+**Cinco sites novos** criados, testados e documentados. Nenhum publicado,
+nenhuma empresa contatada:
+
+| # | Site | Pasta | Interação-assinatura |
+|---|---|---|---|
+| 7 | Farmácia Provisão | `portifolio-site/farmacia-provisao/` | gaveteiro em CSS 3D que monta a consulta (cupom) |
+| 8 | Speculari Ótica | `portifolio-site/speculari-otica/` | lente de foco no hero; estúdio de formato/presença/material |
+| 9 | D20 Hamburgueria | `portifolio-site/d20-hamburgueria/` | d20 em Three.js que sorteia a classe (hambúrguer) |
+| 10 | Nobre Restaurante e Pizzaria | `portifolio-site/nobre-restaurante-pizzaria/` | divisa almoço/noite; céu que muda com a rolagem; pizza em fatias |
+| 11 | Originalfarma | `portifolio-site/originalfarma/` | lembrete mensal de reposição (.ics) e folhinha com scroll scrub |
+
+- Pesquisa com evidências: [pesquisa-proximos-5-2026-09-25.md](pesquisa-proximos-5-2026-09-25.md)
+  e capturas em `evidencias-pesquisa-2026-09-25/`. Correção importante: a D20
+  é temática de RPG, não automotiva.
+- Assets: gerados no GPT Images a partir de
+  [PROMPTS-ASSETS-5-SITES-2026-09-25.md](PROMPTS-ASSETS-5-SITES-2026-09-25.md),
+  originais em `assets-proximos-sites/`.
+- Agentes novos em `agents.yaml`: `farmacia_provisao`, `speculari_otica`,
+  `d20_hamburgueria`, `nobre_restaurante`, `originalfarma`.
+- Testes: `python tests/test_new_sites_2026_09.py` passou nos cinco sites em
+  10 viewports (320 a 1920 px), com e sem movimento reduzido, e sem GSAP.
+- **Vídeos pendentes** dos cinco sites novos e **do Bar do Peixe**. O vídeo
+  atual do Bar do Peixe termina com o chat em “Pensando…” (último quadro
+  conferido), ao contrário do que diz a nota de 25/09 abaixo. O roteiro de
+  gravação (`gravar-videos-prospectos.py`) já inclui os cinco sites e recusa
+  gravar se o agente não responder. Falta a chave do Groq na sessão.
+- Os vídeos da Farmácia Central e da Pró-Ótica foram conferidos por quadros:
+  mostram a resposta real do agente.
+
 ## Atualização de 25/09/2026
 
 - As demos 4 a 6 agora também têm vídeos demonstrativos revisados:
