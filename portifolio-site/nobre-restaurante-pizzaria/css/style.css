@@ -174,6 +174,7 @@ p { margin: 0; text-wrap: pretty; }
   #menu .nav-cta { font: 700 1rem/1 var(--sans) !important; margin-top: 1rem; padding: .9rem 1.3rem; }
   .hero { padding-bottom: 4.5rem; }
   .dn-knob { top: 30%; width: 56px; height: 56px; }
+  .dn-hint { display: none; }
   .field-row { grid-template-columns: 1fr; }
   .unit-switch { display: flex; }
   .unit-switch button { flex: 1; }
