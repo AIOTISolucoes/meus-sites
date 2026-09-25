@@ -1,5 +1,5 @@
 (() => {
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('force-motion');
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const lerp = (a, b, t) => a + (b - a) * t;
   const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
@@ -168,4 +168,23 @@
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
   if (document.readyState === 'complete') startMotion(); else addEventListener('load', startMotion, { once: true });
+
+  /* ---------- Opção de movimento para quem usa "reduzir movimento" ---------- */
+  (() => {
+    const osReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!osReduce) return;
+    const forced = document.documentElement.classList.contains('force-motion');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'motion-optin';
+    button.textContent = forced ? 'Reduzir animações' : 'Ativar animações';
+    button.addEventListener('click', () => {
+      try { forced ? localStorage.removeItem('motion-optin') : localStorage.setItem('motion-optin', '1'); } catch (e) { /* sem storage: usa a URL */ }
+      const url = new URL(location.href);
+      url.searchParams.set('motion', forced ? '0' : '1');
+      location.replace(url);
+    });
+    (forced ? document.querySelector('.footer') : document.body).append(button);
+    if (forced) button.classList.add('in-footer');
+  })();
 })();

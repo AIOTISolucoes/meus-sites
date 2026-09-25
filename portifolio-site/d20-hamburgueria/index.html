@@ -6,6 +6,16 @@
   <meta name="theme-color" content="#16110d">
   <meta name="description" content="Conceito de site para a D20 Hamburgueria, no Eusébio. Escolha sua classe, role o dado e faça o pedido pelos canais oficiais.">
   <title>D20 Hamburgueria | Eusébio</title>
+  <script>
+    /* Demonstração: ?motion=1 ou a escolha "Ativar animações" liberam o movimento
+       mesmo com "reduzir movimento" ligado no sistema. ?motion=0 volta ao padrão. */
+    (() => { try {
+      const q = new URLSearchParams(location.search).get('motion');
+      if (q === '1') localStorage.setItem('motion-optin', '1');
+      if (q === '0') localStorage.removeItem('motion-optin');
+      if (localStorage.getItem('motion-optin') === '1') document.documentElement.classList.add('force-motion');
+    } catch (e) { if (/[?&]motion=1/.test(location.search)) document.documentElement.classList.add('force-motion'); } })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;700;900&family=Grenze+Gotisch:wght@600;800&display=swap">

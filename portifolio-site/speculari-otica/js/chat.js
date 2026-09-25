@@ -27,7 +27,7 @@
   #ai-status{display:grid;place-items:center;padding:24px;text-align:center;color:oklch(0.4 0.006 260);font:400 .95rem/1.5 "Urbanist",system-ui,sans-serif}
   #ai-fallback{display:block;padding:12px;text-align:center;background:oklch(0.915 0.003 260);color:oklch(0.2 0.006 260);font:700 .9rem/1.2 "Urbanist",system-ui,sans-serif;text-decoration:none}
   @media(max-width:480px){#ai-box{left:8px;right:8px;width:auto;height:min(560px,calc(100dvh - 96px))}}
-  @media(prefers-reduced-motion:reduce){#ai-box.open{animation:none}#ai-btn{transition:none}}`;
+  @media(prefers-reduced-motion:reduce){:root:not(.force-motion) #ai-box.open{animation:none}:root:not(.force-motion) #ai-btn{transition:none}}`;
   document.head.append(style);
 
   const btn = document.createElement('button');

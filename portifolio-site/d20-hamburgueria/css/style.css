@@ -207,6 +207,10 @@ p { margin: 0; text-wrap: pretty; }
   .btn { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  :root:not(.force-motion) { scroll-behavior: auto; }
+  :root:not(.force-motion) *, :root:not(.force-motion) *::before, :root:not(.force-motion) *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* Botão de opção de movimento (só aparece com "reduzir movimento" no sistema). */
+.motion-optin { position: fixed; left: max(16px, env(safe-area-inset-left)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 55; min-height: 44px; padding: .55rem 1rem; border: 1px solid oklch(1 0 0 / .35); border-radius: 999px; background: oklch(0.2 0.01 260 / .88); color: #fff; font: 600 .85rem/1 system-ui, sans-serif; cursor: pointer; }
+.motion-optin.in-footer { position: static; justify-self: start; margin-top: .6rem; }

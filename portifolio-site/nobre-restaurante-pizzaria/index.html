@@ -6,6 +6,16 @@
   <meta name="theme-color" content="#4a1a1c">
   <meta name="description" content="Conceito de site para a Nobre Restaurante e Pizzaria, em Maracanaú e Maranguape. Do almoço à pizza da noite, com pedido nos canais oficiais de cada unidade.">
   <title>Nobre Restaurante e Pizzaria | Maracanaú e Maranguape</title>
+  <script>
+    /* Demonstração: ?motion=1 ou a escolha "Ativar animações" liberam o movimento
+       mesmo com "reduzir movimento" ligado no sistema. ?motion=0 volta ao padrão. */
+    (() => { try {
+      const q = new URLSearchParams(location.search).get('motion');
+      if (q === '1') localStorage.setItem('motion-optin', '1');
+      if (q === '0') localStorage.removeItem('motion-optin');
+      if (localStorage.getItem('motion-optin') === '1') document.documentElement.classList.add('force-motion');
+    } catch (e) { if (/[?&]motion=1/.test(location.search)) document.documentElement.classList.add('force-motion'); } })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Young+Serif&display=swap">
