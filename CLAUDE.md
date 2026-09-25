@@ -39,6 +39,11 @@ Se forem necessários novos assets rasterizados, não improvise imagens ruins:
 descreva com precisão o asset e forneça ao usuário um prompt pronto para ser
 executado no GPT Images. Continue com o restante que não dependa do asset.
 
+Os 16 assets pedidos para os cinco próximos sites já estão disponíveis em
+`vendas/assets-proximos-sites/`. Leia o `README.md` dessa pasta, use as imagens
+correspondentes a cada negócio e inclua no rodapé a informação de que são
+imagens conceituais de demonstração, sujeitas à substituição por fotos reais.
+
 ## Regras de segurança e escopo
 
 - Não publique em produção e não contate empresas sem autorização explícita.
