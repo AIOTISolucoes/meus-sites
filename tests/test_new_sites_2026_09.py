@@ -89,6 +89,28 @@ def d20_signature(page: Page) -> None:
     assert page.locator(".forge .slice").count() == 7
 
 
+def nobre_signature(page: Page) -> None:
+    handle = page.locator(".dn-handle")
+    handle.focus()
+    handle.press("End")
+    assert handle.get_attribute("aria-valuenow") == "96"
+    handle.press("Home")
+    assert handle.get_attribute("aria-valuetext") == "Noite"
+    page.fill('#booking input[name="nome"]', "Ana")
+    page.fill('#booking input[name="pessoas"]', "6")
+    page.fill('#booking input[name="dia"]', "2026-10-03")
+    page.select_option('#booking select[name="unidade"]', "Maranguape")
+    href = unquote(page.locator("#booking-send").get_attribute("href"))
+    assert href.startswith("https://wa.me/5585981774418?text="), href
+    assert "Sou Ana" in href and "6 pessoas" in href and "Maranguape" in href and "03/10" in href, href
+    page.locator('[data-unit="maranguape"]').click()
+    assert page.locator('[data-unit="maranguape"]').get_attribute("aria-checked") == "true"
+    assert page.locator("[data-unit-order]").get_attribute("href") == "https://nobremaranguape.menudino.com/"
+    assert page.locator("[data-unit-whatsapp]").get_attribute("href") == "https://wa.me/558533412675"
+    page.locator('[data-unit="maranguape"]').press("ArrowRight")
+    assert page.locator("[data-unit-order]").get_attribute("href") == "https://maracanaunobre.menudino.com/"
+
+
 SITES = {
     "provisao": {
         "slug": "farmacia-provisao",
@@ -111,6 +133,13 @@ SITES = {
         "links": ["https://d20hamburgueria.saipos.com/home", "https://api.whatsapp.com/send?phone=5585989379116",
                   "https://instagram.com/d20burger"],
         "signature": d20_signature,
+    },
+    "nobre": {
+        "slug": "nobre-restaurante-pizzaria",
+        "title": "Nobre Restaurante e Pizzaria",
+        "cta": 'a.btn-wine[href="#unidades"]',
+        "links": ["https://maracanaunobre.menudino.com/", "https://nobremaranguape.menudino.com/"],
+        "signature": nobre_signature,
     },
 }
 
