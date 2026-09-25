@@ -26,7 +26,7 @@
   #ai-box iframe{width:100%;height:100%;border:0;background:#fff}
   #ai-status{display:grid;place-items:center;padding:24px;text-align:center;color:oklch(0.35 0.03 30);font:400 .95rem/1.5 "Albert Sans",system-ui,sans-serif}
   #ai-fallback{display:block;padding:12px;text-align:center;background:oklch(0.76 0.1 82);color:oklch(0.22 0.03 30);font:700 .9rem/1.2 "Albert Sans",system-ui,sans-serif;text-decoration:none}
-  @media(max-width:480px){#ai-box{left:8px;right:8px;width:auto;height:min(560px,calc(100dvh - 96px))}}
+  @media(max-width:480px){#ai-btn{width:56px;height:56px;min-height:56px;padding:0;justify-content:center}#ai-btn span{display:none}#ai-box{left:8px;right:8px;width:auto;height:min(560px,calc(100dvh - 96px))}}
   @media(prefers-reduced-motion:reduce){:root:not(.force-motion) #ai-box.open{animation:none}:root:not(.force-motion) #ai-btn{transition:none}}`;
   document.head.append(style);
 
@@ -35,6 +35,7 @@
   btn.type = 'button';
   btn.setAttribute('aria-expanded', 'false');
   btn.setAttribute('aria-controls', 'ai-box');
+  btn.setAttribute('aria-label', config.label);
   btn.innerHTML = `<i class="ph ph-chat-circle-text" aria-hidden="true"></i><span>${config.label}</span>`;
 
   const box = document.createElement('div');
@@ -63,6 +64,7 @@
     if (open) load();
     box.classList.toggle('open', open);
     btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Fechar assistente' : config.label);
     btn.innerHTML = open
       ? '<i class="ph ph-x" aria-hidden="true"></i><span>Fechar</span>'
       : `<i class="ph ph-chat-circle-text" aria-hidden="true"></i><span>${config.label}</span>`;

@@ -122,7 +122,9 @@
   window.D20 = { showResult, randomFace };
   const rollButton = document.querySelector('[data-roll]');
   const roll = () => {
-    const n = randomFace();
+    // window.D20.nextRoll permite fixar a face em gravações de demonstração.
+    const n = window.D20.nextRoll || randomFace();
+    window.D20.nextRoll = 0;
     if (window.D20Die?.ready) {
       rollButton.disabled = true;
       startShuffle();
