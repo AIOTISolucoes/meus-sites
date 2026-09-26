@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111113">
+  <meta name="description" content="Conceito de site para a Speculari Ótica, na Avenida Pontes Vieira, Dionísio Torres. Escolha formato e presença da armação e agende uma prova na loja.">
+  <title>Speculari Ótica | Dionísio Torres, Fortaleza</title>
+  <script>
+    /* Demonstração: ?motion=1 ou a escolha "Ativar animações" liberam o movimento
+       mesmo com "reduzir movimento" ligado no sistema. ?motion=0 volta ao padrão. */
+    (() => { try {
+      const q = new URLSearchParams(location.search).get('motion');
+      if (q === '1') localStorage.setItem('motion-optin', '1');
+      if (q === '0') localStorage.removeItem('motion-optin');
+      if (localStorage.getItem('motion-optin') === '1') document.documentElement.classList.add('force-motion');
+    } catch (e) { if (/[?&]motion=1/.test(location.search)) document.documentElement.classList.add('force-motion'); } })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Urbanist:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/style.css">
+  <link rel="preload" href="assets/hero.webp" as="image" type="image/webp">
+  <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#inicio" aria-label="Speculari Ótica, início">Speculari <span>Ótica</span></a>
+    <button class="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+    <nav id="menu" aria-label="Navegação principal">
+      <a href="#detalhe">O detalhe</a>
+      <a href="#formatos">Formato e presença</a>
+      <a href="#lentes">Lentes</a>
+      <a href="#visita">Visita</a>
+      <a class="nav-cta" href="#formatos">Agendar prova</a>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="focus" data-focus aria-hidden="true">
+        <img class="focus-blur" src="assets/hero.webp" alt="" width="1920" height="1080">
+        <img class="focus-sharp" src="assets/hero.webp" alt="" width="1920" height="1080" fetchpriority="high">
+        <svg class="focus-ring" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="96" />
+          <g class="ticks"></g>
+          <path d="M100 0v14M100 186v14M0 100h14M186 100h14" />
+        </svg>
+      </div>
+      <p class="sr-only">Fotografia de uma armação de acetato fumê com hastes metálicas sobre pedra preta.</p>
+      <div class="hero-copy">
+        <h1 id="hero-title">Precisão que vira <em>presença.</em></h1>
+        <p class="hero-lead">Armações para quem repara nos detalhes, escolhidas com calma e provadas na loja da Avenida Pontes Vieira.</p>
+        <div class="hero-actions">
+          <a class="btn btn-ivory" href="#formatos">Escolher formato</a>
+          <a class="btn btn-quiet" href="#visita">Como chegar</a>
+        </div>
+      </div>
+      <div class="hero-meta" aria-hidden="true"><span data-coords>x 0.50</span><span data-coords-y>y 0.50</span><span>f / 2.8</span></div>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="true">Pausar foco automático</button>
+    </section>
+
+    <section class="detail" id="detalhe" aria-labelledby="detail-title">
+      <div class="detail-sticky">
+        <div class="detail-copy">
+          <h2 id="detail-title">O que faz uma armação durar não aparece de longe.</h2>
+          <p>Chegue perto. A forma como a peça abre, fecha e apoia no rosto diz mais do que a vitrine.</p>
+        </div>
+        <figure class="detail-frame">
+          <img src="assets/dobradica.webp" alt="Macro da dobradiça metálica de uma armação de acetato fumê" width="1600" height="1600" loading="lazy">
+          <svg class="detail-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M52 44 L78 22" /><path d="M40 60 L16 78" /><path d="M62 64 L86 76" />
+          </svg>
+          <figcaption class="notes">
+            <span class="note n1"><b>Dobradiça</b> abre e fecha dezenas de vezes por dia. Vale testar na mão.</span>
+            <span class="note n2"><b>Acetato</b> é feito em camadas. Brilho e cor mudam com a luz.</span>
+            <span class="note n3"><b>Haste</b> precisa apoiar sem apertar atrás da orelha.</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="shapes" id="formatos" aria-labelledby="shapes-title">
+      <div class="shapes-head">
+        <h2 id="shapes-title">Formato, presença, material.</h2>
+        <p>Três escolhas para chegar na loja sabendo o que procurar. A equipe separa opções parecidas para você provar.</p>
+      </div>
+
+      <div class="studio">
+        <figure class="stage" aria-live="polite">
+          <svg class="frame-art" viewBox="0 0 400 170" role="img" aria-labelledby="frame-caption">
+            <defs>
+              <path id="lens-round" d="M62 84a48 48 0 1 0 96 0a48 48 0 1 0-96 0Z" />
+              <path id="lens-cat" d="M56 60C62 44 98 40 132 44C150 47 160 55 160 68C160 97 141 118 111 118C82 118 63 101 60 82C59 75 55 69 46 56Z" />
+              <path id="lens-rect" d="M72 48H148Q160 48 160 60V106Q160 118 148 118H72Q60 118 60 106V60Q60 48 72 48Z" />
+              <path id="lens-aviator" d="M62 58C62 45 90 41 113 41C139 41 158 45 158 59C158 93 140 121 110 121C80 121 62 97 62 58Z" />
+            </defs>
+            <g class="frame" data-frame>
+              <use class="lens" href="#lens-round" />
+              <use class="lens" href="#lens-round" transform="translate(400 0) scale(-1 1)" />
+              <path class="bridge" d="M158 70Q200 52 242 70" />
+              <path class="bridge bridge-top" d="M150 52Q200 42 250 52" />
+              <path class="temple" d="M60 66L20 58" /><path class="temple" d="M340 66L380 58" />
+            </g>
+            <line class="measure" x1="62" y1="150" x2="338" y2="150" />
+          </svg>
+          <figcaption id="frame-caption"><span data-caption>Redondo · equilibrada · acetato fumê · grau</span></figcaption>
+        </figure>
+
+        <form class="controls" id="studio-form" novalidate>
+          <fieldset class="seg">
+            <legend>Para quê</legend>
+            <label><input type="radio" name="use" value="grau" checked><span>Grau</span></label>
+            <label><input type="radio" name="use" value="esportivo"><span>Esportivo</span></label>
+          </fieldset>
+          <fieldset class="seg seg-4">
+            <legend>Formato</legend>
+            <label><input type="radio" name="shape" value="round" data-label="Redondo" checked><span>Redondo</span></label>
+            <label><input type="radio" name="shape" value="cat" data-label="Gatinho"><span>Gatinho</span></label>
+            <label><input type="radio" name="shape" value="rect" data-label="Retangular"><span>Retangular</span></label>
+            <label><input type="radio" name="shape" value="aviator" data-label="Aviador"><span>Aviador</span></label>
+          </fieldset>
+          <div class="meter">
+            <label for="presence">Presença no rosto <output id="presence-out" for="presence">equilibrada</output></label>
+            <input id="presence" name="presence" type="range" min="1" max="5" step="1" value="3">
+            <div class="meter-scale" aria-hidden="true"><span>discreta</span><span>marcante</span></div>
+          </div>
+          <fieldset class="swatches">
+            <legend>Material</legend>
+            <label><input type="radio" name="material" value="acetato fumê" data-tone="smoke" checked><span class="sw sw-smoke"></span><span>Acetato fumê</span></label>
+            <label><input type="radio" name="material" value="acetato marfim" data-tone="ivory"><span class="sw sw-ivory"></span><span>Acetato marfim</span></label>
+            <label><input type="radio" name="material" value="metal dourado fino" data-tone="gold"><span class="sw sw-gold"></span><span>Metal dourado</span></label>
+            <label><input type="radio" name="material" value="acetato preto" data-tone="black"><span class="sw sw-black"></span><span>Acetato preto</span></label>
+          </fieldset>
+          <div class="summary">
+            <p id="studio-message">Oi! Vi o site da Speculari e queria provar armações de grau: formato redondo, presença equilibrada, acetato fumê. Posso agendar uma visita?</p>
+            <a class="btn btn-ivory" id="studio-cta" href="https://wa.me/5585981082522" target="_blank" rel="noopener">Agendar prova pelo WhatsApp</a>
+            <small>Abre o WhatsApp com a mensagem pronta. Modelos, estoque e valores são mostrados na loja. <em class="tag-confirm">Demo: número publicado em 2025, confirmar com a ótica.</em></small>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="lenses" id="lentes" aria-labelledby="lenses-title">
+      <figure class="lens-photo">
+        <img src="assets/lente.webp" alt="Lente transparente em aro prateado fino sobre papel quadriculado, curvando as linhas atrás dela" width="1200" height="1500" loading="lazy">
+      </figure>
+      <div class="lens-copy">
+        <h2 id="lenses-title">A lente certa começa na sua receita.</h2>
+        <p>Tipo de lente, espessura e tratamento são definidos na loja a partir da receita do seu oftalmologista. Aqui no site você só escolhe o estilo.</p>
+        <ul>
+          <li><i class="ph-light ph-file-text" aria-hidden="true"></i>Leve a receita atual, física ou foto.</li>
+          <li><i class="ph-light ph-eyeglasses" aria-hidden="true"></i>Se já usa óculos, traga os atuais para comparar.</li>
+          <li><i class="ph-light ph-identification-card" aria-hidden="true"></i>Tem convênio por associação? Pergunte na loja.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="visit" id="visita" aria-labelledby="visit-title">
+      <p class="visit-kicker">Dionísio Torres, Fortaleza</p>
+      <h2 id="visit-title"><span>Av. Pontes Vieira, 2250</span> <span>loja 10</span></h2>
+      <div class="visit-actions">
+        <a class="btn btn-ivory" href="https://www.google.com/maps/search/?api=1&amp;query=Speculari%20%C3%93tica%20Av.%20Pontes%20Vieira%202250%20Fortaleza" target="_blank" rel="noopener"><i class="ph-light ph-map-trifold" aria-hidden="true"></i> Abrir no mapa</a>
+        <a class="btn btn-quiet" href="https://www.instagram.com/speculariotica/" target="_blank" rel="noopener"><i class="ph-light ph-instagram-logo" aria-hidden="true"></i> @speculariotica</a>
+      </div>
+      <p class="visit-note">Horário de funcionamento: confirmar com a loja.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-brand">Speculari <span>Ótica</span></p>
+    <p>Conceito de site para apresentação. As fotografias são imagens ilustrativas geradas para a demonstração e não mostram produtos da loja. Endereço e contatos vêm de fontes públicas e precisam de confirmação da ótica.</p>
+    <p>O site não indica grau nem lentes: essa avaliação é feita por profissional, com receita.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js?v=3" defer></script>
+  <script src="js/chat.js?v=3" defer></script>
+</body>
+</html>

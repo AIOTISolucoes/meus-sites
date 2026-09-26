@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#2f3f6b">
+  <meta name="description" content="Conceito de site para a Originalfarma, farmácia de bairro em Maracanaú. Atalhos de cuidado, lembrete de reposição e contato direto com a equipe.">
+  <title>Originalfarma | Farmácia de bairro em Maracanaú</title>
+  <script>
+    /* Demonstração: ?motion=1 ou a escolha "Ativar animações" liberam o movimento
+       mesmo com "reduzir movimento" ligado no sistema. ?motion=0 volta ao padrão. */
+    (() => { try {
+      const q = new URLSearchParams(location.search).get('motion');
+      if (q === '1') localStorage.setItem('motion-optin', '1');
+      if (q === '0') localStorage.removeItem('motion-optin');
+      if (localStorage.getItem('motion-optin') === '1') document.documentElement.classList.add('force-motion');
+    } catch (e) { if (/[?&]motion=1/.test(location.search)) document.documentElement.classList.add('force-motion'); } })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Lexend:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="preload" href="assets/balcao.webp" as="image" type="image/webp">
+  <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#inicio" aria-label="Originalfarma, início">
+      <span class="brand-tag" aria-hidden="true"><i class="ph ph-plus"></i></span>
+      <span>Original<strong>farma</strong></span>
+    </a>
+    <button class="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i class="ph ph-list" aria-hidden="true"></i></button>
+    <nav id="menu" aria-label="Navegação principal">
+      <a href="#atalhos">Atalhos</a>
+      <a href="#lembrete">Lembrete</a>
+      <a href="#folhinha">Dicas</a>
+      <a href="#unidades">Unidades</a>
+      <a class="nav-cta" href="https://wa.me/5585985101245" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i> WhatsApp</a>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="note-hand">Maracanaú e Fortaleza</p>
+        <h1 id="hero-title">Saúde simples, <span>atendimento de verdade.</span></h1>
+        <p class="hero-lead">Pergunte, confira e combine com a equipe da farmácia do seu bairro, sem fila e sem adivinhação.</p>
+        <div class="hero-actions">
+          <a class="btn btn-butter" href="#atalhos">Do que você precisa?</a>
+          <a class="btn btn-outline" href="#lembrete"><i class="ph ph-bell-ringing" aria-hidden="true"></i> Criar lembrete</a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="assets/balcao.webp" alt="Farmácia de bairro ao anoitecer vista da calçada, com toldo amarelo e balcão iluminado" width="1920" height="1080" fetchpriority="high">
+        <div class="stickies" aria-hidden="true">
+          <span class="sticky s1">receita na bolsa ✓</span>
+          <span class="sticky s2">repor dia 12</span>
+          <span class="sticky s3">perguntar ao farmacêutico</span>
+        </div>
+      </figure>
+    </section>
+
+    <section class="shortcuts" id="atalhos" aria-labelledby="shortcuts-title">
+      <h2 id="shortcuts-title">Atalhos para o que você precisa</h2>
+      <p class="section-lead">Toque em um atalho: a mensagem para a farmácia já sai escrita. Estoque, preço e entrega são confirmados pela equipe.</p>
+      <div class="tags" role="list">
+        <button class="tag" type="button" role="listitem" data-need="um remédio de uso contínuo"><i class="ph ph-arrows-clockwise" aria-hidden="true"></i><span>Uso contínuo</span></button>
+        <button class="tag" type="button" role="listitem" data-need="itens de higiene"><i class="ph ph-drop" aria-hidden="true"></i><span>Higiene</span></button>
+        <button class="tag" type="button" role="listitem" data-need="itens para bebê"><i class="ph ph-baby" aria-hidden="true"></i><span>Bebê</span></button>
+        <button class="tag" type="button" role="listitem" data-need="cuidados com a pele"><i class="ph ph-sun" aria-hidden="true"></i><span>Pele</span></button>
+        <button class="tag" type="button" role="listitem" data-need="material de curativo"><i class="ph ph-bandaids" aria-hidden="true"></i><span>Curativo</span></button>
+        <button class="tag tag-green" type="button" role="listitem" data-need="falar com o farmacêutico"><i class="ph ph-chats-circle" aria-hidden="true"></i><span>Falar com o farmacêutico</span></button>
+      </div>
+      <div class="ticket" aria-live="polite">
+        <p class="ticket-text" id="ticket-text">Escolha um atalho acima.</p>
+        <a class="btn btn-navy" id="ticket-send" href="https://wa.me/5585985101245" target="_blank" rel="noopener" aria-disabled="true"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i> Enviar para a farmácia</a>
+        <small>Demo: WhatsApp publicado em cadastro público, confirmar com a Originalfarma.</small>
+      </div>
+    </section>
+
+    <section class="reminder" id="lembrete" aria-labelledby="reminder-title">
+      <div class="reminder-copy">
+        <h2 id="reminder-title">Seu remédio acaba sempre no mesmo dia?</h2>
+        <p>Marque o dia no calendário. O site cria um lembrete mensal para o seu celular, com o contato da farmácia, dois dias antes.</p>
+        <p class="privacy"><i class="ph ph-lock-simple" aria-hidden="true"></i> Nada do que você digita aqui sai do seu aparelho.</p>
+      </div>
+      <form class="calendar" id="calendar" novalidate aria-labelledby="calendar-title">
+        <div class="calendar-head">
+          <h3 id="calendar-title">Dia em que costuma acabar</h3>
+          <p data-month></p>
+        </div>
+        <div class="days" role="radiogroup" aria-label="Dia do mês" data-days></div>
+        <label class="cal-field">Apelido do lembrete (opcional)
+          <input type="text" name="label" maxlength="40" placeholder="Ex.: remédio da pressão da mãe" autocomplete="off">
+        </label>
+        <p class="cal-summary" data-cal-summary aria-live="polite">Escolha um dia.</p>
+        <div class="cal-actions">
+          <button class="btn btn-navy" type="button" data-ics disabled><i class="ph ph-calendar-plus" aria-hidden="true"></i> Salvar no calendário</button>
+          <a class="btn btn-outline-dark" data-cal-whatsapp href="https://wa.me/5585985101245" target="_blank" rel="noopener" aria-disabled="true"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i> Avisar a farmácia</a>
+        </div>
+      </form>
+    </section>
+
+    <section class="almanac" id="folhinha" aria-labelledby="almanac-title">
+      <div class="almanac-sticky">
+        <div class="almanac-copy">
+          <h2 id="almanac-title">A folhinha da farmácia</h2>
+          <p>Cuidados de todo dia, uma página de cada vez. Dúvida sobre remédio, dose ou reação é com o farmacêutico.</p>
+        </div>
+        <ol class="pad" data-pad>
+          <li class="page"><b>1</b><span>Leve a receita e a embalagem do remédio que você já usa.</span></li>
+          <li class="page"><b>2</b><span>Confira a validade antes de guardar.</span></li>
+          <li class="page"><b>3</b><span>Guarde longe do calor, da umidade e das crianças.</span></li>
+          <li class="page"><b>4</b><span>Anote suas alergias e mostre ao farmacêutico.</span></li>
+          <li class="page"><b>5</b><span>Sobrou remédio vencido? Pergunte na farmácia como descartar.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="units" id="unidades" aria-labelledby="units-title">
+      <h2 id="units-title">Unidades</h2>
+      <p class="section-lead">Bairros citados no perfil da Originalfarma. Endereços e horários serão confirmados com a farmácia antes da publicação.</p>
+      <ul class="unit-list">
+        <li><strong>Residencial</strong><span>Maracanaú</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Original%20Farma%20Residencial%20Maracana%C3%BA" target="_blank" rel="noopener">Ver no mapa <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a></li>
+        <li><strong>Jereissati I</strong><span>Maracanaú</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Original%20Farma%20Jereissati%20Maracana%C3%BA" target="_blank" rel="noopener">Ver no mapa <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a></li>
+        <li><strong>Alto Alegre</strong><span>Maracanaú</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Original%20Farma%20Alto%20Alegre%20Maracana%C3%BA" target="_blank" rel="noopener">Ver no mapa <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a></li>
+        <li><strong>Siqueira</strong><span>Fortaleza</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Original%20Farma%20Siqueira%20Fortaleza" target="_blank" rel="noopener">Ver no mapa <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a></li>
+      </ul>
+      <div class="units-cta">
+        <a class="btn btn-navy" href="https://wa.me/5585985101245" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i> Falar pelo WhatsApp</a>
+        <a class="btn btn-outline-dark" href="https://www.instagram.com/originalfarma01/" target="_blank" rel="noopener"><i class="ph ph-instagram-logo" aria-hidden="true"></i> @originalfarma01</a>
+      </div>
+      <p class="emergency"><i class="ph ph-first-aid" aria-hidden="true"></i> Falta de ar, desmaio, dor forte ou reação grave: ligue <a href="tel:192">192 (SAMU)</a>.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-brand">Original<strong>farma</strong></p>
+    <p>Conceito de site para apresentação. A fotografia é uma imagem conceitual gerada para a demonstração e será substituída por fotos reais da farmácia. Nome, unidades e canais vêm de fontes públicas e precisam de confirmação da Originalfarma.</p>
+    <p>O site e o assistente virtual não substituem o farmacêutico nem o médico.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js?v=3" defer></script>
+  <script src="js/chat.js?v=3" defer></script>
+</body>
+</html>
