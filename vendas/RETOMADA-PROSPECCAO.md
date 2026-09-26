@@ -51,6 +51,17 @@ nenhuma empresa contatada:
   dado da D20 reinicia o próprio loop ao rolar. Todos os vídeos Full HD, Reels
   e 1440×900 feitos nesta sessão foram regravados (os três antigos, Vizzio,
   Morada Nova e Louro Caipira, ficaram como estavam).
+  - Ajustes nos gravadores: o toque usa clique do mouse no ponto visível (o
+    `click()` do Playwright rolava a página de uma vez); o carrossel perde o
+    `scroll-snap` durante a gravação; a rolagem suave do próprio site tem
+    duração proporcional à distância.
+  - Correções nos sites (valem para visitantes, não só para o vídeo):
+    `scroll-behavior: smooth` saiu do CSS dos cinco sites novos e as âncoras
+    rolam suave via JS, porque o CSS fazia o `ScrollTrigger.refresh()` medir
+    errado com a página rolada. Na D20 saiu o `anticipatePin` (adiantava o pin
+    conforme a velocidade e dava tranco) e o pin é recalculado quando o
+    resultado do dado aumenta a página. Testes dos cinco sites passaram de
+    novo.
 - Chave do Groq: vem de uma **API credential** do ambiente de nuvem (o proxy
   anexa o cabeçalho). No repositório não há chave; o app roda com
   `GROQ_API_KEY=via-proxy` só para passar a validação local.
