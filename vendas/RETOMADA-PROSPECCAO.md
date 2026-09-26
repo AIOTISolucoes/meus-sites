@@ -25,10 +25,12 @@ nenhuma empresa contatada:
   10 viewports (320 a 1920 px), com e sem movimento reduzido, e sem GSAP.
 - **Vídeos prontos** (conferidos quadro a quadro, todos com resposta real do
   agente e sem tela de erro):
-  - Horizontais 1440×900, 25 fps, H.264 `yuv420p`: `video-d20-hamburgueria.mp4`,
+  - Horizontais 1440×900, 30 fps, H.264 `yuv420p`: `video-d20-hamburgueria.mp4`,
     `video-farmacia-provisao.mp4`, `video-speculari-otica.mp4`,
     `video-nobre-restaurante.mp4`, `video-originalfarma.mp4` e
-    `video-bar-do-peixe.mp4` (regravado; o anterior terminava em “Pensando…”).
+    `video-bar-do-peixe.mp4`. Regravados em 26/09 com
+    `vendas/gravar-horizontal-hd.py --classic` (mesmo método determinístico
+    dos Full HD).
   - **Reels/Stories 1080×1920, 30 fps, CRF 16** em `vendas/reels/`: os cinco
     novos + Bar do Peixe, Farmácia Central e Pró-Ótica. Gravados com
     `vendas/gravar-reels.py`, que controla o relógio da página (GSAP, Three.js,
@@ -39,6 +41,16 @@ nenhuma empresa contatada:
     controlado, captura em 2880×1620 reduzida para 1080p, desktop com cursor,
     celular em mockup e chat real no final. São a versão recomendada para
     Reels horizontal e apresentação.
+- **Correção de 26/09 (vídeo “tremido” e dado com flash):** o relógio falso
+  do Playwright estava instalado mas não pausado, então o tempo real vazava
+  entre capturas lentas (animações pulavam, o dado terminava a rolagem em um
+  quadro) e o `scroll-behavior: smooth` nativo corria fora do relógio (a
+  rolagem ficava atrasada e aos saltos). Agora `freeze_clock()` pausa o
+  relógio, `RECORDING_INIT` troca a rolagem suave nativa por uma guiada pelo
+  relógio da página, a rolagem tem velocidade máxima (0,9 tela/s em média) e o
+  dado da D20 reinicia o próprio loop ao rolar. Todos os vídeos Full HD, Reels
+  e 1440×900 feitos nesta sessão foram regravados (os três antigos, Vizzio,
+  Morada Nova e Louro Caipira, ficaram como estavam).
 - Chave do Groq: vem de uma **API credential** do ambiente de nuvem (o proxy
   anexa o cabeçalho). No repositório não há chave; o app roda com
   `GROQ_API_KEY=via-proxy` só para passar a validação local.
