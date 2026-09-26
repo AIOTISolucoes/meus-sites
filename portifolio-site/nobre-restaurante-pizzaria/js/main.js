@@ -1,5 +1,18 @@
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('force-motion');
+
+  // Âncoras com rolagem suave em JS. `scroll-behavior: smooth` no CSS faz o
+  // ScrollTrigger.refresh() medir errado quando a página não está no topo.
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    const hash = link?.getAttribute('href');
+    if (!link || !hash || hash.length < 2 || link.classList.contains('skip')) return;
+    const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+    if (!target) return;
+    event.preventDefault();
+    target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    history.pushState(null, '', hash);
+  });
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
   /* ---------- Menu ---------- */

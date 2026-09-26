@@ -1,5 +1,18 @@
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('force-motion');
+
+  // Âncoras com rolagem suave em JS. `scroll-behavior: smooth` no CSS faz o
+  // ScrollTrigger.refresh() medir errado quando a página não está no topo.
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    const hash = link?.getAttribute('href');
+    if (!link || !hash || hash.length < 2 || link.classList.contains('skip')) return;
+    const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+    if (!target) return;
+    event.preventDefault();
+    target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    history.pushState(null, '', hash);
+  });
   const whatsapp = '5585989379116';
 
   /* ---------- Menu ---------- */
@@ -229,6 +242,16 @@
     gsap.fromTo('.guild img', { scale: 1.15 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.guild', start: 'top bottom', end: 'bottom top', scrub: .6 } });
     gsap.from('.portal', { y: 40, opacity: 0, rotate: i => (i % 2 ? 2 : -2), duration: .6, stagger: .07, ease: 'power3.out', scrollTrigger: { trigger: '.portals', start: 'top 85%' } });
     addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+    // O resultado do dado aumenta a página; sem recalcular, o cardápio fixado
+    // prende no ponto antigo e dá um tranco.
+    let lastHeight = document.body.scrollHeight; let refreshTimer = 0;
+    new ResizeObserver(() => {
+      const height = document.body.scrollHeight;
+      if (Math.abs(height - lastHeight) < 2) return;
+      lastHeight = height;
+      clearTimeout(refreshTimer);
+      refreshTimer = setTimeout(() => { ScrollTrigger.refresh(); lastHeight = document.body.scrollHeight; }, 120);
+    }).observe(document.body);
   };
   if (document.readyState === 'complete') startMotion(); else addEventListener('load', startMotion, { once: true });
 

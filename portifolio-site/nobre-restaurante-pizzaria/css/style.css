@@ -26,7 +26,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--wine-deep); color: var(--ink-light); font: 400 1.0625rem/1.65 var(--sans); overflow-x: hidden; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
@@ -183,7 +183,6 @@ p { margin: 0; text-wrap: pretty; }
 }
 @media (max-width: 360px) { .hero h1 { font-size: 2.6rem; } }
 @media (prefers-reduced-motion: reduce) {
-  :root:not(.force-motion) { scroll-behavior: auto; }
   :root:not(.force-motion) *, :root:not(.force-motion) *::before, :root:not(.force-motion) *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 

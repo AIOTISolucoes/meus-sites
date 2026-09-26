@@ -28,7 +28,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   background: var(--white);
@@ -311,7 +311,6 @@ a.where-card:hover { background: var(--mist); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :root:not(.force-motion) { scroll-behavior: auto; }
   :root:not(.force-motion) *, :root:not(.force-motion) *::before, :root:not(.force-motion) *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   :root:not(.force-motion) .slat > i { animation: none; }
   :root:not(.force-motion) .drawer[aria-pressed="true"] .drawer-front { transform: translateZ(20px); }

@@ -23,7 +23,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--ink); color: var(--bone); font: 400 1.0625rem/1.6 var(--text); overflow-x: hidden; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
@@ -220,7 +220,6 @@ p { margin: 0; text-wrap: pretty; }
   .btn { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
-  :root:not(.force-motion) { scroll-behavior: auto; }
   :root:not(.force-motion) *, :root:not(.force-motion) *::before, :root:not(.force-motion) *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 

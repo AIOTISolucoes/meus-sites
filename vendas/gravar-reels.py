@@ -68,7 +68,10 @@ RECORDING_INIT = """
 (() => {
   const css = document.createElement('style');
   css.textContent = 'html, body { scroll-behavior: auto !important; }';
-  (document.head || document.documentElement).append(css);
+  // Inserido antes do <head> existir, o estilo se perde; reinsere após o DOM.
+  const put = () => { if (!css.isConnected) (document.head || document.documentElement).append(css); };
+  put();
+  document.addEventListener('DOMContentLoaded', put);
   const nativeScrollTo = window.scrollTo.bind(window);
   const smooth = y => {
     const s = window.scrollY, d = y - s, t0 = performance.now();
