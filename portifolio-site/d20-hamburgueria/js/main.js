@@ -73,9 +73,16 @@
     if (reduce) return;
     photoBox.classList.add('shuffling'); photoBox.classList.remove('landed');
     let i = Math.floor(Math.random() * photos.length);
-    shuffleTimer = setInterval(() => { i = (i + 1) % photos.length; setPhoto(photos[i]); }, 95);
+    // Roleta que desacelera: começa rápida e vai ficando mais lenta até o dado parar.
+    let delay = 110;
+    const next = () => {
+      i = (i + 1) % photos.length; setPhoto(photos[i]);
+      delay = Math.min(delay * 1.22, 420);
+      shuffleTimer = setTimeout(next, delay);
+    };
+    shuffleTimer = setTimeout(next, delay);
   };
-  const stopShuffle = () => { clearInterval(shuffleTimer); photoBox.classList.remove('shuffling'); };
+  const stopShuffle = () => { clearTimeout(shuffleTimer); photoBox.classList.remove('shuffling'); };
 
   const showResult = n => {
     let name; let desc; let order; let photo = ''; let note = '';

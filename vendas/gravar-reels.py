@@ -34,6 +34,7 @@ VW, VH, DPR = 360, 640, 3          # 360x640 CSS px x3 = 1080x1920
 FPS = 30
 STEP_MS = 1000 / FPS
 OUT_DIR = ROOT / "vendas" / "reels"
+SCROLL_SPEED = 0.9               # alturas de tela por segundo, no máximo (média)
 
 # Avança animações CSS/Web Animations junto com o relógio falso.
 CSS_STEP = """ms => {
@@ -61,6 +62,48 @@ TAP_RING = """color => {
     r.style.opacity = String(1 - p);
   };
 }"""
+
+
+RECORDING_INIT = """
+(() => {
+  const css = document.createElement('style');
+  css.textContent = 'html, body { scroll-behavior: auto !important; }';
+  (document.head || document.documentElement).append(css);
+  const nativeScrollTo = window.scrollTo.bind(window);
+  const smooth = y => {
+    const s = window.scrollY, d = y - s, t0 = performance.now(), dur = 650;
+    const step = now => {
+      const p = Math.min(1, (performance.now() - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      nativeScrollTo(0, s + d * e);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  window.scrollTo = function (a, b) {
+    if (a && typeof a === 'object') {
+      const y = a.top ?? window.scrollY;
+      return a.behavior === 'smooth' ? smooth(y) : nativeScrollTo(0, y);
+    }
+    return nativeScrollTo(a, b);
+  };
+  Element.prototype.scrollIntoView = function (o) {
+    const r = this.getBoundingClientRect();
+    const block = (o && o.block) || 'start';
+    let y = window.scrollY + r.top;
+    if (block === 'center') y -= (innerHeight - r.height) / 2;
+    else if (block === 'end') y -= innerHeight - r.height;
+    return (o && o.behavior === 'smooth') ? smooth(y) : nativeScrollTo(0, y);
+  };
+})();
+"""
+
+
+def freeze_clock(context_or_page) -> None:
+    """Instala o relógio falso e o PAUSA: só anda quando chamamos run_for."""
+    import datetime
+    t0 = datetime.datetime(2026, 9, 26, 12, 0, 0)
+    context_or_page.clock.install(time=t0)
+    context_or_page.clock.pause_at(t0 + datetime.timedelta(seconds=1))
 
 
 class Reel:
@@ -97,11 +140,13 @@ class Reel:
 
     def scroll_to(self, target: float, seconds: float) -> None:
         start = float(self.page.evaluate("scrollY"))
+        # Limite de velocidade: rolagem rápida demais a 30 fps parece tremida.
+        seconds = max(seconds, abs(target - start) / (VH * SCROLL_SPEED))
         count = max(1, round(seconds * FPS))
         for i in range(count):
             t = (i + 1) / count
             e = t * t * (3 - 2 * t)
-            self.page.evaluate("y => window.scrollTo(0, y)", start + (target - start) * e)
+            self.page.evaluate("y => window.scrollTo({top: y, behavior: 'instant'})", start + (target - start) * e)
             self.tick()
 
     def scroll_el(self, selector: str, offset: float, seconds: float) -> None:
@@ -259,8 +304,8 @@ def d20(r: Reel) -> None:
     r.hold(2.2)
     r.scroll_el(".roll-table", -40, 1.4)
     r.page.evaluate("window.D20.nextRoll = 12")   # Alquimista: lanche com foto oficial
-    r.tap("[data-roll]", .2)
-    r.scroll_el(".roll-result", -60, .8)
+    r.tap("[data-roll]", 1.7)                      # o dado gira inteiro (1,4 s) na tela
+    r.scroll_el(".roll-result", -60, 1.0)
     r.hold(2.0)
     r.scroll_el("#panel-burgers", -140, 1.2)
     r.hscroll("#panel-burgers", 900, 2.4)
@@ -356,8 +401,9 @@ def record(browser, key: str) -> dict:
     context = browser.new_context(viewport={"width": VW, "height": VH}, device_scale_factor=DPR,
                                   is_mobile=True, has_touch=True, reduced_motion="no-preference",
                                   locale="pt-BR")
+    context.add_init_script(RECORDING_INIT)
     page = context.new_page()
-    page.clock.install()
+    freeze_clock(page)
     page.goto(f"{BASE}/{slug}/", wait_until="domcontentloaded", timeout=120_000)
     # Deixa scripts, fontes e imagens assentarem antes de gravar.
     for _ in range(40):

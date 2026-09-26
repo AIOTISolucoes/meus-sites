@@ -111,8 +111,13 @@ function init() {
   new ResizeObserver(resize).observe(scene);
   resize();
 
-  let visible = true; let rolling = null; let last = performance.now();
+  let visible = true; let rolling = null; let last = performance.now(); let running = false;
   const idleAxis = new THREE.Vector3(.3, 1, .1).normalize();
+  const start = () => {
+    if (running) return;
+    running = true; last = performance.now();
+    requestAnimationFrame(loop);
+  };
   const loop = now => {
     const dt = Math.min(.05, (now - last) / 1000); last = now;
     if (rolling) {
@@ -128,13 +133,15 @@ function init() {
       mesh.position.y = Math.sin(now / 900) * .04;
     }
     renderer.render(world, camera);
-    if (visible) requestAnimationFrame(loop);
+    // Fora da tela o loop para, exceto se houver rolagem em curso (a promessa precisa terminar).
+    if (visible || rolling) requestAnimationFrame(loop);
+    else running = false;
   };
   new IntersectionObserver(([entry]) => {
-    const was = visible; visible = entry.isIntersecting;
-    if (visible && !was) { last = performance.now(); requestAnimationFrame(loop); }
+    visible = entry.isIntersecting;
+    if (visible) start();
   }).observe(scene);
-  requestAnimationFrame(loop);
+  start();
 
   window.D20Die = {
     ready: true,
@@ -149,6 +156,7 @@ function init() {
           turns: Math.PI * (5 + Math.random() * 2), dx: (Math.random() - .5) * 1.6,
           done: () => { scene.classList.remove('rolling'); resolve(); }
         };
+        start();
       });
     }
   };

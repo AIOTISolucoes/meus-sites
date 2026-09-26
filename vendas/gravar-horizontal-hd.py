@@ -1,5 +1,7 @@
 """Vídeo horizontal Full HD (1920x1080, 30 fps) para Reels/feeds horizontais.
 
+Com --classic, grava 1440x900 (16:10) em vendas/video-<slug>.mp4.
+
 Usa o mesmo método de gravar-reels.py: relógio da página controlado, um quadro
 por vez, então as animações saem lisas. A página é renderizada em 1440x810 com
 densidade 2 (2880x1620) e reduzida para 1920x1080, o que deixa texto e fotos
@@ -32,6 +34,8 @@ reels = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(reels)
 
 VW, VH, DPR = 1440, 810, 2
+OUT_W, OUT_H = 1920, 1080
+OUT_NAME = "hd/hd-{slug}.mp4"
 reels.VW, reels.VH = VW, VH
 FPS = reels.FPS
 OUT_DIR = HERE / "hd"
@@ -107,7 +111,7 @@ class HD(reels.Reel):
         subprocess.run([
             "ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", manifest.name,
             "-fps_mode", "cfr", "-r", str(FPS),
-            "-vf", "scale=1920:1080:flags=lanczos,scale=in_range=full:out_range=tv,format=yuv420p",
+            "-vf", f"scale={OUT_W}:{OUT_H}:flags=lanczos,scale=in_range=full:out_range=tv,format=yuv420p",
             "-c:v", "libx264", "-preset", "slow", "-crf", "16", "-profile:v", "high", "-level", "4.2",
             "-pix_fmt", "yuv420p", "-color_range", "tv", "-movflags", "+faststart", str(output),
         ], cwd=self.folder, check=True)
@@ -150,10 +154,11 @@ def mobile_stage(r: HD, context, slug: str, title: str, color: str, bg: str, ink
     mobile.locator(".menu-btn").click()
     s.hold(.4)
     total = float(mobile.evaluate("document.documentElement.scrollHeight - innerHeight"))
-    count = round(2.6 * FPS)
+    distance = min(total * .42, 2600)
+    count = round(max(2.6, distance / (834 * reels.SCROLL_SPEED)) * FPS)
     for i in range(count):
         t = (i + 1) / count
-        mobile.evaluate("y => window.scrollTo(0, y)", min(total * .42, 2600) * t * t * (3 - 2 * t))
+        mobile.evaluate("y => window.scrollTo({top: y, behavior: 'instant'})", distance * t * t * (3 - 2 * t))
         s.tick()
     s.hold(.6)
     stage.close()
@@ -267,8 +272,9 @@ def record(browser, key: str) -> dict:
     script, bg, ink, title = SITES[key]
     context = browser.new_context(viewport={"width": VW, "height": VH}, device_scale_factor=DPR,
                                   reduced_motion="no-preference", locale="pt-BR")
+    context.add_init_script(reels.RECORDING_INIT)
     page = context.new_page()
-    page.clock.install()
+    reels.freeze_clock(page)
     page.goto(f"{BASE}/{slug}/", wait_until="domcontentloaded", timeout=120_000)
     for _ in range(40):
         page.clock.run_for(100)
@@ -293,7 +299,8 @@ def record(browser, key: str) -> dict:
         answered = r.chat(question)
         if not answered:
             raise RuntimeError(f"{key}: o agente não respondeu; vídeo não gravado.")
-        out = OUT_DIR / f"hd-{slug}.mp4"
+        name = {"nobre-restaurante-pizzaria": "nobre-restaurante"}.get(slug, slug) if OUT_W == 1440 else slug
+        out = HERE / OUT_NAME.format(slug=name)
         r.encode(out)
         result = {"site": key, "frames": len(r.frames),
                   "duration": round(sum(d for _, d in r.frames), 2), "output": str(out)}
@@ -304,7 +311,13 @@ def record(browser, key: str) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--only", choices=SITES)
+    parser.add_argument("--classic", action="store_true",
+                        help="1440x900 (16:10) em vendas/video-<slug>.mp4, mesmo método determinístico")
     args = parser.parse_args()
+    if args.classic:
+        global VH, OUT_W, OUT_H, OUT_NAME
+        VH, OUT_W, OUT_H, OUT_NAME = 900, 1440, 900, "video-{slug}.mp4"
+        reels.VH = VH
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
         for key in ([args.only] if args.only else list(SITES)):
