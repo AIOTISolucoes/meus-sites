@@ -158,9 +158,10 @@ class Reel:
         if not box or box["y"] < 60 or box["y"] + box["height"] > VH - 20:
             self.scroll_to(self.y_of(selector) - VH * .35, .5)
             box = loc.bounding_box()
-        x, y = box["x"] + box["width"] / 2, box["y"] + box["height"] / 2
+        x = box["x"] + box["width"] / 2
+        y = box["y"] + min(box["height"] / 2, (VH - box["y"]) / 2)
         self.page.evaluate("([x,y]) => window.__tap(x,y)", [x, y])
-        loc.click()
+        self.page.mouse.click(x, y)             # sem o salto de rolagem do loc.click()
         self.hold(pause)
 
     def hscroll(self, selector: str, distance: float, seconds: float) -> None:

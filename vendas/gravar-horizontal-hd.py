@@ -92,12 +92,16 @@ class HD(reels.Reel):
     def tap(self, selector: str, pause: float = .6) -> None:
         loc = self.page.locator(selector).first
         box = loc.bounding_box()
-        if not box or box["y"] < 70 or box["y"] + box["height"] > VH - 20:
+        # Garante o centro do alvo na tela com rolagem suave; o clique é do mouse
+        # no ponto visível (loc.click() rolaria a página de uma vez, num salto).
+        if not box or box["y"] + box["height"] / 2 < 90 or box["y"] + min(box["height"], VH * .5) > VH - 30:
             self.scroll_to(self.y_of(selector) - VH * .4, .6)
             box = loc.bounding_box()
-        self.move_to(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2, .55, bend=-14)
+        x = box["x"] + box["width"] / 2
+        y = box["y"] + min(box["height"] / 2, (VH - box["y"]) / 2)
+        self.move_to(x, y, .55, bend=-14)
         self.page.evaluate("() => window.__pulse && window.__pulse()")
-        loc.click()
+        self.page.mouse.click(x, y)
         self.hold(pause)
 
     def encode(self, output: pathlib.Path) -> None:
