@@ -166,7 +166,10 @@ class Reel:
 
     def hscroll(self, selector: str, distance: float, seconds: float) -> None:
         count = max(1, round(seconds * FPS))
-        start = float(self.page.eval_on_selector(selector, "el => el.scrollLeft"))
+        # Sem scroll-snap durante a gravação: com ele cada quadro pula um card inteiro.
+        start = float(self.page.eval_on_selector(selector, """el => {
+            el.style.scrollSnapType = 'none'; el.style.scrollBehavior = 'auto';
+            return el.scrollLeft; }"""))
         for i in range(count):
             t = (i + 1) / count
             e = t * t * (3 - 2 * t)
