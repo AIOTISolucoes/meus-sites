@@ -69,7 +69,10 @@ RECORDING_INIT = """
   const css = document.createElement('style');
   css.textContent = 'html, body { scroll-behavior: auto !important; }';
   // Inserido antes do <head> existir, o estilo se perde; reinsere após o DOM.
-  const put = () => { if (!css.isConnected) (document.head || document.documentElement).append(css); };
+  const put = () => {
+    const root = document.head || document.documentElement;   // null no início do carregamento
+    if (root && !css.isConnected) root.append(css);
+  };
   put();
   document.addEventListener('DOMContentLoaded', put);
   const nativeScrollTo = window.scrollTo.bind(window);
