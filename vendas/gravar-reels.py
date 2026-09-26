@@ -71,9 +71,12 @@ RECORDING_INIT = """
   (document.head || document.documentElement).append(css);
   const nativeScrollTo = window.scrollTo.bind(window);
   const smooth = y => {
-    const s = window.scrollY, d = y - s, t0 = performance.now(), dur = 650;
+    const s = window.scrollY, d = y - s, t0 = performance.now();
+    // Duração proporcional à distância (no máximo ~0,9 tela por segundo).
+    const dur = Math.max(700, Math.min(2200, Math.abs(d) / innerHeight * 1100));
     const step = now => {
-      const p = Math.min(1, (performance.now() - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      const p = Math.min(1, (performance.now() - t0) / dur);
+      const e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
       nativeScrollTo(0, s + d * e);
       if (p < 1) requestAnimationFrame(step);
     };
