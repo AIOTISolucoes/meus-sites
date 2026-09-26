@@ -12,6 +12,7 @@ logo, a ficha técnica e o book da pasta do Drive.
 | --- | --- |
 | `mlar-lago-reels.mp4` | Versão final com trilha original (H.264 + AAC, -14 LUFS). |
 | `mlar-lago-reels-sem-musica.mp4` | Mesmo vídeo sem áudio, para usar uma música da biblioteca do Instagram. Os cortes seguem 120 BPM; qualquer faixa perto desse andamento encaixa. |
+| `*-instagram.mp4` | Cópias de ~26 MB (5 Mbps, SSIM 0,985 em relação ao master) para enviar pelo celular e subir no Instagram. |
 | `trilha.wav` | Trilha isolada. |
 | `../legenda.txt` | Legenda sugerida para a publicação. |
 
