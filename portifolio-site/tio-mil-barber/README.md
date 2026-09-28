@@ -29,7 +29,7 @@ antes e depois, então o site gira em torno disso.
 - **Paleta:** preto quente e dourado velho, tirados das artes da própria barbearia.
   - O vermelho e o azul aparecem só no poste de barbeiro.
   - Fica diferente das outras barbearias do portfólio: Gentleman (laranja), North (marinho e vermelho) e LS (amarelo com Oswald).
-- **Tipografia:** Big Shoulders Display no grito de pôster, Geist no texto e Geist Mono na comanda.
+- **Tipografia:** Big Shoulders Display no grito de pôster, Geist no texto e Geist Mono no contador do kit.
 - **Poste de barbeiro:** é a barra de progresso da página.
   - No desktop fica fixo à direita, e as listras giram com a rolagem.
   - No celular vira a faixa listrada no topo.
@@ -54,9 +54,7 @@ antes e depois, então o site gira em torno disso.
 - **Na cadeira do Tio:** quatro momentos em rolagem horizontal fixada no desktop.
   - Três cartões têm foto com parallax: a cadeira, a tesoura e o degradê.
   - O cartão da conversa tem um desenho traçado pela rolagem.
-- **Comanda:** o visitante escolhe serviço, dia (com data), período e nome.
-  - A comanda de papel se preenche com efeito de máquina de escrever.
-  - O botão manda a mensagem pronta para o WhatsApp.
+- **Agendamento:** a seção de montar horário (comanda) foi retirada a pedido em 28/09. O botão principal do topo abre o WhatsApp do Tio.
 - **Faixa de lemas:** acelera e inverte o sentido com a velocidade da rolagem.
 - **Chat:** agente `tio_mil_barber` no `agents.yaml`.
   - Não sabe valores nem horários e manda confirmar no WhatsApp.
@@ -81,7 +79,7 @@ python -m http.server 8765 --bind 127.0.0.1
 python tests/test_new_sites_2026_09.py tiomil
 ```
 
-A bateria cobriu 10 tamanhos de tela nos dois modos de movimento, a comanda, o comparador pelo teclado, o kit, a virada do cartão, o menu, o chat e a página funcionando sem GSAP. Tudo passou.
+A bateria cobriu 10 tamanhos de tela nos dois modos de movimento, o comparador pelo teclado, o kit, a virada do cartão, o menu, o chat e a página funcionando sem GSAP. Tudo passou.
 
 ## Antes de mostrar ao Tio Mil
 

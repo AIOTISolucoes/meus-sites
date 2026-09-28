@@ -150,18 +150,6 @@ def tiomil_signature(page: Page) -> None:
         .map(t => [t.start, t.end]).sort((a, b) => a[0] - b[0]) : []""")
     for (_, end), (start, _) in zip(pins, pins[1:]):
         assert start >= end - 1, pins
-    send = page.locator("#comanda-send")
-    assert send.get_attribute("aria-disabled") == "true"
-    page.locator('label:has(input[name="servico"][value="corte e barba"])').click()
-    page.locator('label:has(input[name="dia"][value="outro"])').click()
-    page.fill('#comanda input[name="data"]', "2026-10-09")
-    page.locator('label:has(input[name="periodo"][value="à tarde"])').click()
-    page.fill('#comanda input[name="nome"]', "Rafa")
-    href = unquote(send.get_attribute("href"))
-    assert href.startswith("https://wa.me/5585991858627?text="), href
-    assert "Sou Rafa" in href and "corte e barba" in href and "09/10" in href and "à tarde" in href, href
-    assert send.get_attribute("aria-disabled") == "false"
-    assert page.locator('[data-t="servico"]').inner_text() == "corte e barba"
     # Comparador: API e teclado. Volta ao topo e espera o scrub assentar, senão
     # a rolagem feita pelos cliques acima continua movendo a máquina.
     page.evaluate("window.scrollTo(0, 0)")
@@ -229,7 +217,7 @@ SITES = {
     "tiomil": {
         "slug": "tio-mil-barber",
         "title": "Tio Mil Barber",
-        "cta": 'a.btn-gold[href="#horario"]',
+        "cta": 'a.btn-gold[href^="https://wa.me/5585991858627"]',
         "links": ["https://wa.me/5585991858627", "https://www.instagram.com/tio_mil_barber/"],
         "signature": tiomil_signature,
     },

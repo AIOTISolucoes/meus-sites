@@ -403,11 +403,8 @@ def tiomil(r: Reel) -> None:
     r.tap(".hc-toggle", 1.4)
     r.scroll_el(".kit-figure", -160, 1.6)
     r.scroll_el(".kit-figure", 260, 2.6)           # o foco percorre as ferramentas
-    r.scroll_el("#horario", 360, 2.2)
-    r.tap('label:has(input[name="servico"][value="corte e barba"])', .5)
-    r.tap('label:has(input[name="periodo"][value="à tarde"])', .8)
-    r.scroll_el(".ticket", -60, 1.2)
-    r.hold(1.2)
+    r.scroll_el("#onde", -20, 2.2)
+    r.hold(1.6)
 
 
 SITES = {

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#141210">
-  <meta name="description" content="Conceito de site para a Tio Mil Barber, barbearia no Parque Santa Rosa, em Fortaleza, desde 2017. Veja o antes e depois e monte seu horário pelo WhatsApp.">
+  <meta name="description" content="Conceito de site para a Tio Mil Barber, barbearia no Parque Santa Rosa, em Fortaleza, desde 2017. Veja o antes e depois e fale com o Tio pelo WhatsApp.">
   <title>Tio Mil Barber | Barbearia no Parque Santa Rosa, Fortaleza</title>
   <script>
     /* Demonstração: ?motion=1 ou a escolha "Ativar animações" liberam o movimento
@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;600&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css">
   <link rel="preload" href="assets/hero.webp" as="image" type="image/webp" imagesrcset="assets/hero-960.webp 960w, assets/hero.webp 1672w" imagesizes="100vw">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
   <a class="skip" href="#conteudo">Ir para o conteúdo</a>
@@ -39,7 +39,6 @@
       <a href="#antes-depois">Antes e depois</a>
       <a href="#kit">O kit</a>
       <a href="#ritual">Na cadeira</a>
-      <a href="#horario">Montar horário</a>
       <a href="#onde">Onde fica</a>
       <a class="nav-cta" href="https://wa.me/5585991858627" target="_blank" rel="noopener"><i class="ph-bold ph-whatsapp-logo" aria-hidden="true"></i> (85) 99185-8627</a>
     </nav>
@@ -54,7 +53,7 @@
         <h1 id="hero-title"><span class="line">Seu estilo,</span> <span class="line">nossa <em>missão.</em></span></h1>
         <p class="hero-sub">A cadeira do Tio Mil: corte no capricho, conversa boa e aquele visual novo que chega antes de você.</p>
         <div class="hero-actions">
-          <a class="btn btn-gold" href="#horario"><i class="ph-bold ph-calendar-check" aria-hidden="true"></i> Montar meu horário</a>
+          <a class="btn btn-gold" href="https://wa.me/5585991858627?text=Ol%C3%A1%2C%20Tio%20Mil!" target="_blank" rel="noopener"><i class="ph-bold ph-whatsapp-logo" aria-hidden="true"></i> Falar com o Tio no WhatsApp</a>
           <a class="btn btn-line" href="#antes-depois"><i class="ph-bold ph-arrows-left-right" aria-hidden="true"></i> Ver o antes e depois</a>
         </div>
       </div>
@@ -199,60 +198,6 @@
       </ol>
     </section>
 
-    <section class="booking" id="horario" aria-labelledby="booking-title">
-      <div class="booking-head">
-        <h2 id="booking-title">Monte seu horário. <em>O Tio confirma no Zap.</em></h2>
-        <p>Escolha o que quer fazer e quando fica bom. A mensagem sai pronta para o WhatsApp da barbearia; horário livre e valor o Tio confirma na conversa.</p>
-      </div>
-      <div class="booking-grid">
-        <form class="booking-form" id="comanda" novalidate>
-          <fieldset>
-            <legend>O que vai ser?</legend>
-            <div class="chips">
-              <label><input type="radio" name="servico" value="corte"><span>Corte</span></label>
-              <label><input type="radio" name="servico" value="barba"><span>Barba</span></label>
-              <label><input type="radio" name="servico" value="corte e barba"><span>Corte e barba</span></label>
-              <label><input type="radio" name="servico" value="sugestão"><span>Me dá uma sugestão</span></label>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Que dia?</legend>
-            <div class="chips">
-              <label><input type="radio" name="dia" value="hoje" checked><span>Hoje</span></label>
-              <label><input type="radio" name="dia" value="amanhã"><span>Amanhã</span></label>
-              <label><input type="radio" name="dia" value="outro"><span>Outro dia</span></label>
-            </div>
-            <label class="field date-field" hidden><span>Data</span><input type="date" name="data"></label>
-          </fieldset>
-          <fieldset>
-            <legend>Melhor período</legend>
-            <div class="chips">
-              <label><input type="radio" name="periodo" value="de manhã"><span>Manhã</span></label>
-              <label><input type="radio" name="periodo" value="à tarde"><span>Tarde</span></label>
-              <label><input type="radio" name="periodo" value="no fim do dia"><span>Fim do dia</span></label>
-              <label><input type="radio" name="periodo" value="" checked><span>Tanto faz</span></label>
-            </div>
-          </fieldset>
-          <label class="field"><span>Seu nome</span><input type="text" name="nome" autocomplete="given-name" maxlength="40" placeholder="Como o Tio te chama"></label>
-        </form>
-
-        <aside class="ticket" aria-labelledby="ticket-title" data-ticket>
-          <div class="ticket-paper">
-            <p class="t-head"><img src="assets/emblema-96.png" alt="" width="44" height="44"><span id="ticket-title">Comanda</span><span class="t-num" data-t-num>Nº 017</span></p>
-            <dl class="t-lines">
-              <div><dt>Serviço</dt><dd data-t="servico">escolha ao lado</dd></div>
-              <div><dt>Dia</dt><dd data-t="dia">hoje</dd></div>
-              <div><dt>Período</dt><dd data-t="periodo">tanto faz</dd></div>
-              <div><dt>Cliente</dt><dd data-t="nome">—</dd></div>
-            </dl>
-            <p class="t-msg" data-t-msg aria-live="polite">Escolha o serviço para montar a mensagem.</p>
-            <a class="btn btn-ink t-send" id="comanda-send" href="https://wa.me/5585991858627" target="_blank" rel="noopener" aria-disabled="true"><i class="ph-bold ph-whatsapp-logo" aria-hidden="true"></i> Mandar para o Tio</a>
-            <p class="t-foot">Horário livre e valor: confirmados pelo Tio no WhatsApp.</p>
-          </div>
-        </aside>
-      </div>
-    </section>
-
     <section class="where" id="onde" aria-labelledby="where-title">
       <div class="where-inner">
         <p class="where-kicker">Onde fica a cadeira</p>
@@ -275,7 +220,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-  <script src="js/main.js?v=5" defer></script>
+  <script src="js/main.js?v=7" defer></script>
   <script src="js/chat.js?v=1" defer></script>
 </body>
 </html>

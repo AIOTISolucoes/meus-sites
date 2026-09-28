@@ -1,6 +1,5 @@
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('force-motion');
-  const WHATSAPP = '5585991858627';
 
   // Âncoras com rolagem suave em JS. `scroll-behavior: smooth` no CSS faz o
   // ScrollTrigger.refresh() medir errado quando a página não está no topo.
@@ -206,71 +205,13 @@
   // Quem mexe na linha manda: por um instante a rolagem não move a máquina
   // (focar o controle rola a página, e o scrub continuaria andando sozinho).
   let manualAt = 0;
-  const manual = () => { manualAt = performance.now(); };
+  let intro = null;                       // passada automática do celular
+  const manual = () => { manualAt = performance.now(); intro?.kill(); intro = null; };
   ['focus', 'pointerdown', 'keydown', 'input'].forEach(type => range.addEventListener(type, manual));
   range.addEventListener('input', () => setPos(Number(range.value)));
   window.TioMil = { ...(window.TioMil || {}), setPos, getPos: () => pos };
   setPos(reduce ? 50 : 0, false);
   if (reduce) lightWords(1);
-
-  /* ---------- Comanda: monta a mensagem de agendamento ---------- */
-  const form = document.querySelector('#comanda');
-  const send = document.querySelector('#comanda-send');
-  const msgOut = document.querySelector('[data-t-msg]');
-  const dateField = form.querySelector('.date-field');
-  const dateInput = form.querySelector('input[name="data"]');
-  const pad = n => String(n).padStart(2, '0');
-  const today = new Date();
-  dateInput.min = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
-  const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 864e5);
-  document.querySelector('[data-t-num]').textContent = `Nº ${String(dayOfYear).padStart(3, '0')}`;
-  const SERVICOS = {
-    'corte': ['corte', 'um corte'],
-    'barba': ['barba', 'a barba'],
-    'corte e barba': ['corte e barba', 'corte e barba'],
-    'sugestão': ['sugestão do Tio', 'um horário e ouvir sua sugestão de corte']
-  };
-  const ticketValue = (key, text) => {
-    const dd = document.querySelector(`[data-t="${key}"]`);
-    if (dd.textContent === text) return;
-    dd.textContent = text;
-    dd.classList.remove('typed');
-    void dd.offsetWidth;
-    dd.classList.add('typed');
-  };
-  const update = () => {
-    const data = new FormData(form);
-    const servico = data.get('servico');
-    const dia = data.get('dia');
-    const periodo = data.get('periodo') || '';
-    const nome = (data.get('nome') || '').trim();
-    dateField.hidden = dia !== 'outro';
-    let diaTexto = dia;
-    let diaTicket = dia;
-    if (dia === 'outro') {
-      const v = dateInput.value;
-      if (v) { const [, m, d] = v.split('-'); diaTexto = `no dia ${d}/${m}`; diaTicket = `${d}/${m}`; }
-      else { diaTexto = 'em outro dia'; diaTicket = 'a combinar'; }
-    }
-    ticketValue('servico', servico ? SERVICOS[servico][0] : 'escolha ao lado');
-    ticketValue('dia', diaTicket);
-    ticketValue('periodo', periodo || 'tanto faz');
-    ticketValue('nome', nome || '—');
-    if (!servico) {
-      send.setAttribute('aria-disabled', 'true');
-      send.href = `https://wa.me/${WHATSAPP}`;
-      msgOut.textContent = 'Escolha o serviço para montar a mensagem.';
-      return;
-    }
-    const msg = `Olá, Tio Mil!${nome ? ` Sou ${nome}.` : ''} Quero agendar ${SERVICOS[servico][1]} ${diaTexto}${periodo ? ` ${periodo}` : ''}. Tem horário livre?`;
-    msgOut.textContent = `“${msg}”`;
-    send.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
-    send.setAttribute('aria-disabled', 'false');
-  };
-  form.addEventListener('input', update);
-  form.addEventListener('change', update);
-  form.addEventListener('submit', event => event.preventDefault());
-  update();
 
   /* ---------- Movimento (GSAP) ---------- */
   const startMotion = () => {
@@ -321,7 +262,11 @@
       ST.create({ trigger: '.compare-copy', start: 'top 80%', end: 'bottom 45%', scrub: true, onUpdate: self => lightWords(self.progress) });
       ST.create({
         trigger: '.compare', start: 'top 70%', once: true,
-        onEnter: () => { const o = { v: pos }; gsap.to(o, { v: 62, duration: 1.8, ease: 'power2.inOut', onUpdate: () => setPos(o.v) }); }
+        onEnter: () => {
+          if (performance.now() - manualAt < 1200) return;
+          const o = { v: pos };
+          intro = gsap.to(o, { v: 62, duration: 1.8, ease: 'power2.inOut', onUpdate: () => setPos(o.v) });
+        }
       });
       document.querySelectorAll('.step').forEach(step => {
         const paths = step.querySelectorAll('.step-art path');
@@ -348,7 +293,6 @@
       gsap.from(c, { scale: .94, opacity: .35, y: 30, duration: 1, ease: 'expo.out', delay: (i % 3) * .06, scrollTrigger: { trigger: c, start: 'top 90%', once: true } });
     });
     gsap.fromTo('.b-photo img', { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: '.b-photo', start: 'top bottom', end: 'bottom top', scrub: true } });
-    gsap.from('.ticket-paper', { y: -40, rotate: -4, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.booking-grid', start: 'top 75%', once: true } });
     gsap.to('.where-seal', { rotate: -120, ease: 'none', scrollTrigger: { trigger: '.where', start: 'top bottom', end: 'bottom top', scrub: true } });
 
     let lastHeight = document.body.scrollHeight; let refreshTimer = 0;

@@ -270,13 +270,6 @@ def _center(r: HD, selector: str, fx: float = .5, fy: float = .5) -> tuple[float
     return box["x"] + box["width"] * fx, box["y"] + box["height"] * fy
 
 
-def _type(r: HD, selector: str, text: str) -> None:
-    r.tap(selector, .3)
-    for ch in text:
-        r.page.keyboard.type(ch)
-        r.tick(3)
-
-
 def tiomil(r: HD) -> None:
     r.hold(1.8)                                          # entrada: a cadeira se aproxima
     r.move_to(VW * .8, VH * .38, 1.3, 26)                # a foto acompanha o mouse
@@ -314,15 +307,6 @@ def tiomil(r: HD) -> None:
     start, end = _pins(r)["ritual"]
     r.scroll_to(start, 2.0)
     r.scroll_to(end, 4.2)
-    # Comanda: monta o pedido e a mensagem sai pronta.
-    r.scroll_el(".booking-grid", -170, 2.2)
-    r.tap('label:has(input[name="servico"][value="corte e barba"])', .6)
-    r.tap('label:has(input[name="dia"][value="amanhã"])', .5)
-    r.tap('label:has(input[name="periodo"][value="à tarde"])', .6)
-    _type(r, '#comanda input[name="nome"]', "Rafael")
-    r.hold(.6)
-    r.move_to(*_center(r, "#comanda-send"), .9, -16)
-    r.hold(1.6)
     # Onde fica.
     r.scroll_el("#onde", -30, 2.4)
     r.move_to(*_center(r, "#onde .btn-ink"), .9, 12)
