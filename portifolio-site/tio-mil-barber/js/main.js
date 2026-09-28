@@ -300,6 +300,10 @@
           if (performance.now() - manualAt > 1200) setPos(self.progress * 100);
         }
       });
+      // Os pins são criados na ordem da página: o ScrollTrigger calcula cada um
+      // somando o espaço dos anteriores (fora de ordem, o ritual e o kit se sobrepõem).
+      // O kit fica preso e a rolagem passa o foco pelas sete ferramentas.
+      ST.create({ trigger: '.kit', start: 'top top', end: '+=210%', pin: true, onUpdate: self => toolFromScroll(self.progress) });
       // O ritual anda de lado; cada desenho é traçado quando o cartão entra.
       const track = document.querySelector('.ritual-track');
       const distance = () => Math.max(0, track.scrollWidth - innerWidth);
@@ -311,8 +315,6 @@
         const img = step.querySelector('.step-img');
         if (img) gsap.fromTo(img, { xPercent: 6 }, { xPercent: -6, ease: 'none', scrollTrigger: { trigger: step, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true } });
       });
-      // O kit fica preso e a rolagem passa o foco pelas sete ferramentas.
-      ST.create({ trigger: '.kit', start: 'top top', end: '+=210%', pin: true, onUpdate: self => toolFromScroll(self.progress) });
     });
     mm.add('(max-width: 860px)', () => {
       ST.create({ trigger: '.kit-figure', start: 'top 70%', end: 'bottom 15%', onUpdate: self => toolFromScroll(self.progress) });

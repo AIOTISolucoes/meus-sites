@@ -145,6 +145,11 @@ def originalfarma_signature(page: Page) -> None:
 
 
 def tiomil_signature(page: Page) -> None:
+    # Seções fixadas não podem se sobrepor (pins criados fora da ordem da página).
+    pins = page.evaluate("""() => window.ScrollTrigger ? ScrollTrigger.getAll().filter(t => t.pin)
+        .map(t => [t.start, t.end]).sort((a, b) => a[0] - b[0]) : []""")
+    for (_, end), (start, _) in zip(pins, pins[1:]):
+        assert start >= end - 1, pins
     send = page.locator("#comanda-send")
     assert send.get_attribute("aria-disabled") == "true"
     page.locator('label:has(input[name="servico"][value="corte e barba"])').click()

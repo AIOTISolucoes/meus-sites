@@ -278,14 +278,13 @@ def _type(r: HD, selector: str, text: str) -> None:
 
 
 def tiomil(r: HD) -> None:
-    pins = _pins(r)
     r.hold(1.8)                                          # entrada: a cadeira se aproxima
     r.move_to(VW * .8, VH * .38, 1.3, 26)                # a foto acompanha o mouse
     r.move_to(VW * .55, VH * .62, 1.1, -18)
     r.move_to(*_center(r, ".hero-actions .btn-gold"), .9, 14)
     r.hold(.8)
     # Antes e depois: a rolagem passa a máquina; depois, arrasto a linha na mão.
-    start, end = pins["compare-sec"]
+    start, end = _pins(r)["compare-sec"]
     r.scroll_to(start, 2.2)
     r.move_to(*_center(r, ".compare", .78, .7), .7, -10)
     r.scroll_to(end, 5.0)
@@ -306,13 +305,13 @@ def tiomil(r: HD) -> None:
     r.move_to(*_center(r, ".b-est img"), .8, -12)
     r.hold(1.0)
     # O kit: o foco de luz percorre as sete ferramentas; no fim, escolho uma.
-    start, end = pins["kit"]
+    start, end = _pins(r)["kit"]
     r.scroll_to(start, 2.0)
     r.move_to(VW * .72, VH * .5, .6)
     r.scroll_to(end, 6.0)
     r.tap('.kit-list button[data-tool="2"]', 1.3)
     # Na cadeira do Tio: os cartões andam de lado.
-    start, end = pins["ritual"]
+    start, end = _pins(r)["ritual"]
     r.scroll_to(start, 2.0)
     r.scroll_to(end, 4.2)
     # Comanda: monta o pedido e a mensagem sai pronta.
