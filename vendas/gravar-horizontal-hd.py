@@ -259,7 +259,79 @@ def pro_otica(r: HD) -> None:
     r.tap('[data-material="translucida"]', 1.3)
 
 
+def _pins(r: HD) -> dict:
+    """Início e fim de cada seção fixada, direto do ScrollTrigger."""
+    return r.page.evaluate("""() => Object.fromEntries(ScrollTrigger.getAll().filter(t => t.pin)
+        .map(t => [t.trigger.className.split(' ')[0], [t.start, t.end]]))""")
+
+
+def _center(r: HD, selector: str, fx: float = .5, fy: float = .5) -> tuple[float, float]:
+    box = r.page.locator(selector).first.bounding_box()
+    return box["x"] + box["width"] * fx, box["y"] + box["height"] * fy
+
+
+def _type(r: HD, selector: str, text: str) -> None:
+    r.tap(selector, .3)
+    for ch in text:
+        r.page.keyboard.type(ch)
+        r.tick(3)
+
+
+def tiomil(r: HD) -> None:
+    pins = _pins(r)
+    r.hold(1.8)                                          # entrada: a cadeira se aproxima
+    r.move_to(VW * .8, VH * .38, 1.3, 26)                # a foto acompanha o mouse
+    r.move_to(VW * .55, VH * .62, 1.1, -18)
+    r.move_to(*_center(r, ".hero-actions .btn-gold"), .9, 14)
+    r.hold(.8)
+    # Antes e depois: a rolagem passa a máquina; depois, arrasto a linha na mão.
+    start, end = pins["compare-sec"]
+    r.scroll_to(start, 2.2)
+    r.move_to(*_center(r, ".compare", .78, .7), .7, -10)
+    r.scroll_to(end, 5.0)
+    x, y = _center(r, ".compare", .97, .55)
+    r.move_to(x, y, .7, -12)
+    r.page.evaluate("() => window.__pulse && window.__pulse()")
+    r.page.mouse.down()
+    r.move_to(*_center(r, ".compare", .3, .55), 1.6)
+    r.move_to(*_center(r, ".compare", .66, .55), 1.1)
+    r.page.mouse.up()
+    r.hold(.9)
+    # Bento: o cartão vira para mostrar como ele chegou.
+    r.scroll_el(".bento", -95, 2.4)
+    r.tap(".hc-toggle", 1.5)
+    r.tap(".hc-toggle", .9)
+    r.move_to(*_center(r, ".b-photo"), .8, 16)
+    r.hold(1.0)
+    r.move_to(*_center(r, ".b-est img"), .8, -12)
+    r.hold(1.0)
+    # O kit: o foco de luz percorre as sete ferramentas; no fim, escolho uma.
+    start, end = pins["kit"]
+    r.scroll_to(start, 2.0)
+    r.move_to(VW * .72, VH * .5, .6)
+    r.scroll_to(end, 6.0)
+    r.tap('.kit-list button[data-tool="2"]', 1.3)
+    # Na cadeira do Tio: os cartões andam de lado.
+    start, end = pins["ritual"]
+    r.scroll_to(start, 2.0)
+    r.scroll_to(end, 4.2)
+    # Comanda: monta o pedido e a mensagem sai pronta.
+    r.scroll_el(".booking-grid", -170, 2.2)
+    r.tap('label:has(input[name="servico"][value="corte e barba"])', .6)
+    r.tap('label:has(input[name="dia"][value="amanhã"])', .5)
+    r.tap('label:has(input[name="periodo"][value="à tarde"])', .6)
+    _type(r, '#comanda input[name="nome"]', "Rafael")
+    r.hold(.6)
+    r.move_to(*_center(r, "#comanda-send"), .9, -16)
+    r.hold(1.6)
+    # Onde fica.
+    r.scroll_el("#onde", -30, 2.4)
+    r.move_to(*_center(r, "#onde .btn-ink"), .9, 12)
+    r.hold(1.4)
+
+
 SITES = {
+    "tiomil": (tiomil, "#141210", "#f5f2ec", "A cadeira do Tio também cabe no bolso."),
     "d20": (d20, "#16110d", "#f5efe1", "Role o dado de qualquer mesa."),
     "provisao": (provisao, "#0f3d47", "#f4f8f8", "O gaveteiro também cabe no bolso."),
     "speculari": (speculari, "#111113", "#f1ebdf", "Foco e ajuste, na palma da mão."),

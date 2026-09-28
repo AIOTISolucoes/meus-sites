@@ -389,7 +389,24 @@ def pro_otica(r: Reel) -> None:
     r.tap('[data-material="translucida"]', 1.0)
 
 
+def tiomil(r: Reel) -> None:
+    r.hold(2.4)
+    r.scroll_el(".compare", -110, 1.8)
+    r.hold(2.4)                                    # a máquina passa sozinha até 62%
+    r.scroll_el(".b-flip", -90, 1.6)
+    r.tap(".hc-toggle", 1.4)
+    r.scroll_el(".kit-figure", -160, 1.6)
+    r.scroll_el(".kit-figure", 260, 2.6)           # o foco percorre as ferramentas
+    r.scroll_el("#horario", 360, 2.2)
+    r.tap('label:has(input[name="servico"][value="corte e barba"])', .5)
+    r.tap('label:has(input[name="periodo"][value="à tarde"])', .8)
+    r.scroll_el(".ticket", -60, 1.2)
+    r.hold(1.2)
+
+
 SITES = {
+    "tiomil": ("tio-mil-barber", "tio_mil_barber", "e9b82c", tiomil,
+               "Oi! Queria cortar o cabelo e fazer a barba amanhã à tarde. Como faço pra marcar?"),
     "d20": ("d20-hamburgueria", "d20_hamburgueria", "e0a93b", d20,
             "Oi! Gosto de hambúrguer defumado e com bacon. Qual vocês indicam?"),
     "provisao": ("farmacia-provisao", "farmacia_provisao", "e8876a", provisao,
