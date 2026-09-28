@@ -168,6 +168,15 @@ def tiomil_signature(page: Page) -> None:
     rng.press("End")
     assert rng.input_value() == "100"
     assert "100%" in rng.get_attribute("aria-valuetext")
+    # Kit: botão e clique na foto acendem a ferramenta.
+    page.locator('.kit-list button[data-tool="2"]').dispatch_event("click")
+    assert page.locator('.kit-list button[data-tool="2"]').get_attribute("aria-pressed") == "true"
+    assert page.locator("[data-kit-name]").text_content() == "Tesoura"
+    assert page.locator("[data-kit-count]").inner_text() == "3 de 7"
+    page.evaluate("window.scrollTo(0, 0)")
+    page.wait_for_timeout(400)
+    page.evaluate("window.TioMil.setTool(6)")
+    assert page.locator("[data-kit-name]").text_content() == "Escova de nuca"
     flip = page.locator(".hc-toggle")
     flip.click()
     assert flip.get_attribute("aria-pressed") == "true"

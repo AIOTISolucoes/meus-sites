@@ -1,6 +1,6 @@
 # Tio Mil Barber — conceito de site
 
-**Status:** site pronto e testado. Aguarda as imagens do GPT Images e fotos
+**Status:** site pronto e testado, com as imagens do GPT Images. Faltam fotos
 reais; revisão com o negócio pendente. **Não publicado, não enviado à barbearia.**
 
 ## Dados usados e fonte
@@ -33,9 +33,8 @@ antes e depois, então o site gira em torno disso.
 - **Poste de barbeiro:** é a barra de progresso da página.
   - No desktop fica fixo à direita, e as listras giram com a rolagem.
   - No celular vira a faixa listrada no topo.
-- **Hero:** cartão com a foto real de "depois" em moldura dourada, como no flyer.
-  - O botão vira o cartão em 3D e mostra o "antes".
-  - O emblema gira com a rolagem.
+- **Hero:** foto cinematográfica da cadeira (GPT Images) em tela cheia.
+  - A imagem desliza devagar com a rolagem e acompanha o mouse de leve.
 - **Interação-assinatura, a passada da máquina:**
   - No desktop, a seção fica fixada e a rolagem passa uma máquina (SVG) sobre a foto.
   - A máquina revela o "depois" sobre o "antes" e solta fios de cabelo num canvas.
@@ -44,9 +43,17 @@ antes e depois, então o site gira em torno disso.
   - As fotos foram alinhadas pelo fundo (placa, parede) com correlação de fase.
 - **Texto que acende:** as palavras da frase "Eu só entrego o trabalho…" acendem com a rolagem.
   - A frase veio da legenda do próprio post.
-- **Bento sem vãos:** grade 4×3 (est. 2017, lema, WhatsApp, Instagram, "Deus no controle de tudo").
+- **Bento sem vãos:** grade 4×3.
+  - O cartão em pé traz a foto real de "depois" e vira em 3D para mostrar o "antes".
+  - Os outros cartões: lema, WhatsApp, Instagram, a navalha com parallax e "Est. 2017 · Deus no controle de tudo".
   - Vira 2 colunas no tablet e 1 no celular.
-- **Na cadeira do Tio:** quatro momentos em rolagem horizontal fixada no desktop, com os desenhos traçados pela rolagem.
+- **O kit do Tio:** a foto das ferramentas vistas de cima, com um foco de luz (máscara radial e anel dourado) que percorre as sete ferramentas.
+  - No desktop a seção fica fixada e a rolagem passa o foco de uma para outra.
+  - No celular o foco acompanha a rolagem.
+  - Tocar num botão ou na foto acende a ferramenta escolhida.
+- **Na cadeira do Tio:** quatro momentos em rolagem horizontal fixada no desktop.
+  - Três cartões têm foto com parallax: a cadeira, a tesoura e o degradê.
+  - O cartão da conversa tem um desenho traçado pela rolagem.
 - **Comanda:** o visitante escolhe serviço, dia (com data), período e nome.
   - A comanda de papel se preenche com efeito de máquina de escrever.
   - O botão manda a mensagem pronta para o WhatsApp.
@@ -64,9 +71,8 @@ antes e depois, então o site gira em torno disso.
   - O print tem baixa resolução, então foram ampliados 2× com Lanczos.
   - Trocar pelo post original quando possível.
 - `assets/emblema.webp` e `assets/emblema-96.png`: logo do post de 12/02, recortado em círculo.
-- Imagens a gerar no GPT Images: ver [PROMPTS-GPT-IMAGES.md](PROMPTS-GPT-IMAGES.md).
-  - `hero`, `ferramentas`, `degrade`, `navalha` e `tesoura`.
-  - Quando chegarem, entram no fundo do hero e nos cartões do ritual. O rodapé ganha o aviso de imagens conceituais.
+- `hero`, `ferramentas`, `degrade`, `navalha` e `tesoura`: geradas no GPT Images pelo usuário em 28/09 com os prompts de [PROMPTS-GPT-IMAGES.md](PROMPTS-GPT-IMAGES.md).
+  - São conceituais, e o rodapé avisa isso.
 
 ## Testes
 
@@ -75,7 +81,7 @@ python -m http.server 8765 --bind 127.0.0.1
 python tests/test_new_sites_2026_09.py tiomil
 ```
 
-A bateria cobriu 10 tamanhos de tela nos dois modos de movimento, a comanda, o comparador pelo teclado, a virada do cartão, o menu, o chat e a página funcionando sem GSAP. Tudo passou.
+A bateria cobriu 10 tamanhos de tela nos dois modos de movimento, a comanda, o comparador pelo teclado, o kit, a virada do cartão, o menu, o chat e a página funcionando sem GSAP. Tudo passou.
 
 ## Antes de mostrar ao Tio Mil
 

@@ -21,8 +21,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;600&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css">
-  <link rel="preload" href="assets/depois.webp" as="image" type="image/webp">
-  <link rel="stylesheet" href="css/style.css?v=1">
+  <link rel="preload" href="assets/hero.webp" as="image" type="image/webp" imagesrcset="assets/hero-960.webp 960w, assets/hero.webp 1672w" imagesizes="100vw">
+  <link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
   <a class="skip" href="#conteudo">Ir para o conteúdo</a>
@@ -37,6 +37,7 @@
     <button class="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i class="ph-bold ph-list" aria-hidden="true"></i></button>
     <nav id="menu" aria-label="Navegação principal">
       <a href="#antes-depois">Antes e depois</a>
+      <a href="#kit">O kit</a>
       <a href="#ritual">Na cadeira</a>
       <a href="#horario">Montar horário</a>
       <a href="#onde">Onde fica</a>
@@ -46,6 +47,7 @@
 
   <main id="conteudo">
     <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero-media"><img class="hero-img" src="assets/hero.webp" srcset="assets/hero-960.webp 960w, assets/hero.webp 1672w" sizes="100vw" alt="Cadeira de barbeiro de couro preto numa barbearia à noite, com o poste listrado aceso ao fundo (imagem conceitual)" width="1672" height="941" fetchpriority="high"></div>
       <p class="hero-word" aria-hidden="true"><span>Tio</span><span>Mil</span></p>
       <div class="hero-copy">
         <p class="hero-place">Barbearia no Parque Santa Rosa · Fortaleza · desde 2017</p>
@@ -56,14 +58,6 @@
           <a class="btn btn-line" href="#antes-depois"><i class="ph-bold ph-arrows-left-right" aria-hidden="true"></i> Ver o antes e depois</a>
         </div>
       </div>
-      <figure class="hero-card" data-flip>
-        <div class="hero-card-inner">
-          <img class="hc-face hc-depois" src="assets/depois.webp" alt="Cliente do Tio Mil depois do corte: cabelo grisalho curto, degradê na lateral" width="882" height="1362" fetchpriority="high">
-          <img class="hc-face hc-antes" src="assets/antes.webp" alt="O mesmo cliente antes do corte, com cabelo comprido e ondulado" width="882" height="1362" loading="lazy">
-        </div>
-        <figcaption><button class="hc-toggle" type="button" aria-pressed="false"><i class="ph-bold ph-swap" aria-hidden="true"></i> <span>Ver como ele chegou</span></button></figcaption>
-        <img class="hero-seal" src="assets/emblema.webp" alt="Emblema Tio Mil Barber Shop, Est. 2017" width="914" height="914">
-      </figure>
     </section>
 
     <div class="marquee" aria-hidden="true">
@@ -108,13 +102,16 @@
     <section class="bento-sec" id="barbearia" aria-labelledby="bento-title">
       <h2 id="bento-title" class="bento-title">Do <span class="pill" style="background-image:url(assets/antes.webp)" role="img" aria-label="foto do antes"></span> antes ao <span class="pill" style="background-image:url(assets/depois.webp)" role="img" aria-label="foto do depois"></span> depois, sempre você.</h2>
       <div class="bento">
-        <article class="b-card b-est">
-          <img src="assets/emblema.webp" alt="" width="914" height="914" loading="lazy">
-          <div>
-            <p class="b-big">Est. 2017</p>
-            <p>Tio Mil Barber Shop. Barbearia de bairro, com nome de família e cadeira de confiança.</p>
+        <figure class="b-card b-flip" data-flip>
+          <div class="flip-inner">
+            <img class="hc-face hc-depois" src="assets/depois.webp" alt="Cliente do Tio Mil depois do corte: cabelo grisalho curto, degradê na lateral" width="882" height="1362" loading="lazy">
+            <img class="hc-face hc-antes" src="assets/antes.webp" alt="O mesmo cliente antes do corte, com cabelo comprido e ondulado" width="882" height="1362" loading="lazy">
           </div>
-        </article>
+          <figcaption>
+            <span class="flip-label"><strong data-flip-label>Depois</strong> · trabalho real</span>
+            <button class="hc-toggle" type="button" aria-pressed="false"><i class="ph-bold ph-swap" aria-hidden="true"></i> <span>Ver como ele chegou</span></button>
+          </figcaption>
+        </figure>
         <article class="b-card b-slogan">
           <p><span>+ Estilo,</span> <span>+ confiança,</span> <em>sempre você!</em></p>
         </article>
@@ -130,10 +127,39 @@
           <span>Cortes, antes e depois e o dia a dia da cadeira</span>
           <i class="ph-bold ph-arrow-up-right b-arrow" aria-hidden="true"></i>
         </a>
-        <article class="b-card b-fe">
-          <p>Deus no controle de tudo.</p>
-          <span>Da bio do Tio Mil</span>
+        <article class="b-card b-photo">
+          <img src="assets/navalha.webp" alt="Navalha desenhando a linha da barba no maxilar, com espuma (imagem conceitual)" width="1122" height="1402" loading="lazy">
+          <p>O detalhe é que fecha o visual.</p>
         </article>
+        <article class="b-card b-est">
+          <img src="assets/emblema.webp" alt="" width="914" height="914" loading="lazy">
+          <div>
+            <p class="b-big">Est. 2017</p>
+            <p>Deus no controle de tudo. <span>Da bio do Tio Mil.</span></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="kit" id="kit" aria-labelledby="kit-title">
+      <div class="kit-head">
+        <h2 id="kit-title">O kit do Tio.</h2>
+        <p>Sete ferramentas, um visual. Role a página ou toque numa ferramenta para acender.</p>
+      </div>
+      <div class="kit-stage">
+        <figure class="kit-figure" data-kit>
+          <img src="assets/ferramentas.webp" alt="Ferramentas de barbeiro vistas de cima sobre bancada preta: máquina, navalha, tesoura, pente, pincel, borrifador e escova de nuca (imagem conceitual)" width="1536" height="1024" loading="lazy">
+          <span class="kit-dim" aria-hidden="true"></span>
+          <span class="kit-ring" aria-hidden="true"></span>
+        </figure>
+        <div class="kit-side">
+          <div class="kit-info" aria-live="polite">
+            <span class="kit-count" data-kit-count>1 de 7</span>
+            <h3 data-kit-name>Máquina</h3>
+            <p data-kit-desc>O degradê começa aqui.</p>
+          </div>
+          <div class="kit-list" role="group" aria-label="Escolher ferramenta"></div>
+        </div>
       </div>
     </section>
 
@@ -143,7 +169,8 @@
         <p>Quatro momentos, do bom-dia ao espelho.</p>
       </div>
       <ol class="ritual-track">
-        <li class="step">
+        <li class="step has-img">
+          <img class="step-img" src="assets/hero-960.webp" alt="" width="960" height="540" loading="lazy">
           <span class="step-n" aria-hidden="true">1</span>
           <svg class="step-art" viewBox="0 0 200 200" aria-hidden="true"><path d="M60 40h80v58H60zM48 98h104v26H48zM70 124l-10 40M130 124l10 40M52 164h96M100 164v20M76 184h48M40 70h20M140 70h20"/></svg>
           <h3>Senta que o Tio já vem.</h3>
@@ -155,13 +182,15 @@
           <h3>Conversa primeiro.</h3>
           <p>Você diz o que quer. Na dúvida, a decisão sai junto, olhando no espelho.</p>
         </li>
-        <li class="step">
+        <li class="step has-img">
+          <img class="step-img" src="assets/tesoura.webp" alt="" width="1122" height="1402" loading="lazy">
           <span class="step-n" aria-hidden="true">3</span>
           <svg class="step-art" viewBox="0 0 200 200" aria-hidden="true"><path d="M58 150a20 20 0 1 1 0.1 0M58 150l92-110M142 150a20 20 0 1 0-0.1 0M142 150 50 40M100 96l0 0M24 176h152M36 176v-10M52 176v-10M68 176v-10M84 176v-10M100 176v-10M116 176v-10M132 176v-10M148 176v-10M164 176v-10"/></svg>
           <h3>Máquina, tesoura e pente.</h3>
           <p>O corte no detalhe, sem pressa de despachar ninguém.</p>
         </li>
-        <li class="step">
+        <li class="step has-img">
+          <img class="step-img" src="assets/degrade.webp" alt="" width="1122" height="1402" loading="lazy">
           <span class="step-n" aria-hidden="true">4</span>
           <svg class="step-art" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 24c34 0 58 30 58 66s-24 66-58 66-58-30-58-66 24-66 58-66zM100 156v26M70 184h60M74 60c8-10 18-14 28-14M66 84c2-6 4-10 8-14"/></svg>
           <h3>Olha no espelho.</h3>
@@ -241,12 +270,12 @@
 
   <footer class="footer">
     <p class="footer-brand"><img src="assets/emblema-96.png" alt="" width="36" height="36"> Tio Mil Barber <span>Est. 2017 · Deus no controle de tudo.</span></p>
-    <p>Conceito de site para apresentação, ainda não publicado. As fotos de antes e depois vêm de uma publicação do @tio_mil_barber no Instagram. Endereço e WhatsApp foram tirados do perfil e das artes da barbearia; o bairro foi deduzido pela faixa de CEP da rua. Serviços, valores e horários devem ser confirmados com o Tio Mil antes da publicação.</p>
+    <p>Conceito de site para apresentação, ainda não publicado. As fotos de antes e depois vêm de uma publicação do @tio_mil_barber no Instagram. As imagens da cadeira, das ferramentas e dos detalhes de corte são conceituais, geradas para a demonstração, e serão trocadas por fotos reais da barbearia. Endereço e WhatsApp foram tirados do perfil e das artes da barbearia; o bairro foi deduzido pela faixa de CEP da rua. Serviços, valores e horários devem ser confirmados com o Tio Mil antes da publicação.</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-  <script src="js/main.js?v=1" defer></script>
+  <script src="js/main.js?v=4" defer></script>
   <script src="js/chat.js?v=1" defer></script>
 </body>
 </html>

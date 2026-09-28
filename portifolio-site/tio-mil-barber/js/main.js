@@ -45,7 +45,7 @@
   addEventListener('resize', onScroll);
   onScroll();
 
-  /* ---------- Cartão do hero: vira para mostrar o antes ---------- */
+  /* ---------- Cartão do bento: vira para mostrar o antes ---------- */
   const card = document.querySelector('[data-flip]');
   const flipBtn = card?.querySelector('.hc-toggle');
   flipBtn?.addEventListener('click', () => {
@@ -53,7 +53,68 @@
     card.classList.toggle('flipped', on);
     flipBtn.setAttribute('aria-pressed', String(on));
     flipBtn.querySelector('span').textContent = on ? 'Ver como ele saiu' : 'Ver como ele chegou';
+    card.querySelector('[data-flip-label]').textContent = on ? 'Antes' : 'Depois';
   });
+
+  /* ---------- O kit do Tio: foco de luz de ferramenta em ferramenta ---------- */
+  // Posições medidas na imagem (fração da largura e da altura) e raio do foco.
+  const TOOLS = [
+    { name: 'Máquina', desc: 'O degradê começa aqui.', x: .176, y: .332, r: .13 },
+    { name: 'Navalha', desc: 'Contorno e acabamento, linha por linha.', x: .384, y: .293, r: .13 },
+    { name: 'Tesoura', desc: 'O topo no detalhe, sem pressa.', x: .596, y: .332, r: .12 },
+    { name: 'Pente', desc: 'Divide, levanta e mede antes de cortar.', x: .785, y: .352, r: .11 },
+    { name: 'Pincel', desc: 'Espuma no ponto para a navalha deslizar.', x: .221, y: .762, r: .11 },
+    { name: 'Borrifador', desc: 'Cabelo úmido, corte preciso.', x: .466, y: .762, r: .12 },
+    { name: 'Escova de nuca', desc: 'Tira os fiozinhos antes do espelho.', x: .758, y: .781, r: .12 }
+  ];
+  const kit = document.querySelector('[data-kit]');
+  const kitList = document.querySelector('.kit-list');
+  const kitName = document.querySelector('[data-kit-name]');
+  const kitDesc = document.querySelector('[data-kit-desc]');
+  const kitCount = document.querySelector('[data-kit-count]');
+  let tool = -1;
+  const kitButtons = TOOLS.map((t, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = t.name;
+    b.setAttribute('aria-pressed', 'false');
+    b.dataset.tool = String(i);
+    b.addEventListener('click', () => setTool(i));
+    kitList.append(b);
+    return b;
+  });
+  const setTool = (i, instant = false) => {
+    if (i === tool) return;
+    tool = i;
+    const t = TOOLS[i];
+    const radius = kit.clientWidth * t.r;
+    const to = { '--x': `${(t.x * 100).toFixed(2)}%`, '--y': `${(t.y * 100).toFixed(2)}%`, '--r': `${radius.toFixed(1)}px` };
+    kit.classList.add('lit');
+    if (window.gsap && !reduce && !instant) window.gsap.to(kit, { ...to, duration: .7, ease: 'expo.out', overwrite: true });
+    else Object.entries(to).forEach(([k, v]) => kit.style.setProperty(k, v));
+    kitName.textContent = t.name;
+    kitDesc.textContent = t.desc;
+    kitCount.textContent = `${i + 1} de ${TOOLS.length}`;
+    kitButtons.forEach((b, k) => b.setAttribute('aria-pressed', String(k === i)));
+  };
+  // Tocar na foto acende a ferramenta mais próxima.
+  kit.addEventListener('click', event => {
+    const r = kit.getBoundingClientRect();
+    const x = (event.clientX - r.left) / r.width, y = (event.clientY - r.top) / r.height;
+    let best = 0, dist = Infinity;
+    TOOLS.forEach((t, i) => { const d = Math.hypot((t.x - x) * 1.5, t.y - y); if (d < dist) { dist = d; best = i; } });
+    setTool(best);
+  });
+  new ResizeObserver(() => { if (tool >= 0) kit.style.setProperty('--r', `${(kit.clientWidth * TOOLS[tool].r).toFixed(1)}px`); }).observe(kit);
+  setTool(0, true);
+  // A rolagem só troca a ferramenta quando entra num novo trecho; assim uma
+  // escolha feita no toque não é desfeita pelo menor movimento da página.
+  let scrollTool = 0;
+  const toolFromScroll = progress => {
+    const i = Math.min(TOOLS.length - 1, Math.floor(progress * TOOLS.length));
+    if (i !== scrollTool) { scrollTool = i; setTool(i); }
+  };
+  window.TioMil = { ...(window.TioMil || {}), setTool, getTool: () => tool };
 
   /* ---------- Texto que acende palavra por palavra ---------- */
   const scrub = document.querySelector('[data-scrub]');
@@ -142,8 +203,13 @@
     range.value = String(Math.round(next));
     range.setAttribute('aria-valuetext', `${Math.round(next)}% do depois à mostra`);
   };
+  // Quem mexe na linha manda: por um instante a rolagem não move a máquina
+  // (focar o controle rola a página, e o scrub continuaria andando sozinho).
+  let manualAt = 0;
+  const manual = () => { manualAt = performance.now(); };
+  ['focus', 'pointerdown', 'keydown', 'input'].forEach(type => range.addEventListener(type, manual));
   range.addEventListener('input', () => setPos(Number(range.value)));
-  window.TioMil = { setPos, getPos: () => pos };
+  window.TioMil = { ...(window.TioMil || {}), setPos, getPos: () => pos };
   setPos(reduce ? 50 : 0, false);
   if (reduce) lightWords(1);
 
@@ -214,17 +280,25 @@
     gsap.registerPlugin(ST);
 
     gsap.from('.hero h1 .line', { yPercent: 40, opacity: 0, duration: 1, ease: 'expo.out', stagger: .1 });
-    gsap.from('.hero-card', { y: 60, rotate: 6, opacity: 0, duration: 1.3, ease: 'expo.out', delay: .15 });
+    gsap.fromTo('.hero-img', { scale: 1.14 }, { scale: 1.04, duration: 2.4, ease: 'expo.out' });
+    gsap.to('.hero-media', { yPercent: 18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
     gsap.to('.hero-word', { xPercent: -14, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-    gsap.to('.hero-seal', { rotate: 220, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: .6 } });
-    gsap.to('.hero-card', { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+    // A cadeira acompanha o mouse de leve (só com mouse de verdade).
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      const hx = gsap.quickTo('.hero-img', 'x', { duration: 1.2, ease: 'expo.out' });
+      const hy = gsap.quickTo('.hero-img', 'y', { duration: 1.2, ease: 'expo.out' });
+      document.querySelector('.hero').addEventListener('pointermove', e => { hx((e.clientX / innerWidth - .5) * -26); hy((e.clientY / innerHeight - .5) * -16); });
+    }
 
     const mm = gsap.matchMedia();
     mm.add('(min-width: 861px)', () => {
       // A seção fica presa; a rolagem vira a passada da máquina.
       ST.create({
         trigger: '.compare-sec', start: 'top top', end: '+=150%', pin: true, scrub: .5,
-        onUpdate: self => { setPos(self.progress * 100); lightWords(Math.min(1, self.progress * 1.25)); }
+        onUpdate: self => {
+          lightWords(Math.min(1, self.progress * 1.25));
+          if (performance.now() - manualAt > 1200) setPos(self.progress * 100);
+        }
       });
       // O ritual anda de lado; cada desenho é traçado quando o cartão entra.
       const track = document.querySelector('.ritual-track');
@@ -234,9 +308,14 @@
         const paths = step.querySelectorAll('.step-art path');
         paths.forEach(p => { const l = p.getTotalLength(); p.style.strokeDasharray = l; p.style.strokeDashoffset = l; });
         gsap.to(paths, { strokeDashoffset: 0, ease: 'none', scrollTrigger: { trigger: step, containerAnimation: tween, start: 'left 85%', end: 'center 55%', scrub: true } });
+        const img = step.querySelector('.step-img');
+        if (img) gsap.fromTo(img, { xPercent: 6 }, { xPercent: -6, ease: 'none', scrollTrigger: { trigger: step, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true } });
       });
+      // O kit fica preso e a rolagem passa o foco pelas sete ferramentas.
+      ST.create({ trigger: '.kit', start: 'top top', end: '+=210%', pin: true, onUpdate: self => toolFromScroll(self.progress) });
     });
     mm.add('(max-width: 860px)', () => {
+      ST.create({ trigger: '.kit-figure', start: 'top 70%', end: 'bottom 15%', onUpdate: self => toolFromScroll(self.progress) });
       ST.create({ trigger: '.compare-copy', start: 'top 80%', end: 'bottom 45%', scrub: true, onUpdate: self => lightWords(self.progress) });
       ST.create({
         trigger: '.compare', start: 'top 70%', once: true,
@@ -246,6 +325,8 @@
         const paths = step.querySelectorAll('.step-art path');
         paths.forEach(p => { const l = p.getTotalLength(); p.style.strokeDasharray = l; p.style.strokeDashoffset = l; });
         gsap.to(paths, { strokeDashoffset: 0, ease: 'none', scrollTrigger: { trigger: step, start: 'top 85%', end: 'center 60%', scrub: true } });
+        const img = step.querySelector('.step-img');
+        if (img) gsap.fromTo(img, { yPercent: -5 }, { yPercent: 5, ease: 'none', scrollTrigger: { trigger: step, start: 'top bottom', end: 'bottom top', scrub: true } });
       });
     });
 
@@ -264,6 +345,7 @@
     gsap.utils.toArray('.b-card').forEach((c, i) => {
       gsap.from(c, { scale: .94, opacity: .35, y: 30, duration: 1, ease: 'expo.out', delay: (i % 3) * .06, scrollTrigger: { trigger: c, start: 'top 90%', once: true } });
     });
+    gsap.fromTo('.b-photo img', { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: '.b-photo', start: 'top bottom', end: 'bottom top', scrub: true } });
     gsap.from('.ticket-paper', { y: -40, rotate: -4, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.booking-grid', start: 'top 75%', once: true } });
     gsap.to('.where-seal', { rotate: -120, ease: 'none', scrollTrigger: { trigger: '.where', start: 'top bottom', end: 'bottom top', scrub: true } });
 
