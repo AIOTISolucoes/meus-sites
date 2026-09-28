@@ -144,6 +144,37 @@ def originalfarma_signature(page: Page) -> None:
     assert "penúltimo dia do mês anterior" in page.locator("[data-cal-summary]").inner_text()
 
 
+def tiomil_signature(page: Page) -> None:
+    send = page.locator("#comanda-send")
+    assert send.get_attribute("aria-disabled") == "true"
+    page.locator('label:has(input[name="servico"][value="corte e barba"])').click()
+    page.locator('label:has(input[name="dia"][value="outro"])').click()
+    page.fill('#comanda input[name="data"]', "2026-10-09")
+    page.locator('label:has(input[name="periodo"][value="à tarde"])').click()
+    page.fill('#comanda input[name="nome"]', "Rafa")
+    href = unquote(send.get_attribute("href"))
+    assert href.startswith("https://wa.me/5585991858627?text="), href
+    assert "Sou Rafa" in href and "corte e barba" in href and "09/10" in href and "à tarde" in href, href
+    assert send.get_attribute("aria-disabled") == "false"
+    assert page.locator('[data-t="servico"]').inner_text() == "corte e barba"
+    # Comparador: API e teclado. Volta ao topo e espera o scrub assentar, senão
+    # a rolagem feita pelos cliques acima continua movendo a máquina.
+    page.evaluate("window.scrollTo(0, 0)")
+    page.wait_for_timeout(900)
+    page.evaluate("window.TioMil.setPos(70)")
+    assert page.locator("[data-compare]").evaluate("el => el.style.getPropertyValue('--pos')") == "70.00"
+    rng = page.locator(".c-range")
+    rng.focus()
+    rng.press("End")
+    assert rng.input_value() == "100"
+    assert "100%" in rng.get_attribute("aria-valuetext")
+    flip = page.locator(".hc-toggle")
+    flip.click()
+    assert flip.get_attribute("aria-pressed") == "true"
+    flip.click()
+    assert flip.get_attribute("aria-pressed") == "false"
+
+
 SITES = {
     "provisao": {
         "slug": "farmacia-provisao",
@@ -180,6 +211,13 @@ SITES = {
         "cta": 'a.btn-butter[href="#atalhos"]',
         "links": ["https://www.instagram.com/originalfarma01/", "tel:192"],
         "signature": originalfarma_signature,
+    },
+    "tiomil": {
+        "slug": "tio-mil-barber",
+        "title": "Tio Mil Barber",
+        "cta": 'a.btn-gold[href="#horario"]',
+        "links": ["https://wa.me/5585991858627", "https://www.instagram.com/tio_mil_barber/"],
+        "signature": tiomil_signature,
     },
 }
 
