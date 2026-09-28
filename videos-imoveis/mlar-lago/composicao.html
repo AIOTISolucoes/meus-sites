@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>M.Lar Lago — Reels</title>
+<!--
+  Composição do Reels (1080x1920, 30 fps). Tudo é função do tempo: render(t)
+  desenha o quadro do segundo t. Abra este arquivo por um servidor local
+  (python -m http.server) para pré-visualizar; espaço pausa, setas avançam.
+  O renderizar.py captura quadro a quadro e monta o MP4.
+
+  Para editar: mude ROTEIRO.cenas (imagem, tempo, câmera, transição, legenda)
+  e ROTEIRO.textos. Tempos em segundos; a trilha tem 120 BPM (1 tempo = 0,5 s).
+-->
+<style>
+@font-face { font-family: Fraunces; src: url(fonts/fraunces-normal.woff2) format('woff2'); font-weight: 300 600; font-style: normal; }
+@font-face { font-family: Fraunces; src: url(fonts/fraunces-italic.woff2) format('woff2'); font-weight: 300 500; font-style: italic; }
+@font-face { font-family: Manrope; src: url(fonts/manrope-normal.woff2) format('woff2'); font-weight: 400 700; }
+:root {
+  --teal: #0d5953; --teal-deep: #083d39; --aqua: #9fded3; --cream: #f2ede5; --ink: #13302d;
+  --serif: Fraunces, Georgia, serif; --sans: Manrope, system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; }
+html, body { background: #111; }
+body { display: grid; place-items: center; min-height: 100vh; overflow: hidden; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--teal-deep); transform-origin: 50% 50%; }
+.scene { position: absolute; inset: 0; overflow: hidden; display: none; will-change: transform, opacity; }
+.frame { position: absolute; overflow: hidden; left: 0; width: 1080px; }
+.frame img { position: absolute; left: 0; top: 0; transform-origin: 0 0; max-width: none; }
+.scrim { position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(4,20,18,.42) 0%, rgba(4,20,18,0) 17%, rgba(4,20,18,0) 52%, rgba(4,20,18,.62) 80%, rgba(4,20,18,.7) 100%); }
+.vignette { position: absolute; inset: 0; pointer-events: none; z-index: 50;
+  background: radial-gradient(120% 80% at 50% 45%, transparent 60%, rgba(0,0,0,.28) 100%); }
+.label { position: absolute; left: 72px; display: flex; align-items: center; gap: 18px; color: #fff;
+  font: 600 31px/1.1 var(--sans); letter-spacing: .15em; text-transform: uppercase; text-shadow: 0 2px 18px rgba(0,0,0,.45); }
+.label::before { content: ''; width: 46px; height: 2px; background: var(--aqua); transform-origin: 0 50%; transform: scaleX(var(--rule, 1)); }
+.tag { position: absolute; left: 72px; color: rgba(255,255,255,.72); font: 500 19px/1.2 var(--sans); letter-spacing: .04em; }
+.duo-line { position: absolute; left: 0; right: 0; top: 956px; height: 8px; background: var(--cream); z-index: 3; transform-origin: 0 50%; }
+
+.txt { position: absolute; left: 72px; right: 110px; z-index: 40; color: #fff; }
+.ln { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+.ln > span { display: inline-block; will-change: transform; }
+.head { font: 350 112px/1.0 var(--serif); letter-spacing: -.02em; text-shadow: 0 4px 40px rgba(0,0,0,.35); font-variation-settings: 'opsz' 144; }
+.head em { font-style: italic; font-weight: 350; color: var(--aqua); }
+.over { font: 600 27px/1.2 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.88); }
+.dark { color: var(--ink); text-shadow: none; }
+.dark em { color: var(--teal); }
+
+/* planta */
+.planta-bg { position: absolute; inset: 0; background: var(--cream); }
+.planta-img { position: absolute; left: 40px; width: 1000px; top: 690px; }
+.planta-cap { position: absolute; left: 72px; top: 1268px; font: 500 22px/1.2 var(--sans); color: rgba(19,48,45,.7); letter-spacing: .04em; }
+.stats { position: absolute; left: 72px; right: 110px; top: 1330px; display: grid; grid-template-columns: 1.35fr 1fr; gap: 24px; }
+.stat b { display: block; font: 300 84px/1 var(--serif); color: var(--ink); letter-spacing: -.02em; font-variation-settings: 'opsz' 144; }
+.stat b small { font-size: .5em; letter-spacing: 0; }
+.stat span { display: block; margin-top: 10px; font: 600 22px/1.2 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--teal); }
+.stat { border-top: 2px solid rgba(13,89,83,.25); padding-top: 22px; }
+
+/* final */
+.fim-tint { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,61,57,.66) 0%, rgba(8,61,57,.72) 45%, rgba(6,44,41,.9) 100%); }
+.logo { position: absolute; left: 50%; top: 470px; width: 760px; margin-left: -380px; }
+.fim-sub { position: absolute; left: 0; right: 0; top: 760px; text-align: center; color: rgba(255,255,255,.85); font: 600 26px/1.5 var(--sans); letter-spacing: .2em; text-transform: uppercase; }
+.fim-rule { position: absolute; left: 50%; top: 860px; width: 120px; margin-left: -60px; height: 2px; background: var(--aqua); }
+.cta { position: absolute; left: 0; right: 0; top: 960px; text-align: center; color: #fff; }
+.cta .head { font-size: 104px; }
+.pill { display: inline-flex; align-items: center; gap: 16px; margin-top: 46px; padding: 24px 44px; border: 2px solid rgba(255,255,255,.85); border-radius: 999px;
+  font: 700 30px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #fff; }
+.pill i { font-style: normal; font-family: var(--sans); }
+.legal { position: absolute; left: 110px; right: 110px; top: 1396px; text-align: center; color: rgba(255,255,255,.62); font: 500 18px/1.45 var(--sans); }
+
+.panel { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; background: var(--teal); z-index: 35; display: none; }
+#hud { position: fixed; left: 12px; bottom: 12px; color: #9aa; font: 12px monospace; }
+body.render .panel { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; background: var(--teal); z-index: 35; display: none; }
+#hud { display: none; }
+</style>
+</head>
+<body>
+<div id="stage"><div class="vignette"></div></div>
+<div id="hud"></div>
+<svg width="0" height="0" style="position:absolute"><defs id="filters"></defs></svg>
+
+<script>
+const W = 1080, H = 1920, FPS = 30;
+
+/* ------------------------------------------------------------------ ROTEIRO
+   cam: foco (x, y de 0 a 1 na imagem) e zoom z sobre o enquadramento "cover".
+   entrada: tipo de transição que ESTA cena usa para entrar.
+   tipo: 'render' (perspectiva ilustrativa) ou 'foto' (apartamento decorado). */
+const ROTEIRO = {
+  duracao: 41,
+  cenas: [
+    { id: 'fachada', img: 'fachada', t0: 0, t1: 3, tipo: 'render',
+      cam: [{ x: .47, y: .66, z: 1.22 }, { x: .47, y: .45, z: 1.0 }] },
+    { id: 'portaria', img: 'portaria', t0: 3, t1: 5, tipo: 'render', entrada: 'whip', label: 'Portaria',
+      cam: [{ x: .16, y: .45, z: 1.06 }, { x: .36, y: .45, z: 1.12 }] },
+    { id: 'piscina', img: 'piscina', t0: 5, t1: 7, tipo: 'render', entrada: 'slideup', label: 'Piscina com prainha',
+      cam: [{ x: .40, y: .55, z: 1.0 }, { x: .55, y: .55, z: 1.12 }] },
+    { id: 'deck', img: 'deck', t0: 7, t1: 9, tipo: 'render', entrada: 'whip', label: 'Deck churrasqueira',
+      cam: [{ x: .50, y: .55, z: 1.04 }, { x: .70, y: .55, z: 1.1 }] },
+    { id: 'sala-vertical', img: 'sala-vertical', t0: 9, t1: 11.5, tipo: 'foto', entrada: 'zoom',
+      cam: [{ x: .5, y: .5, z: 1.0 }, { x: .53, y: .44, z: 1.3 }] },
+    { id: 'sala', img: 'sala', t0: 11.5, t1: 13.5, tipo: 'foto', entrada: 'slats', label: 'Estar e jantar',
+      cam: [{ x: .64, y: .52, z: 1.04 }, { x: .36, y: .52, z: 1.08 }] },
+    { id: 'cozinha', img: 'cozinha', t0: 13.5, t1: 15, tipo: 'foto', entrada: 'whip', label: 'Cozinha',
+      cam: [{ x: .36, y: .5, z: 1.06 }, { x: .6, y: .5, z: 1.04 }] },
+    { id: 'varanda', img: 'varanda', t0: 15, t1: 16.5, tipo: 'foto', entrada: 'slideup', label: 'Varanda',
+      cam: [{ x: .5, y: .34, z: 1.1 }, { x: .5, y: .6, z: 1.02 }] },
+    { id: 'suite', img: 'suite', t0: 16.5, t1: 18.5, tipo: 'foto', entrada: 'slats', label: 'Suíte com closet',
+      cam: [{ x: .44, y: .56, z: 1.0 }, { x: .6, y: .56, z: 1.1 }] },
+    { id: 'closet', img: 'closet', t0: 18.5, t1: 19.5, tipo: 'foto', entrada: 'cut',
+      cam: [{ x: .5, y: .5, z: 1.02 }, { x: .5, y: .44, z: 1.16 }] },
+    { id: 'quarto-kids', img: 'quarto-kids', t0: 19.5, t1: 21, tipo: 'foto', entrada: 'whipv', label: '3 quartos',
+      cam: [{ x: .5, y: .66, z: 1.04 }, { x: .5, y: .36, z: 1.1 }] },
+    { id: 'quarto', img: 'quarto', t0: 21, t1: 22, tipo: 'foto', entrada: 'cut',
+      cam: [{ x: .56, y: .5, z: 1.02 }, { x: .74, y: .5, z: 1.08 }] },
+    { id: 'academia', img: 'academia', t0: 22, t1: 24, tipo: 'render', entrada: 'zoom', label: 'Espaço fitness', labelDelay: 1.5,
+      cam: [{ x: .34, y: .55, z: 1.1 }, { x: .56, y: .55, z: 1.02 }] },
+    { id: 'gourmet', img: 'gourmet', t0: 24, t1: 25, tipo: 'render', entrada: 'cut', label: 'Espaço gourmet',
+      cam: [{ x: .34, y: .52, z: 1.02 }, { x: .5, y: .52, z: 1.08 }] },
+    { id: 'festas', img: 'festas', t0: 25, t1: 26, tipo: 'render', entrada: 'cut', label: 'Salão de festas',
+      cam: [{ x: .28, y: .55, z: 1.1 }, { x: .42, y: .55, z: 1.02 }] },
+    { id: 'kids', t0: 26, t1: 28, tipo: 'render', entrada: 'duo',
+      duo: [{ img: 'brinquedoteca', label: 'Brinquedoteca', cam: [{ x: .42, y: .5, z: 1.04 }, { x: .56, y: .5, z: 1.14 }] },
+            { img: 'playground', label: 'Playground', cam: [{ x: .56, y: .55, z: 1.14 }, { x: .46, y: .55, z: 1.04 }] }] },
+    { id: 'campo', img: 'campo', t0: 28, t1: 29, tipo: 'render', entrada: 'cut', label: 'Mini campo de grama natural',
+      cam: [{ x: .5, y: .55, z: 1.02 }, { x: .66, y: .55, z: 1.08 }] },
+    { id: 'externo', t0: 29, t1: 31, tipo: 'render', entrada: 'duo',
+      duo: [{ img: 'piquenique', label: 'Piquenique', cam: [{ x: .4, y: .6, z: 1.12 }, { x: .5, y: .6, z: 1.04 }] },
+            { img: 'lounge', label: 'Lounge externo', cam: [{ x: .44, y: .62, z: 1.04 }, { x: .54, y: .62, z: 1.12 }] }] },
+    { id: 'minimarket', img: 'minimarket', t0: 31, t1: 32, tipo: 'render', entrada: 'cut', label: 'Mini mercado',
+      cam: [{ x: .42, y: .5, z: 1.1 }, { x: .56, y: .5, z: 1.02 }] },
+    { id: 'planta', t0: 32, t1: 36, entrada: 'panel', especial: 'planta' },
+    { id: 'fim', img: 'piscina-deck', t0: 36, t1: 41, entrada: 'slideup', especial: 'fim',
+      cam: [{ x: .40, y: .55, z: 1.1 }, { x: .48, y: .55, z: 1.22 }] },
+  ],
+  textos: [
+    { t0: -0.55, t1: 2.72, y: 1128, cls: 'over', linhas: ['M.Lar Lago · Cambeba'] },
+    { t0: -0.45, t1: 2.8, y: 1190, cls: 'head', linhas: ['Morar a 2 minutos', '<em>do Lago Jacarey</em>'] },
+    { t0: 9.25, t1: 11.3, y: 1190, cls: 'head', linhas: ['Por dentro', 'do <em>decorado</em>'] },
+    { t0: 22.15, t1: 23.35, y: 1190, cls: 'head', linhas: ['Lazer', '<em>completo</em>'] },
+    { t0: 32.45, t1: 35.8, y: 300, cls: 'over dark', linhas: ['Plantas'] },
+    { t0: 32.55, t1: 35.82, y: 350, cls: 'head dark', linhas: ['3 quartos', '<em>com suíte</em>'] },
+  ],
+};
+
+/* ------------------------------------------------------------------ util */
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const E = {
+  inOutSine: p => -(Math.cos(Math.PI * p) - 1) / 2,
+  outExpo: p => (p >= 1 ? 1 : 1 - Math.pow(2, -10 * p)),
+  inExpo: p => (p <= 0 ? 0 : Math.pow(2, 10 * p - 10)),
+  outQuart: p => 1 - Math.pow(1 - p, 4),
+  inOutQuart: p => (p < .5 ? 8 * p * p * p * p : 1 - Math.pow(-2 * p + 2, 4) / 2),
+  inOutCubic: p => (p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2),
+  inQuad: p => p * p,
+};
+// Câmera quase linear com as pontas suavizadas: nunca para, nunca dá tranco.
+const camEase = p => lerp(p, E.inOutSine(p), .45);
+const el = (tag, cls, parent, html) => { const n = document.createElement(tag); if (cls) n.className = cls; if (html != null) n.innerHTML = html; parent?.append(n); return n; };
+
+/* Duração de cada transição (centrada no corte t0). */
+const TRANS = { whip: .42, whipv: .42, slideup: .7, zoom: .6, slats: .75, cut: 0, duo: 0, panel: .9 };
+
+/* ------------------------------------------------------------------ montagem */
+const stage = document.getElementById('stage');
+const defs = document.getElementById('filters');
+const cenas = ROTEIRO.cenas;
+const imgs = new Set();
+
+function frame(parent, top, height, src) {
+  const f = el('div', 'frame', parent); f.style.top = top + 'px'; f.style.height = height + 'px';
+  const im = el('img', null, f); im.src = `img/${src}.jpg`; im.decoding = 'sync'; imgs.add(im);
+  return { f, im, w: 1080, h: height };
+}
+
+cenas.forEach((c, i) => {
+  c.i = i;
+  c.dIn = TRANS[c.entrada || 'cut'] ?? 0;
+  c.node = el('div', 'scene', stage); c.node.style.zIndex = 10 + i;
+  const fid = `blur-${c.id}`;
+  defs.insertAdjacentHTML('beforeend', `<filter id="${fid}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="0 0"/></filter>`);
+  c.blur = defs.lastElementChild.firstElementChild; c.fid = fid;
+  if (c.especial === 'planta') {
+    el('div', 'planta-bg', c.node);
+    c.planta = el('img', 'planta-img', c.node); c.planta.src = 'img/planta-c.jpg'; imgs.add(c.planta);
+    c.cap = el('div', 'planta-cap', c.node, 'Planta tipo C · 66,93 m² · decoração é mera sugestão');
+    c.stats = el('div', 'stats', c.node, `
+      <div class="stat"><b>63 a 67<small> m²</small></b><span>Área privativa</span></div>
+      <div class="stat"><b>1</b><span>Vaga por unidade</span></div>`);
+    return;
+  }
+  if (c.duo) {
+    c.frames = c.duo.map((d, k) => ({ ...frame(c.node, k ? 964 : 0, 956, d.img), cam: d.cam, d }));
+    c.line = el('div', 'duo-line', c.node);
+    c.node.style.background = 'transparent';
+    c.frames.forEach((fr, k) => {
+      el('div', 'scrim', fr.f).style.background = 'linear-gradient(180deg, rgba(4,20,18,0) 55%, rgba(4,20,18,.6) 100%)';
+      fr.label = el('div', 'label', fr.f, fr.d.label); fr.label.style.top = (956 - 110) + 'px';
+      if (k === 1) fr.label.style.top = (956 - 470) + 'px';
+    });
+    c.tag = el('div', 'tag', c.node, 'Perspectivas ilustrativas'); c.tag.style.top = '1500px'; c.tag.style.zIndex = 4;
+  } else {
+    c.frames = [{ ...frame(c.node, 0, H, c.img), cam: c.cam }];
+    if (c.especial === 'fim') {
+      el('div', 'fim-tint', c.node);
+      c.logo = el('img', 'logo', c.node); c.logo.src = 'img/logo-mlar-lago.png'; imgs.add(c.logo);
+      c.sub = el('div', 'fim-sub', c.node, 'Cambeba · Fortaleza<br>a 2 min do Lago Jacarey');
+      c.rule = el('div', 'fim-rule', c.node);
+      c.cta = el('div', 'cta', c.node, `<div class="head"><span class="ln"><span>Agende sua</span></span><span class="ln"><span><em>visita</em></span></span></div>
+        <div class="pill">Chame no direct <i>→</i></div>`);
+      c.legal = el('div', 'legal', c.node, 'Perspectivas meramente ilustrativas e fotos do apartamento decorado. A decoração é mera sugestão e o mobiliário não será entregue. Áreas privativas conforme plantas do empreendimento.');
+    } else {
+      el('div', 'scrim', c.node);
+      if (c.label) { c.lab = el('div', 'label', c.node, c.label); c.lab.style.top = '1392px'; }
+      c.tag = el('div', 'tag', c.node, c.tipo === 'foto' ? 'Foto do apartamento decorado' : 'Perspectiva ilustrativa');
+      c.tag.style.top = '1452px';
+    }
+  }
+});
+cenas.forEach((c, i) => {
+  const next = cenas[i + 1];
+  c.vis0 = c.t0 - c.dIn / 2;
+  c.vis1 = next ? (next.entrada === 'duo' ? next.t0 + 1.0 : next.t0 + next.dIn / 2) : c.t1;
+  c.next = next;
+});
+
+const textos = ROTEIRO.textos.map(tx => {
+  const n = el('div', 'txt ' + tx.cls, stage);
+  n.style.top = tx.y + 'px';
+  tx.spans = tx.linhas.map(l => el('span', null, el('span', 'ln', n), l));
+  tx.node = n;
+  return tx;
+});
+
+/* ------------------------------------------------------------------ câmera */
+function camera(fr, cam, p) {
+  const im = fr.im; const iw = im.naturalWidth, ih = im.naturalHeight;
+  if (!iw) return;
+  const e = camEase(p);
+  const x = lerp(cam[0].x, cam[1].x, e), y = lerp(cam[0].y, cam[1].y, e), z = lerp(cam[0].z, cam[1].z, e);
+  const s = Math.max(fr.w / iw, fr.h / ih) * z;
+  const dw = iw * s, dh = ih * s;
+  const tx = clamp(fr.w / 2 - x * dw, fr.w - dw, 0);
+  const ty = clamp(fr.h / 2 - y * dh, fr.h - dh, 0);
+  im.style.transform = `translate(${tx.toFixed(3)}px, ${ty.toFixed(3)}px) scale(${s.toFixed(6)})`;
+}
+
+/* ------------------------------------------------------------------ transições
+   Cada cena calcula o próprio estado (transform, opacidade, máscara, blur) a
+   partir do tempo, tanto na entrada quanto na saída para a próxima cena. */
+function state(c, t) {
+  const st = { x: 0, y: 0, s: 1, o: 1, blurX: 0, blurY: 0, mask: null, bright: 1 };
+  // entrada
+  const pin = c.dIn ? prog(t, c.t0 - c.dIn / 2, c.t0 + c.dIn / 2) : 1;
+  switch (c.entrada) {
+    case 'whip': { const e = E.inOutQuart(pin); st.x += W * (1 - e); st.blurX += Math.sin(Math.PI * pin) * 70; break; }
+    case 'whipv': { const e = E.inOutQuart(pin); st.y += H * (1 - e); st.blurY += Math.sin(Math.PI * pin) * 70; break; }
+    case 'slideup': { const e = E.inOutCubic(pin); st.y += H * (1 - e); break; }
+    case 'zoom': { const e = E.outQuart(pin); st.s *= lerp(1.3, 1, e); st.o *= E.inOutSine(clamp((pin - .25) / .35)); break; }
+    case 'slats': {
+      const n = 7, bw = W / n;
+      const parts = [];
+      for (let k = 0; k < n; k++) {
+        const pk = E.inOutCubic(prog(pin, k * .06, k * .06 + .64));
+        parts.push({ x: k * bw + bw / 2 * (1 - pk), w: bw * pk + (pk > 0 && pk < 1 ? 1 : 0) });
+      }
+      if (pin < 1) st.mask = parts;
+      break;
+    }
+    case 'panel': st.o = t >= c.t0 ? 1 : 0; break;
+  }
+  // saída (depende da transição da próxima cena)
+  const nx = c.next;
+  if (nx && nx.dIn) {
+    const pout = prog(t, nx.t0 - nx.dIn / 2, nx.t0 + nx.dIn / 2);
+    switch (nx.entrada) {
+      case 'whip': { const e = E.inOutQuart(pout); st.x -= W * e; st.blurX += Math.sin(Math.PI * pout) * 70; break; }
+      case 'whipv': { const e = E.inOutQuart(pout); st.y -= H * e; st.blurY += Math.sin(Math.PI * pout) * 70; break; }
+      case 'slideup': { const e = E.inOutCubic(pout); st.y -= H * .32 * e; st.bright *= 1 - .45 * e; break; }
+      case 'zoom': { const e = E.inQuad(pout); st.s *= 1 + .9 * e; break; }
+      case 'slats': { st.s *= 1 + .04 * E.inOutCubic(pout); st.bright *= 1 - .25 * pout; break; }
+    }
+  }
+  return st;
+}
+
+function applyScene(c, t) {
+  const on = t >= c.vis0 && t < c.vis1;
+  c.node.style.display = on ? 'block' : 'none';
+  if (!on) return;
+  const st = state(c, t);
+  c.node.style.transform = `translate(${st.x.toFixed(2)}px, ${st.y.toFixed(2)}px) scale(${st.s.toFixed(5)})`;
+  c.node.style.opacity = st.o.toFixed(4);
+  const filt = [];
+  if (st.blurX > .4 || st.blurY > .4) { c.blur.setAttribute('stdDeviation', `${st.blurX.toFixed(2)} ${st.blurY.toFixed(2)}`); filt.push(`url(#${c.fid})`); }
+  if (st.bright < .999) filt.push(`brightness(${st.bright.toFixed(4)})`);
+  c.node.style.filter = filt.join(' ') || 'none';
+  if (st.mask) {
+    const m = st.mask.filter(p => p.w > 0);
+    const imgs = m.map(() => 'linear-gradient(#000,#000)').join(',') || 'linear-gradient(transparent,transparent)';
+    c.node.style.webkitMaskImage = imgs;
+    c.node.style.webkitMaskSize = m.map(p => `${p.w.toFixed(2)}px 100%`).join(',') || '0 0';
+    c.node.style.webkitMaskPosition = m.map(p => `${p.x.toFixed(2)}px 0`).join(',') || '0 0';
+    c.node.style.webkitMaskRepeat = 'no-repeat';
+  } else {
+    c.node.style.webkitMaskImage = 'none';
+  }
+
+  // câmeras: o movimento cobre toda a janela visível, então continua durante as transições
+  if (c.duo) {
+    c.frames.forEach((fr, k) => {
+      const a = c.t0 + k * .5;
+      camera(fr, fr.cam, prog(t, a, c.vis1));
+      const pe = E.outQuart(prog(t, a, a + .5));
+      fr.f.style.transform = `translateX(${((k ? 1 : -1) * W * (1 - pe)).toFixed(2)}px)`;
+      fr.f.style.visibility = t >= a ? 'visible' : 'hidden';
+      labelAnim(fr.label, t, a + .3, c.vis1 - .12);
+    });
+    c.line.style.transform = `scaleX(${E.outQuart(prog(t, c.t0 + .2, c.t0 + .8)).toFixed(4)})`;
+    c.tag.style.opacity = prog(t, c.t0 + .7, c.t0 + 1).toFixed(3);
+    return;
+  }
+  if (c.frames) camera(c.frames[0], c.frames[0].cam, prog(t, c.vis0, c.vis1));
+  if (c.lab) labelAnim(c.lab, t, c.t0 + (c.labelDelay ?? .22), (c.next ? c.next.t0 : c.t1) - .1);
+  if (c.tag) c.tag.style.opacity = (.72 * prog(t, c.t0 + .1, c.t0 + .4) * (1 - prog(t, c.vis1 - .25, c.vis1))).toFixed(3);
+  if (c.especial === 'planta') plantaAnim(c, t);
+  if (c.especial === 'fim') fimAnim(c, t);
+}
+
+function labelAnim(n, t, a, b) {
+  const pin = E.outExpo(prog(t, a, a + .6)), pout = E.inExpo(prog(t, b - .3, b));
+  n.style.opacity = (pin * (1 - pout)).toFixed(3);
+  n.style.transform = `translateY(${(26 * (1 - pin) - 14 * pout).toFixed(2)}px)`;
+  n.style.setProperty('--rule', (E.outExpo(prog(t, a + .1, a + .8))).toFixed(3));
+}
+
+function plantaAnim(c, t) {
+  const t0 = c.t0;
+  const rv = E.inOutCubic(prog(t, t0 + .45, t0 + 1.55));
+  c.planta.style.clipPath = `inset(0 ${(100 * (1 - rv)).toFixed(2)}% 0 0)`;
+  // entra encolhendo e segue num zoom lento contínuo até a saída (a tela nunca fica parada)
+  const drift = prog(t, t0 + .45, c.t1 + .35);
+  const s = lerp(1.06, 1.0, E.outQuart(prog(t, t0 + .45, t0 + 2.2))) * (1 + .09 * drift);
+  c.planta.style.transformOrigin = '58% 50%';
+  c.planta.style.transform = `translateY(${(-26 * drift).toFixed(2)}px) scale(${s.toFixed(5)})`;
+  c.cap.style.opacity = prog(t, t0 + 1.3, t0 + 1.7).toFixed(3);
+  [...c.stats.children].forEach((s, k) => {
+    const p = E.outExpo(prog(t, t0 + 1.4 + k * .25, t0 + 2.1 + k * .25));
+    s.style.opacity = p.toFixed(3); s.style.transform = `translateY(${(30 * (1 - p)).toFixed(2)}px)`;
+  });
+}
+
+function fimAnim(c, t) {
+  const t0 = c.t0;
+  const lg = E.inOutCubic(prog(t, t0 + .45, t0 + 1.35));
+  c.logo.style.clipPath = `inset(0 ${(100 * (1 - lg)).toFixed(2)}% 0 0)`;
+  c.logo.style.transform = `translateY(${(-10 * prog(t, t0, c.t1)).toFixed(2)}px)`;
+  const sp = E.outExpo(prog(t, t0 + 1.1, t0 + 1.8));
+  c.sub.style.opacity = sp.toFixed(3); c.sub.style.transform = `translateY(${(20 * (1 - sp)).toFixed(2)}px)`;
+  c.rule.style.transform = `scaleX(${E.outExpo(prog(t, t0 + 1.3, t0 + 2)).toFixed(3)})`;
+  c.cta.querySelectorAll('.ln > span').forEach((s, k) => {
+    const p = E.outExpo(prog(t, t0 + 1.55 + k * .1, t0 + 2.35 + k * .1));
+    s.style.transform = `translateY(${(112 * (1 - p)).toFixed(2)}%)`;
+  });
+  const pill = c.cta.querySelector('.pill');
+  const pp = E.outExpo(prog(t, t0 + 2.1, t0 + 2.8));
+  pill.style.opacity = pp.toFixed(3); pill.style.transform = `translateY(${(24 * (1 - pp)).toFixed(2)}px)`;
+  pill.querySelector('i').style.transform = `translateX(${(6 * Math.sin(Math.max(0, t - t0 - 2.8) * Math.PI * 2)).toFixed(2)}px)`;
+  c.legal.style.opacity = prog(t, t0 + 2.4, t0 + 2.9).toFixed(3);
+}
+
+function applyText(tx, t) {
+  const on = t >= tx.t0 - .01 && t < tx.t1 + .01;
+  tx.node.style.display = on ? 'block' : 'none';
+  if (!on) return;
+  // leve deriva vertical: o texto anda mais devagar que a imagem (parallax de camadas)
+  tx.node.style.transform = `translateY(${(-24 * prog(t, tx.t0, tx.t1)).toFixed(2)}px)`;
+  tx.spans.forEach((s, k) => {
+    const pin = E.outExpo(prog(t, tx.t0 + k * .09, tx.t0 + .75 + k * .09));
+    const pout = E.inExpo(prog(t, tx.t1 - .34 + k * .05, tx.t1 + k * .05 - .02));
+    s.style.transform = `translateY(${(112 * (1 - pin) - 112 * pout).toFixed(2)}%)`;
+  });
+}
+
+const panel = el('div', 'panel', stage);
+function applyPanel(t) {
+  const c = cenas.find(k => k.entrada === 'panel' && t >= k.t0 - k.dIn / 2 && t < k.t0 + k.dIn / 2);
+  panel.style.display = c ? 'block' : 'none';
+  if (!c) return;
+  const p = prog(t, c.t0 - c.dIn / 2, c.t0 + c.dIn / 2);
+  // sobe cobrindo a cena anterior e continua subindo, revelando a nova
+  const y = p < .5 ? H * (1 - E.inOutCubic(p * 2)) : -H * E.inOutCubic(p * 2 - 1);
+  panel.style.transform = `translateY(${y.toFixed(2)}px)`;
+}
+
+const vignette = stage.querySelector('.vignette');
+function render(t) {
+  applyPanel(t);
+  // a vinheta suja o fundo claro da planta: some enquanto ela está na tela
+  const pl = cenas.find(k => k.especial === 'planta');
+  vignette.style.opacity = (1 - prog(t, pl.t0 - .1, pl.t0 + .2) + prog(t, pl.t1 - .2, pl.t1 + .3)).toFixed(3);
+  cenas.forEach(c => applyScene(c, t));
+  textos.forEach(tx => applyText(tx, t));
+  document.getElementById('hud').textContent = t.toFixed(2) + ' s';
+}
+
+window.ready = Promise.all([document.fonts.ready, ...[...imgs].map(i => i.decode().catch(() => {}))]).then(() => { render(0); return true; });
+window.render = render;
+window.ROTEIRO = ROTEIRO;
+
+/* ------------------------------------------------------------------ pré-visualização */
+if (!new URLSearchParams(location.search).has('render')) {
+  const fit = () => { const k = Math.min(innerWidth / W, innerHeight / H) * .96; stage.style.transform = `scale(${k})`; };
+  addEventListener('resize', fit); fit();
+  let t = 0, playing = true, last = null;
+  const loop = now => { if (last != null && playing) t = (t + (now - last) / 1000) % ROTEIRO.duracao; last = now; render(t); requestAnimationFrame(loop); };
+  addEventListener('keydown', e => {
+    if (e.code === 'Space') playing = !playing;
+    if (e.code === 'ArrowRight') t = Math.min(ROTEIRO.duracao, t + (e.shiftKey ? 1 : 1 / FPS));
+    if (e.code === 'ArrowLeft') t = Math.max(0, t - (e.shiftKey ? 1 : 1 / FPS));
+  });
+  window.ready.then(() => requestAnimationFrame(loop));
+} else {
+  document.body.classList.add('render');
+}
+</script>
+</body>
+</html>

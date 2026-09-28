@@ -1,5 +1,75 @@
 # Sites e prospecção — retomada de 15/09/2026
 
+## Atualização de 25/09/2026 (sessão na nuvem)
+
+**Cinco sites novos** criados, testados e documentados. Nenhum publicado,
+nenhuma empresa contatada:
+
+| # | Site | Pasta | Interação-assinatura |
+|---|---|---|---|
+| 7 | Farmácia Provisão | `portifolio-site/farmacia-provisao/` | gaveteiro em CSS 3D que monta a consulta (cupom) |
+| 8 | Speculari Ótica | `portifolio-site/speculari-otica/` | lente de foco no hero; estúdio de formato/presença/material |
+| 9 | D20 Hamburgueria | `portifolio-site/d20-hamburgueria/` | d20 em Three.js que sorteia a classe (hambúrguer) |
+| 10 | Nobre Restaurante e Pizzaria | `portifolio-site/nobre-restaurante-pizzaria/` | divisa almoço/noite; céu que muda com a rolagem; pizza em fatias |
+| 11 | Originalfarma | `portifolio-site/originalfarma/` | lembrete mensal de reposição (.ics) e folhinha com scroll scrub |
+
+- Pesquisa com evidências: [pesquisa-proximos-5-2026-09-25.md](pesquisa-proximos-5-2026-09-25.md)
+  e capturas em `evidencias-pesquisa-2026-09-25/`. Correção importante: a D20
+  é temática de RPG, não automotiva.
+- Assets: gerados no GPT Images a partir de
+  [PROMPTS-ASSETS-5-SITES-2026-09-25.md](PROMPTS-ASSETS-5-SITES-2026-09-25.md),
+  originais em `assets-proximos-sites/`.
+- Agentes novos em `agents.yaml`: `farmacia_provisao`, `speculari_otica`,
+  `d20_hamburgueria`, `nobre_restaurante`, `originalfarma`.
+- Testes: `python tests/test_new_sites_2026_09.py` passou nos cinco sites em
+  10 viewports (320 a 1920 px), com e sem movimento reduzido, e sem GSAP.
+- **Vídeos prontos** (conferidos quadro a quadro, todos com resposta real do
+  agente e sem tela de erro):
+  - Horizontais 1440×900, 30 fps, H.264 `yuv420p`: `video-d20-hamburgueria.mp4`,
+    `video-farmacia-provisao.mp4`, `video-speculari-otica.mp4`,
+    `video-nobre-restaurante.mp4`, `video-originalfarma.mp4` e
+    `video-bar-do-peixe.mp4`. Regravados em 26/09 com
+    `vendas/gravar-horizontal-hd.py --classic` (mesmo método determinístico
+    dos Full HD).
+  - **Reels/Stories 1080×1920, 30 fps, CRF 16** em `vendas/reels/`: os cinco
+    novos + Bar do Peixe, Farmácia Central e Pró-Ótica. Gravados com
+    `vendas/gravar-reels.py`, que controla o relógio da página (GSAP, Three.js,
+    timers e animações CSS avançam 1/30 s por quadro), então saem lisos.
+  - O gravador recusa gerar vídeo se o agente não responder.
+  - **Horizontais Full HD 1920×1080, 30 fps, CRF 16** em `vendas/hd/` (os
+    mesmos oito sites), gravados com `vendas/gravar-horizontal-hd.py`: relógio
+    controlado, captura em 2880×1620 reduzida para 1080p, desktop com cursor,
+    celular em mockup e chat real no final. São a versão recomendada para
+    Reels horizontal e apresentação.
+- **Correção de 26/09 (vídeo “tremido” e dado com flash):** o relógio falso
+  do Playwright estava instalado mas não pausado, então o tempo real vazava
+  entre capturas lentas (animações pulavam, o dado terminava a rolagem em um
+  quadro) e o `scroll-behavior: smooth` nativo corria fora do relógio (a
+  rolagem ficava atrasada e aos saltos). Agora `freeze_clock()` pausa o
+  relógio, `RECORDING_INIT` troca a rolagem suave nativa por uma guiada pelo
+  relógio da página, a rolagem tem velocidade máxima (0,9 tela/s em média) e o
+  dado da D20 reinicia o próprio loop ao rolar. Todos os vídeos Full HD, Reels
+  e 1440×900 feitos nesta sessão foram regravados (os três antigos, Vizzio,
+  Morada Nova e Louro Caipira, ficaram como estavam).
+  - Ajustes nos gravadores: o toque usa clique do mouse no ponto visível (o
+    `click()` do Playwright rolava a página de uma vez); o carrossel perde o
+    `scroll-snap` durante a gravação; a rolagem suave do próprio site tem
+    duração proporcional à distância.
+  - Correções nos sites (valem para visitantes, não só para o vídeo):
+    `scroll-behavior: smooth` saiu do CSS dos cinco sites novos e as âncoras
+    rolam suave via JS, porque o CSS fazia o `ScrollTrigger.refresh()` medir
+    errado com a página rolada. Na D20 saiu o `anticipatePin` (adiantava o pin
+    conforme a velocidade e dava tranco) e o pin é recalculado quando o
+    resultado do dado aumenta a página. Testes dos cinco sites passaram de
+    novo.
+- Chave do Groq: vem de uma **API credential** do ambiente de nuvem (o proxy
+  anexa o cabeçalho). No repositório não há chave; o app roda com
+  `GROQ_API_KEY=via-proxy` só para passar a validação local.
+- App de agentes: `text-rendering: geometricPrecision` corrigiu espaços dentro
+  das palavras da fonte IBM Plex no chat.
+- Os vídeos da Farmácia Central e da Pró-Ótica foram conferidos por quadros:
+  mostram a resposta real do agente.
+
 ## Atualização de 25/09/2026
 
 - As demos 4 a 6 agora também têm vídeos demonstrativos revisados:

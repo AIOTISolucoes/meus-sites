@@ -31,3 +31,6 @@ Thumbs.db
 desktop.ini
 .DS_Store
 
+
+# Contador local de cota do Groq (gerado pelo app)
+.cota-groq.json

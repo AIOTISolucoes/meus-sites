@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#4a1a1c">
+  <meta name="description" content="Conceito de site para a Nobre Restaurante e Pizzaria, em Maracanaú e Maranguape. Do almoço à pizza da noite, com pedido nos canais oficiais de cada unidade.">
+  <title>Nobre Restaurante e Pizzaria | Maracanaú e Maranguape</title>
+  <script>
+    /* Demonstração: ?motion=1 ou a escolha "Ativar animações" liberam o movimento
+       mesmo com "reduzir movimento" ligado no sistema. ?motion=0 volta ao padrão. */
+    (() => { try {
+      const q = new URLSearchParams(location.search).get('motion');
+      if (q === '1') localStorage.setItem('motion-optin', '1');
+      if (q === '0') localStorage.removeItem('motion-optin');
+      if (localStorage.getItem('motion-optin') === '1') document.documentElement.classList.add('force-motion');
+    } catch (e) { if (/[?&]motion=1/.test(location.search)) document.documentElement.classList.add('force-motion'); } })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Young+Serif&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="preload" href="assets/almoco.webp" as="image" type="image/webp">
+  <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+  <div class="sky" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#inicio" aria-label="Nobre Restaurante e Pizzaria, início">
+      <span class="brand-name">Nobre</span><span class="brand-sub">Restaurante &amp; Pizzaria</span>
+    </a>
+    <button class="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i class="ph ph-list" aria-hidden="true"></i></button>
+    <nav id="menu" aria-label="Navegação principal">
+      <a href="#almoco">Almoço</a>
+      <a href="#pizza">Pizza</a>
+      <a href="#reserva">Reserva</a>
+      <a href="#unidades">Unidades</a>
+      <a class="nav-cta" href="#unidades">Pedir agora</a>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="daynight" data-daynight style="--split: 50%">
+        <img class="dn-day" src="assets/almoco.webp" alt="Prato de almoço com arroz, baião, frango grelhado, farofa, feijão e salada, à luz do dia" width="1920" height="1080" fetchpriority="high">
+        <img class="dn-night" src="assets/pizza.webp" alt="Pizza saindo do forno com muçarela, azeitonas e orégano, à luz de vela" width="1920" height="1080">
+        <div class="dn-handle" role="slider" tabindex="0" aria-label="Hora do dia: arraste do almoço para a noite" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Entardecer">
+          <span class="dn-knob"><i class="ph ph-sun" aria-hidden="true"></i><i class="ph ph-moon-stars" aria-hidden="true"></i></span>
+        </div>
+      </div>
+      <div class="hero-copy">
+        <p class="hero-place">Maracanaú · Maranguape · desde 2007</p>
+        <h1 id="hero-title">Do almoço <span>à última fatia.</span></h1>
+        <div class="hero-actions">
+          <a class="btn btn-wine" href="#unidades">Pedir na sua unidade</a>
+          <a class="btn btn-ghost" href="#reserva">Pedir uma reserva</a>
+        </div>
+      </div>
+      <p class="dn-hint" aria-hidden="true"><span>Almoço</span><span>arraste</span><span>Noite</span></p>
+    </section>
+
+    <section class="intro chapter" data-sky="day" aria-labelledby="intro-title">
+      <h2 id="intro-title">Uma casa que muda de luz <em>e não de endereço.</em></h2>
+      <p>De dia, prato feito com escolha de proteína e acompanhamentos. De noite, forno aceso, massas e pizza. A Nobre diz que cria memórias à mesa desde 2007; o cardápio de cada unidade conta o resto.</p>
+    </section>
+
+    <section class="lunch chapter" id="almoco" data-sky="day" aria-labelledby="lunch-title">
+      <figure class="lunch-photo"><img src="assets/almoco.webp" alt="" width="1920" height="1080" loading="lazy"></figure>
+      <div class="lunch-copy">
+        <h2 id="lunch-title">Almoço da casa</h2>
+        <p class="lead">Monte o prato: uma ou duas proteínas, arroz, baião ou arroz do chef, batata, farofa, feijão e salada. Com suco, se quiser.</p>
+        <ul class="menu-list">
+          <li>Almoço da casa <span>monte seu prato</span></li>
+          <li>Pratos executivos</li>
+          <li>Massas e lasanhas</li>
+          <li>Feijoada para dois <span>às sextas e sábados</span></li>
+          <li>Porções, guarnições e saladas</li>
+          <li>Sucos e sobremesas</li>
+        </ul>
+        <p class="source">Categorias do cardápio da unidade Maracanaú no MenuDino, consultado em 25/09/2026.</p>
+        <a class="btn btn-wine" href="https://maracanaunobre.menudino.com/" target="_blank" rel="noopener">Ver cardápio de Maracanaú <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+      </div>
+    </section>
+
+    <section class="dusk chapter" data-sky="dusk" aria-labelledby="dusk-title">
+      <svg class="arc" viewBox="0 0 1000 300" aria-hidden="true">
+        <path class="arc-path" d="M40 280 Q500 -120 960 280" />
+        <circle class="arc-sun" r="22" cx="40" cy="280" />
+      </svg>
+      <h2 id="dusk-title">Quando o sol baixa, <em>o forno sobe.</em></h2>
+    </section>
+
+    <section class="pizza chapter" id="pizza" data-sky="night" aria-labelledby="pizza-title">
+      <div class="pizza-sticky">
+        <div class="pizza-copy">
+          <h2 id="pizza-title">Uma pizza é uma mesa inteira dividida em oito.</h2>
+          <p>Linhas Especial, Super, Nobre e Nestlé &amp; Nobre, além de combos, hambúrguer artesanal, pastéis e massas no cardápio de Maranguape.</p>
+          <a class="btn btn-gold" href="https://nobremaranguape.menudino.com/" target="_blank" rel="noopener">Ver cardápio de Maranguape <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+          <p class="source">Categorias do MenuDino da unidade Maranguape, consultado em 25/09/2026.</p>
+        </div>
+        <figure class="wedges" data-wedges data-cx="0.71" data-cy="0.6" data-rx="0.3" data-ry="0.23">
+          <img src="assets/pizza.webp" alt="Pizza de muçarela com azeitonas verdes sobre tábua de madeira, com uma fatia sendo puxada" width="1920" height="1080" loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+    <section class="pasta chapter" data-sky="night" aria-labelledby="pasta-title">
+      <figure class="pasta-photo"><img src="assets/massa.webp" alt="Fettuccine ao alho e óleo com camarão e brócolis" width="1600" height="1600" loading="lazy"></figure>
+      <div>
+        <h2 id="pasta-title">Massa do chefe, <em>para quem não é de pizza.</em></h2>
+        <p>Fettuccine ou espaguete ao alho e óleo com camarão e brócolis está entre as massas publicadas no cardápio de Maracanaú. A disponibilidade no dia é confirmada pela casa.</p>
+      </div>
+    </section>
+
+    <section class="booking chapter" id="reserva" data-sky="late" aria-labelledby="booking-title">
+      <figure class="booking-photo"><img src="assets/mesa-noite.webp" alt="Mesa para quatro posta à noite, com trilho bordô, velas e cadeiras verde-oliva" width="1200" height="1500" loading="lazy"></figure>
+      <form class="booking-form" id="booking" novalidate>
+        <h2 id="booking-title">Guarde a mesa.</h2>
+        <p>A Nobre tem um WhatsApp só para reservas. Preencha e a mensagem sai pronta; a casa confirma disponibilidade.</p>
+        <div class="field-row">
+          <label>Nome <input name="nome" type="text" autocomplete="given-name" placeholder="Seu nome"></label>
+          <label>Pessoas <input name="pessoas" type="number" min="1" max="40" value="4" inputmode="numeric"></label>
+        </div>
+        <div class="field-row">
+          <label>Dia <input name="dia" type="date"></label>
+          <label>Unidade
+            <select name="unidade"><option>Maracanaú</option><option>Maranguape</option><option value="">Tanto faz</option></select>
+          </label>
+        </div>
+        <p class="booking-preview" id="booking-preview" aria-live="polite"></p>
+        <a class="btn btn-gold" id="booking-send" href="https://wa.me/5585981774418" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i> Pedir reserva pelo WhatsApp</a>
+        <small>Abre o WhatsApp oficial de reservas da Nobre. A reserva só vale depois da confirmação da casa.</small>
+      </form>
+    </section>
+
+    <section class="units chapter" id="unidades" data-sky="late" aria-labelledby="units-title">
+      <h2 id="units-title">Escolha a unidade</h2>
+      <div class="unit-switch" role="radiogroup" aria-label="Unidade">
+        <button type="button" role="radio" aria-checked="true" data-unit="maracanau">Maracanaú</button>
+        <button type="button" role="radio" aria-checked="false" data-unit="maranguape">Maranguape</button>
+      </div>
+      <div class="unit-card" aria-live="polite">
+        <div class="unit-info">
+          <h3 data-unit-name>Maracanaú</h3>
+          <p data-unit-address>R. 49, 37, Jereissati II, Maracanaú <em class="tag-confirm">confirmar</em></p>
+          <p data-unit-focus>Almoço da casa, pratos executivos e massas no cardápio publicado.</p>
+        </div>
+        <div class="unit-actions">
+          <a class="btn btn-gold" data-unit-order href="https://maracanaunobre.menudino.com/" target="_blank" rel="noopener"><i class="ph ph-bag" aria-hidden="true"></i> Pedir no cardápio oficial</a>
+          <a class="btn btn-ghost" data-unit-whatsapp href="https://wa.me/5585988885464" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i> WhatsApp da unidade</a>
+        </div>
+      </div>
+      <p class="units-note">Pedidos e pagamentos acontecem nos cardápios oficiais (MenuDino) ou no WhatsApp de cada unidade. Horários: confirmar com a casa.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-brand">Nobre <span>Restaurante &amp; Pizzaria</span></p>
+    <p>Conceito de site para apresentação. As fotos são imagens conceituais geradas para a demonstração e serão substituídas por fotografias reais da casa. Cardápios, canais e unidades vêm das páginas oficiais da Nobre (Linktree e MenuDino); o endereço de Maracanaú vem de diretórios públicos e precisa de confirmação.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js?v=3" defer></script>
+  <script src="js/chat.js?v=3" defer></script>
+</body>
+</html>

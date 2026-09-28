@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#141210">
+  <meta name="description" content="Conceito de site para a Tio Mil Barber, barbearia no Parque Santa Rosa, em Fortaleza, desde 2017. Veja o antes e depois e fale com o Tio pelo WhatsApp.">
+  <title>Tio Mil Barber | Barbearia no Parque Santa Rosa, Fortaleza</title>
+  <script>
+    /* Demonstração: ?motion=1 ou a escolha "Ativar animações" liberam o movimento
+       mesmo com "reduzir movimento" ligado no sistema. ?motion=0 volta ao padrão. */
+    (() => { try {
+      const q = new URLSearchParams(location.search).get('motion');
+      if (q === '1') localStorage.setItem('motion-optin', '1');
+      if (q === '0') localStorage.removeItem('motion-optin');
+      if (localStorage.getItem('motion-optin') === '1') document.documentElement.classList.add('force-motion');
+    } catch (e) { if (/[?&]motion=1/.test(location.search)) document.documentElement.classList.add('force-motion'); } })();
+  </script>
+  <link rel="icon" href="assets/emblema-96.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css">
+  <link rel="preload" href="assets/hero.webp" as="image" type="image/webp" imagesrcset="assets/hero-960.webp 960w, assets/hero.webp 1672w" imagesizes="100vw">
+  <link rel="stylesheet" href="css/style.css?v=5">
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
+  <div class="pole" aria-hidden="true"><span class="pole-cap"></span><span class="pole-glass"><span class="pole-stripes"></span></span><span class="pole-cap"></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#inicio" aria-label="Tio Mil Barber, início">
+      <img src="assets/emblema-96.png" alt="" width="40" height="40">
+      <span>Tio Mil <small>Barber</small></span>
+    </a>
+    <button class="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i class="ph-bold ph-list" aria-hidden="true"></i></button>
+    <nav id="menu" aria-label="Navegação principal">
+      <a href="#antes-depois">Antes e depois</a>
+      <a href="#kit">O kit</a>
+      <a href="#ritual">Na cadeira</a>
+      <a href="#onde">Onde fica</a>
+      <a class="nav-cta" href="https://wa.me/5585991858627" target="_blank" rel="noopener"><i class="ph-bold ph-whatsapp-logo" aria-hidden="true"></i> (85) 99185-8627</a>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero-media"><img class="hero-img" src="assets/hero.webp" srcset="assets/hero-960.webp 960w, assets/hero.webp 1672w" sizes="100vw" alt="Cadeira de barbeiro de couro preto numa barbearia à noite, com o poste listrado aceso ao fundo (imagem conceitual)" width="1672" height="941" fetchpriority="high"></div>
+      <p class="hero-word" aria-hidden="true"><span>Tio</span><span>Mil</span></p>
+      <div class="hero-copy">
+        <p class="hero-place">Barbearia no Parque Santa Rosa · Fortaleza · desde 2017</p>
+        <h1 id="hero-title"><span class="line">Seu estilo,</span> <span class="line">nossa <em>missão.</em></span></h1>
+        <p class="hero-sub">A cadeira do Tio Mil: corte no capricho, conversa boa e aquele visual novo que chega antes de você.</p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="https://wa.me/5585991858627?text=Ol%C3%A1%2C%20Tio%20Mil!" target="_blank" rel="noopener"><i class="ph-bold ph-whatsapp-logo" aria-hidden="true"></i> Falar com o Tio no WhatsApp</a>
+          <a class="btn btn-line" href="#antes-depois"><i class="ph-bold ph-arrows-left-right" aria-hidden="true"></i> Ver o antes e depois</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Seu estilo, nossa missão</span><i class="ph-bold ph-star-four"></i>
+        <span>+ estilo</span><i class="ph-bold ph-star-four"></i>
+        <span>+ confiança</span><i class="ph-bold ph-star-four"></i>
+        <span>sempre você</span><i class="ph-bold ph-star-four"></i>
+        <span>Visual novo, atitude inconfundível</span><i class="ph-bold ph-star-four"></i>
+        <span>Seu estilo, nossa missão</span><i class="ph-bold ph-star-four"></i>
+        <span>+ estilo</span><i class="ph-bold ph-star-four"></i>
+        <span>+ confiança</span><i class="ph-bold ph-star-four"></i>
+        <span>sempre você</span><i class="ph-bold ph-star-four"></i>
+        <span>Visual novo, atitude inconfundível</span><i class="ph-bold ph-star-four"></i>
+      </div>
+    </div>
+
+    <section class="compare-sec" id="antes-depois" aria-labelledby="compare-title">
+      <div class="compare-wrap">
+        <div class="compare-copy">
+          <h2 id="compare-title">Você escolhe mudar.</h2>
+          <p class="scrub-words" data-scrub>Eu só entrego o trabalho. Chega com o cabelo do jeito que está e sai com o visual que você nem sabia que estava esperando por você.</p>
+          <p class="compare-hint"><i class="ph-bold ph-hand-swipe-right" aria-hidden="true"></i> <span>Role a página ou arraste a linha para passar a máquina.</span></p>
+          <p class="compare-credit">Trabalho real publicado no Instagram <a href="https://www.instagram.com/tio_mil_barber/" target="_blank" rel="noopener">@tio_mil_barber</a>.</p>
+        </div>
+        <figure class="compare" data-compare style="--pos:0">
+          <img class="c-img c-antes" src="assets/antes.webp" alt="Antes: cabelo comprido, ondulado e grisalho" width="882" height="1362" loading="lazy">
+          <img class="c-img c-depois" src="assets/depois.webp" alt="Depois: corte curto com degradê e topo penteado para trás" width="882" height="1362" loading="lazy">
+          <canvas class="c-hair" aria-hidden="true"></canvas>
+          <div class="c-line" aria-hidden="true">
+            <span class="c-clipper">
+              <svg viewBox="0 0 40 90" aria-hidden="true"><rect x="6" y="18" width="28" height="68" rx="10"/><rect class="blade" x="4" y="4" width="32" height="16" rx="3"/><path class="teeth" d="M8 4v-3M12 4v-3M16 4v-3M20 4v-3M24 4v-3M28 4v-3M32 4v-3"/><rect class="switch" x="16" y="42" width="8" height="16" rx="4"/></svg>
+            </span>
+          </div>
+          <span class="c-tag c-tag-antes" aria-hidden="true">Antes</span>
+          <span class="c-tag c-tag-depois" aria-hidden="true">Depois</span>
+          <input class="c-range" type="range" min="0" max="100" value="0" step="1" aria-label="Comparar antes e depois: arraste para passar a máquina" aria-valuetext="0% do depois à mostra">
+        </figure>
+      </div>
+    </section>
+
+    <section class="bento-sec" id="barbearia" aria-labelledby="bento-title">
+      <h2 id="bento-title" class="bento-title">Do <span class="pill" style="background-image:url(assets/antes.webp)" role="img" aria-label="foto do antes"></span> antes ao <span class="pill" style="background-image:url(assets/depois.webp)" role="img" aria-label="foto do depois"></span> depois, sempre você.</h2>
+      <div class="bento">
+        <figure class="b-card b-flip" data-flip>
+          <div class="flip-inner">
+            <img class="hc-face hc-depois" src="assets/depois.webp" alt="Cliente do Tio Mil depois do corte: cabelo grisalho curto, degradê na lateral" width="882" height="1362" loading="lazy">
+            <img class="hc-face hc-antes" src="assets/antes.webp" alt="O mesmo cliente antes do corte, com cabelo comprido e ondulado" width="882" height="1362" loading="lazy">
+          </div>
+          <figcaption>
+            <span class="flip-label"><strong data-flip-label>Depois</strong> · trabalho real</span>
+            <button class="hc-toggle" type="button" aria-pressed="false"><i class="ph-bold ph-swap" aria-hidden="true"></i> <span>Ver como ele chegou</span></button>
+          </figcaption>
+        </figure>
+        <article class="b-card b-slogan">
+          <p><span>+ Estilo,</span> <span>+ confiança,</span> <em>sempre você!</em></p>
+        </article>
+        <a class="b-card b-link b-zap" href="https://wa.me/5585991858627?text=Ol%C3%A1%2C%20Tio%20Mil!%20Quais%20s%C3%A3o%20os%20hor%C3%A1rios%20e%20valores%3F" target="_blank" rel="noopener">
+          <i class="ph-bold ph-whatsapp-logo" aria-hidden="true"></i>
+          <span class="b-label">Horários e valores</span>
+          <span>Direto com o Tio no WhatsApp</span>
+          <i class="ph-bold ph-arrow-up-right b-arrow" aria-hidden="true"></i>
+        </a>
+        <a class="b-card b-link b-insta" href="https://www.instagram.com/tio_mil_barber/" target="_blank" rel="noopener">
+          <i class="ph-bold ph-instagram-logo" aria-hidden="true"></i>
+          <span class="b-label">@tio_mil_barber</span>
+          <span>Cortes, antes e depois e o dia a dia da cadeira</span>
+          <i class="ph-bold ph-arrow-up-right b-arrow" aria-hidden="true"></i>
+        </a>
+        <article class="b-card b-photo">
+          <img src="assets/navalha.webp" alt="Navalha desenhando a linha da barba no maxilar, com espuma (imagem conceitual)" width="1122" height="1402" loading="lazy">
+          <p>O detalhe é que fecha o visual.</p>
+        </article>
+        <article class="b-card b-est">
+          <img src="assets/emblema.webp" alt="" width="914" height="914" loading="lazy">
+          <div>
+            <p class="b-big">Est. 2017</p>
+            <p>Deus no controle de tudo. <span>Da bio do Tio Mil.</span></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="kit" id="kit" aria-labelledby="kit-title">
+      <div class="kit-head">
+        <h2 id="kit-title">O kit do Tio.</h2>
+        <p>Sete ferramentas, um visual. Role a página ou toque numa ferramenta para acender.</p>
+      </div>
+      <div class="kit-stage">
+        <figure class="kit-figure" data-kit>
+          <img src="assets/ferramentas.webp" alt="Ferramentas de barbeiro vistas de cima sobre bancada preta: máquina, navalha, tesoura, pente, pincel, borrifador e escova de nuca (imagem conceitual)" width="1536" height="1024" loading="lazy">
+          <span class="kit-dim" aria-hidden="true"></span>
+          <span class="kit-ring" aria-hidden="true"></span>
+        </figure>
+        <div class="kit-side">
+          <div class="kit-info" aria-live="polite">
+            <span class="kit-count" data-kit-count>1 de 7</span>
+            <h3 data-kit-name>Máquina</h3>
+            <p data-kit-desc>O degradê começa aqui.</p>
+          </div>
+          <div class="kit-list" role="group" aria-label="Escolher ferramenta"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ritual" id="ritual" aria-labelledby="ritual-title">
+      <div class="ritual-head">
+        <h2 id="ritual-title">Na cadeira do Tio, <em>é assim.</em></h2>
+        <p>Quatro momentos, do bom-dia ao espelho.</p>
+      </div>
+      <ol class="ritual-track">
+        <li class="step has-img">
+          <img class="step-img" src="assets/hero-960.webp" alt="" width="960" height="540" loading="lazy">
+          <span class="step-n" aria-hidden="true">1</span>
+          <svg class="step-art" viewBox="0 0 200 200" aria-hidden="true"><path d="M60 40h80v58H60zM48 98h104v26H48zM70 124l-10 40M130 124l10 40M52 164h96M100 164v20M76 184h48M40 70h20M140 70h20"/></svg>
+          <h3>Senta que o Tio já vem.</h3>
+          <p>Chegou, puxa a cadeira. Aqui ninguém é número de senha.</p>
+        </li>
+        <li class="step">
+          <span class="step-n" aria-hidden="true">2</span>
+          <svg class="step-art" viewBox="0 0 200 200" aria-hidden="true"><path d="M30 50h96a14 14 0 0 1 14 14v40a14 14 0 0 1-14 14H74l-24 22v-22H30a14 14 0 0 1-14-14V64a14 14 0 0 1 14-14zM96 132v8a14 14 0 0 0 14 14h36l24 22v-22h6a14 14 0 0 0 14-14v-40a14 14 0 0 0-14-14h-20M44 84h60M44 100h36"/></svg>
+          <h3>Conversa primeiro.</h3>
+          <p>Você diz o que quer. Na dúvida, a decisão sai junto, olhando no espelho.</p>
+        </li>
+        <li class="step has-img">
+          <img class="step-img" src="assets/tesoura.webp" alt="" width="1122" height="1402" loading="lazy">
+          <span class="step-n" aria-hidden="true">3</span>
+          <svg class="step-art" viewBox="0 0 200 200" aria-hidden="true"><path d="M58 150a20 20 0 1 1 0.1 0M58 150l92-110M142 150a20 20 0 1 0-0.1 0M142 150 50 40M100 96l0 0M24 176h152M36 176v-10M52 176v-10M68 176v-10M84 176v-10M100 176v-10M116 176v-10M132 176v-10M148 176v-10M164 176v-10"/></svg>
+          <h3>Máquina, tesoura e pente.</h3>
+          <p>O corte no detalhe, sem pressa de despachar ninguém.</p>
+        </li>
+        <li class="step has-img">
+          <img class="step-img" src="assets/degrade.webp" alt="" width="1122" height="1402" loading="lazy">
+          <span class="step-n" aria-hidden="true">4</span>
+          <svg class="step-art" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 24c34 0 58 30 58 66s-24 66-58 66-58-30-58-66 24-66 58-66zM100 156v26M70 184h60M74 60c8-10 18-14 28-14M66 84c2-6 4-10 8-14"/></svg>
+          <h3>Olha no espelho.</h3>
+          <p>+ estilo, + confiança. E continua sendo você.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="where" id="onde" aria-labelledby="where-title">
+      <div class="where-inner">
+        <p class="where-kicker">Onde fica a cadeira</p>
+        <h2 id="where-title">Rua Francisco Almeida, 813</h2>
+        <p class="where-sub">Parque Santa Rosa · Fortaleza · Ceará</p>
+        <div class="where-actions">
+          <a class="btn btn-ink" href="https://www.google.com/maps/search/?api=1&amp;query=Rua%20Francisco%20Almeida%2C%20813%2C%20Parque%20Santa%20Rosa%2C%20Fortaleza%20-%20CE" target="_blank" rel="noopener"><i class="ph-bold ph-map-pin" aria-hidden="true"></i> Abrir no mapa</a>
+          <a class="btn btn-ink-line" href="https://wa.me/5585991858627" target="_blank" rel="noopener"><i class="ph-bold ph-whatsapp-logo" aria-hidden="true"></i> (85) 99185-8627</a>
+          <a class="btn btn-ink-line" href="https://www.instagram.com/tio_mil_barber/" target="_blank" rel="noopener"><i class="ph-bold ph-instagram-logo" aria-hidden="true"></i> Instagram</a>
+        </div>
+      </div>
+      <img class="where-seal" src="assets/emblema.webp" alt="" width="914" height="914" loading="lazy">
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-brand"><img src="assets/emblema-96.png" alt="" width="36" height="36"> Tio Mil Barber <span>Est. 2017 · Deus no controle de tudo.</span></p>
+    <p>Conceito de site para apresentação, ainda não publicado. As fotos de antes e depois vêm de uma publicação do @tio_mil_barber no Instagram. As imagens da cadeira, das ferramentas e dos detalhes de corte são conceituais, geradas para a demonstração, e serão trocadas por fotos reais da barbearia. Endereço e WhatsApp foram tirados do perfil e das artes da barbearia; o bairro foi deduzido pela faixa de CEP da rua. Serviços, valores e horários devem ser confirmados com o Tio Mil antes da publicação.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js?v=7" defer></script>
+  <script src="js/chat.js?v=1" defer></script>
+</body>
+</html>
