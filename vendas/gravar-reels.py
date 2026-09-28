@@ -210,7 +210,9 @@ class Reel:
         self.page.mouse.up()
 
     # ---- chat real -------------------------------------------------------------
-    def chat(self, question: str) -> bool:
+    def chat(self, question: str | list[str]) -> bool:
+        """Digita a(s) pergunta(s) no chat real e grava cada resposta."""
+        questions = [question] if isinstance(question, str) else list(question)
         page = self.page
         page.locator("#ai-btn").click()
         self.hold(.6)
@@ -231,67 +233,71 @@ class Reel:
                 pass
             self.page.clock.run_for(150)
             time.sleep(.15)
-        self.hold(.5)
-        before = frame.locator('[data-testid="stChatMessage"]').count()
-        field.click()
-        for ch in question:
-            field.type(ch, delay=0)
-            self.tick(1)
-        self.hold(.3)
-        field.press("Enter")
-        # Espera real pela resposta, gravando poucos quadros (o trecho fica curto).
         answered = False
-        stable = 0
-        wait_start = len(self.frames)
-        deadline = time.perf_counter() + 90
-        while time.perf_counter() < deadline:
-            self.page.clock.run_for(250)
-            time.sleep(.25)
-            self.tick(1)
+        for n, text in enumerate(questions):
+            self.hold(.5)
+            before = frame.locator('[data-testid="stChatMessage"]').count()
+            field.click()
+            for ch in text:
+                field.type(ch, delay=0)
+                self.tick(1)
+            self.hold(.3)
+            field.press("Enter")
+            # Espera real pela resposta, gravando poucos quadros (o trecho fica curto).
+            answered = False
+            stable = 0
+            wait_start = len(self.frames)
+            deadline = time.perf_counter() + 90
+            while time.perf_counter() < deadline:
+                self.page.clock.run_for(250)
+                time.sleep(.25)
+                self.tick(1)
+                try:
+                    state = frame.evaluate("""() => ({
+                        count: document.querySelectorAll('[data-testid="stChatMessage"]').length,
+                        thinking: document.body.innerText.includes('Pensando')
+                    })""")
+                except Exception:
+                    continue
+                if state["count"] >= before + 2 and not state["thinking"]:
+                    stable += 1
+                    if stable >= 3:
+                        answered = True
+                        break
+                else:
+                    stable = 0
+            waited = self.frames[wait_start:]
+            if len(waited) > 45:                      # no máximo 1,5 s de "Pensando…"
+                keep = waited[:: max(1, len(waited) // 45)][:45]
+                self.frames[wait_start:] = keep
+            # Rola a conversa (suave, quadro a quadro) até a resposta ficar no topo.
+            self.hold(.3)
             try:
-                state = frame.evaluate("""() => ({
-                    count: document.querySelectorAll('[data-testid="stChatMessage"]').length,
-                    thinking: document.body.innerText.includes('Pensando')
-                })""")
-            except Exception:
-                continue
-            if state["count"] >= before + 2 and not state["thinking"]:
-                stable += 1
-                if stable >= 3:
-                    answered = True
-                    break
-            else:
-                stable = 0
-        waited = self.frames[wait_start:]
-        if len(waited) > 45:                      # no máximo 1,5 s de "Pensando…"
-            keep = waited[:: max(1, len(waited) // 45)][:45]
-            self.frames[wait_start:] = keep
-        # Rola a conversa (suave, quadro a quadro) até a resposta ficar no topo.
-        self.hold(.3)
-        try:
-            frame.evaluate("""() => {
-                const msgs = [...document.querySelectorAll('[data-testid="stChatMessage"]')];
-                const last = msgs[msgs.length - 1];
-                let box = last.parentElement;
-                while (box && !(box.scrollHeight > box.clientHeight + 4 &&
-                       /(auto|scroll)/.test(getComputedStyle(box).overflowY))) box = box.parentElement;
-                box = box || document.scrollingElement;
-                box.style.scrollBehavior = 'auto';
-                const top = box === document.scrollingElement ? 0 : box.getBoundingClientRect().top;
-                const prev = msgs[msgs.length - 2];
-                const anchor = prev || last;
-                window.__chatScroll = { box, start: box.scrollTop,
-                  end: box.scrollTop + anchor.getBoundingClientRect().top - top - 8 };
-            }""")
-            steps = round(.9 * FPS)
-            for i in range(steps):
-                t = (i + 1) / steps
-                e = 1 - (1 - t) ** 3
-                frame.evaluate("e => { const s = window.__chatScroll; s.box.scrollTop = s.start + (s.end - s.start) * e; }", e)
-                self.tick()
-        except Exception as exc:
-            print(f"[reels] rolagem do chat falhou: {exc}", file=sys.stderr)
-        self.hold(4.0)
+                frame.evaluate("""() => {
+                    const msgs = [...document.querySelectorAll('[data-testid="stChatMessage"]')];
+                    const last = msgs[msgs.length - 1];
+                    let box = last.parentElement;
+                    while (box && !(box.scrollHeight > box.clientHeight + 4 &&
+                           /(auto|scroll)/.test(getComputedStyle(box).overflowY))) box = box.parentElement;
+                    box = box || document.scrollingElement;
+                    box.style.scrollBehavior = 'auto';
+                    const top = box === document.scrollingElement ? 0 : box.getBoundingClientRect().top;
+                    const prev = msgs[msgs.length - 2];
+                    const anchor = prev || last;
+                    window.__chatScroll = { box, start: box.scrollTop,
+                      end: box.scrollTop + anchor.getBoundingClientRect().top - top - 8 };
+                }""")
+                steps = round(.9 * FPS)
+                for i in range(steps):
+                    t = (i + 1) / steps
+                    e = 1 - (1 - t) ** 3
+                    frame.evaluate("e => { const s = window.__chatScroll; s.box.scrollTop = s.start + (s.end - s.start) * e; }", e)
+                    self.tick()
+            except Exception as exc:
+                print(f"[reels] rolagem do chat falhou: {exc}", file=sys.stderr)
+            if not answered:
+                return False
+            self.hold(4.0 if n == len(questions) - 1 else 1.6)
         return answered
 
     def encode(self, output: pathlib.Path) -> None:
